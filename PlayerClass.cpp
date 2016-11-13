@@ -1,10 +1,10 @@
 #include <iostream>
 #include <vector>
-#include "MapClass.cpp"
+//#include "MapClass.cpp"
 
 using namespace std;
 
-public class Player
+class Player
 {
 	int MeepleCountMe;
 	int MeepleCountYou;
@@ -12,4 +12,4 @@ public class Player
 	int ScoreYou;
 	int TilesRemaining;
 	Map PlayerMap = new Map;
-}
+};
