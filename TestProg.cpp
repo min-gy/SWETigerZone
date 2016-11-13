@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include "TileClass.cpp"
 #include "MapClass.cpp"
 
 using namespace std;
@@ -16,9 +15,10 @@ int main
 	Tile TileC = new Tile;
 	placeTile(50, 50, Mappy, TileA);
 	int x = 0;
-	while x<8
+	/*while x<8
 	{
 		cout<< "TileA type side = " << x <<  Mappy.TileGrid[50][50].type(x);
-	}
-	
-}
+		x+=1;
+	}*/
+
+};
