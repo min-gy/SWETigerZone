@@ -67,118 +67,118 @@ Map Mappy = new Map;
 	
 	Tile * Tile_9 = new Tile;
 	Tile_9->type.insert(type.end(), {2,2,2,1,1,1,1,1});
-	Tile_9.clusterid = {};
+	Tile_9.clusterid = {1,1,1,2,2,2,2,2};
 	Tile_9.meeple = {false,false,false,false,false,false,false,false};
         Tile_9.prey = "none";
 	
 	
 	Tile * Tile_10 = new Tile;
 	Tile_10->type.insert(type.end(),   {2,1,1,1,2,2,2,2});
-	Tile_10.clusterid = {};
+	Tile_10.clusterid = {1,2,2,2,1,1,1,1};
 	Tile_10.meeple = {false,false,false,false,false,false,false,false};
 	Tile_10.prey = "none";
 	
 	
 	Tile * Tile_11 = new Tile;
-	Tile_11->type.insert(type.end(),  {});/////
-	Tile_11.clusterid = {};
+	Tile_11->type.insert(type.end(),  {2,2,2,1,2,2,2,1});/////
+	Tile_11.clusterid = {1,1,1,2,3,3,3,2};
 	Tile_11.meeple = {false,false,false,false,false,false,false,false};
 	Tile_11.prey = "none";
 	
 	
 	Tile * Tile_12 = new Tile;
-	Tile_12->type.insert(type.end(), {});////
-	Tile_12.clusterid = {};
+	Tile_12->type.insert(type.end(), {2,1,2,2,2,1,2,2});////
+	Tile_12.clusterid = {1,2,1,1,1,3,1,1};
 	Tile_12.meeple = {false,false,false,false,false,false,false,false};
 	Tile_12.prey = "none";
 	
 	Tile * Tile_13 = new Tile;
 	Tile_13->type.insert(type.end(),  {2,1,2,2,2,2,2,2});
-	Tile_13.clusterid = {};
+	Tile_13.clusterid = {1,2,1,1,1,1,1,1};
 	Tile_13.meeple = {false,false,false,false,false,false,false,false};
 	Tile_13.prey = "none";
 	
 	Tile *  Tile_14 = new Tile;
 	Tile_14->type.insert(type.end(), {2,2,2,1,1,1,2,2});
-	Tile_14.clusterid = {};
+	Tile_14.clusterid = {1,1,1,2,2,2,1,1};
 	Tile_14.meeple = {false,false,false,false,false,false,false,false};
 	Tile_14.prey = "none";
 	
 	Tile * Tile_15 = new Tile;
 	Tile_15->type.insert(type.end(), {2,3,2,1,2,2,2,3});
-	Tile_15.clusterid = {};
+	Tile_15.clusterid = {1,2,1,3,1,1,1,2};
 	Tile_15.meeple = {false,false,false,false,false,false,false,false};
 	Tile_15.prey = "none";
 	
 	Tile * Tile_16 = new Tile;
 	Tile_16->type.insert(type.end(), {2,3,2,1,2,2,2,3}); // has boar
-	Tile_16.clusterid = {};
+	Tile_16.clusterid = {1,2,1,3,1,1,1,2};
 	Tile_16.meeple = {false,false,false,false,false,false,false,false};
 	Tile_16.prey = "boar";
 	
 	Tile * Tile_17 = new Tile;
 	Tile_17->type.insert(type.end(), {2,2,2,1,2,3,2,3});
-	Tile_17.clusterid = {};
+	Tile_17.clusterid = {1,1,1,2,1,3,4,3};
 	Tile_17.meeple = {false,false,false,false,false,false,false,false};
 	Tile_17.prey = "none";
 	
 	Tile * Tile_18 = new Tile;
 	Tile_18->type.insert(type.end(), {2,2,2,1,2,3,2,3}); // has ox
-	Tile_18.clusterid = {};
+	Tile_18.clusterid = {1,1,1,2,1,3,4,3};
 	Tile_18.meeple = {false,false,false,false,false,false,false,false};
 	Tile_18.prey = "ox";
 	
 	Tile * Tile_19 = new Tile;
 	Tile_19->type.insert(type.end(), {2,3,2,1,2,3,2,3});
-	Tile_19.clusterid = {};
+	Tile_19.clusterid = {1,2,3,4,3,2,1,1};
 	Tile_19.meeple = {false,false,false,false,false,false,false,false};
 	Tile_19.prey = "none";
 	
 	Tile * Tile_20 = new Tile;
 	Tile_20->type.insert(type.end(), {2,3,2,1,2,3,2,3}); // has deer	
-	Tile_20.clusterid = {};
+	Tile_20.clusterid = {1,2,3,4,3,2,1,1};
 	Tile_20.meeple = {false,false,false,false,false,false,false,false};
 	Tile_20.prey = "deer";
 	
 	Tile * Tile_21 = new Tile;
 	Tile_21->type.insert(type.end(), {2,3,2,1,1,1,1,1});
-	Tile_21.clusterid = {};
+	Tile_21.clusterid = {1,2,3,4,4,4,4,4};
 	Tile_21.meeple = {false,false,false,false,false,false,false,false};
 	Tile_21.prey = "none";
 	
 	Tile * Tile_22 = new Tile;
 	Tile_22->type.insert(type.end(), {2,3,2,1,2,2,2,3});
-	Tile_22.clusterid = {};
+	Tile_22.clusterid = {1,2,3,4,3,2,5,2};
 	Tile_22.meeple = {false,false,false,false,false,false,false,false};
 	Tile_22.prey = "none";
 	
 	Tile * Tile_23 = new Tile;
 	Tile_23->type.insert(type.end(), {2,3,2,1,2,2,2,3}); // has boar	
-	Tile_23.clusterid = {};
+	Tile_23.clusterid = {1,2,3,4,3,2,5,2};
 	Tile_23.meeple = {false,false,false,false,false,false,false,false};
 	Tile_23.prey = "boar";
 
         Tile * Tile_24 = new Tile;
 	Tile_24->type.insert(type.end(), {2,3,2,1,1,1,2,3});
-	Tile_24.clusterid = {};
+	Tile_24.clusterid = {1,2,3,4,4,4,3,2};
 	Tile_24.meeple = {false,false,false,false,false,false,false,false};
 	Tile_24.prey = "none";
 	
         Tile * Tile_25 = new Tile;
         Tile_25->type.insert(type.end(), {2,3,2,1,1,1,2,3}); // has ox
-	Tile_25.clusterid = {};
+	Tile_25.clusterid = {1,2,3,4,4,4,3,2;
 	Tile_25.meeple = {false,false,false,false,false,false,false,false};
 	Tile_25.prey = "ox";
 	
         Tile * Tile_26 = new Tile;
 	Tile_26->type.insert(type.end(), {2,1,2,2,2,3,2,2});
-	Tile_26.clusterid = {};
+	Tile_26.clusterid = {1,2,3,3,3,4,1,1};
 	Tile_26.meeple = {false,false,false,false,false,false,false,false};
 	Tile_26.prey = "none";
 	
 	Tile * Tile_27 = new Tile;
 	Tile_27->type.insert(type.end(), {2,1,2,2,2,3,2,2}); // has deer
-	Tile_27.clusterid = {};
+	Tile_27.clusterid = {1,2,3,3,3,4,1,1};
 	Tile_27.meeple = {false,false,false,false,false,false,false,false};
 	Tile_27.prey = "deer";
 	
