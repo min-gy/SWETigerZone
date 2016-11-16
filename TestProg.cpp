@@ -14,14 +14,14 @@ int main
 
 Map Mappy = new Map;
 	Tile * Tile_1 = new Tile;
-	Tile_1->type = {2,2,2,2,2,2,2,2};
-	//Tile_1.clusterid = {1,2,1,3,1,1,1,3};
+	Tile_1->type.insert(type.end(), {2,2,2,2,2,2,2,2});
+	Tile_1clusterid = {1,1,1,1,1,1,1,1};
 	Tile_1.meeple = {false,false,false,false,false,false,false,false};
 	Tile_1.prey = "none";
 	
 	
 	
-	Tile* Tile_2 = new Tile;
+	Tile * Tile_2 = new Tile;
 	Tile_2->type.insert(type.end(), {2,2,2,2,2,2,2,2}); // has den
 	Tile_2.clusterid = {};
 	Tile_2.meeple = {false,false,false,false,false,false,false,false};
@@ -47,7 +47,7 @@ Map Mappy = new Map;
 	
 	Tile * Tile_6 = new Tile;	
 	Tile_6->type.insert(type.end(),  {2,3,2,2,2,2,2,3});
-	Tile_6.clusterid = {};
+	Tile_6.clusterid = {}
 	Tile_6.meeple = {false,false,false,false,false,false,false,false};
 	Tile_6.prey = "none";	
 	
