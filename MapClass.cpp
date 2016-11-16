@@ -1,11 +1,16 @@
 #include <iostream>
 #include <vector>
-#include "TileClass.cpp"
-#include "ComponentTrackerClass.cpp"
+//#include "TileClass.cpp"
+//#include "ComponentTrackerClass.cpp"
+
 using namespace std;
 
-public class Map
+class Tile;
+class ComponentTracker;
+
+class Map
 {
-	ComponentTracker * MainList = ComponentTracker[100]; //Main component tracking feature of Map/Terrain
-	Tile ** TileGrid = Tile[153][153];
-}
+public:
+	ComponentTracker * MainList[100]; //Main component tracking feature of Map/Terrain
+	Tile TileGrid[153][153];
+};
