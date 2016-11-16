@@ -8,6 +8,7 @@ using namespace std;
 int main
 {
 /// 1 = River, 2 = Jungle, 3 = Trail.
+/// cluster IDs are arbitrary 
 /// for the sake of "competeing corners" jungle takes presedense over river.  
 /// there doesn't seem to be anyway to determine the differnece between tiles 12 and 13 soley by edge detection.
 /// May need variable to detect the center of the tile to detect differnce. 
@@ -23,43 +24,43 @@ Map Mappy = new Map;
 	
 	Tile * Tile_2 = new Tile;
 	Tile_2->type.insert(type.end(), {2,2,2,2,2,2,2,2}); // has den
-	Tile_2.clusterid = {};
+	Tile_2.clusterid = {1,1,1,1,1,1,1,1};
 	Tile_2.meeple = {false,false,false,false,false,false,false,false};
 	Tile_2.prey = "none";	
 	
         Tile * Tile_3 = new Tile;
 	Tile_3->type.insert(type.end(),  {2,2,2,2,2,3,2,2}); // has den
-	Tile_3.clusterid = {};
+	Tile_3.clusterid = {1,1,1,1,1,1,1,1};
 	Tile_3.meeple = {false,false,false,false,false,false,false,false};
 	Tile_3.prey = "none";	
 	
 	Tile * Tile_4 = new Tile;
 	Tile_4->type.insert(type.end(),  {2,3,2,3,2,3,2,3});
-	Tile_4.clusterid = {};
+	Tile_4.clusterid = {1,2,1,2,1,2,1,2};
 	Tile_4.meeple = {false,false,false,false,false,false,false,false};
 	Tile_4.prey = "none";	
 	
 	Tile * Tile_5 = new Tile;
 	Tile_5->type.insert(type.end(), {2,3,2,2,2,3,2,2});
-	Tile_5.clusterid = {};
+	Tile_5.clusterid = {1,2,1,1,1,2,1,1};
 	Tile_5.meeple = {false,false,false,false,false,false,false,false};
 	Tile_5.prey = "none";	
 	
 	Tile * Tile_6 = new Tile;	
 	Tile_6->type.insert(type.end(),  {2,3,2,2,2,2,2,3});
-	Tile_6.clusterid = {}
+	Tile_6.clusterid = {1,2,1,1,1,1,1,2};
 	Tile_6.meeple = {false,false,false,false,false,false,false,false};
 	Tile_6.prey = "none";	
 	
 	Tile * Tile_7 = new Tile;
 	Tile_7->type.insert(type.end(),  {2,3,2,2,2,2,3,2,3});
-	Tile_7.clusterid = {};
+	Tile_7.clusterid = {1,2,1,1,1,2,1,2};
 	Tile_7.meeple = {false,false,false,false,false,false,false,false};	
 	Tile_7.prey = "none";	
 	
 	Tile * Tile_8 = new Tile;
 	Tile_8->type.insert(type.end(), {1,1,1,1,1,1,1,1});
-	Tile_8.clusterid = {};
+	Tile_8.clusterid = {1,1,1,1,1,1,1};
 	Tile_8.meeple = {false,false,false,false,false,false,false,false};	
 	Tile_8.prey = "none";
 	
