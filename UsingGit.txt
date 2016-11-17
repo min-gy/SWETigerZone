@@ -49,7 +49,11 @@ pushed to the master branch, there should be no
 conflicts when trying to merge. After pushing, go
 to "branches" on the github repository, find your
 branch and click "new pull request" on the right.
-You should see a green "create pull request" button,
-click it. Then you should see a green "confirm merge
-request" message, click it. Now you should be able
+You should see a green "Able to merge" message on the
+top and a green "Create pull request" button below,
+click the button. After that, you should see a "This
+branch has no conflicts with the base branch" message
+and a green "Merge pull request" button, click the
+button. Finally, you should see a green "Confirm merge"
+button, click the button. Now you should be able
 to see your changes in the master branch on github.
