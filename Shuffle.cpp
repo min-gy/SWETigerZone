@@ -69,7 +69,6 @@ vector<int> shuffleTiles()
   return tileOrder; 
 }
 
-/*
 int main()
 {
   vector<int> tiles = shuffleTiles();
@@ -80,4 +79,3 @@ int main()
   }
 return 0;
 }
-*/
