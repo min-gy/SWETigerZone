@@ -18,11 +18,10 @@ named "name", replace name with whatever you want.
 !!WARNING: create your own branch, it makes!!
 !!               pushing and merging easier!!
 
-'git pull origin branchName'
-This pulls any updates to the master branch on github
-to the branchName branch. Do this often to keep up to
-date with the main repository. Replace branchName with
-the name of the branch you are working in.
+'git pull origin master'
+This pulls any updates of the master branch on github
+to the current branch. Do this often to keep up to
+date with the main repository.
 
 'git diff'
 This will display all changes in the current branch
