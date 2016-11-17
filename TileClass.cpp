@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 //#include "MapClass.cpp"
 //#include "PlayerClass.cpp"
 //#include "ComponentTrackerClass.cpp"
@@ -18,8 +19,14 @@ public:
 	vector<int> clusterid;
 	vector<bool> meeple;
 	vector<int> sides;
+	unordered_map<string, double> preylist;
+	preylist["boar"] = 1/2;
+	preylist["deer"] = 1/3;
+	preylist["ox"] = 1;	
+	preylist["none"] = 0;
 	bool Shield;
 	bool Monastery;
+        string prey; 
 	bool MMeeple; //monastery meeple
 	int CenterClusterid;
 	void rotateTile(Tile);
