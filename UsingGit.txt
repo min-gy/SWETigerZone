@@ -16,7 +16,7 @@ the current directory named SWETigerZone.
 This makes a new branch in your local repository
 named "name", replace name with whatever you want.
 !!WARNING: create your own branch, it makes!!
-!!         pushing and merging easier!!
+!!               pushing and merging easier!!
 
 'git pull origin branchName'
 This pulls any updates to the master branch on github
@@ -46,4 +46,10 @@ name of the branch you would like to push.
 After you push from your local repository, you will
 need to go into github and merge the branch you
 pushed to the master branch, there should be no
-conflicts when trying to merge.
+conflicts when trying to merge. After pushing, go
+to "branches" on the github repository, find your
+branch and click "new pull request" on the right.
+You should see a green "create pull request" button,
+click it. Then you should see a green "confirm merge
+request" message, click it. Now you should be able
+to see your changes in the master branch on github.
