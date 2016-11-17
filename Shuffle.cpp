@@ -1,5 +1,4 @@
 // File holding function that shuffles the Tiles for testing
-// Ryan
 #include <iostream>
 #include <vector>
 #include <cstdlib>
@@ -69,6 +68,7 @@ vector<int> shuffleTiles()
   return tileOrder; 
 }
 
+/*
 int main()
 {
   vector<int> tiles = shuffleTiles();
@@ -79,3 +79,4 @@ int main()
   }
 return 0;
 }
+*/
