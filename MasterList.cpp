@@ -16,7 +16,7 @@ int main
 Map Mappy = new Map;
 	Tile * Tile_1 = new Tile;
 	Tile_1->type.insert(type.end(), {2,2,2,2,2,2,2,2});
-	Tile_1clusterid = {1,1,1,1,1,1,1,1};
+	Tile_1.clusterid = {1,1,1,1,1,1,1,1};
 	Tile_1.meeple = {false,false,false,false,false,false,false,false};
 	Tile_1.prey = "none";
 	
