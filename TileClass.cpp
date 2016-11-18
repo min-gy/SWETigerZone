@@ -19,7 +19,7 @@ public:
 	vector<int> clusterid;
 	vector<bool> meeple;
 	vector<int> sides;
-	unordered_map<string, double> preylist;
+	
 	bool Ox;
 	bool Deer;
 	bool Boar;
