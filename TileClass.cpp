@@ -18,13 +18,15 @@ public:
 	vector<int> type; //1 - N, 2 - NE, 3 - E, 4 - SE, 5 - S, 6 - SW, 7 - W, 8 - NW   1,3,5,7 = sides 2,4,6,8 = corners
 	vector<int> clusterid;
 	vector<bool> meeple;
+	vector<bool> croc;
 	vector<int> sides;
 	
 	bool Ox;
 	bool Deer;
 	bool Boar;
 	bool Den; 
-	bool MMeeple; //monastery meeple
+	bool Crocodile;
+	//bool MMeeple; //monastery meeple
 	int CenterClusterid;
 	void rotateTile(Tile);
 };
@@ -46,9 +48,9 @@ void placeTile(int x, int y, Map * GameMap, Tile * GameTile)
 }
 void placeMeeple(int x, int y, Map * GameMap, Tile GameTile, int MeepleLoc)
 {
-	if (MeepleLoc == 9)
+	if (Den == 5)
 	{
-		bool MMeeple = true;
+		bool Den = true;
 		/*GameMap.MainList[GameTile.CenterClusterid]
 		ComponentTrackerUpdate(); //Not yet completed, within ComponentTrackerClass*/
 	}
