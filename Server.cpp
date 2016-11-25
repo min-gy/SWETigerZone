@@ -11,6 +11,8 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <string>
+#include <vector>
+#include "Shuffle.cpp"
 
 void error(const char *msg)
 {
@@ -86,11 +88,13 @@ int main(int argc, char *argv[])
 
      std::string message;
      char mesg[256];
-     while(1)
-     {
-       // This send() function sends the 15 bytes of the string to the new socket
-       send(newsockfd, "THIS IS SPARTA!\r\n", 19, 0);
-       bzero(buffer,256);
+     //while(1)
+     //{
+       message = "THIS IS SPARTA!\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+
        n = read(newsockfd,buffer,255);
        if (n < 0) error("ERROR reading from socket");
        printf("Here is the message: %s\n",buffer);
@@ -99,6 +103,7 @@ int main(int argc, char *argv[])
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
+
        bzero(buffer,256);
        n = read(newsockfd,buffer,255);
        if (n < 0) error("ERROR reading from socket");
@@ -108,11 +113,110 @@ int main(int argc, char *argv[])
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
+       sleep(1);
+
+       message = "NEW CHALLENGE <cid> YOU WILL PLAY <rounds> MATCH(ES)\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+       sleep(1);
+
+       message = "BEGIN ROUND <rid> of <rounds>\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+       sleep(1);
+
+       message = "YOUR OPPONENT IS PLAYER <pid>\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+       sleep(1);
+
+       message = "STARTING TILE IS TLTJ- AT 0 0 0\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+       sleep(1);
+
+       message = "THE REMAINING <number_tiles> TILES ARE [<tiles>]\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+       sleep(1);
+
+       message = "MATCH BEGINS IN <time> SECONDS\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+       sleep(1);
+
+       vector<std::string> tiles = shuffleTiles();
+       for(int k = 1; k < tiles.size(); k++)
+       {
+
+       message = "MAKE YOUR MOVE IN GAME <gid> WITHIN <time> SECOND(S): MOVE <#> PLACE " + tiles[k] + "\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+
        bzero(buffer,256);
        n = read(newsockfd,buffer,255);
        if (n < 0) error("ERROR reading from socket");
        printf("Here is the message: %s\n",buffer);
-     }
+
+       message = "GAME <gid> MOVE <#> PLAYER <pid> (<move> or FORFEITED:)\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+       sleep(1);
+
+       }
+
+       message = "GAME <gid> OVER PLAYER <pid> <score> PLAYER <pid> <score>\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+       sleep(1);
+
+       message = "END OF ROUND <rid> OF <rounds> (PLEASE WAIT FOR THE NEXT MATCH)\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+       sleep(1);
+
+       message = "PLEASE WAIT FOR THE NEXT CHALLENGE TO BEGIN\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+       sleep(1);
+
+       message = "END OF CHALLENGES\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+       sleep(1);
+
+       message = "THANK YOU FOR PLAYING! GOODBYE\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+       sleep(1);
+
+/*       WRITE MESSAGE TO CLIENT
+       message = "WELCOME <pid> PLEASE WAIT FOR THE NEXT CHALLENGE\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+*/
+
+/*       READ MESSAGE FROM CLIENT
+       bzero(buffer,256);
+       n = read(newsockfd,buffer,255);
+       if (n < 0) error("ERROR reading from socket");
+       printf("Here is the message: %s\n",buffer);
+*/
+     //}
 
      close(newsockfd);
      close(sockfd);
