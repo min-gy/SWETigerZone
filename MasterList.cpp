@@ -21,6 +21,7 @@ Map Mappy = new Map;
 	Tile_1->Boar = false;
 	Tile_1->Deer = false;
 	Tile_1->Den = false;
+	Tile_1->Crocodile = false;
 	
 	
 	
@@ -34,6 +35,7 @@ Map Mappy = new Map;
 	Tile_2->Boar = false;
 	Tile_2->Deer = false;
 	Tile_2->Den = true;
+	Tile_2->Crocodile = false;
 	
         Tile * Tile_3 = new Tile;
 	Tile_3->type.insert(type.end(),  {2,2,2,2,2,3,2,2}); // has den
@@ -44,6 +46,7 @@ Map Mappy = new Map;
 	Tile_3->Boar = false;
 	Tile_3->Deer = false;
 	Tile_3->Den = true;
+	Tile_3->Crocodile = false;
 	
 	Tile * Tile_4 = new Tile;
 	Tile_4->type.insert(type.end(),  {2,3,2,3,2,3,2,3});
@@ -54,6 +57,7 @@ Map Mappy = new Map;
 	Tile_4->Boar = false;
 	Tile_4->Deer = false;
 	Tile_4->Den = false;
+	Tile_4->Crocodile = false;
 	
 	Tile * Tile_5 = new Tile;
 	Tile_5->type.insert(type.end(), {2,3,2,2,2,3,2,2});
@@ -64,6 +68,7 @@ Map Mappy = new Map;
 	Tile_5->Boar = false;
 	Tile_5->Deer = false;
 	Tile_5->Den = false;
+	Tile_5->Crocodile = false;
 	
 	Tile * Tile_6 = new Tile;	
 	Tile_6->type.insert(type.end( {2,3,2,2,2,2,2,3});
@@ -74,6 +79,7 @@ Map Mappy = new Map;
 	Tile_6->Boar = false;
 	Tile_6->Deer = false;
 	Tile_6->Den = false;
+	Tile_6->Crocodile = false;
 	
 	Tile * Tile_7 = new Tile;
 	Tile_7->type.insert(type.end(),  {2,3,2,2,2,2,3,2,3});
@@ -84,6 +90,7 @@ Map Mappy = new Map;
 	Tile_7->Boar = false;
 	Tile_7->Deer = false;
 	Tile_7->Den = false;
+	Tile_7->Crocodile = false;
 	
 	Tile * Tile_8 = new Tile;
 	Tile_8->type.insert(type.end(), {1,1,1,1,1,1,1,1});
@@ -94,6 +101,7 @@ Map Mappy = new Map;
 	Tile_8->Boar = false;
 	Tile_8->Deer = false;
 	Tile_8->Den = false;
+	Tile_8->Crocodile = false;
 	
 	
 	Tile * Tile_9 = new Tile;
@@ -105,6 +113,7 @@ Map Mappy = new Map;
 	Tile_9->Boar = false;
 	Tile_9->Deer = false;
 	Tile_9->Den = false;
+	Tile_9->Crocodile = false;
 	
 	
 	Tile * Tile_10 = new Tile;
@@ -116,6 +125,7 @@ Map Mappy = new Map;
 	Tile_10->Boar = false;
 	Tile_10->Deer = false;
 	Tile_10->Den = false;
+	Tile_10->Crocodile = false;
 	
 	
 	Tile * Tile_11 = new Tile;
@@ -127,6 +137,7 @@ Map Mappy = new Map;
 	Tile_11->Boar = false;
 	Tile_11->Deer = false;
 	Tile_11->Den = false;
+	Tile_11->Crocodile = false;
 	
 	
 	Tile * Tile_12 = new Tile;
@@ -138,6 +149,7 @@ Map Mappy = new Map;
 	Tile_12->Boar = false;
 	Tile_12->Deer = false;
 	Tile_12->Den = false;
+	Tile_12->Crocodile = false;
 	
 	Tile * Tile_13 = new Tile;
 	Tile_13->type.insert(type.end(),  {2,1,2,2,2,2,2,2});
@@ -148,6 +160,7 @@ Map Mappy = new Map;
 	Tile_13->Boar = false;
 	Tile_13->Deer = false;
 	Tile_13->Den = false;
+	Tile_13->Crocodile = false;
 	
 	Tile *  Tile_14 = new Tile;
 	Tile_14->type.insert(type.end(), {2,2,2,1,1,1,2,2});
@@ -158,6 +171,7 @@ Map Mappy = new Map;
 	Tile_14->Boar = false;
 	Tile_14->Deer = false;
 	Tile_14->Den = false;
+	Tile_14->Crocodile = false;
 	
 	Tile * Tile_15 = new Tile;
 	Tile_15->type.insert(type.end(), {2,3,2,1,2,2,2,3});
@@ -168,6 +182,7 @@ Map Mappy = new Map;
 	Tile_15->Boar = false;
 	Tile_15->Deer = false;
 	Tile_15->Den = false;
+	Tile_15->Crocodile = false;
 	
 	Tile * Tile_16 = new Tile;
 	Tile_16->type.insert(type.end(), {2,3,2,1,2,2,2,3}); // has boar
@@ -178,6 +193,7 @@ Map Mappy = new Map;
 	Tile_16->Boar = true;
 	Tile_16->Deer = false;
 	Tile_16->Den = false;
+	Tile_16->Crocodile = false;
 	
 	Tile * Tile_17 = new Tile;
 	Tile_17->type.insert(type.end(), {2,2,2,1,2,3,2,3});
@@ -188,6 +204,7 @@ Map Mappy = new Map;
 	Tile_17->Boar = false;
 	Tile_17->Deer = false;
 	Tile_17->Den = false;
+	Tile_17->Crocodile = false;
 	
 	Tile * Tile_18 = new Tile;
 	Tile_18->type.insert(type.end(), {2,2,2,1,2,3,2,3}); // has ox
@@ -198,6 +215,7 @@ Map Mappy = new Map;
 	Tile_18->Boar = false;
 	Tile_18->Deer = false;
 	Tile_18->Den = false;
+	Tile_18->Crocodile = false;
 	
 	Tile * Tile_19 = new Tile;
 	Tile_19->type.insert(type.end(), {2,3,2,1,2,3,2,3});
@@ -208,6 +226,7 @@ Map Mappy = new Map;
 	Tile_19->Boar = false;
 	Tile_19->Deer = false;
 	Tile_19->Den = false;
+	Tile_19->Crocodile = false;
 	
 	Tile * Tile_20 = new Tile;
 	Tile_20->type.insert(type.end(), {2,3,2,1,2,3,2,3}); // has deer	
@@ -218,6 +237,7 @@ Map Mappy = new Map;
 	Tile_20->Boar = false;
 	Tile_20->Deer = true;
 	Tile_20->Den = false;
+	Tile_20->Crocodile = false;
 	
 	Tile * Tile_21 = new Tile;
 	Tile_21->type.insert(type.end(), {2,3,2,1,1,1,1,1});
@@ -228,6 +248,7 @@ Map Mappy = new Map;
 	Tile_21->Boar = false;
 	Tile_21->Deer = false;
 	Tile_21->Den = false;
+	Tile_21->Crocodile = false;
 	
 	Tile * Tile_22 = new Tile;
 	Tile_22->type.insert(type.end(), {2,3,2,1,2,2,2,3});
@@ -238,6 +259,7 @@ Map Mappy = new Map;
 	Tile_22->Boar = false;
 	Tile_22->Deer = false;
 	Tile_22->Den = false;
+	Tile_22->Crocodile = false;
 	
 	Tile * Tile_23 = new Tile;
 	Tile_23->type.insert(type.end(), {2,3,2,1,2,2,2,3}); // has boar	
@@ -248,6 +270,7 @@ Map Mappy = new Map;
 	Tile_23->Boar = true;
 	Tile_23->Deer = false;
 	Tile_23->Den = false;
+	Tile_23->Crocodile = false;
 
         Tile * Tile_24 = new Tile;
 	Tile_24->type.insert(type.end(), {2,3,2,1,1,1,2,3});
@@ -258,6 +281,7 @@ Map Mappy = new Map;
 	Tile_24->Boar = false;
 	Tile_24->Deer = false;
 	Tile_24->Den = false;
+	Tile_24->Crocodile = false;
 	
         Tile * Tile_25 = new Tile;
         Tile_25->type.insert(type.end(), {2,3,2,1,1,1,2,3}); // has ox
@@ -268,6 +292,7 @@ Map Mappy = new Map;
 	Tile_25->Boar = false;
 	Tile_25->Deer = false;
 	Tile_25->Den = false;
+	Tile_25->Crocodile = false;
 	
         Tile * Tile_26 = new Tile;
 	Tile_26->type.insert(type.end(), {2,1,2,2,2,3,2,2});
@@ -278,16 +303,30 @@ Map Mappy = new Map;
 	Tile_26->Boar = false;
 	Tile_26->Deer = false;
 	Tile_26->Den = false;
+	Tile_26->Crocodile = false;
 	
 	Tile * Tile_27 = new Tile;
 	Tile_27->type.insert(type.end(), {2,1,2,2,2,3,2,2}); // has deer
 	Tile_27->clusterid.insert(clusterid.end(),{1,2,3,3,3,4,1,1});
 	Tile_27->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
-	Tile_1->croc.insert(croc.end(),{false,false,false,false,false,false,false,false});
+	Tile_27->croc.insert(croc.end(),{false,false,false,false,false,false,false,false});
 	Tile_27->Ox = false;
 	Tile_27->Boar = false;
 	Tile_27->Deer = true;
 	Tile_27->Den = false;
+	Tile_27->Crocodile = false;
+	
+	Tile * Tile_28 = new Tile;
+	Tile_28->type.insert(type.end(),{2,3,2,1,1,1,1,1});
+	Tile_28->clusterid.insert(clusterid.end(),{1,2,3,4,4,4,4,4});
+	Tile_28->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
+	Tile_28->croc.insert(croc.end(),{false,false,false,false,false,false,false,false});
+	Tile_28->Ox = false;
+	Tile_28->Boar = false;
+	Tile_28->Deer = false;
+	Tile_28->Den = false;
+	Tile_28->Crocodile = true;
+	
 	
 	placeTile(50, 50, Mappy, TileA);
 	int x = 0;
