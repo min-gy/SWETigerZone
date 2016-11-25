@@ -47,58 +47,89 @@ std::string handleServerMessage(std::string message)
   else if(arr[0].compare("NEW") == 0)
   {
     //NEW CHALLENGE <cid> YOU WILL PLAY <rounds> MATCH(ES)
+    return "wait\r\n";
   }
   else if(arr[0].compare("BEGIN") == 0)
   {
     //BEGIN ROUND <rid> of <rounds>
+    return "wait\r\n";
   }
   else if(arr[0].compare("YOUR") == 0)
   {
     //YOUR OPPONENT IS PLAYER <pid>
+    return "wait\r\n";
   }
   else if(arr[0].compare("STARTING") == 0)
   {
     //STARTING TILE IS <tile> AT <x> <y> <orientation>
+    return "wait\r\n";
   }
   else if(arr[0].compare("THE") == 0)
   {
     //THE REMAINING <number_tiles> TILES ARE [<tiles>]
+
+    //store tile order
+
+    return "wait\r\n";
   }
   else if(arr[0].compare("MATCH") == 0)
   {
     //MATCH BEGINS IN <time> SECONDS
+    return "wait\r\n";
   }
   else if(arr[0].compare("MAKE") == 0)
   {
     //MAKE YOUR MOVE IN GAME <gid> WITHIN <time> SECOND(S): MOVE <#> PLACE <tile>
+    
+    //compute move
+
+    //if(unplaceable)
+    //{
+    //  return "GAME <gid> TILE <tile> Unplaceable
+    //          (PASS or RETRIEVE TIGER AT <x> <y> or ADD ANOTHER TIGER TO <x> <y>)\r\n";
+    //}
+    //else
+    //{
+      return "GAME <gid> PLACE <tile> AT <x> <y> <orientation> (NONE or CROCODILE or TIGER <zone>)\r\n";
+    //}
   }
-  else if(arr[0].compare("GAME") == 0 && arr[2].compare("PLAYER") == 0)
+  else if(arr[0].compare("GAME") == 0 && arr[2].compare("MOVE") == 0)
   {
-    //GAME <gid> PLAYER <pid> (<move> or FORFEITED:)
+    //GAME <gid> MOVE <#> PLAYER <pid> (<move> or FORFEITED:)
+
+    //update map with other player's move
+
+    return "wait\r\n";
   }
   else if(arr[0].compare("GAME") == 0 && arr[2].compare("OVER") == 0)
   {
     //GAME <gid> OVER PLAYER <pid> <score> PLAYER <pid> <score>
+    return "wait\r\n";
   }
   else if(arr[0].compare("END") == 0 && arr[2].compare("ROUND") == 0)
   {
     //END OF ROUND <rid> OF <rounds> (PLEASE WAIT FOR THE NEXT MATCH)
+    return "wait\r\n";
   }
   else if(arr[0].compare("END") == 0 && arr[2].compare("ROUND") == 0)
   {
     //END OF CHALLENGES
+    return "wait\r\n";
   }
   else if(arr[0].compare("PLEASE") == 0)
   {
     //PLEASE WAIT FOR THE NEXT CHALLENGE TO BEGIN
+    return "wait\r\n";
   }
   else if(arr[0].compare("THANK") == 0)
   {
     //THANK YOU FOR PLAYING! GOODBYE
+    return "wait\r\n";
   }
   else
   {
-    return "Else Reached";
+    return "Error: Else Reached";
+    exit(1);
   }
 }
 
@@ -141,33 +172,33 @@ int main(int argc, char *argv[])
 
     while(1)
     {
+      //read from server
       bzero(buffer,256);
       n = read(sockfd, buffer, 255);
       if (n < 0) 
            error("ERROR reading from socket");
       printf("%s\n", buffer);
     
-      /*
-      printf("Please enter the message: ");
-      bzero(buffer,256);
-      fgets(buffer,255,stdin);
-      n = write(sockfd, buffer, strlen(buffer));
-      if (n < 0) 
-           error("ERROR writing to socket");
-      */
-
+      //convert message from server from char[] to string
       serverMsg = std::string(buffer);
       reply = handleServerMessage(serverMsg);
-      strncpy(replyMsg, reply.c_str(), sizeof(replyMsg));
-      replyMsg[sizeof(replyMsg) - 1] = 0;
 
-      n = write(sockfd, replyMsg, strlen(replyMsg));
-      if (n < 0) 
-           error("ERROR writing to socket");
+      //if the client needs to reply
+      if(reply.compare("wait\r\n") != 0)
+      {
+        strncpy(replyMsg, reply.c_str(), sizeof(replyMsg));
+        replyMsg[sizeof(replyMsg) - 1] = 0;
 
-      printf("Please press enter to continue: ");
-      bzero(buffer,256);
-      fgets(buffer,255,stdin);
+        n = write(sockfd, replyMsg, strlen(replyMsg));
+        if (n < 0) 
+             error("ERROR writing to socket");
+      }
+
+
+      //wait for user to want to continue
+      //printf("Please press enter to continue: ");
+      //bzero(buffer,256);
+      //fgets(buffer,255,stdin);
     }
 
     close(sockfd);
