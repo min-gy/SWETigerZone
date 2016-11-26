@@ -1,10 +1,9 @@
 #include <iostream>
 #include <vector>
-//#include "MapClass.cpp"
+#include "MapClass.cpp"
 
 using namespace std;
 
-class Map;
 
 class Player
 {
