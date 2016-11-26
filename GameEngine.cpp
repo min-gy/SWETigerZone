@@ -4,80 +4,43 @@
 //#include "GameEngine.h"
 #include "GameState.h"
 
-using namespace std;
+// struct GameStateEnum{
+//     enum Enum{
+//         NULLSTATE,
+//         START,
+//         PLAYER1TURN,
+//         PLAYER2TURN,
+//         END,
+//     };
+// };
 
-enum GameStates{
-        NULLSTATE,
-        START,
-        PLAYER1TURN,
-        PLAYER2TURN,
-        END,
-};
+//gamestates tracker
+const int NULLSTATE = 0;
+const int START = 1;
+const int PLAYER1TURN = 2;
+const int PLAYER2TURN = 3;
+const int END = 4;
 
 //Game Engine declarations
 class GameEngine{
 
 public:
-    int nextStateEnum = NULLSTATE;
+
     GameState * currentState = NULL;
+    int nextStateEnum = NULLSTATE;
     int currentStateEnum = NULLSTATE;
 
     GameEngine();
     ~GameEngine();
 
-    init();
-    changeState();
-    setNextState();
+    void init();
+    void changeState();
+    void setNextState(int newStateEnum);
 
     int getCurrentStateEnum();
 
 };
 
-
-//Game states classes declaration
-class state_START : public GameState{
-private:
-    string message;
-public:
-    state_START();
-    ~state_START();
-
-    void processInfo();
-    void logic();
-};
-
-class state_PLAYER1TURN : public GameState{
-private:
-    string message;
-public:
-    state_PLAYER1TURN();
-    ~state_PLAYER1TURN();
-
-    void processInfo();
-    void logic();
-};
-
-class state_PLAYER2TURN : public GameState{
-private:
-    string message;
-public:
-    state_PLAYER2TURN();
-    ~state_PLAYER2TURN();
-
-    void processInfo();
-    void logic();
-};
-
-class state_END : public GameState{
-private:
-    string message;
-public:
-    state_END();
-    ~state_END();
-
-    void processInfo();
-    void logic();
-};
 
 ///////////////////////////////////////////// Above coul go in a header file
 
@@ -90,58 +53,60 @@ GameEngine::~GameEngine(){
 
 }
 
-GameEngine::init(){
+void GameEngine::init(){
     currentStateEnum = START;
-    currentState = new state_START()
+    currentState = new state_START();
 }
 
-void setNextState(int newState){
+void GameEngine::setNextState(int newStateEnum){
+    this->nextStateEnum = newStateEnum;
+    // if(nextStateEnum != END){
+    //     this->nextStateEnum = newStateEnum;
+    // }
 
-    if(GameEngine::nextStateEnum != END){
-        GameEngine:nextStateEnum = newState;
-    }
-    //if next state is end...
 }
 
-void changeState(){
-    if(GameEngine::nextStateEnum != NULLSTATE){
+void GameEngine::changeState(){
+    if(nextStateEnum != NULLSTATE){
         
-        if(GameEngine::nextStateEnum != END){
-            delete currentState;
-        }
-
+        // if(nextStateEnum != END){
+        //     delete currentState;
+        // }
+        delete currentState;
         //change state for real, not just enum
-        switch(GameEngine::nextStateEnum){
+        switch(nextStateEnum){
             case START:
-                GameEngine::currentState = new START();
+                GameEngine::currentState = new state_START();
                 break;
 
             case PLAYER1TURN: 
-                GameEngine::currentState = new PLAYER1TURN();
+                GameEngine::currentState = new state_PLAYER1TURN();
                 break;
 
-            case PLAYER1TURN: 
-                GameEngine::currentState = new PLAYER1TURN();
+            case PLAYER2TURN: 
+                GameEngine::currentState = new state_PLAYER2TURN();
                 break;
 
-            case PLAYER1TURN: 
-                GameEngine::currentState = new PLAYER1TURN();
+            case END: 
+                GameEngine::currentState = new state_END();
                 break;
         }
 
-        GameEngine::currentStateEnum = GameEngine::nextStateEnum;
-        GameEngine::nextStateEnum = NULLSTATE;
+        currentStateEnum = nextStateEnum;
+        nextStateEnum = NULLSTATE;
 
     }
 }
 
-int getCurrentStateEnum(){
-    return currentState;
+int GameEngine::getCurrentStateEnum(){
+    return GameEngine::currentStateEnum;
 }
 
-//Game states classes definition
+
+///////////Game states classes definition
 state_START::state_START(){
     message = "START state";
+    std::cout << message << "\n";
 }
 
 state_START::~state_START(){
@@ -152,13 +117,14 @@ void state_START::processInfo(){
 
 }
 
-void state_START::logic(){
-    setNextState = PLAYER1TURN;
+int state_START::nextStateLogic(){
+    return PLAYER1TURN;
 }
 
 
 state_PLAYER1TURN::state_PLAYER1TURN(){
     message = "PLAYER1TURN state";
+    std::cout << message << "\n";
 }
 
 state_PLAYER1TURN::~state_PLAYER1TURN(){
@@ -169,13 +135,14 @@ void state_PLAYER1TURN::processInfo(){
 
 }
 
-void state_PLAYER1TURN::logic(){
-    setNextState = PLAYER2TURN;
+int state_PLAYER1TURN::nextStateLogic(){
+    return PLAYER2TURN;
 }
 
 
 state_PLAYER2TURN::state_PLAYER2TURN(){
     message = "PLAYER2TURN state";
+    std::cout << message << "\n";
 }
 
 state_PLAYER2TURN::~state_PLAYER2TURN(){
@@ -186,13 +153,14 @@ void state_PLAYER2TURN::processInfo(){
 
 }
 
-void state_PLAYER2TURN::logic(){
-    setNextState = END;
+int state_PLAYER2TURN::nextStateLogic(){
+    return END;
 }
 
 
 state_END::state_END(){
-    message = "END state";      
+    state_END::message = "END state";
+    std::cout << message << "\n";    
 }
 
 state_END::~state_END(){
@@ -203,7 +171,8 @@ void state_END::processInfo(){
 
 }
 
-void state_END::logic(){
-    
+int state_END::nextStateLogic(){
+    return NULLSTATE;
 }
+
 
