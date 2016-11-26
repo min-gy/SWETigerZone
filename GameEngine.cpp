@@ -1,18 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
-//#include "GameEngine.h"
 #include "GameState.h"
-
-// struct GameStateEnum{
-//     enum Enum{
-//         NULLSTATE,
-//         START,
-//         PLAYER1TURN,
-//         PLAYER2TURN,
-//         END,
-//     };
-// };
+//#include "MapClass.cpp"
 
 //gamestates tracker
 const int NULLSTATE = 0;
@@ -25,7 +15,7 @@ const int END = 4;
 class GameEngine{
 
 public:
-
+    //Map * myMap;
     GameState * currentState = NULL;
     int nextStateEnum = NULLSTATE;
     int currentStateEnum = NULLSTATE;
@@ -46,7 +36,7 @@ public:
 
 //Game engine class definition
 GameEngine::GameEngine(){
-
+    //myMap = new Map();
 }
 
 GameEngine::~GameEngine(){

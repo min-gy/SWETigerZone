@@ -1,6 +1,12 @@
 #include <iostream>
 #include <vector>
+
 //#include "TileRegion.cpp"
+#include <unordered_map>
+#include "MapClass.cpp"
+#include "PlayerClass.cpp"
+//#include "ComponentTrackerClass.cpp"
+
 using namespace std;
 
 class Tile 

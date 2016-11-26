@@ -1,28 +1,22 @@
 #include <vector>
 #include <iostream>
-#include "GameEngine.cpp"
-//#include "GameState.h"
-//#include "PlayerClass.cpp"
+#include "PlayerClass.cpp"
+#include "Client.cpp"
 
 using namespace std;
 
 int main (int argc, char *argv[]){
-    GameEngine * ourGameEngine = new GameEngine();
-    int tempNextState;
+    Player * player1 = new Player();
+    Player * player2 = new Player();
 
-    //initialize game to Start state
-    ourGameEngine->init();
+    Client * client = new Client();
 
-    //cout << ourGameEngine->getCurrentStateEnum() << endl;
+    
 
-    //game loop
-    while(ourGameEngine->getCurrentStateEnum() != END){
-        tempNextState = ourGameEngine->currentState->nextStateLogic();
-        ourGameEngine->setNextState(tempNextState);
-        ourGameEngine->changeState();
-    }
+    player1->startNewGame();
+    player1->runGame();
 
-    delete ourGameEngine->currentState;
+
 
 }
 
