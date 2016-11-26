@@ -40,3 +40,10 @@ void placeMeeple(int x, int y, Map GameMap, Tile GameTile, int MeepleLoc)
 
 	//id refers to choices available to place given tile
 };
+void placeCrocodile(int x, int y, Map* GameMap, Tile GameTile, int Croc_count)
+{
+	if((GameMap->TileGrid[x][y].croc_count) = 0  )
+	{
+		GameMap->TileGrid[x][y].croc_count = 1;
+	}
+}
