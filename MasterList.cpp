@@ -163,8 +163,8 @@ Map Mappy = new Map;
 	
 	
 	Tile *  Tile_14 = new Tile;
-	Tile_14->type.insert(type.end(), {2,2,2,1,1,1,2,2});
-	Tile_14->clusterid.insert(clusterid.end(),{1,1,1,2,2,2,1,1});
+	Tile_14->type.insert(type.end(), {2,2,2,1,4,1,2,2});
+	Tile_14->clusterid.insert(clusterid.end(),{1,1,1,2,0,3,1,1});
 	Tile_14->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	Tile_14->croc_count = 0;
 	Tile_14->Ox = false;
