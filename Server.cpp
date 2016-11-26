@@ -1,7 +1,7 @@
 //first start the server
 //then the client
 //./server.o 20001
-//./client.o 127.0.0.1 20001
+//./client.o 127.0.0.1 20001 tournamentPassword teamUserName teamPassword
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -113,43 +113,43 @@ int main(int argc, char *argv[])
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
-       sleep(1);
+//       sleep(1);
 
        message = "NEW CHALLENGE <cid> YOU WILL PLAY <rounds> MATCH(ES)\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
-       sleep(1);
+//       sleep(1);
 
        message = "BEGIN ROUND <rid> of <rounds>\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
-       sleep(1);
+//       sleep(1);
 
        message = "YOUR OPPONENT IS PLAYER <pid>\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
-       sleep(1);
+//       sleep(1);
 
        message = "STARTING TILE IS TLTJ- AT 0 0 0\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
-       sleep(1);
+//       sleep(1);
 
        message = "THE REMAINING <number_tiles> TILES ARE [<tiles>]\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
-       sleep(1);
+//       sleep(1);
 
        message = "MATCH BEGINS IN <time> SECONDS\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
-       sleep(1);
+//       sleep(1);
 
        vector<std::string> tiles = shuffleTiles();
        for(int k = 1; k < tiles.size(); k++)
@@ -169,7 +169,7 @@ int main(int argc, char *argv[])
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
-       sleep(1);
+//       sleep(1);
 
        }
 
@@ -177,31 +177,31 @@ int main(int argc, char *argv[])
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
-       sleep(1);
+//       sleep(1);
 
        message = "END OF ROUND <rid> OF <rounds> (PLEASE WAIT FOR THE NEXT MATCH)\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
-       sleep(1);
+//       sleep(1);
 
        message = "PLEASE WAIT FOR THE NEXT CHALLENGE TO BEGIN\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
-       sleep(1);
+//       sleep(1);
 
        message = "END OF CHALLENGES\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
-       sleep(1);
+//       sleep(1);
 
        message = "THANK YOU FOR PLAYING! GOODBYE\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
-       sleep(1);
+//       sleep(1);
 
 /*       WRITE MESSAGE TO CLIENT
        message = "WELCOME <pid> PLEASE WAIT FOR THE NEXT CHALLENGE\r\n";

@@ -1,7 +1,7 @@
 //first start the server
 //then the client
 //./server.o 20001
-//./client.o 127.0.0.1 20001
+//./client.o 127.0.0.1 20001 tournamentPassword teamUserName teamPassword
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,9 +20,10 @@ void error(const char *msg)
     exit(0);
 }
 
+/*
 std::string handleServerMessage(std::string message)
 {
-  std::string arr[13];
+  std::string arr[1024];
   std::stringstream ssin(message);
   for(int i = 0; ssin.good(); i++)
   {
@@ -32,7 +33,7 @@ std::string handleServerMessage(std::string message)
   if(arr[0].compare("THIS") == 0)
   {
     //THIS IS SPARTA!
-    return "Join <tournament password>\r\n";
+    return "JOIN <tournament password>\r\n";
   }
   else if(arr[0].compare("HELLO!") == 0)
   {
@@ -132,6 +133,7 @@ std::string handleServerMessage(std::string message)
     exit(1);
   }
 }
+*/
 
 int main(int argc, char *argv[])
 {
@@ -139,16 +141,19 @@ int main(int argc, char *argv[])
     struct sockaddr_in serv_addr;
     struct hostent *server;
 
-    char buffer[256];
-    std::string serverMsg;
-    char replyMsg[256];
-    std::string reply;
+    //char buffer[256];
+    //std::string serverMsg;
+    //char replyMsg[256];
+    //std::string reply;
 
-    if (argc < 3) {
+    if (argc < 6) {
        fprintf(stderr,"usage %s hostname port\n", argv[0]);
        exit(0);
     }
     portno = atoi(argv[2]);
+    std::string tournamentPassword(argv[3]);
+    std::string teamUserName(argv[4]);
+    std::string teamPassword(argv[5]);
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) 
@@ -160,6 +165,11 @@ int main(int argc, char *argv[])
         exit(0);
     }
 
+    printf("Port Number: %d\nTournament Password: %s\nTeam UserName: %s\nTeam Password: %s\n\n",
+            portno, tournamentPassword.c_str(), teamUserName.c_str(), teamPassword.c_str());
+    //std::cout << "Port Number: " + portno + "\nTournament Password: " + tournamentPassword +
+    //        "\nTeam UserName: " + teamUserName + "\nTeam Password: " + teamPassword + "\n";
+
     bzero((char *) &serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
     bcopy((char *)server->h_addr, 
@@ -170,18 +180,126 @@ int main(int argc, char *argv[])
     if (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) 
         error("ERROR connecting");
 
+    char buffer[1024];
+    std::string serverMsg;
+    char replyMsg[1024];
+    std::string reply;
+
     while(1)
     {
       //read from server
-      bzero(buffer,256);
-      n = read(sockfd, buffer, 255);
+      bzero(buffer, 1024);
+      n = read(sockfd, buffer, 1023);
       if (n < 0) 
            error("ERROR reading from socket");
-      printf("%s\n", buffer);
+//      printf("%s\n", buffer);
     
       //convert message from server from char[] to string
       serverMsg = std::string(buffer);
-      reply = handleServerMessage(serverMsg);
+       
+      printf("%s\n\n\n", serverMsg.c_str());
+
+//      reply = handleServerMessage(serverMsg);
+      std::string arr[1024];
+      std::stringstream ssin(serverMsg);
+      for(int i = 0; ssin.good(); i++)
+      {
+        ssin >> arr[i];
+      }
+
+      if(arr[0].compare("THIS") == 0)
+      {
+        //THIS IS SPARTA!
+        reply = "JOIN <tournament password>\r\n";
+      }
+      else if(arr[0].compare("HELLO!") == 0)
+      {
+        //HELLO!
+        reply = "I AM <username> <password>\r\n";
+      }
+      else if(arr[0].compare("WELCOME") == 0)
+      {
+        //WELCOME <pid> PLEASE WAIT FOR THE NEXT CHALLENGE
+        reply = "wait\r\n";
+      }
+      else if(arr[0].compare("NEW") == 0)
+      {
+        //NEW CHALLENGE <cid> YOU WILL PLAY <rounds> MATCH(ES)
+        reply = "wait\r\n";
+      }
+      else if(arr[0].compare("BEGIN") == 0)
+      {
+        //BEGIN ROUND <rid> of <rounds>
+        reply = "wait\r\n";
+      }
+      else if(arr[0].compare("YOUR") == 0)
+      {
+        //YOUR OPPONENT IS PLAYER <pid>
+        reply = "wait\r\n";
+      }
+      else if(arr[0].compare("STARTING") == 0)
+      {
+        //STARTING TILE IS <tile> AT <x> <y> <orientation>
+        reply = "wait\r\n";
+      }
+      else if(arr[0].compare("THE") == 0)
+      {
+        //THE REMAINING <number_tiles> TILES ARE [<tiles>]
+
+        //store tile order
+
+        reply = "wait\r\n";
+      }
+      else if(arr[0].compare("MATCH") == 0)
+      {
+        //MATCH BEGINS IN <time> SECONDS
+        reply = "wait\r\n";
+      }
+      else if(arr[0].compare("MAKE") == 0)
+      {
+        //MAKE YOUR MOVE IN GAME <gid> WITHIN <time> SECOND(S): MOVE <#> PLACE <tile>
+    
+        //compute move
+
+        reply = "GAME <gid> PLACE <tile> AT <x> <y> <orientation> (NONE or CROCODILE or TIGER <zone>)\r\n";
+      }
+      else if(arr[0].compare("GAME") == 0 && arr[2].compare("MOVE") == 0)
+      {
+        //GAME <gid> MOVE <#> PLAYER <pid> (<move> or FORFEITED:)
+
+        //update map with other player's move
+
+        reply = "wait\r\n";
+      }
+      else if(arr[0].compare("GAME") == 0 && arr[2].compare("OVER") == 0)
+      {
+        //GAME <gid> OVER PLAYER <pid> <score> PLAYER <pid> <score>
+        reply = "wait\r\n";
+      }
+      else if(arr[0].compare("END") == 0 && arr[2].compare("ROUND") == 0)
+      {
+        //END OF ROUND <rid> OF <rounds> (PLEASE WAIT FOR THE NEXT MATCH)
+        reply = "wait\r\n";
+      }
+      else if(arr[0].compare("END") == 0 && arr[2].compare("ROUND") == 0)
+      {
+        //END OF CHALLENGES
+        reply = "wait\r\n";
+      }
+      else if(arr[0].compare("PLEASE") == 0)
+      {
+        //PLEASE WAIT FOR THE NEXT CHALLENGE TO BEGIN
+        reply = "wait\r\n";
+      }
+      else if(arr[0].compare("THANK") == 0)
+      {
+        //THANK YOU FOR PLAYING! GOODBYE
+        reply = "wait\r\n";
+      }
+      else
+      {
+        reply = "Error: Else Reached";
+      }
 
       //if the client needs to reply
       if(reply.compare("wait\r\n") != 0)
@@ -193,6 +311,25 @@ int main(int argc, char *argv[])
         if (n < 0) 
              error("ERROR writing to socket");
       }
+
+
+/*      //reading
+      bzero(buffer,256);
+      n = read(sockfd, buffer, 255);
+      if (n < 0) 
+           error("ERROR reading from socket");
+      printf("%s\n", buffer);
+*/
+ 
+ 
+/*      //writting
+      reply = handleServerMessage(serverMsg);
+      strncpy(replyMsg, reply.c_str(), sizeof(replyMsg));
+      replyMsg[sizeof(replyMsg) - 1] = 0;
+      n = write(sockfd, replyMsg, strlen(replyMsg));
+      if (n < 0) 
+           error("ERROR writing to socket");
+*/
 
 
       //wait for user to want to continue
