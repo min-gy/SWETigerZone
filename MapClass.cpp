@@ -6,6 +6,7 @@ using namespace std;
 
 class Map
 {
+public:
 	ComponentTracker * MainList[100]; //Main component tracking feature of Map/Terrain
 	Tile TileGrid[153][153];
 };
@@ -34,13 +35,13 @@ void placeMeeple(int x, int y, Map GameMap, Tile GameTile, int MeepleLoc)
 	}
 	else
 	{
-		GameMap.TileGrid[x][y].meeple(MeepleLoc) = true;
+		GameMap.TileGrid[x][y].meeple.at(MeepleLoc) = true;
 		/*ComponentTrackerUpdate();//GameMap.MainList[GameTile.clusterid(MeepleLoc)]*/
-	)
+	}
 
 	//id refers to choices available to place given tile
 };
-void placeCrocodile(int x, int y, Map* GameMap, Tile GameTile, int Croc_count)
+void placeCrocodile(int x, int y, Map* GameMap, Tile GameTile, int croc_count)
 {
 	if((GameMap->TileGrid[x][y].croc_count) = 0  )
 	{

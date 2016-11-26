@@ -2,7 +2,6 @@
 //x and y will refer to Coordinates of tile being placed
 #include <iostream>
 #include <vector>
-#include "MapClass.cpp"
 #include "PlayerClass.cpp"
 using namespace std;
 void InheritValue(ComponentTracker* Child, ComponentTracker* Parent) 
