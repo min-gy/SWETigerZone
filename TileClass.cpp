@@ -11,7 +11,9 @@ vector<int> type; //1 - N, 2 - NE, 3 - E, 4 - SE, 5 - S, 6 - SW, 7 - W, 8 - NW  
 vector<int> clusterid;
 vector<bool> meeple;
 //vector<TileRegion> sides;
-bool Shield;
+bool Deer;
+bool Boar;
+bool Ox;
 bool Monastery;
 bool MMeeple; //monastery meeple
 int CenterClusterid;
