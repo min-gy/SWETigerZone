@@ -210,12 +210,12 @@ int main(int argc, char *argv[])
       if(arr[0].compare("THIS") == 0)
       {
         //THIS IS SPARTA!
-        reply = "JOIN <tournament password>\r\n";
+        reply = "JOIN " + tournamentPassword + "\r\n";
       }
       else if(arr[0].compare("HELLO!") == 0)
       {
         //HELLO!
-        reply = "I AM <username> <password>\r\n";
+         reply = "I AM " + teamUserName + " " +  teamPassword + "\r\n";
       }
       else if(arr[0].compare("WELCOME") == 0)
       {
