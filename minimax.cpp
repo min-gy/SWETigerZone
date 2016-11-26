@@ -48,7 +48,7 @@ void gameOver();
 void updateCrocodileCount();
 tile *tileStructure(int i);
 
-//initiates the tile grid to all -1s to show the space is empty
+//initiates the tile grid to all -1s to show the spaces are empty
 void initiateTileGrid(){
 	for(int i = 0; i<153; i++){
 		for(int j = 0; j<153; j++){
@@ -68,6 +68,7 @@ int *MiniMaxDecision(tile *_TileGrid[153][153], int moveNum, tile *t, tile *temp
 	int bvalue = -BESTVALUE, index = 0, x, y, z;
 	list<int> movelist;
 	int bestmoves[4] = {0, 0, 0, 0};
+	//this function generates only valid possible moves
 	generateMoves(_TileGrid, movelist, t);
 	//this next part evaluates the possible move and compares it with future moves
 	while(!movelist.empty()) {
@@ -89,6 +90,7 @@ int *MiniMaxDecision(tile *_TileGrid[153][153], int moveNum, tile *t, tile *temp
 			bestmoves[index] = x;
 			bestmoves[index+1] = y;
 			bestmoves[index+2] = z;
+			//m represents 0 for not placing anything, 1 for tiger on a feild, 2 for tiger on water, 3 for tiger on a path, and 4 for placing a croc
 			int m = value[1];
 			bestmoves[index+3] = m;
 			index = 0;
@@ -108,13 +110,20 @@ int *MiniMaxDecision(tile *_TileGrid[153][153], int moveNum, tile *t, tile *temp
 
 //generate possible valid moves, thinking of having it stacked as x, y, z, x, y, z, ... z being the orientation
 void generateMoves(tile *_TileGrid[153][153], list<int> &move_list, int _curTile) {
-	//karls part
 	for(int i = 0; i < 153; i++) {
+		//since the middle of the board is 0,0, the first for loop goes from the middle of the board and expands right
+		//once it hits an empty spot (-1) then it checks if it will be a valid move and breaks from the loop 
 		for(int j = 0; j < 153; j++){
-			//figure out if the spot is empty
 			if(_TileGrid[i][j] == -1){
-				//now decide if its a valid move
-				
+				//now decide if its a valid move if the spot is empty
+				break;
+			}
+		}
+		//the second for loop goes from the middle and expands left
+		for(int j = 0; j < -153; j--){
+			if(_TileGrid[i][j] == -1){
+				//now decide if its a valid move if the spot is empty
+				break;
 			}
 		}
 	}
@@ -127,6 +136,7 @@ int *MinMoveDecision(tile *_TileGrid[153][153], int x, int y, int z, int moveNum
 		return pvalue;
 	int bvalue = +BESTVALUE;
 	list<int> movelist;
+	//current tile searches the temp list, which holds the order of the tiles, for the tile we need
 	curTile = temp[moveNum-1];
 	generateMoves(_TileGrid, movelist, curTile);
 	while(!movelist.empty()) {
@@ -154,6 +164,7 @@ int *MaxMoveDecision(tile *_TileGrid[153][153], int x, int y, int z, int moveNum
 		return pvalue;
 	int bvalue = -BESTVALUE;
 	list<int> movelist;
+	//current tile searches the temp list, which holds the order of the tiles, for the tile we need
 	curTile = temp[moveNum];
 	generateMoves(_TileGrid, movelist, curTile);
 	while(!movelist.empty()) {
@@ -175,16 +186,21 @@ int *MaxMoveDecision(tile *_TileGrid[153][153], int x, int y, int z, int moveNum
 }
 
 //returns the value of the tile at that location also any prunning needed
+//also any logic here can be changed or added, this is just a starting point for checking and such
 int evaluatePosition(tile *_TileGrid[153][153], int x, int y, int z, int num) {
 	int mLocation;
 	//should first check to see if we are helping the other player out with this move and return -1, if we have time
 	if((mLocation = tigerLocation(_TileGrid, x, y, z, num)) > 0){
+		//return a value of 10 for feilds
 		if(mLocation == 1)
 			return 10;
+		//return a value of 5 for water
 		else if(mLocation == 2)
 			return 5;
+		//return a value of 3 for paths
 		else if(mLocation == 3)
 			return 3;
+		//return a value of 2 for crocs
 		else
 			return 2;
 	}
@@ -193,6 +209,7 @@ int evaluatePosition(tile *_TileGrid[153][153], int x, int y, int z, int num) {
 }
 
 //picks tiger or croc location on tile
+//also any logic here can be changed or added, this is just a starting point for checking and such
 int tigerLocation(tile *_TileGrid[153][153], int x, int y, int z, int moveNum){
 	int options[] = {0,0,0,0};
 	componentsCheck(options, TileGrid, x, y);
@@ -200,6 +217,7 @@ int tigerLocation(tile *_TileGrid[153][153], int x, int y, int z, int moveNum){
 	int num = 76 - moveNum;
 	//options[0] = the feild, options[1] = the water, options[2] = the path, options[3] = places a crocodile
 	if(num >= 50){
+		//in this if statement, given these conditions, the presedence would be field over water over path 
 		if(options[0] == 1 && tigerCount != 0)
 			return 1;
 		if(options[1] == 1 && tigerCount != 0)
@@ -208,6 +226,7 @@ int tigerLocation(tile *_TileGrid[153][153], int x, int y, int z, int moveNum){
 			return 3;
 	}
 	else if(num >= 30){
+		//in this if statement, given these conditions, the presedence would be water over feild over path
 		if(options[1] == 1 && tigerCount != 0)
 			return 2;
 		if(options[0] == 1 && tigerCount >= 3)
@@ -216,6 +235,7 @@ int tigerLocation(tile *_TileGrid[153][153], int x, int y, int z, int moveNum){
 			return 3;
 	}
 	else if(num >= 10){
+		//in this if statement, given these conditions, the presedence would be water over path over placing a croc
 		if(options[1] == 1 && tigerCount != 0)
 			return 2;
 		if(options[2] == 1 && tigerCount != 0)
@@ -224,6 +244,7 @@ int tigerLocation(tile *_TileGrid[153][153], int x, int y, int z, int moveNum){
 			return 4;
 	}
 	else if (num >= 3){
+		//in this if statement, given these conditions, the presedence would be water over path over placing a croc
 		if(options[1] == 1 && tigerCount != 0)
 			return 2;
 		if(options[2] == 1 && tigerCount != 0)
@@ -237,7 +258,8 @@ int tigerLocation(tile *_TileGrid[153][153], int x, int y, int z, int moveNum){
 
 //checks the components to see where we can legally place tigers on this tile
 void componentsCheck(int options[3], tile *_TileGrid[153][153], int x, int y){
-	//return the values 1 for yes, 0 for no, in the order feild, water, path into the options array
+	//return the values 1 for yes, 0 for no, in the order feild, water, path, crocs into the options array
+	//example: options[] = {0,1,1,0} would represent we could place a tiger on in the water and the path but not an the feild or place a croc
 	//daniels part
 }
 
@@ -249,6 +271,7 @@ tile getTile(char *temp2){
 	char d = temp2[3];
 	char e = temp2[4];
 	for(int i = 0; i < 28; i++){
+		//tile structure holds all the hard coded values for each tile
 		tile *temp = tileStructure(i);
 		char *temp1 = temp->des;
 		if(a == temp1[0] && b == temp1[1] && c == temp1[2] && d == temp1[3] && e == temp1[4])
@@ -262,7 +285,7 @@ void updateScore(tile *_TileGrid[153][153], int x, int y, tile tile, int orienta
 	//daniels part
 }
 
-//this updates our tigerCount. If the value is zero then we used a tiger, if the number is something else then we are receiving our tiger
+//this updates our tigerCount. If the value is zero then we used a tiger, if the number is something else then we are receiving our tiger(s)
 void updateTigerCount(int value){
 	if (value == 0)
 		tigerCount--;
@@ -270,7 +293,7 @@ void updateTigerCount(int value){
 		tigerCount = tigerCount + value;
 }
 
-//this updates the crocodile count
+//this updates the crocodile count, we can only subtract because we never get a croc back until the end of the game
 void updateCrocodileCount(){
 	crocodileCount--;
 }
@@ -303,6 +326,7 @@ int main(){
 	tile *temp = new tile[tileInput.size()+1];
 	temp1[tileInput.size()] = 0;
 	memcpy(temp1,tileInput.c_str(),tileInput.size());
+	//this will put the tiles, in the correct order, into an array of tiles called temp
 	for(int i = 29; i < tileInput.size()-1; i=i+6){
 		temp2[0] = temp1[i];
 		temp2[1] = temp1[i+1];
@@ -320,20 +344,15 @@ int main(){
 	memcpy(move,moveAndPlace.c_str(),moveAndPlace.size());
 	int tileNum = 76, moveNum = (int)((move[moveAndPlace.size()-13]));
 	int *tileResult;
-	temp2[0] = move[moveAndPlace.size()-5];
-	temp2[1] = move[moveAndPlace.size()-4];
-	temp2[2] = move[moveAndPlace.size()-3];
-	temp2[3] = move[moveAndPlace.size()-2];
-	temp2[4] = move[moveAndPlace.size()-1];
-	val = getTile(temp2);
-	t = val;
-	//decide if we are the first player
+	//decide if we are the first player because that would affect the moveNum and the tile
 	if((77 - moveNum) == tileNum){
+		t = temp[moveNum-1];
 		tileResult = MiniMaxDecision(_TileGrid, moveNum, t, temp);
 		//return values to the server and wait for a reply
 	}
 	while(moveNum > 0){
 		//receive values from other player and message saying its our turn
+		//with the new values we would update x, y, t, and orientation before calling the updateBoard funtion
 		updateBoard(_TileGrid, x, y, t, orientation);
 		tileResult = MiniMaxDecision(_TileGrid, moveNum, t, temp);
 		//return values to the server and wait for a reply
