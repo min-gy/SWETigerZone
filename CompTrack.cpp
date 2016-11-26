@@ -23,6 +23,7 @@ void InheritValue(ComponentTracker* Child, ComponentTracker* Parent)
 	Parent->MeepleCountYou += Child->MeepleCountYou;
 	Parent->MeepleCountMe += Child->MeepleCountMe;
 	Parent->IncompleteSides += Child->IncompleteSides;
+	Parent->TileCount += Child->TileCount;
 	Child->ParentId = Parent->ParentId;
 	//Delete Child from 'To-Check' List ```````````````WITHIN MAPCLASS``````````````````
 	//Only Check parents for scoring and updates
@@ -57,12 +58,70 @@ int ScoreUpdate(ComponentTracker* Region)
 	}
 	return score;
 }
+int DenScoreUpdate(ComponentTracker* Region)
+{
+	int score;
+	score = 8 - Region->IncompleteSides;
+	return score;
+}
 void MeepleUpdate(ComponentTracker* Region, Player player)
 {
 	player.MeepleCountMe += Region->MeepleCountMe;
 	player.MeepleCountYou += Region->MeepleCountYou;
 	Region->MeepleCountMe = 0;
 	Region->MeepleCountYou = 0;
+}
+void DenCheck(Map Mappy, int X, int Y, int NewX, int NewY, Player player)
+{
+	if(Mappy.TileGrid[NewX][NewY].orientation != NULL)
+	{
+		if(Mappy.TileGrid[X][Y].Monastery == true)
+		{
+			Mappy.MainList[Mappy.TileGrid[X][Y].CenterClusterid]->IncompleteSides -= 1;
+			if (Mappy.MainList[Mappy.TileGrid[X][Y].CenterClusterid]->IncompleteSides == 0)
+			{
+				if (Mappy.MainList[Mappy.TileGrid[X][Y].CenterClusterid]->MeepleCountMe == 1)
+				{
+					player.ScoreMe += DenScoreUpdate(Mappy.MainList[Mappy.TileGrid[X][Y].CenterClusterid]);
+				}
+				if (Mappy.MainList[Mappy.TileGrid[X][Y].CenterClusterid]->MeepleCountYou == 1)
+				{
+					player.ScoreYou += DenScoreUpdate(Mappy.MainList[Mappy.TileGrid[X][Y].CenterClusterid]);
+				}
+				MeepleUpdate(Mappy.MainList[Mappy.TileGrid[X][Y].CenterClusterid], player);
+			}
+		}
+		if(Mappy.TileGrid[NewX][NewY].Monastery == true)
+		{
+			Mappy.MainList[Mappy.TileGrid[NewX][NewY].CenterClusterid]->IncompleteSides -= 1;
+			if (Mappy.MainList[Mappy.TileGrid[NewX][NewY].CenterClusterid]->IncompleteSides == 0)
+			{
+				if (Mappy.MainList[Mappy.TileGrid[NewX][NewY].CenterClusterid]->MeepleCountMe == 1)
+				{
+					player.ScoreMe += DenScoreUpdate(Mappy.MainList[Mappy.TileGrid[NewX][NewY].CenterClusterid]);
+				}
+				if (Mappy.MainList[Mappy.TileGrid[NewX][NewY].CenterClusterid]->MeepleCountYou == 1)
+				{
+					player.ScoreYou += DenScoreUpdate(Mappy.MainList[Mappy.TileGrid[NewX][NewY].CenterClusterid]);
+				}
+				MeepleUpdate(Mappy.MainList[Mappy.TileGrid[NewX][NewY].CenterClusterid], player);
+			}
+		}
+	}
+}
+void DenUpdate(Map Mappy, int X, int Y, Player player)
+{
+	if (Mappy.TileGrid[X][Y].Monastery == true)
+	{
+		DenCheck(Mappy, X, Y, X+1, Y, player);
+		DenCheck(Mappy, X, Y, X+1, Y+1, player);
+		DenCheck(Mappy, X, Y, X+1, Y-1, player);
+		DenCheck(Mappy, X, Y, X-1, Y, player);
+		DenCheck(Mappy, X, Y, X-1, Y+1, player);
+		DenCheck(Mappy, X, Y, X-1, Y-1, player);
+		DenCheck(Mappy, X, Y, X, Y+1, player);
+		DenCheck(Mappy, X, Y, X, Y-1, player);
+	}
 }
 void SingleUpdate(Map Mappy, Tile CurrentTile, Tile OldTile, int newS, int oldS, int Side, Player player)
 {
@@ -71,7 +130,7 @@ void SingleUpdate(Map Mappy, Tile CurrentTile, Tile OldTile, int newS, int oldS,
 	bool DontAdd;
 	DontAdd = false;
 	//Catch for nonexistent tile
-	if (OldTile.orientation != NULL)
+	if (OldTile.orientation != NULL && CurrentTile.type.at(newS) != 4)
 	{
 		if (CurrentTile.type.at(newS) == OldTile.type.at(oldS))
 		{
@@ -105,13 +164,6 @@ void SingleUpdate(Map Mappy, Tile CurrentTile, Tile OldTile, int newS, int oldS,
       			  		}
         			break;
         		}
-				/*MAKE A SPECIAL CATCH FOR WHEN 2 SEPERATE CASTLE SECTIONS OVERLAP AT CORNER ----> Corner section type = 4? throwaway?
-````````````
-````````````
-````````````
-````````````````
-				*/
-
 			}
 			x = CurrentTile.clusterid.at(newS);
 			y = OldTile.clusterid.at(oldS);
@@ -183,5 +235,7 @@ void FullComponentUpdate(Map Mappy, int X, int Y, Player player)
 	SingleUpdate(Mappy, CurrentTile, LeftTile, 7, 5, 4, player);
 	SingleUpdate(Mappy, CurrentTile, LeftTile, 8, 4, 4, player);
 	SingleUpdate(Mappy, CurrentTile, LeftTile, 1, 3, 4, player);
+
+	DenUpdate(Mappy, X, Y, player);
 
 }
