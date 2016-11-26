@@ -10,7 +10,7 @@ class Map
 	Tile TileGrid[153][153];
 };
 
-void rotateTile(Tile X) 
+/*void rotateTile(Tile X) 
 {
 	X.sides.push_back( X.sides.front() );
 	X.sides.pop_front();
@@ -19,7 +19,7 @@ void rotateTile(Tile X)
 	orientation += 90;
 	//include orientation specification (90 degree, 270 degree etc.)
 
-};
+};*/
 void placeTile(int x, int y, Map GameMap, Tile GameTile)
 {
 	GameMap.TileGrid[x][y] = GameTile;
