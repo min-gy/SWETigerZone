@@ -14,5 +14,5 @@ public:
 	int ScoreMe;
 	int ScoreYou;
 	int TilesRemaining;
-	Map PlayerMap = new Map;
+	Map * PlayerMap;
 };
