@@ -127,6 +127,23 @@ void generateMoves(tile *_TileGrid[153][153], list<int> &move_list, int _curTile
 			}
 		}
 	}
+	//this one is for going from the middle (-1) up to -153
+	for(int i = -1; i < -153; i--) {
+		//once it hits an empty spot (-1) then it checks if it will be a valid move and breaks from the loop 
+		for(int j = 0; j < 153; j++){
+			if(_TileGrid[i][j] == -1){
+				//now decide if its a valid move if the spot is empty
+				break;
+			}
+		}
+		//the second for loop goes from the middle and expands left
+		for(int j = 0; j < -153; j--){
+			if(_TileGrid[i][j] == -1){
+				//now decide if its a valid move if the spot is empty
+				break;
+			}
+		}
+	}
 }
 
 //This is the opponents future move
