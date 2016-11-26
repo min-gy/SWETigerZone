@@ -50,7 +50,7 @@ Map Mappy = new Map;
 	
 	Tile * Tile_4 = new Tile;
 	Tile_4->type.insert(type.end(),  {2,3,2,3,2,3,2,3});
-	Tile_4->clusterid.insert(clusterid.end(),{1,2,1,2,1,2,1,2});
+	Tile_4->clusterid.insert(clusterid.end(),{1,2,3,4,5,6,7,8});
 	Tile_4->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});	
 	Tile_4->croc_count = 0;
 	Tile_4->Ox = false;
@@ -61,7 +61,7 @@ Map Mappy = new Map;
 	
 	Tile * Tile_5 = new Tile;
 	Tile_5->type.insert(type.end(), {2,3,2,2,2,3,2,2});
-	Tile_5->clusterid.insert(clusterid.end(),{1,2,1,1,1,2,1,1});
+	Tile_5->clusterid.insert(clusterid.end(),{1,2,3,3,3,2,1,1});
 	Tile_5->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	Tile_5->croc_count = 0;
 	Tile_5->Ox = false;
@@ -72,7 +72,7 @@ Map Mappy = new Map;
 	
 	Tile * Tile_6 = new Tile;	
 	Tile_6->type.insert(type.end( {2,3,2,2,2,2,2,3});
-	Tile_6->clusterid.insert(clusterid.end(),{1,2,1,1,1,1,1,2});
+	Tile_6->clusterid.insert(clusterid.end(),{1,2,3,3,3,3,3,2});
 	Tile_6->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	Tile_6->croc_count = 0;
 	Tile_6->Ox = false;
@@ -83,7 +83,7 @@ Map Mappy = new Map;
 	
 	Tile * Tile_7 = new Tile;
 	Tile_7->type.insert(type.end(),  {2,3,2,2,2,2,3,2,3});
-	Tile_7->clusterid.insert(clusterid.end(),{1,2,1,1,1,2,1,2});
+	Tile_7->clusterid.insert(clusterid.end(),{1,2,3,3,3,4,5,6});
         Tile_7->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});	
 	Tile_7->croc_count = 0;
 	Tile_7->Ox = false;
@@ -175,7 +175,7 @@ Map Mappy = new Map;
 	
 	Tile * Tile_15 = new Tile;
 	Tile_15->type.insert(type.end(), {2,3,2,1,2,2,2,3});
-	Tile_15->clusterid.insert(clusterid.end(),{1,2,1,3,1,1,1,2});
+	Tile_15->clusterid.insert(clusterid.end(),{1,2,3,4,3,3,3,2});
 	Tile_15->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	Tile_15->croc_count = 0;
 	Tile_15->Ox = false;
@@ -186,7 +186,7 @@ Map Mappy = new Map;
 	
 	Tile * Tile_16 = new Tile;
 	Tile_16->type.insert(type.end(), {2,3,2,1,2,2,2,3}); // has boar
-	Tile_16->clusterid.insert(clusterid.end(),{1,2,1,3,1,1,1,2});
+	Tile_16->clusterid.insert(clusterid.end(),{1,2,3,4,3,3,3,2});
 	Tile_16->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	Tile_16->croc_count = 0;
 	Tile_16->Ox = false;
@@ -252,7 +252,7 @@ Map Mappy = new Map;
 	
 	Tile * Tile_22 = new Tile;
 	Tile_22->type.insert(type.end(), {2,3,2,1,2,2,2,3});
-	Tile_22->clusterid.insert(clusterid.end(),{1,2,3,4,3,2,5,2});
+	Tile_22->clusterid.insert(clusterid.end(),{1,2,3,4,3,5,6,7});
 	Tile_22->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	Tile_22->croc_count = 0;
 	Tile_22->Ox = false;
@@ -263,7 +263,7 @@ Map Mappy = new Map;
 	
 	Tile * Tile_23 = new Tile;
 	Tile_23->type.insert(type.end(), {2,3,2,1,2,2,2,3}); // has boar	
-	Tile_23->clusterid.insert(clusterid.end(),{1,2,3,4,3,2,5,2});
+	Tile_23->clusterid.insert(clusterid.end(),{1,2,3,4,3,5,6,7});
 	Tile_23->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	Tile_23->croc_count = 0;
 	Tile_23->Ox = false;
