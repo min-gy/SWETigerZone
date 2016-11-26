@@ -18,14 +18,14 @@ public:
 	vector<int> type; //1 - N, 2 - NE, 3 - E, 4 - SE, 5 - S, 6 - SW, 7 - W, 8 - NW   1,3,5,7 = sides 2,4,6,8 = corners
 	vector<int> clusterid;
 	vector<bool> meeple;
-	vector<bool> croc;
+	int croc_count;
 	vector<int> sides;
 	
 	bool Ox;
 	bool Deer;
 	bool Boar;
 	bool Den; 
-	bool Crocodile;
+	
 	//bool MMeeple; //monastery meeple
 	int CenterClusterid;
 	void rotateTile(Tile);
@@ -62,3 +62,11 @@ void placeMeeple(int x, int y, Map * GameMap, Tile GameTile, int MeepleLoc)
 
 	//id refers to choices available to place given tile
 }
+
+	void placeCrocodile(int x, int y, Map* GameMap, Tile GameTile, int Croc_count)
+	{
+		if((GameMap->TileGrid[x][y].Croc_count) = 0  )
+		{
+			GameMap->TileGrid[x][y].Croc_count = 1;
+		}
+	}
