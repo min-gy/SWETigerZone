@@ -70,6 +70,8 @@ int *MiniMaxDecision(tile *_TileGrid[153][153], int moveNum, tile *t, tile *temp
 	int bestmoves[4] = {0, 0, 0, 0};
 	//this function generates only valid possible moves
 	generateMoves(_TileGrid, movelist, t);
+	//if generatemoves comes up with nothing then the tile doesnt work with the current board so need to handle the exceptions
+	//im going to look into this tonight
 	//this next part evaluates the possible move and compares it with future moves
 	while(!movelist.empty()) {
 		x = movelist.front();
