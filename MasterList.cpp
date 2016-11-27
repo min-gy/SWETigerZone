@@ -385,9 +385,9 @@ using namespace std;
 	{			    
 	//Tile * Tile_27 = new Tile();
 	//newTile->tileID = "LJTJD";
-	newTile->type.insert(type.end(), {2,1,2,2,2,3,2,2}); // has deer
-	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+3,LastClusterId+3,LastClusterId+4,LastClusterId+1,LastClusterId+1});
-	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
+	newTile->type = (2,1,2,2,2,3,2,2); // has deer
+	newTile->clusterid = (LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+3,LastClusterId+3,LastClusterId+4,LastClusterId+1,LastClusterId+1);
+	newTile->meeple = (false,false,false,false,false,false,false,false);
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
 	newTile->Ox = 0;
