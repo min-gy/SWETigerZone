@@ -67,6 +67,7 @@ void Player::cleanUpGame(){
 
 int* Player::makeMyMove_p(string tile){
 	//myGameEngine->makeMyMove_g(tile);
+	
 	//AI algorithm to decide to make move
 	
 	//return myMovePtr;

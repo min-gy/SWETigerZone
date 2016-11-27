@@ -148,7 +148,7 @@ int main (int argc, char *argv[]){
       else if(arr[0].compare("NEW") == 0)
       {
         //NEW CHALLENGE <cid> YOU WILL PLAY <rounds> MATCH(ES)
-        challengeID = int(arr[2]);
+        challengeID = atoi(arr[2]);
         roundNum = int(arr[6]);
         reply = "wait\r\n";
       }
