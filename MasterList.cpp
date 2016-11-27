@@ -13,6 +13,7 @@ int main
 
 Map Mappy = new Map;
 	Tile * Tile_1 = new Tile;
+	Tile_1
 	Tile_1->type.insert(type.end(), {2,2,2,2,2,2,2,2});
 	Tile_1->clusterid.insert(clusterid.end(),{1,1,1,1,1,1,1,1});
 	Tile_1->meeple.insert(meeple.end(),{false,false,false,false,false,false,false,false});
