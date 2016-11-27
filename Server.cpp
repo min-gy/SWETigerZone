@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
 
 
      std::string message;
-     char mesg[256];
+     char mesg[1024];
      //while(1)
      //{
        message = "THIS IS SPARTA!\r\n";
@@ -109,25 +109,25 @@ int main(int argc, char *argv[])
        if (n < 0) error("ERROR reading from socket");
        printf("Here is the message: %s\n",buffer);
  
-       message = "WELCOME <pid> PLEASE WAIT FOR THE NEXT CHALLENGE\r\n";
+       message = "WELCOME blue PLEASE WAIT FOR THE NEXT CHALLENGE\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
 //       sleep(1);
 
-       message = "NEW CHALLENGE <cid> YOU WILL PLAY <rounds> MATCH(ES)\r\n";
+       message = "NEW CHALLENGE 1 YOU WILL PLAY 1 MATCH(ES)\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
 //       sleep(1);
 
-       message = "BEGIN ROUND <rid> of <rounds>\r\n";
+       message = "BEGIN ROUND 1 of 1\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
 //       sleep(1);
 
-       message = "YOUR OPPONENT IS PLAYER <pid>\r\n";
+       message = "YOUR OPPONENT IS PLAYER red\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
@@ -139,23 +139,32 @@ int main(int argc, char *argv[])
        send(newsockfd, mesg, strlen(mesg), 0);
 //       sleep(1);
 
-       message = "THE REMAINING <number_tiles> TILES ARE [<tiles>]\r\n";
-       strncpy(mesg, message.c_str(), sizeof(mesg));
-       mesg[sizeof(mesg) - 1] = 0;
-       send(newsockfd, mesg, strlen(mesg), 0);
-//       sleep(1);
-
-       message = "MATCH BEGINS IN <time> SECONDS\r\n";
-       strncpy(mesg, message.c_str(), sizeof(mesg));
-       mesg[sizeof(mesg) - 1] = 0;
-       send(newsockfd, mesg, strlen(mesg), 0);
-//       sleep(1);
-
        vector<std::string> tiles = shuffleTiles();
+//       vector<std::string> tiles2 = shuffleTiles();
+ 
+       message = "THE REMAINING 76 TILES ARE [ ";
+       for(int j = 1; j < tiles.size(); j++)
+       {
+         message.append(tiles[j] + " ");
+       }
+       message.append("]\r\n");
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+//       sleep(1);
+
+       message = "MATCH BEGINS IN 10 SECONDS\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+//       sleep(1);
+
+//       vector<std::string> tiles = shuffleTiles();
+//       vector<std::string> tiles2 = shuffleTiles();
        for(int k = 1; k < tiles.size(); k++)
        {
 
-       message = "MAKE YOUR MOVE IN GAME <gid> WITHIN <time> SECOND(S): MOVE <#> PLACE " + tiles[k] + "\r\n";
+       message = "MAKE YOUR MOVE IN GAME A WITHIN 1 SECOND(S): MOVE <#> PLACE " + tiles[k] + "\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
@@ -165,21 +174,36 @@ int main(int argc, char *argv[])
        if (n < 0) error("ERROR reading from socket");
        printf("Here is the message: %s\n",buffer);
 
-       message = "GAME <gid> MOVE <#> PLAYER <pid> (<move> or FORFEITED:)\r\n";
+       message = "GAME A MOVE <#> PLAYER <pid> (<move> or FORFEITED:)\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
 //       sleep(1);
+
+       message = "MAKE YOUR MOVE IN GAME B WITHIN 1 SECOND(S): MOVE <#> PLACE " + tiles[k] + "\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+
+       bzero(buffer,256);
+       n = read(newsockfd,buffer,255);
+       if (n < 0) error("ERROR reading from socket");
+       printf("Here is the message: %s\n",buffer);
+
+       message = "GAME B MOVE <#> PLAYER <pid> (<move> or FORFEITED:)\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
 
        }
 
-       message = "GAME <gid> OVER PLAYER <pid> <score> PLAYER <pid> <score>\r\n";
+       message = "GAME A OVER PLAYER <pid> <score> PLAYER <pid> <score>\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
 //       sleep(1);
 
-       message = "END OF ROUND <rid> OF <rounds> (PLEASE WAIT FOR THE NEXT MATCH)\r\n";
+       message = "END OF ROUND 1 OF 1 (PLEASE WAIT FOR THE NEXT MATCH)\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
