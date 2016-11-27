@@ -20,7 +20,7 @@ using namespace std;
 	for(int x = 0; if x < givendeck.length(); x++)
 	{	
 	        Tile * newTile = new Tile();
-		if(givendeck[x] == "JJJJ")
+		if(givendeck[x] == "JJJJ-")
 		{
 	        newTile->tileID = "JJJJ-";
 	        newTile->type.insert(type.end(), {2,2,2,2,2,2,2,2});
@@ -37,7 +37,7 @@ using namespace std;
 	//Tile * Tile_2 = new Tile();
 		else if(givendeck[x] == "JJJJX")
 		{
-	        //Tile_2->tileID = "JJJJX";
+	        newTile->tileID = "JJJJX";
 		newTile->type.insert(type.end(), {2,2,2,2,2,2,2,2}); // has den
 		newTile->clusterid.insert(clusterid.end(), {1,1,1,1,1,1,1,1});
 		newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
@@ -49,7 +49,7 @@ using namespace std;
 		newTile->Den = true;
 		}	
     //Tile * Tile_3 = new Tile();
-		else if(givendeck[x] == "JJTX")
+		else if(givendeck[x] == "JJTJX")
 		{
 	    	//Tile_3->tileID = "JJTJX";
 		newTile->type.insert(type.end(),  {2,2,2,2,2,3,2,2}); // has den
@@ -130,7 +130,7 @@ using namespace std;
 	newTile->Den = false;
 	}
 				    
-	else if(givendeck[x] = "JLL-"){
+	else if(givendeck[x] = "JLLL-"){
 	//Tile * Tile_9 = new Tile();
 	newTile->tileID = "JLLL-";
 	newTile->type.insert(type.end(), {2,2,2,1,1,1,1,1});
