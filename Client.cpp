@@ -13,6 +13,7 @@
 #include <netdb.h>
 #include <string>
 #include <sstream>
+#include <vector>
 
 void error(const char *msg)
 {
@@ -196,7 +197,21 @@ int main(int argc, char *argv[])
     
       //convert message from server from char[] to string
       serverMsg = std::string(buffer);
-       
+
+      std::vector<std::string> strs;
+      std::string tempstr;
+      std::stringstream strstr;
+      strstr.str(serverMsg);
+      while(std::getline(strstr, tempstr, '\n'))
+      {
+        strs.push_back(tempstr);
+      }
+      for(int p = 0; p < strs.size(); p++)
+      {
+        //printf("%s\n\n\n", strs[p].c_str());
+	serverMsg = strs[p];
+      //}
+
       printf("%s\n\n\n", serverMsg.c_str());
 
 //      reply = handleServerMessage(serverMsg);
@@ -281,7 +296,7 @@ int main(int argc, char *argv[])
         //END OF ROUND <rid> OF <rounds> (PLEASE WAIT FOR THE NEXT MATCH)
         reply = "wait\r\n";
       }
-      else if(arr[0].compare("END") == 0 && arr[2].compare("ROUND") == 0)
+      else if(arr[0].compare("END") == 0 && arr[2].compare("CHALLENGES") == 0)
       {
         //END OF CHALLENGES
         reply = "wait\r\n";
@@ -298,7 +313,8 @@ int main(int argc, char *argv[])
       }
       else
       {
-        reply = "Error: Else Reached";
+        printf("Else Reached\r\n");
+        reply = "wait\r\n";
       }
 
       //if the client needs to reply
@@ -312,6 +328,7 @@ int main(int argc, char *argv[])
              error("ERROR writing to socket");
       }
 
+      } //end of '\n' for loop
 
 /*      //reading
       bzero(buffer,256);
