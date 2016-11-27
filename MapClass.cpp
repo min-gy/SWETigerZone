@@ -1,30 +1,54 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "TileClass.cpp"
-#include "CompClass.h"
+#include "CompTracker.h"
 using namespace std;
+
+
+typedef struct
+{
+    int x, y;
+    bool top = false;
+    bool right = false;
+    bool bottom = false;
+    bool left = false;
+}emptySpace;
 
 class Map
 {
 public:
 	CompTracker * MainList[100]; //Main component tracking feature of Map/Terrain
 	Tile TileGrid[153][153];
+    bool TilePresent[153][153];
+    vector<emptySpace> emptyTiles;
 };
 
-/*void rotateTile(Tile X) 
+void rotateTile(Tile X, int orientation)
 {
-	X.sides.push_back( X.sides.front() );
-	X.sides.pop_front();
-	X.sides.push_back( X.sides.front() );
-	X.sides.pop_front();
-	orientation += 90;
+	if(orientation == 90)
+    {
+        rotate(X.type.begin(), X.type.begin() + 3, X.type.end());
+    }else if(orientation == 180)
+    {
+        rotate(X.type.begin(), X.type.begin() + 6, X.type.end());
+    }else if(orientation == 270)
+    {
+        rotate(X.type.begin(), X.type.begin() + 9, X.type.end());
+    }else
+    {
+        cerr<<"Invalid"<<endl;
+    }
 	//include orientation specification (90 degree, 270 degree etc.)
 
 };*/
 void placeTile(int x, int y, Map GameMap, Tile GameTile)
 {
 	GameMap.TileGrid[x][y] = GameTile;
+    GameMap.TileGrid[x][y].x = x;
+    GameMap.TileGrid[x][y].y = y;
 };
+
 void placeMeeple(int x, int y, Map GameMap, Tile GameTile, int MeepleLoc)
 {
 	if (MeepleLoc == 9)
