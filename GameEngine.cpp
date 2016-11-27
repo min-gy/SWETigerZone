@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include "GameState.h"
-//#include "MapClass.cpp"
+#include "MapClass.cpp"
 
 //gamestates tracker
 const int NULLSTATE = 0;
@@ -15,10 +15,11 @@ const int END = 4;
 class GameEngine{
 
 public:
-    //Map * myMap;
+    Map * myMap;
     GameState * currentState = NULL;
     int nextStateEnum = NULLSTATE;
     int currentStateEnum = NULLSTATE;
+    int score;
 
     GameEngine();
     ~GameEngine();
@@ -26,7 +27,7 @@ public:
     void init();
     void changeState();
     void setNextState(int newStateEnum);
-    //void makeMyMove_g();
+    void makeMyMove_g();
     //void makeOppoMove_g();
 
     int getCurrentStateEnum();
@@ -90,12 +91,32 @@ void GameEngine::changeState(){
     }
 }
 
+//get parent tracker
+int GameEngine::makeMyMove_g(){
+    FullComponentUpdate(sdfsdf)
+}
+
+int FullComponentUpdate(sdfs){
+
+}
+
+
 int GameEngine::getCurrentStateEnum(){
     return GameEngine::currentStateEnum;
 }
 
 
-/////////////Game states classes definition
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////Game states classes definition//////////////////////////////
 state_START::state_START(){
     message = "START state";
     std::cout << message << "\n";

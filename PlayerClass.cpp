@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-//#include "MapClass.cpp"
 #include "GameEngine.cpp"
 
 using namespace std;
@@ -14,9 +13,6 @@ public:
 	int ScoreMe;
 	int ScoreYou;
 	int TilesRemaining;
-
-	//Map * PlayerMap;
-
 
 	int tempNextState;
 
@@ -57,7 +53,7 @@ void Player::cleanUpGame(){
 }
 
 void Player::makeMyMove_p(){
-	//myGameEngine->makeMyMove_g(move argument)
+	myGameEngine->makeMyMove_g(move argument);
 }
 
 void Player::makeOppoMove_p(){
