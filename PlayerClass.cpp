@@ -18,7 +18,7 @@ public:
 	int myMove[5];
 	string tileStack;
 
-	myMovePtr = myMove;
+	//myMovePtr = myMove;
 
 	//int tempNextState;
 
@@ -28,8 +28,9 @@ public:
 	void startNewGame();
 	void runGame();
 	void addFirstTile_p(string, int, int , int);
-	void makeMyMove_p();
+	int* makeMyMove_p(string);
 	void makeOppoMove_p();
+	void takeTileStack(string);
 
 	void cleanUpGame();
 };
@@ -77,8 +78,8 @@ void Player::makeOppoMove_p(){
 	//myGameEngine->makeOppoMove_g(move argument)
 }
 
-void Player::takeTileStack(string){
-	tileStack = string;
+void Player::takeTileStack(string tileString){
+	tileStack = tileString;
 }
 
 

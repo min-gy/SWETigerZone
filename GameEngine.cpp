@@ -4,6 +4,8 @@
 //#include "GameState.h"
 //#include "MapClass.cpp"
 
+using namespace std;
+
 //gamestates tracker
 const int NULLSTATE = 0;
 const int START = 1;
@@ -26,7 +28,7 @@ public:
 
     void init();
     void makeMyMove_g();
-    void addFirstTile_g();
+    void addFirstTile_g(string, int, int, int);
     //void makeOppoMove_g();
 
     //int getCurrentStateEnum();
