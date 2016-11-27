@@ -14,7 +14,10 @@ public:
 	int ScoreMe;
 	int ScoreYou;
 	int TilesRemaining;
+	int * myMovePtr;
 	int myMove[5];
+
+	myMovePtr = myMove;
 
 	//int tempNextState;
 
@@ -26,7 +29,7 @@ public:
 	void addFirstTile_p(string, int, int , int);
 	void makeMyMove_p();
 	void makeOppoMove_p();
-
+	int* 
 
 	void cleanUpGame();
 };
@@ -63,7 +66,8 @@ void Player::cleanUpGame(){
 int* Player::makeMyMove_p(string tile){
 	//myGameEngine->makeMyMove_g(tile);
 	//AI algorithm to decide to make move
-	myMove[0]
+	
+	return myMovePtr;
 }
 
 void Player::makeOppoMove_p(){
