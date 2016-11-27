@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "GameState.h"
+//#include "GameState.h"
 #include "MapClass.cpp"
 
 //gamestates tracker
@@ -25,12 +25,13 @@ public:
     ~GameEngine();
 
     void init();
-    void changeState();
-    void setNextState(int newStateEnum);
     void makeMyMove_g();
     //void makeOppoMove_g();
 
     int getCurrentStateEnum();
+
+    //void changeState();
+    //void setNextState(int newStateEnum);
 
 };
 
@@ -117,75 +118,75 @@ int GameEngine::getCurrentStateEnum(){
 
 
 //////////////////////////////////////////////////////////Game states classes definition//////////////////////////////
-state_START::state_START(){
-    message = "START state";
-    std::cout << message << "\n";
-}
+// state_START::state_START(){
+//     message = "START state";
+//     std::cout << message << "\n";
+// }
 
-state_START::~state_START(){
+// state_START::~state_START(){
 
-}
+// }
 
-void state_START::processInfo(){
+// void state_START::processInfo(){
 
-}
+// }
 
-int state_START::nextStateLogic(){
-    return PLAYER1TURN;
-}
-
-
-state_PLAYER1TURN::state_PLAYER1TURN(){
-    message = "PLAYER1TURN state";
-    std::cout << message << "\n";
-}
-
-state_PLAYER1TURN::~state_PLAYER1TURN(){
-
-}
-
-void state_PLAYER1TURN::processInfo(){
-
-}
-
-int state_PLAYER1TURN::nextStateLogic(){
-    return PLAYER2TURN;
-}
+// int state_START::nextStateLogic(){
+//     return PLAYER1TURN;
+// }
 
 
-state_PLAYER2TURN::state_PLAYER2TURN(){
-    message = "PLAYER2TURN state";
-    std::cout << message << "\n";
-}
+// state_PLAYER1TURN::state_PLAYER1TURN(){
+//     message = "PLAYER1TURN state";
+//     std::cout << message << "\n";
+// }
 
-state_PLAYER2TURN::~state_PLAYER2TURN(){
+// state_PLAYER1TURN::~state_PLAYER1TURN(){
 
-}
+// }
 
-void state_PLAYER2TURN::processInfo(){
+// void state_PLAYER1TURN::processInfo(){
 
-}
+// }
 
-int state_PLAYER2TURN::nextStateLogic(){
-    return END;
-}
+// int state_PLAYER1TURN::nextStateLogic(){
+//     return PLAYER2TURN;
+// }
 
 
-state_END::state_END(){
-    state_END::message = "END state";
-    std::cout << message << "\n";    
-}
+// state_PLAYER2TURN::state_PLAYER2TURN(){
+//     message = "PLAYER2TURN state";
+//     std::cout << message << "\n";
+// }
 
-state_END::~state_END(){
+// state_PLAYER2TURN::~state_PLAYER2TURN(){
 
-}
+// }
 
-void state_END::processInfo(){
+// void state_PLAYER2TURN::processInfo(){
 
-}
+// }
 
-int state_END::nextStateLogic(){
-    return NULLSTATE;
-}
+// int state_PLAYER2TURN::nextStateLogic(){
+//     return END;
+// }
+
+
+// state_END::state_END(){
+//     state_END::message = "END state";
+//     std::cout << message << "\n";    
+// }
+
+// state_END::~state_END(){
+
+// }
+
+// void state_END::processInfo(){
+
+// }
+
+// int state_END::nextStateLogic(){
+//     return NULLSTATE;
+// }
 
 
