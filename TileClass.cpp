@@ -21,8 +21,6 @@ vector<bool> meeple;
 
 string tileID;
 
-
-
 bool Deer;
 bool Boar;
 bool Ox;
