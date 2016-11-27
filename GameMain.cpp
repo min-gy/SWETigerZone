@@ -32,9 +32,7 @@ int main (int argc, char *argv[]){
     string theirGameMove1[6];
     string theirGameMove2[6];
 
-
-    //string givenTile1;
-    //string givenTile2;
+    string tileStackString;
 
     int challengeID;
     int roundNum;
@@ -187,6 +185,14 @@ int main (int argc, char *argv[]){
       {
         //THE REMAINING <number_tiles> TILES ARE [<tiles>]
 
+        //make empty string
+        tileStackString = "";
+        for(int i = 6; 6 < 82, i++){
+            tileStackString.append(arr[i] + " ");
+        }
+        
+        player->takeTileStack(tileStackString)
+
         //store tile order
 
         reply = "wait\r\n";
@@ -210,24 +216,25 @@ int main (int argc, char *argv[]){
             //player compute move given Tile ID
             ourGameMove1 = player1->makeMyMove_p(arr[12]);
             
-            if(ourGameMove1[0] == 0){
-                reply = "GAME " + gameID1 + "  PLACE " + arr[12] + " AT " + ourGameMove1[1] + " " + ourGameMove1[2] + " " + ourGameMove1[3] + " NONE\r\n";
-            }
-            else if(ourGameMove1[0] == 1){
-                reply = "GAME " + gameID1 + " PLACE " + arr[12] + " AT " + ourGameMove1[1] + " " + ourGameMove1[2] + " " + ourGameMove1[3] + " CROCODILE\r\n";
-            }
-            else if(ourGameMove1[0] == 2){
-                 reply = "GAME " + gameID1 + " PLACE " + arr[12] + " AT " + ourGameMove1[1] + " " + ourGameMove1[2] + " " + ourGameMove1[3] + " TIGER " + ourGameMove1[4] + "\r\n";
-            }
-            else if(ourGameMove1[0] == 3){
-                reply = "GAME " + gameID1 + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
-            }
-            else if(ourGameMove1[0] == 4){
-                reply = "GAME " + gameID1 + " TILE " + arr[12] + " UNPLACEABLE RETRIEVE TIGER AT " + ourGameMove1[1] + " " + ourGameMove1[2] + "\r\n";
-            }
-            else if(ourGameMove1[0] == 5){
-                reply = "GAME " + gameID1 + " TILE " + arr[12] + " UNPLACEABLE ADD ANOTHER TIGER TO " + ourGameMove1[1] + " " + ourGameMove1[2] + "\r\n";
-            }
+            reply = ourGameMove1;
+            // if(ourGameMove1[0] == 0){
+            //     reply = "GAME " + gameID1 + "  PLACE " + arr[12] + " AT " + ourGameMove1[1] + " " + ourGameMove1[2] + " " + ourGameMove1[3] + " NONE\r\n";
+            // }
+            // else if(ourGameMove1[0] == 1){
+            //     reply = "GAME " + gameID1 + " PLACE " + arr[12] + " AT " + ourGameMove1[1] + " " + ourGameMove1[2] + " " + ourGameMove1[3] + " CROCODILE\r\n";
+            // }
+            // else if(ourGameMove1[0] == 2){
+            //      reply = "GAME " + gameID1 + " PLACE " + arr[12] + " AT " + ourGameMove1[1] + " " + ourGameMove1[2] + " " + ourGameMove1[3] + " TIGER " + ourGameMove1[4] + "\r\n";
+            // }
+            // else if(ourGameMove1[0] == 3){
+            //     reply = "GAME " + gameID1 + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
+            // }
+            // else if(ourGameMove1[0] == 4){
+            //     reply = "GAME " + gameID1 + " TILE " + arr[12] + " UNPLACEABLE RETRIEVE TIGER AT " + ourGameMove1[1] + " " + ourGameMove1[2] + "\r\n";
+            // }
+            // else if(ourGameMove1[0] == 5){
+            //     reply = "GAME " + gameID1 + " TILE " + arr[12] + " UNPLACEABLE ADD ANOTHER TIGER TO " + ourGameMove1[1] + " " + ourGameMove1[2] + "\r\n";
+            // }
 
         } 
         //if this is not for game 1
@@ -240,24 +247,25 @@ int main (int argc, char *argv[]){
             //player compute move given Tile ID
             ourGameMove2 = player2->makeMyMove_p(arr[12]);
 
-            if(ourGameMove2[0] == 0){
-                reply = "GAME " + gameID2 + "  PLACE " + arr[12] + " AT " + ourGameMove2[1] + " " + ourGameMove2[2] + " " + ourGameMove2[3] + " NONE\r\n";
-            }
-            else if(ourGameMove2[0] == 1){
-                reply = "GAME " + gameID2 + " PLACE " + arr[12] + " AT " + ourGameMove2[1] + " " + ourGameMove2[2] + " " + ourGameMove2[3] + " CROCODILE\r\n";
-            }
-            else if(ourGameMove2[0] == 2){
-                 reply = "GAME " + gameID2 + " PLACE " + arr[12] + " AT " + ourGameMove2[1] + " " + ourGameMove2[2] + " " + ourGameMove2[3] + " TIGER " + ourGameMove2[4] + "\r\n";
-            }
-            else if(ourGameMove2[0] == 3){
-                reply = "GAME " + gameID2 + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
-            }
-            else if(ourGameMove2[0] == 4){
-                reply = "GAME " + gameID2 + " TILE " + arr[12] + " UNPLACEABLE RETRIEVE TIGER AT " + ourGameMove2[1] + " " + ourGameMove2[2] + "\r\n";
-            }
-            else if(ourGameMove2[0] == 5){
-                reply = "GAME " + gameID2 + " TILE " + arr[12] + " UNPLACEABLE ADD ANOTHER TIGER TO " + ourGameMove2[1] + " " + ourGameMove2[2] + "\r\n";
-            }
+            reply = ourGameMove2;
+            // if(ourGameMove2[0] == 0){
+            //     reply = "GAME " + gameID2 + "  PLACE " + arr[12] + " AT " + ourGameMove2[1] + " " + ourGameMove2[2] + " " + ourGameMove2[3] + " NONE\r\n";
+            // }
+            // else if(ourGameMove2[0] == 1){
+            //     reply = "GAME " + gameID2 + " PLACE " + arr[12] + " AT " + ourGameMove2[1] + " " + ourGameMove2[2] + " " + ourGameMove2[3] + " CROCODILE\r\n";
+            // }
+            // else if(ourGameMove2[0] == 2){
+            //      reply = "GAME " + gameID2 + " PLACE " + arr[12] + " AT " + ourGameMove2[1] + " " + ourGameMove2[2] + " " + ourGameMove2[3] + " TIGER " + ourGameMove2[4] + "\r\n";
+            // }
+            // else if(ourGameMove2[0] == 3){
+            //     reply = "GAME " + gameID2 + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
+            // }
+            // else if(ourGameMove2[0] == 4){
+            //     reply = "GAME " + gameID2 + " TILE " + arr[12] + " UNPLACEABLE RETRIEVE TIGER AT " + ourGameMove2[1] + " " + ourGameMove2[2] + "\r\n";
+            // }
+            // else if(ourGameMove2[0] == 5){
+            //     reply = "GAME " + gameID2 + " TILE " + arr[12] + " UNPLACEABLE ADD ANOTHER TIGER TO " + ourGameMove2[1] + " " + ourGameMove2[2] + "\r\n";
+            // }
             
         }
         
@@ -361,6 +369,9 @@ int main (int argc, char *argv[]){
       else if(arr[0].compare("END") == 0 && arr[2].compare("ROUND") == 0)
       {
         //END OF ROUND <rid> OF <rounds> (PLEASE WAIT FOR THE NEXT MATCH)
+        player1->cleanUpGame();
+        player2->cleanUpGame();
+
         delete player1;
         delete player2;
         reply = "wait\r\n";
