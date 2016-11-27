@@ -5,13 +5,14 @@
 
 using namespace std;
 
-public class MasterList
+ class MasterList
 {
+	
 /// 1 = River, 2 = Jungle, 3 = Trail.
 /// cluster IDs are arbitrary 
 /// for the sake of "competeing corners" jungle takes presedense over river.  
-
-       Map Mappy = new Map;
+	private:
+        Map Mappy = new Map;
 	Tile * Tile_1 = new Tile;
 	Tile_1->tileID = "JJJJ-";
 	Tile_1->type.insert(type.end(), {2,2,2,2,2,2,2,2});
@@ -22,11 +23,7 @@ public class MasterList
 	Tile_1->Boar = false;
 	Tile_1->Deer = false;
 	Tile_1->Den = false;
-	
-	
-	
-	
-	
+		
 	Tile * Tile_2 = new Tile;
 	Tile_2->tileID = "JJJJX";
 	Tile_2->type.insert(type.end(), {2,2,2,2,2,2,2,2}); // has den
@@ -37,8 +34,7 @@ public class MasterList
 	Tile_2->Boar = false;
 	Tile_2->Deer = false;
 	Tile_2->Den = true;
-	
-	
+		
         Tile * Tile_3 = new Tile;
 	Tile_3->tileID = "JJTJX";
 	Tile_3->type.insert(type.end(),  {2,2,2,2,2,3,2,2}); // has den
@@ -49,7 +45,6 @@ public class MasterList
 	Tile_3->Boar = false;
 	Tile_3->Deer = false;
 	Tile_3->Den = true;
-
 	
 	Tile * Tile_4 = new Tile;
 	Tile_4->tileID = "TTTT-";
@@ -61,7 +56,6 @@ public class MasterList
 	Tile_4->Boar = false;
 	Tile_4->Deer = false;
 	Tile_4->Den = false;
-
 	
 	Tile * Tile_5 = new Tile;
 	Tile_5->tileID = "TJTJ-";
@@ -73,8 +67,7 @@ public class MasterList
 	Tile_5->Boar = false;
 	Tile_5->Deer = false;
 	Tile_5->Den = false;
-	
-	
+		
 	Tile * Tile_6 = new Tile;
 	Tile_6->tileID = "TJJT-";
 	Tile_6->type.insert(type.end( {2,3,2,2,2,2,2,3});
@@ -85,7 +78,6 @@ public class MasterList
 	Tile_6->Boar = false;
 	Tile_6->Deer = false;
 	Tile_6->Den = false;
-
 	
 	Tile * Tile_7 = new Tile;
 	Tile_7->tileID = "TJTT-";
@@ -97,8 +89,7 @@ public class MasterList
 	Tile_7->Boar = false;
 	Tile_7->Deer = false;
 	Tile_7->Den = false;
-	
-	
+		
 	Tile * Tile_8 = new Tile;
 	Tile_8->tileID = "LLLL-";
 	Tile_8->type.insert(type.end(), {1,1,1,1,1,1,1,1});
@@ -109,9 +100,7 @@ public class MasterList
 	Tile_8->Boar = false;
 	Tile_8->Deer = false;
 	Tile_8->Den = false;
-	
-	
-	
+		
 	Tile * Tile_9 = new Tile;
 	Tile_9->tileID = "JLLL-";
 	Tile_9->type.insert(type.end(), {2,2,2,1,1,1,1,1});
@@ -122,8 +111,6 @@ public class MasterList
 	Tile_9->Boar = false;
 	Tile_9->Deer = false;
 	Tile_9->Den = false;
-
-	
 	
 	Tile * Tile_10 = new Tile;
 	Tile_10->tileID = "LLJJ-";
@@ -135,9 +122,7 @@ public class MasterList
 	Tile_10->Boar = false;
 	Tile_10->Deer = false;
 	Tile_10->Den = false;
-	
-	
-	
+		
 	Tile * Tile_11 = new Tile;
 	Tile_11->tileID = "JLJL-";
 	Tile_11->type.insert(type.end(),  {2,2,2,1,2,2,2,1});/////
@@ -148,9 +133,7 @@ public class MasterList
 	Tile_11->Boar = false;
 	Tile_11->Deer = false;
 	Tile_11->Den = false;
-	
-	
-	
+		
 	Tile * Tile_12 = new Tile;
 	Tile_12->tileID = "LJLJ-";
 	Tile_12->type.insert(type.end(), {2,1,2,2,2,1,2,2});////
@@ -161,7 +144,6 @@ public class MasterList
 	Tile_12->Boar = false;
 	Tile_12->Deer = false;
 	Tile_12->Den = false;
-
 	
 	Tile * Tile_13 = new Tile;
 	Tile_13->tileID = "LJJJ-";
@@ -173,8 +155,7 @@ public class MasterList
 	Tile_13->Boar = false;
 	Tile_13->Deer = false;
 	Tile_13->Den = false;
-	
-	
+		
 	Tile *  Tile_14 = new Tile;
 	Tile_14->tileID = "JLLJ-";
 	Tile_14->type.insert(type.end(), {2,2,2,1,4,1,2,2});
@@ -185,7 +166,6 @@ public class MasterList
 	Tile_14->Boar = false;
 	Tile_14->Deer = false;
 	Tile_14->Den = false;
-
 	
 	Tile * Tile_15 = new Tile;
 	Tile_15->tileID = "TLJT-";
@@ -197,7 +177,6 @@ public class MasterList
 	Tile_15->Boar = false;
 	Tile_15->Deer = false;
 	Tile_15->Den = false;
-
 	
 	Tile * Tile_16 = new Tile;
 	Tile_16->tileID = "TLJTP";
@@ -209,8 +188,7 @@ public class MasterList
 	Tile_16->Boar = true;
 	Tile_16->Deer = false;
 	Tile_16->Den = false;
-	
-	
+		
 	Tile * Tile_17 = new Tile;
 	Tile_17->tileID = "JLTT-";
 	Tile_17->type.insert(type.end(), {2,2,2,1,2,3,2,3});
@@ -221,7 +199,6 @@ public class MasterList
 	Tile_17->Boar = false;
 	Tile_17->Deer = false;
 	Tile_17->Den = false;
-
 	
 	Tile * Tile_18 = new Tile;
 	Tile_18->tileID = "JLTTB";
@@ -233,7 +210,6 @@ public class MasterList
 	Tile_18->Boar = false;
 	Tile_18->Deer = false;
 	Tile_18->Den = false;
-
 	
 	Tile * Tile_19 = new Tile;
 	Tile_19->tileID = "TLTJ-";
@@ -245,8 +221,7 @@ public class MasterList
 	Tile_19->Boar = false;
 	Tile_19->Deer = false;
 	Tile_19->Den = false;
-	
-	
+		
 	Tile * Tile_20 = new Tile;
 	Tile_20->tileID = "TLTJD";
 	Tile_20->type.insert(type.end(), {2,3,2,1,2,3,2,3}); // has deer	
@@ -257,7 +232,6 @@ public class MasterList
 	Tile_20->Boar = false;
 	Tile_20->Deer = true;
 	Tile_20->Den = false;
-
 	
 	Tile * Tile_21 = new Tile;
 	Tile_21->tileID = "TLLL-";
@@ -269,8 +243,7 @@ public class MasterList
 	Tile_21->Boar = false;
 	Tile_21->Deer = false;
 	Tile_21->Den = false;
-	
-	
+		
 	Tile * Tile_22 = new Tile;
 	Tile_22->tileID = "TLTT-";
 	Tile_22->type.insert(type.end(), {2,3,2,1,2,2,2,3});
@@ -281,8 +254,7 @@ public class MasterList
 	Tile_22->Boar = false;
 	Tile_22->Deer = false;
 	Tile_22->Den = false;
-	
-	
+		
 	Tile * Tile_23 = new Tile;
 	Tile_23->tileID = "TLTTP";
 	Tile_23->type.insert(type.end(), {2,3,2,1,2,2,2,3}); // has boar	
@@ -294,7 +266,6 @@ public class MasterList
 	Tile_23->Deer = false;
 	Tile_23->Den = false;
 	
-
         Tile * Tile_24 = new Tile;
 	Tile_24->tileID = "TLLT-";
 	Tile_24->type.insert(type.end(), {2,3,2,1,1,1,2,3});
@@ -305,8 +276,7 @@ public class MasterList
 	Tile_24->Boar = false;
 	Tile_24->Deer = false;
 	Tile_24->Den = false;
-	
-	
+		
         Tile * Tile_25 = new Tile;
 	Tile_25->tileID = "TLLTB";
         Tile_25->type.insert(type.end(), {2,3,2,1,1,1,2,3}); // has ox
@@ -317,8 +287,7 @@ public class MasterList
 	Tile_25->Boar = false;
 	Tile_25->Deer = false;
 	Tile_25->Den = false;
-	
-	
+		
         Tile * Tile_26 = new Tile;
 	Tile_26->tileID = "LJTJ-";
 	Tile_26->type.insert(type.end(), {2,1,2,2,2,3,2,2});
@@ -329,8 +298,7 @@ public class MasterList
 	Tile_26->Boar = false;
 	Tile_26->Deer = false;
 	Tile_26->Den = false;
-	
-	
+		
 	Tile * Tile_27 = new Tile;
 	Tile_27->tileID = "LJTJD";
 	Tile_27->type.insert(type.end(), {2,1,2,2,2,3,2,2}); // has deer
@@ -341,8 +309,7 @@ public class MasterList
 	Tile_27->Boar = false;
 	Tile_27->Deer = true;
 	Tile_27->Den = false;
-	
-	
+		
 	Tile * Tile_28 = new Tile;
 	Tile_28->tileID = "TLLLC";
 	Tile_28->type.insert(type.end(),{2,3,2,1,1,1,1,1});
