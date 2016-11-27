@@ -7,7 +7,7 @@ using namespace std;
 
  class MasterList
 {
-	
+
 /// 1 = River, 2 = Jungle, 3 = Trail.
 /// cluster IDs are arbitrary 
 /// for the sake of "competeing corners" jungle takes presedense over river.  
