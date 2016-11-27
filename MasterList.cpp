@@ -385,10 +385,10 @@ using namespace std;
 	{			    
 	//Tile * Tile_27 = new Tile();
 	//newTile->tileID = "LJTJD";
-	int typearray[] = {2,1,2,2,2,3,2,2};
-	newTile->type(typearray,typearray+ sizeof(typearray)/sizeof(int)) ; // has deer
-	int clustarry[] = {LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+3,LastClusterId+3,LastClusterId+4,LastClusterId+1,LastClusterId+1};
-	newTile->clusterid(clustarray, clustarray + sizeof(clustarray)/ sizeof(int));
+	int *typearray[] = {2,1,2,2,2,3,2,2};
+	newTile->type(typearray,end(typearray)) ; // has deer
+	int * clustarry[] = {LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+3,LastClusterId+3,LastClusterId+4,LastClusterId+1,LastClusterId+1};
+	newTile->clusterid(clustarray, end(clusterid));
 	newTile->meeple = (8,flase);
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
