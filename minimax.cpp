@@ -71,7 +71,17 @@ int *MiniMaxDecision(tile *_TileGrid[153][153], int moveNum, tile *t, tile *temp
 	//this function generates only valid possible moves
 	generateMoves(_TileGrid, movelist, t);
 	//if generatemoves comes up with nothing then the tile doesnt work with the current board so need to handle the exceptions
-	//im going to look into this tonight
+	if(movelist.size() == 0){
+		//we can either do nothing
+		bestmoves[index] = 0;
+		bestmoves[index+1] = 0;
+		bestmoves[index+2] = 0;
+		bestmoves[index+3] = 0;
+		return bestmoves;
+		//or pick up one of their previously played tigers and return it to their supply, which sounds doable but its not that important
+		//or put another a tiger from their supply on top of a tiger they previously played, but this sounds complicated
+		//but we do need to know how to repond to both of these things if our opponent does this to us
+	}
 	//this next part evaluates the possible move and compares it with future moves
 	while(!movelist.empty()) {
 		x = movelist.front();
