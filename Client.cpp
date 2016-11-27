@@ -206,7 +206,7 @@ int main(int argc, char *argv[])
       {
         ssin >> arr[i];
       }
-
+      
       if(arr[0].compare("THIS") == 0)
       {
         //THIS IS SPARTA!
