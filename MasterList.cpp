@@ -11,10 +11,12 @@ using namespace std;
 /// 1 = River, 2 = Jungle, 3 = Trail.
 /// cluster IDs are arbitrary 
 /// for the sake of "competeing corners" jungle takes presedense over river.  
+
 	private:
-        Map Mappy = new Map;
+    Map Mappy = new Map;
 	Tile * Tile_1 = new Tile();
 	Tile_1->tileID = "JJJJ-";
+
 	Tile_1->type.insert(type.end(), {2,2,2,2,2,2,2,2});
 	Tile_1->clusterid.insert(clusterid.end(),{1,1,1,1,1,1,1,1});
 	Tile_1->meeple.insert(meeple.end(),{false,false,false,false,false,false,false,false});
@@ -23,9 +25,11 @@ using namespace std;
 	Tile_1->Boar = false;
 	Tile_1->Deer = false;
 	Tile_1->Den = false;
+
 		
 	Tile * Tile_2 = new Tile();
 	Tile_2->tileID = "JJJJX";
+
 	Tile_2->type.insert(type.end(), {2,2,2,2,2,2,2,2}); // has den
 	Tile_2->clusterid.insert(clusterid.end(), {1,1,1,1,1,1,1,1});
 	Tile_2->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
@@ -34,9 +38,11 @@ using namespace std;
 	Tile_2->Boar = false;
 	Tile_2->Deer = false;
 	Tile_2->Den = true;
+
 		
-        Tile * Tile_3 = new Tile();
+    Tile * Tile_3 = new Tile();
 	Tile_3->tileID = "JJTJX";
+
 	Tile_3->type.insert(type.end(),  {2,2,2,2,2,3,2,2}); // has den
 	Tile_3->clusterid.insert(clusterid.end(),{1,1,1,1,1,1,1,1});
 	Tile_3->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});

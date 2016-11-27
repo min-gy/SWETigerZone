@@ -26,7 +26,9 @@ public:
 
     void init();
     void makeMyMove_g();
+    void addFirstTile_g();
     //void makeOppoMove_g();
+    addFirstTile_g();
 
     int getCurrentStateEnum();
 
@@ -50,6 +52,10 @@ GameEngine::~GameEngine(){
 void GameEngine::init(){
     currentStateEnum = START;
     currentState = new state_START();
+}
+
+void GameEngine::addFirstTile_g(string tile, int x, int y, int orientation){
+    //myMap->addTile(tile, x, y, orientation);
 }
 
 void GameEngine::setNextState(int newStateEnum){

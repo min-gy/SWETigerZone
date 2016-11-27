@@ -18,7 +18,11 @@ vector<int> clusterid;
 vector<bool> meeple;
  
 //vector<TileRegion> sides;
+
 string tileID;
+
+
+
 bool Deer;
 bool Boar;
 bool Ox;
@@ -29,6 +33,9 @@ int orientation;
 int croc_count;//public:
 //	Tile() : sides(8) 
 //	{}
+
+Tile();
+~Tile();
 	
 };
 //rotate right function below
