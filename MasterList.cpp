@@ -7,18 +7,16 @@ using namespace std;
 
  class MasterList
 {
-
 /// 1 = River, 2 = Jungle, 3 = Trail.
 /// cluster IDs are arbitrary 
 /// for the sake of "competeing corners" jungle takes presedense over river.  
-
-	private:
     //Map Mappy = new Map;
 	
-	 
-	Tile deck[77];
-	for(int x = 0; if x < givendeck.length(); x++)
-	{	
+  Tile[] createDeck(string[] givendeck)
+	{
+	    Tile deck[77] ;
+	   for(int x = 0; if x < givendeck.length(); x++)
+	  {	
 	        Tile * newTile = new Tile();
 		if(givendeck[x] == "JJJJ-")
 		{
@@ -416,7 +414,7 @@ using namespace std;
 	
     }
 	return deck;
-			     
+}		     
 	/*Tile  Tile_1 = new Tile();
 	Tile_1.tileID = "JJJJ-";
 	Tile_1.type.insert(type.end(), {2,2,2,2,2,2,2,2});
