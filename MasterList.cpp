@@ -22,9 +22,9 @@ using namespace std;
 		if(givendeck[x] == "JJJJ-")
 		{
 	       // newTile->tileID = "JJJJ-";
-	        newTile->type.insert(type.end(), {2,2,2,2,2,2,2,2});
-	        newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1});
-	        newTile->meeple.insert(meeple.end(),{false,false,false,false,false,false,false,false});
+	        newTile->type = (2,2,2,2,2,2,2,2);
+	        newTile->clusterid = (LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1);
+	        newTile->meeple = (false,false,false,false,false,false,false,false);
 	        newTile->croc_count = 0;
 		newTile->orientation = 0;
 	        newTile->Ox = 0;
@@ -37,9 +37,9 @@ using namespace std;
 		else if(givendeck[x] == "JJJJX")
 		{
 	       // newTile->tileID = "JJJJX";
-		newTile->type.insert(type.end(), {2,2,2,2,2,2,2,2}); // has den
-		newTile->clusterid.insert(clusterid.end(), {LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1});
-		newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
+		newTile->type = (2,2,2,2,2,2,2,2); // has den
+		newTile->clusterid = (LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1);
+		newTile->meeple.insert(false,false,false,false,false,false,false,false);
 		newTile->croc_count = 0;
 		newTile->orientation = 0;
 		newTile->Ox = 0;
