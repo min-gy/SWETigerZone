@@ -7,7 +7,6 @@ using namespace std;
 
 class Player{
 
-
 public:
 	GameEngine * myGameEngine;
 	int MeepleCountMe;
@@ -17,7 +16,7 @@ public:
 	int TilesRemaining;
 
 	//Map * PlayerMap;
-};
+
 
 	int tempNextState;
 
@@ -26,6 +25,9 @@ public:
 
 	void startNewGame();
 	void runGame();
+	void makeMyMove_p();
+	void makeOppoMove_p();
+
 	void cleanUpGame();
 };
 
@@ -52,5 +54,13 @@ void Player::runGame(){
 
 void Player::cleanUpGame(){
 	delete myGameEngine->currentState;
+}
+
+void Player::makeMyMove_p(){
+	//myGameEngine->makeMyMove_g(move argument)
+}
+
+void Player::makeOppoMove_p(){
+	//myGameEngine->makeOppoMove_g(move argument)
 }
 

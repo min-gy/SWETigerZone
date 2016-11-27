@@ -26,6 +26,8 @@ public:
     void init();
     void changeState();
     void setNextState(int newStateEnum);
+    //void makeMyMove_g();
+    //void makeOppoMove_g();
 
     int getCurrentStateEnum();
 
@@ -93,7 +95,7 @@ int GameEngine::getCurrentStateEnum(){
 }
 
 
-///////////Game states classes definition
+/////////////Game states classes definition
 state_START::state_START(){
     message = "START state";
     std::cout << message << "\n";

@@ -1,7 +1,7 @@
 #include <vector>
 #include <iostream>
 #include "PlayerClass.cpp"
-#include "Client.cpp"
+//#include "Client.cpp"
 
 using namespace std;
 
@@ -9,7 +9,7 @@ int main (int argc, char *argv[]){
     Player * player1 = new Player();
     Player * player2 = new Player();
 
-    Client * client = new Client();
+    //Client * client = new Client();
 
     
 

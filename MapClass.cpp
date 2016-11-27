@@ -1,13 +1,13 @@
 #include <iostream>
 #include <vector>
 #include "TileClass.cpp"
-#include "ComponentTrackerClass.cpp"
+#include "CompClass.h"
 using namespace std;
 
 class Map
 {
 public:
-	ComponentTracker * MainList[100]; //Main component tracking feature of Map/Terrain
+	CompTracker * MainList[100]; //Main component tracking feature of Map/Terrain
 	Tile TileGrid[153][153];
 };
 
@@ -31,12 +31,12 @@ void placeMeeple(int x, int y, Map GameMap, Tile GameTile, int MeepleLoc)
 	{
 		bool MMeeple = true;
 		/*GameMap.MainList[GameTile.CenterClusterid]
-		ComponentTrackerUpdate(); //Not yet completed, within ComponentTrackerClass*/
+		CompTrackerUpdate(); //Not yet completed, within CompTrackerClass*/
 	}
 	else
 	{
 		GameMap.TileGrid[x][y].meeple.at(MeepleLoc) = true;
-		/*ComponentTrackerUpdate();//GameMap.MainList[GameTile.clusterid(MeepleLoc)]*/
+		/*CompTrackerUpdate();//GameMap.MainList[GameTile.clusterid(MeepleLoc)]*/
 	}
 
 	//id refers to choices available to place given tile

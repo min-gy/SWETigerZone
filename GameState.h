@@ -1,6 +1,7 @@
+#include <string>
+
 #ifndef GAMESTATE_H_
 #define GAMESTATE_H_
-#include <string>
 
 class GameState{
 
