@@ -26,7 +26,7 @@ public:
 	int myMove[5];
 	string tileStack;
 	
-	vector<*Tile> tileStack;
+	vector<*Tile> randomTileStack;
 	static const int BESTVALUE = 1000000;
 	static tile _TileGrid[153][153] = {{0}};
 	static bool _TilePresent[153][153] = {{false}};
@@ -113,17 +113,17 @@ void Player::placeOppoMove_p(string move[]){
 */
 }
 
-void Player::getTileStack(string tileString){
+void Player::getTileStack(string[] tileString){
 	Tile tempTile = new Tile();
 	for(size of tileString)
 		take that specific string named temp
-		temp2[0] = temp1[i];
-		temp2[1] = temp1[i+1];
-		temp2[2] = temp1[i+2];
-		temp2[3] = temp1[i+3];
-		temp2[4] = temp1[i+4];
-		tempTile = getTile(temp2);
-		temp.push_back(tempTile);
+		// temp2[0] = temp1[i];
+		// temp2[1] = temp1[i+1];
+		// temp2[2] = temp1[i+2];
+		// temp2[3] = temp1[i+3];
+		// temp2[4] = temp1[i+4];
+		tempTile = getTile(tileString[i]);
+		randomTileStack.push_back(tempTile);
 
 	//parse tileString to tileStack
 }
@@ -204,9 +204,9 @@ Tile* getTile(char *temp2){
 	}
 }
 
-tile tileStructure(int i){
+Tile tileStructure(int i){
 	if(i == 0){
-		tile Tile_1;
+		//tile Tile_1;
 		Tile tile_1 = new Tile(
                                 {'J', 'J', 'J', 'J', '-'},
                                 {2,2,2,2,2,2,2,2},
