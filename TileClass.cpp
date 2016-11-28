@@ -26,7 +26,8 @@ public:
     int x;
     int y;
     //0 = top, 1 = right, 2 = bottom, 3 = left
-    bool completion[4];
+    bool completion[];
+    bool * completionPtr = &completion[0];
 
     Tile(vector<char>, vector<int>, vector<int>, vector<bool>, int, bool, bool, bool, bool, int, int, bool[]);
     ~Tile();
@@ -45,7 +46,7 @@ Tile::Tile(vector<char> description, vector<int> geoType, vector<int> clust, vec
     Den = den;
     x = X;
     y = Y;
-    completion = completedSides;
+    completionPtr = completedSides;
 }
 
 Tile::~Tile(){
