@@ -311,7 +311,7 @@ int main (int argc, char *argv[]){
         
             }
             else if((ourGameMove1[3]) != 0){
-                 reply = "GAME " + gameID1 + " MOVE " + arr[3] + "  PLACE " + arr[12] + " AT " + *(ourGameMove1)[0]  + " " + *(ourGameMove1)[1] + " " + *(ourGameMove1)[2] + " NONE\r\n";
+                 reply = "GAME " + gameID1 + " MOVE " + arr[3] + "  PLACE " + arr[12] + " AT " + (*ourGameMove1)[0]  + " " + (*ourGameMove1)[1] + " " + (*ourGameMove1)[2] + " NONE\r\n";
             }
             // else if(*(ourGameMove1+3) == 4){
             //     reply = "GAME " + gameID1 + " PLACE " + arr[12] + " AT " + ourGameMove1[1] + " " + ourGameMove1[2] + " " + ourGameMove1[3] + " CROCODILE\r\n";
