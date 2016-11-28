@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 
-#include "GameEngine.cpp"
+//#include "GameEngine.cpp"
 #include "TileClass.cpp"
 
 //#include "GameEngine.cpp"
@@ -16,7 +16,7 @@ using namespace std;
 class Player{
 
 public:
-	GameEngine * myGameEngine;
+	//GameEngine * myGameEngine;
 	int MeepleCountMe;
 	int MeepleCountYou;
 	int ScoreMe;
@@ -26,14 +26,14 @@ public:
 	int myMove[5];
 	string tileStack;
 	
-	vector<*Tile> randomTileStack;
+	vector<Tile*> randomTileStack;
 	static const int BESTVALUE = 1000000;
-	static tile _TileGrid[153][153] = {{0}};
-	static bool _TilePresent[153][153] = {{false}};
+	static Tile _TileGrid[153][153];
+	static bool _TilePresent[153][153];
 	static int tigerCount = 7;
 	static int crocodileCount = 2;
 	static int curScore;
-	static tile curTile;
+	static Tile curTile;
 	static vector<emptySpace> emptyTiles;
 	
 
@@ -79,10 +79,19 @@ void Player::addFirstTile_p(string tile, int x, int y, int orientation){
 	cout << "addFirstTile_p function sucessfully called";
 }
 
+/*
 void Player::cleanUpGame(){
 	delete myGameEngine;
 }
+*/
 
+/*
+int* Player::makeMyMove_p(string tile){
+	//AI algorithm to decide to make move
+	//myGameEngine->getSomething();
+
+}
+*/
 
 
 // int* Player::makeMyMove_p(string tile){
