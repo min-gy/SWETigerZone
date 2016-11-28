@@ -1437,11 +1437,11 @@ Tile tileStructure(int i){
 	}
 	else if(i == 9){
 		Tile Tile_10;
-		Tile_2.des.at(0) = 'L';
-		Tile_2.des.at(1) = 'L';
-       		Tile_2.des.at(2) = 'J';
-		Tile_2.des.at(3) = 'J';
-		Tile_2.des.at(4) = '-';
+		Tile_10.des.at(0) = 'L';
+		Tile_10.des.at(1) = 'L';
+       		Tile_10.des.at(2) = 'J';
+		Tile_10.des.at(3) = 'J';
+		Tile_10.des.at(4) = '-';
 		
 		//Tile_10.des = {'L', 'L', 'J', 'J', '-'};
 		Tile_10.type.at(0) = 2;
