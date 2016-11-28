@@ -33,7 +33,7 @@ public:
 	
 };
 
-Tile::Tile(vector<char> description, vector<int> geoType, vector<int> clust, vector<bool> bigCat, int crocodile, bool ox, bool hog, bool deer, bool den, int X, int Y, bool completedSides[4]){
+Tile::Tile(vector<char> description, vector<int> geoType, vector<int> clust, vector<bool> bigCat, int crocodile, bool ox, bool hog, bool deer, bool den, int X, int Y, bool completedSides[]){
     des  = description;
     type = geoType;
     clusterid = clust;
