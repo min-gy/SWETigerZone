@@ -17,7 +17,7 @@ const int END = 4;
 class GameEngine{
 
 public:
-    Map * myMap;
+    //Map * myMap;
     //GameState * currentState = NULL;
     //int nextStateEnum = NULLSTATE;
     //int currentStateEnum = NULLSTATE;
