@@ -26,8 +26,7 @@ int main (int argc, char *argv[]){
 
     //move order: classification(holla for explaination), x, y, orientation, ZONE
     int ourGameMove1[5];
-    int ourGameMove2[5];
-    string tile;
+    int ourGameMove2[5    string tile;
 
     //move order: tile, x, y, orientation, NONE OR CROC OR TRIGER ,zone, 
     string theirGameMove1[6];
@@ -187,19 +186,13 @@ int main (int argc, char *argv[]){
         //THE REMAINING <number_tiles> TILES ARE [<tiles>]
 
         //make empty string
-        std::string tileStackArr[76];
-        for(int i = 6; i < 82; i++){
-            tileStackArr[i-6] = arr[i];
+        tileStackString = "";
+        for(int i = 6; 6 < 82; i++){
+            tileStackString.append(arr[i] + " ");
         }
         
-        for(int l = 0; l < 76; l++)
-	{
-            printf("%s\n", tileStackArr[l].c_str());
-	}
-	printf("\r\n");
-
-        player1->getTileStack(tileStackArr);
-        player2->getTileStack(tileStackArr);
+        player1->getTileStack(tileStackString);
+        player2->getTileStack(tileStackString);
  
         //store tile order
 
@@ -218,28 +211,21 @@ int main (int argc, char *argv[]){
         if (arr[5] != gameID2) {
 
             if(gameID1 == ""){
-	        printf("Setting GameID1 to <gid>\n");
                 gameID1 = arr[5];
             }
 
-            printf("AI makes move for GameID1\n");
-
-
-
             //player compute move given Tile ID
-//            ourGameMove1 = player1->giveMyMove_p(arr[12]);
 
+            tile = arr[12];
 
-            ourGameMove1 = player1->giveMyMove_p(arr[10], arr[12]);
-
-
+            ourGameMove1 = player1->giveMyMove_p(arr[12]);
             
 
 	    // if(ourGameMove1[0] == 0){
 
-//            reply = *(ourGameMove1) + *(ourGameMove1+1);
+            reply = *(ourGameMove1) + *(ourGameMove1+1);
 
-            reply = "Made Move\n";
+            
 
             // if(ourGameMove1[0] == 0){
 
@@ -266,25 +252,12 @@ int main (int argc, char *argv[]){
         else if(arr[5] != gameID1 ){
 
             if(gameID2 == ""){
-	         printf("Setting GameID2 to <gid>\n");
-                 gameID2 = arr[5];
+                gameID2 = arr[5];
             }
-
-            printf("AI makes move for gameID2\n");
-
+            tile = arr[12];
             //player compute move given Tile ID
-
-
-//            ourGameMove2 = player2->giveMyMove_p(arr[12]);
-//            reply = *(ourGameMove2) + *(ourGameMove2+1);
-
-            reply = "Made Move\n";
-
-
-            ourGameMove2 = player2->giveMyMove_p(arr[10], arr[12]);
+            ourGameMove2 = player2->giveMyMove_p(arr[12]);
             reply = *(ourGameMove2) + *(ourGameMove2+1);
-
-
 
             // if(ourGameMove2[0] == 0){
             //     reply = "GAME " + gameID2 + "  PLACE " + arr[12] + " AT " + ourGameMove2[1] + " " + ourGameMove2[2] + " " + ourGameMove2[3] + " NONE\r\n";
@@ -314,8 +287,6 @@ int main (int argc, char *argv[]){
       {
         //GAME <gid> MOVE <#> PLAYER <pid> (<move> or FORFEITED:)
         if(arr[6] != "FORFEITED:"){
-
-	    printf("NOT forfeited\n");
             //update map with other player's move
 
             //check if for game1 or game2
@@ -323,13 +294,11 @@ int main (int argc, char *argv[]){
             if (arr[1] != gameID2) {
 
                 if(gameID1 == ""){
-		    printf("Setting gameID1 to <gid>\n");
                     gameID1 = arr[1];
                 }
 
                 //if this move info is from opponent
                 if(arr[5] == oppoPlayerID){
-		    printf("Move from opponent\n");
                     if(arr[6] == "PLACED"){
 
                         theirGameMove1[0] = arr[7];
@@ -361,12 +330,11 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
-                    //player1->placeOppoMove_p(theirGameMove1);
+                    player1->placeMove_p(theirGameMove1, 1);
                 }
                 else{
-		    printf("Move is my move\n");
                     //update my stuff
-                    //player1->placeMyMove_p(ourGameMove1);
+                    player1->placeMove_p(ourGameMove1, 0);
                 }
                 
             }
@@ -374,13 +342,11 @@ int main (int argc, char *argv[]){
             else if(arr[1] != gameID1 ){
                 
                 if(gameID2 == ""){
-       		    printf("Setting gameID2 to <gid>\n");
                     gameID2 = arr[1];
                 }
                 
                 if(arr[5] == oppoPlayerID){
-                	printf("Move from opponent\n");
-                        if(arr[6] == "PLACED"){
+                    if(arr[6] == "PLACED"){
 
                         theirGameMove2[0] = arr[7];
                         theirGameMove2[1] = arr[8];
@@ -411,21 +377,16 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
-                    //player2->placeOppoMove_p(theirGameMove2);
+                    player2->placeMove_p(theirGameMove2, 1);
                 }
                 else{
-		    printf("Move is my move\n");
-                     //update my stuff
-                    //player2->placeMyMove_p(ourGameMove2);
+                    //update my stuff
+                    player2->placeMove_p(ourGameMove2, 0);
                 }
                 
             }
             //check
         }
-	else //forfeited
-	{
-          printf("Notification of Forfeit\n");
-	}
 
         //modify our game based on given ....
         

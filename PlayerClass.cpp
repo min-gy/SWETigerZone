@@ -93,6 +93,13 @@ int* Player::makeMyMove_p(string tile){
 }
 */
 
+
+// int* Player::makeMyMove_p(string tile){
+// 	//AI algorithm to decide to make move
+// 	//myGameEngine->getSomething();
+
+// }
+
 int* Player::giveMyMove_p(int moveNum, string tile){
 	//tileResult = MiniMaxDecision(_TileGrid, moveNum, tile, tileStack) to make decision
 	//return tileResult;
@@ -209,7 +216,7 @@ Tile* getTile(char *temp2){
 	}
 }
 
-Tile tileStructure(int i){
+Tile* tileStructure(int i){
 	if(i == 0){
 		//tile Tile_1;
 		Tile tile_1 = new Tile(
