@@ -412,7 +412,7 @@ int* Player::giveMyMove_p(int moveNum, string tile){
 			//m represents 0 for not placing anything, 1 for tiger on a feild, 2 for tiger on water, 3 for tiger on a path, and 4 for placing a croc
 			bestmoves[index+3] = 0;
 	int* bestmovesPtr = &bestmoves[0];
-	return bestmovesPtr;
+	return bestmoves;
 }
 
 void Player::placeMove_p(string tile, int move[3], int i){
