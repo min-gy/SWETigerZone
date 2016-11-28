@@ -65,6 +65,7 @@ void Player::cleanUpGame(){
 	delete myGameEngine;
 }
 
+/*
 int* Player::makeMyMove_p(string tile){
 	//myGameEngine->giveMyMove_g(tile);
 	
@@ -76,14 +77,17 @@ int* Player::makeMyMove_p(string tile){
 	int* ptr = &success[0];
 	return ptr;
 }
+*/
 
 void Player::placeMyMove_p(int * move){
 	//myGameEngine->placeMyMove_g(tile);
 }
 
+/*
 void Player::placeOppoMove_p(string move[]){
 	//myGameEngine->makeOppoMove_g(move argument)
 }
+*/
 
 void Player::getTileStack(string tileString){
 	tileStack = tileString;
