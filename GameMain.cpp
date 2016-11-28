@@ -5,9 +5,9 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/types.h>
-// #include <sys/socket.h>
-// #include <netinet/in.h>
-// #include <netdb.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
 #include <string>
 #include <sstream>
 
@@ -15,7 +15,7 @@
 //#include "Client.cpp"
 
 using namespace std;
-void error(const char);
+void error(const char *msg);
 
 int main (int argc, char *argv[]){
     string ourPlayerID;
@@ -148,14 +148,14 @@ int main (int argc, char *argv[]){
       else if(arr[0].compare("NEW") == 0)
       {
         //NEW CHALLENGE <cid> YOU WILL PLAY <rounds> MATCH(ES)
-        challengeID = atoi(arr[2]);
-        roundNum = int(arr[6]);
+        challengeID = atoi(arr[2].c_str());
+        roundNum = atoi(arr[6].c_str());
         reply = "wait\r\n";
       }
       else if(arr[0].compare("BEGIN") == 0)
       {
         //BEGIN ROUND <rid> of <rounds>
-        rid.push_back(int(arr[2]));
+        rid.push_back(atoi(arr[2].c_str()));
 
         //start new game
         Player * player1 = new Player();
@@ -171,14 +171,14 @@ int main (int argc, char *argv[]){
       else if(arr[0].compare("YOUR") == 0)
       {
         //YOUR OPPONENT IS PLAYER <pid>
-        oppoPlayerID = int(arr[4]);
+        oppoPlayerID = atoi(arr[4].c_str());
         reply = "wait\r\n";
       }
       else if(arr[0].compare("STARTING") == 0)
       {
         //STARTING TILE IS <tile> AT <x> <y> <orientation>
-        player1->addFirstTile_p(arr[3], arr[5], arr[6], arr[7] );
-        player2->addFirstTile_p(arr[3], arr[5], arr[6], arr[7] );
+        player1->addFirstTile_p(arr[3], atoi(arr[5].c_str()), atoi(arr[6].c_str()), atoi(arr[7].c_str()) );
+        player2->addFirstTile_p(arr[3], atoi(arr[5].c_str()), atoi(arr[6].c_str()), atoi(arr[7].c_str()) );
         reply = "wait\r\n";
       }
       else if(arr[0].compare("THE") == 0)
@@ -187,12 +187,13 @@ int main (int argc, char *argv[]){
 
         //make empty string
         tileStackString = "";
-        for(int i = 6; 6 < 82, i++){
+        for(int i = 6; 6 < 82; i++){
             tileStackString.append(arr[i] + " ");
         }
         
-        player->takeTileStack(tileStackString)
-
+        player1->getTileStack(tileStackString);
+        player2->getTileStack(tileStackString);
+ 
         //store tile order
 
         reply = "wait\r\n";
@@ -214,11 +215,9 @@ int main (int argc, char *argv[]){
             }
 
             //player compute move given Tile ID
-            ourGameMove1 = player1->giveMyMove_p(arr[12]);
+            reply = player1->makeMyMove_p(arr[12]);
             
-            reply = ourGameMove1;
-
-            // if(ourGameMove1[0] == 0){
+	    // if(ourGameMove1[0] == 0){
             //     reply = "GAME " + gameID1 + "  PLACE " + arr[12] + " AT " + ourGameMove1[1] + " " + ourGameMove1[2] + " " + ourGameMove1[3] + " NONE\r\n";
             // }
             // else if(ourGameMove1[0] == 1){
@@ -246,9 +245,8 @@ int main (int argc, char *argv[]){
             }
 
             //player compute move given Tile ID
-            ourGameMove2 = player2->giveMyMove_p(arr[12]);
+            reply = player2->makeMyMove_p(arr[12]);
 
-            reply = ourGameMove2;
             // if(ourGameMove2[0] == 0){
             //     reply = "GAME " + gameID2 + "  PLACE " + arr[12] + " AT " + ourGameMove2[1] + " " + ourGameMove2[2] + " " + ourGameMove2[3] + " NONE\r\n";
             // }
