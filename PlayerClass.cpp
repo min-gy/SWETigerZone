@@ -78,7 +78,8 @@ int* Player::giveMyMove_p(string tile){
 }
 
 void Player::placeMyMove_p(int * move){
-	//myGameEngine->placeMyMove_g(tile);
+	//something that gives function arguments below
+	myGameEngine->placeMyMove_g(string tile, int x, int y, int orientation);
 }
 
 void Player::placeOppoMove_p(string move[]){

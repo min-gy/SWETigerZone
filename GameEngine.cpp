@@ -61,7 +61,16 @@ void GameEngine::addFirstTile_g(string tile, int x, int y, int orientation){
 }
 
 void GameEngine::placeMyMove_g(string tile, int x, int y, int orientation){
-    
+    // take in int * move, int usOrThem
+	//place myMove
+    //modifie map
+    //if usOrThem = 0;//us
+        //update OUR comptrackers
+        //update OUR meeples
+    //if usOrThem = 1; //them
+        //update THEIR comptrackers
+        //update THEIR meeples
+    //returning int* meeple count....
 }
 // void GameEngine::setNextState(int newStateEnum){
 //     this->nextStateEnum = newStateEnum;
