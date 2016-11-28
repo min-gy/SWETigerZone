@@ -28,8 +28,9 @@ public:
 	void startNewGame();
 	void runGame();
 	void addFirstTile_p(string, int, int , int);
-	int* makeMyMove_p(string);
-	void makeOppoMove_p();
+	int* giveMyMove_p(string);
+	void makeOppoMove_p(string);
+	void placeMyMove_p(int*);
 	void getTileStack(string);
 	void cleanUpGame();
 };
