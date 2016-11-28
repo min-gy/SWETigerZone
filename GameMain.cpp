@@ -306,12 +306,12 @@ int main (int argc, char *argv[]){
             ourGameMove1 = player1->giveMyMove_p(atoi(arr[10].c_str()), arr[12]);
 
 
-            if(*(ourGameMove1+3) == 0){
+            if((ourGameMove1[3]) == 0){
                 reply = "GAME " + gameID2 + " MOVE " + arr[3] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
         
             }
-            else if(*(ourGameMove1+3) != 0){
-                 reply = "GAME " + gameID1 + " MOVE " + arr[3] + "  PLACE " + arr[12] + " AT " + *(ourGameMove1) + " " + *(ourGameMove1+1) + " " + *(ourGameMove1+2) + " NONE\r\n";
+            else if((ourGameMove1[3]) != 0){
+                 reply = "GAME " + gameID1 + " MOVE " + arr[3] + "  PLACE " + arr[12] + " AT " + *(ourGameMove1)[0]  + " " + *(ourGameMove1)[1] + " " + *(ourGameMove1)[2] + " NONE\r\n";
             }
             // else if(*(ourGameMove1+3) == 4){
             //     reply = "GAME " + gameID1 + " PLACE " + arr[12] + " AT " + ourGameMove1[1] + " " + ourGameMove1[2] + " " + ourGameMove1[3] + " CROCODILE\r\n";
