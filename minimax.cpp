@@ -656,6 +656,12 @@ int main(){
 tile tileStructure(int i){
 	if(i == 0){
 		tile Tile_1;
+		Tile tile_1 = new Tile(
+						sdf,
+						sdfs,
+						sdf,
+						sdf,
+						....);
 		Tile_1.des = {'J', 'J', 'J', 'J', '-'};
 		Tile_1.type = {2,2,2,2,2,2,2,2};
 		Tile_1.clusterid = {1,1,1,1,1,1,1,1};
