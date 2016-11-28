@@ -458,12 +458,12 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
-                    player2->placeOPPOMove_p(theirGameMove2, 1);
+                    player2->placeOPPOMove_p(arr[7], theirGameMove2, 1);
                 }
                 else
 		{
                     //update my stuff
-                    player2->placeMove_p(ourGameMove2, 0);
+                    player2->placeMove_p(arr[7], ourGameMove2, 0);
                 }
                 
             }
@@ -512,12 +512,12 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
-                    player1->placeOPPOMove_p(theirGameMove1, 1);
+                    player1->placeOPPOMove_p(arr[7], theirGameMove1, 1);
                 }
                 else
 		{
                     //update my stuff
-                    player1->placeMove_p(ourGameMove1, 0);
+                    player1->placeMove_p(arr[7], ourGameMove1, 0);
                 }
                 
             }
