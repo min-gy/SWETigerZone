@@ -64,7 +64,7 @@ public:
 	//void runGame();
 	void addFirstTile_p(string, int, int , int);
 	int* giveMyMove_p(int, string);
-	void placeMove_p(string, int*, int);
+	void placeMove_p(string, int[], int);
 	void getTileStack(vector<string>);
 	void cleanUpGame();
 
@@ -91,7 +91,7 @@ public:
         void updateComponents(Tile[153][153], int, int);
         //void gameOver();
 
-        void placeOPPOMove_p(string, string[], int);
+        void placeOPPOMove_p(string, int[], int);
 
         
         
@@ -414,12 +414,12 @@ int* Player::giveMyMove_p(int moveNum, string tile){
 	return bestmovesPtr;
 }
 
-void Player::placeMove_p(string tile, int * move, int i){
+void Player::placeMove_p(string tile, int move[3], int i){
 
     Tile * temp = getTile(tile.c_str());
-    int x = *(move);
-    int y = *(move+1);
-    int z = *(move+2);
+    int x = move[0];
+    int y = move[1];
+    int z = move[2];
     
 //     int m = z;
 // 	if(m > 0 && m < 5)
@@ -432,13 +432,13 @@ void Player::placeMove_p(string tile, int * move, int i){
 
 }
 
-void Player::placeOPPOMove_p(string tile, int * move, int i){
+void Player::placeOPPOMove_p(string tile, int move[3], int i){
 
 //decode move string array to int* 
     Tile * temp = getTile(tile.c_str());
-    int x = *(move);
-    int x = *(move+1);
-    int z = *(move+2);
+    int x = move[0];
+    int x = move[1];
+    int z = move[2];
     
 //     int m = z;
 // 	if(m > 0 && m < 5)

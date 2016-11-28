@@ -428,20 +428,20 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
-		    int * theirArr[3];
-		    theirArr[0] = ctoi(arr[9].c_str());
-                    theirArr[1] = ctoi(arr[10].c_str());
-                    theirArr[2] = ctoi(arr[11].c_str());
-		    player1->placeOPPOMove_p(arr[7], theirArr*, 1);
+		    int theirArr[3];
+		    theirArr[0] = atoi(arr[9].c_str());
+                    theirArr[1] = atoi(arr[10].c_str());
+                    theirArr[2] = atoi(arr[11].c_str());
+		    player1->placeOPPOMove_p(arr[7], theirArr, 1);
                 }
                 else
 		{
                     //update my stuff
-                    int * ourArr[3];
-		    theirArr[0] = ctoi(arr[9].c_str());
-                    theirArr[1] = ctoi(arr[10].c_str());
-                    theirArr[2] = ctoi(arr[11].c_str());
-		    player1->placeMove_p(arr[7], ourArr*, 1);
+                    int ourArr[3];
+		    ourArr[0] = atoi(arr[9].c_str());
+                    ourArr[1] = atoi(arr[10].c_str());
+                    ourArr[2] = atoi(arr[11].c_str());
+		    player1->placeMove_p(arr[7], ourArr, 1);
                 }
                 
             }
@@ -488,20 +488,20 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
-		    int * theirArr[3];
-		    theirArr[0] = ctoi(arr[9].c_str());
-                    theirArr[1] = ctoi(arr[10].c_str());
-                    theirArr[2] = ctoi(arr[11].c_str());
-		    player2->placeOPPOMove_p(arr[7], theirArr*, 1);
+		    int theirArr[3];
+		    theirArr[0] = atoi(arr[9].c_str());
+                    theirArr[1] = atoi(arr[10].c_str());
+                    theirArr[2] = atoi(arr[11].c_str());
+		    player2->placeOPPOMove_p(arr[7], theirArr, 1);
                 }
                 else
 		{
                     //update my stuff
-                    int * ourArr[3];
-		    theirArr[0] = ctoi(arr[9].c_str());
-                    theirArr[1] = ctoi(arr[10].c_str());
-                    theirArr[2] = ctoi(arr[11].c_str());
-		    player2->placeMove_p(arr[7], ourArr*, 1);
+                    int ourArr[3];
+		    ourArr[0] = atoi(arr[9].c_str());
+                    ourArr[1] = atoi(arr[10].c_str());
+                    ourArr[2] = atoi(arr[11].c_str());
+		    player2->placeMove_p(arr[7], ourArr, 1);
                 }
                 
             }
@@ -550,20 +550,20 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
-		    int * theirArr[3];
-		    theirArr[0] = ctoi(arr[9].c_str());
-                    theirArr[1] = ctoi(arr[10].c_str());
-                    theirArr[2] = ctoi(arr[11].c_str());
-		    player1->placeOPPOMove_p(arr[7], theirArr*, 1);
+		    int theirArr[3];
+		    theirArr[0] = atoi(arr[9].c_str());
+                    theirArr[1] = atoi(arr[10].c_str());
+                    theirArr[2] = atoi(arr[11].c_str());
+		    player1->placeOPPOMove_p(arr[7], theirArr, 1);
                 }
                 else
 		{
                     //update my stuff
-                    int * ourArr[3];
-		    theirArr[0] = ctoi(arr[9].c_str());
-                    theirArr[1] = ctoi(arr[10].c_str());
-                    theirArr[2] = ctoi(arr[11].c_str());
-		    player1->placeMove_p(arr[7], ourArr*, 1);
+                    int ourArr[3];
+		    ourArr[0] = atoi(arr[9].c_str());
+                    ourArr[1] = atoi(arr[10].c_str());
+                    ourArr[2] = atoi(arr[11].c_str());
+		    player1->placeMove_p(arr[7], ourArr, 1);
                 }
                 
             }
@@ -611,11 +611,11 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
-		    int * theirArr[3];
-		    theirArr[0] = ctoi(arr[9].c_str());
-                    theirArr[1] = ctoi(arr[10].c_str());
-                    theirArr[2] = ctoi(arr[11].c_str());
-		    player2->placeOPPOMove_p(arr[7], theirArr*, 1);
+		    int theirArr[3];
+		    theirArr[0] = atoi(arr[9].c_str());
+                    theirArr[1] = atoi(arr[10].c_str());
+                    theirArr[2] = atoi(arr[11].c_str());
+		    player2->placeOPPOMove_p(arr[7], theirArr, 1);
                     
                     
                 //decode theirGameMove string array to int*
@@ -624,11 +624,11 @@ int main (int argc, char *argv[]){
                 else
 		{
                     //update my stuff
-                    int * ourArr[3];
-		    theirArr[0] = ctoi(arr[9].c_str());
-                    theirArr[1] = ctoi(arr[10].c_str());
-                    theirArr[2] = ctoi(arr[11].c_str());
-		    player2->placeMove_p(arr[7], ourArr*, 1);
+                    int ourArr[3];
+		    ourArr[0] = atoi(arr[9].c_str());
+                    ourArr[1] = atoi(arr[10].c_str());
+                    ourArr[2] = atoi(arr[11].c_str());
+		    player2->placeMove_p(arr[7], ourArr, 1);
                 }
                 
             }
