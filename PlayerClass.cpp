@@ -364,16 +364,43 @@ void Player::InheritValue(ComponentTracker Child, ComponentTracker Parent)
 
 int* Player::giveMyMove_p(int moveNum, string tile){
 
-        Tile * ptr = getTile(tile.c_str());
-        Tile myTile = &ptr;
-	tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
-	//return tileResult;
+
+        Tile * ptr = getTile(tile.c_str())
+        Tile myTile = &ptr
+	//tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
+	list<int> movelist;
+        generateMoves(_TileGrid, movelist, myTile);
 
 
-	//return myMovePtr;
+        if(movelist.size() == 0){
+		//we are going to do nothing
+		bestmoves[index] = 0;
+		bestmoves[index+1] = 0;
+		bestmoves[index+2] = 0;
+		bestmoves[index+3] = 0;
+		return bestmoves;
+		//but we do need to know how to repond to both of these things if our opponent does this to us
+	}
 
-	int* resultPtr = &tileResult[0];
-	return resultPtr;
+        int x = movelist.front();
+        movelist.pop_front();
+        int y = movelist.front();
+        movelist.pop_front();
+        int z = movelist.front();
+        
+        int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, myTile);
+		if(value[0] > bvalue) {
+			bvalue = value[0];
+			bestmoves[index] = x;
+			bestmoves[index+1] = y;
+			bestmoves[index+2] = z;
+			//m represents 0 for not placing anything, 1 for tiger on a feild, 2 for tiger on water, 3 for tiger on a path, and 4 for placing a croc
+			bestmoves[index+3] = value[1];
+			index = 0;
+		}
+
+	int* bestmovesPtr = &bestmoves[0];
+	return bestmovesPtr;
 }
 
 void Player::placeMove_p(string tile, int * move){
