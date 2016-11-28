@@ -84,28 +84,30 @@ void Player::cleanUpGame(){
 }
 
 
-/*
+
 int* Player::makeMyMove_p(string tile){
 	//AI algorithm to decide to make move
-	myGameEngine->getSomething();
-=======
-int* Player::giveMyMove_p(int moveNum, string tile){
-	//MiniMaxDecision(_TileGrid, moveNum, tile, tileStack) to make decision
+	//myGameEngine->getSomething();
 
->>>>>>> more work on integration
+}
+
+int* Player::giveMyMove_p(int moveNum, string tile){
+	//tileResult = MiniMaxDecision(_TileGrid, moveNum, tile, tileStack) to make decision
+	//return tileResult;
+
 
 	//return myMovePtr;
 	int myMove[3] = {X, Y, orientation};
 	int* ptr = &success[0];
 	return ptr;
 }
-*/
+
 
 
 void Player::placeMove_p(string tile, int * move, int usOrThem){
 	//something that gives function arguments below
-	myGameEngine->placeMyMove_g(tile, x, y, orientation, urOrThem);
-
+	//myGameEngine->placeMyMove_g(tile, x, y, orientation, urOrThem);
+	//updateBoard(_TileGrid, *(move), *(move+1), ***tile string need to be tile object, *(move+2),)
 /*
 void Player::placeOppoMove_p(string move[]){
 	//myGameEngine->makeOppoMove_g(move argument)
