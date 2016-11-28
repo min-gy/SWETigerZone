@@ -115,8 +115,9 @@ void Player::placeOppoMove_p(string move[]){
 
 void Player::getTileStack(string[] tileString){
 	Tile tempTile = new Tile();
-	for(size of tileString)
-		take that specific string named temp
+	for(int i = 0; i < tileString.size(); i++)
+	{
+		//take that specific string named temp
 		// temp2[0] = temp1[i];
 		// temp2[1] = temp1[i+1];
 		// temp2[2] = temp1[i+2];
@@ -124,7 +125,7 @@ void Player::getTileStack(string[] tileString){
 		// temp2[4] = temp1[i+4];
 		tempTile = getTile(tileString[i]);
 		randomTileStack.push_back(tempTile);
-
+        }
 	//parse tileString to tileStack
 }
 
