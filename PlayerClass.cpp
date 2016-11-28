@@ -92,6 +92,8 @@ public:
         //void gameOver();
 
         void placeOPPOMove_p(string, string[], int);
+
+        
         
 
 };
@@ -366,11 +368,13 @@ void Player::InheritValue(ComponentTracker Child, ComponentTracker Parent)
 
 int* Player::giveMyMove_p(int moveNum, string tile){
 
-
-        Tile * ptr = getTile(tile.c_str())
-        Tile myTile = &ptr
+        int bvalue = -BESTVALUE;
+        int index = 0;
+        Tile * ptr = getTile(tile.c_str());
+        Tile myTile = *ptr;
 	//tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
 	list<int> movelist;
+        int bestmoves[4];
         generateMoves(_TileGrid, movelist, myTile);
 
 
@@ -390,17 +394,22 @@ int* Player::giveMyMove_p(int moveNum, string tile){
         movelist.pop_front();
         int z = movelist.front();
         
-        int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, myTile);
-		if(value[0] > bvalue) {
-			bvalue = value[0];
-			bestmoves[index] = x;
+        // int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, myTile);
+	// 	if(value[0] > bvalue) {
+	// 		bvalue = value[0];
+	// 		bestmoves[index] = x;
+	// 		bestmoves[index+1] = y;
+	// 		bestmoves[index+2] = z;
+	// 		//m represents 0 for not placing anything, 1 for tiger on a feild, 2 for tiger on water, 3 for tiger on a path, and 4 for placing a croc
+	// 		bestmoves[index+3] = value[1];
+	// 		index = 0;
+	// 	}
+
+        bestmoves[index] = x;
 			bestmoves[index+1] = y;
 			bestmoves[index+2] = z;
 			//m represents 0 for not placing anything, 1 for tiger on a feild, 2 for tiger on water, 3 for tiger on a path, and 4 for placing a croc
-			bestmoves[index+3] = value[1];
-			index = 0;
-		}
-
+			bestmoves[index+3] = 0;
 	int* bestmovesPtr = &bestmoves[0];
 	return bestmovesPtr;
 }
@@ -409,21 +418,21 @@ void Player::placeMove_p(string tile, int * move, int i){
 
     Tile * temp = getTile(tile.c_str());
     int x = *(move);
-    int x = *(move+1);
+    int y = *(move+1);
     int z = *(move+2);
     
-    int m = z;
-	if(m > 0 && m < 5)
-		updateTigerCount(0);
-	if(m == 5)
-		updateCrocodileCount();
+//     int m = z;
+// 	if(m > 0 && m < 5)
+// 		updateTigerCount(0);
+// 	if(m == 5)
+// 		updateCrocodileCount();
 	updateBoard(_TileGrid, x, y, temp, z);
-	updateComponents(_TileGrid, x, y);
+	//updateComponents(_TileGrid, x, y);
  
 
 }
 
-void Player::placeOPPOMove_p(string tile, string[] move, int i){
+void Player::placeOPPOMove_p(string tile, int * move, int i){
 
 //decode move string array to int* 
     Tile * temp = getTile(tile.c_str());
@@ -431,13 +440,13 @@ void Player::placeOPPOMove_p(string tile, string[] move, int i){
     int x = *(move+1);
     int z = *(move+2);
     
-    int m = z;
-	if(m > 0 && m < 5)
-		updateTigerCount(0);
-	if(m == 5)
-		updateCrocodileCount();
+//     int m = z;
+// 	if(m > 0 && m < 5)
+// 		updateTigerCount(0);
+// 	if(m == 5)
+// 		updateCrocodileCount();
 	updateBoard(_TileGrid, x, y, temp, z);
-	updateComponents(_TileGrid, x, y);
+	//updateComponents(_TileGrid, x, y);
    
 
 }
@@ -521,6 +530,7 @@ void Player::updateBoard(Tile _TileGrid[153][153], int x, int y, Tile * t, int o
 
 //start of minimax algorithm 
 int *Player::MiniMaxDecision(Tile _TileGrid[153][153], int moveNum, Tile t, vector<Tile> temp) {
+        Tile * tile = &t;
 	int bvalue = -BESTVALUE, index = 0, x, y, z;
 	list<int> movelist;
 	int bestmoves[4];
@@ -567,8 +577,8 @@ int *Player::MiniMaxDecision(Tile _TileGrid[153][153], int moveNum, Tile t, vect
 	if(m > 0 && m < 5)
 		updateTigerCount(0);
 	if(m == 5)
-		updateCrocodileCount();
-	updateBoard(_TileGrid, x, y, t, z);
+		//updateCrocodileCount();
+	updateBoard(_TileGrid, x, y, tile, z);
 	updateComponents(_TileGrid, x, y);
 	//update components?
 	//update meeplecount?

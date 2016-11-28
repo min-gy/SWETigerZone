@@ -565,7 +565,11 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
-                    player2->placeMove_p(arr[7], theirGameMove2, 1);
+                    
+                    
+                //decode theirGameMove string array to int*
+                //int* something = logic to return int* from theirGameMove
+                    player2->placeMove_p(arr[7], something, 1);
                 }
                 else
 		{
