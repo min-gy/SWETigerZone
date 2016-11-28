@@ -29,12 +29,17 @@ void rotateTile(Tile X, int orientation)
 	if(orientation == 90)
     {
         rotate(X.type.begin(), X.type.begin() + 3, X.type.end());
+        rotate(X.clusterid.begin(), X.clusterid.begin() + 3, X.clusterid.end());
     }else if(orientation == 180)
     {
         rotate(X.type.begin(), X.type.begin() + 6, X.type.end());
+        rotate(X.clusterid.begin(), X.clusterid.begin() + 6, X.clusterid.end());
     }else if(orientation == 270)
     {
-        rotate(X.type.begin(), X.type.begin() + 9, X.type.end());
+        rotate(X.type.begin(), X.type.begin() + 6, X.type.end());
+        rotate(X.type.begin(), X.type.begin() + 3, X.type.end());
+        rotate(X.clusterid.begin(), X.clusterid.begin() + 6, X.clusterid.end());
+        rotate(X.clusterid.begin(), X.clusterid.begin() + 3, X.clusterid.end());
     }else
     {
         cerr<<"Invalid"<<endl;
