@@ -433,15 +433,6 @@ void Player::placeMove_p(string tile, int move[3], int i){
 
 }
 
-<<<<<<< HEAD
-void Player::placeOPPOMove_p(string tile, int move[3], int i){
-
-//decode move string array to int* 
-    Tile * temp = getTile(tile.c_str());
-    int x = move[0];
-    int x = move[1];
-    int z = move[2];
-=======
 // void Player::placeOPPOMove_p(string tile, int * move, int i){
 
 // //decode move string array to int* 
@@ -449,7 +440,7 @@ void Player::placeOPPOMove_p(string tile, int move[3], int i){
 //     int x = *(move);
 //     int x = *(move+1);
 //     int z = *(move+2);
->>>>>>> bug
+
     
 // //     int m = z;
 // // 	if(m > 0 && m < 5)
