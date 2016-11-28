@@ -22,9 +22,18 @@ public:
 	Tile TileGrid[153][153];
     bool TilePresent[153][153];
     vector<emptySpace> emptyTiles;
+    Map();
+    ~Map();
+
+    void rotateTile(Tile, int);
+    void placeTile(int, int, Tile);
+    void placeMeeple(int, int, Tile, int);
+    void placeCrocodile(int, int, Tile, int);
 };
 
-void rotateTile(Tile X, int orientation)
+
+
+void Map::rotateTile(Tile X, int orientation)
 {
 	if(orientation == 90)
     {
@@ -46,15 +55,15 @@ void rotateTile(Tile X, int orientation)
     }
 	//include orientation specification (90 degree, 270 degree etc.)
 
-};*/
-void placeTile(int x, int y, Map GameMap, Tile GameTile)
+}
+void Map::placeTile(int x, int y, Tile GameTile)
 {
-	GameMap.TileGrid[x][y] = GameTile;
-    GameMap.TileGrid[x][y].x = x;
-    GameMap.TileGrid[x][y].y = y;
-};
+	TileGrid[x][y] = GameTile;
+    TileGrid[x][y].x = x;
+    TileGrid[x][y].y = y;
+}
 
-void placeMeeple(int x, int y, Map GameMap, Tile GameTile, int MeepleLoc)
+void Map::placeMeeple(int x, int y, Tile GameTile, int MeepleLoc)
 {
 	if (MeepleLoc == 9)
 	{
@@ -64,16 +73,16 @@ void placeMeeple(int x, int y, Map GameMap, Tile GameTile, int MeepleLoc)
 	}
 	else
 	{
-		GameMap.TileGrid[x][y].meeple.at(MeepleLoc) = true;
+		TileGrid[x][y].meeple.at(MeepleLoc) = true;
 		/*CompTrackerUpdate();//GameMap.MainList[GameTile.clusterid(MeepleLoc)]*/
 	}
 
 	//id refers to choices available to place given tile
-};
-void placeCrocodile(int x, int y, Map* GameMap, Tile GameTile, int croc_count)
+}
+void Map::placeCrocodile(int x, int y, Tile GameTile, int croc_count)
 {
-	if((GameMap->TileGrid[x][y].croc_count) = 0  )
+	if((TileGrid[x][y].croc_count) == 0  )
 	{
-		GameMap->TileGrid[x][y].croc_count = 1;
+		TileGrid[x][y].croc_count = 1;
 	}
 }

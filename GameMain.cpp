@@ -27,6 +27,7 @@ int main (int argc, char *argv[]){
     //move order: classification(holla for explaination), x, y, orientation, ZONE
     int ourGameMove1[5];
     int ourGameMove2[5];
+    string tile;
 
     //move order: tile, x, y, orientation, NONE OR CROC OR TRIGER ,zone, 
     string theirGameMove1[6];
@@ -215,6 +216,9 @@ int main (int argc, char *argv[]){
             }
 
             //player compute move given Tile ID
+
+            tile = arr[12];
+
             ourGameMove1 = player1->giveMyMove_p(arr[12]);
             
 
@@ -251,7 +255,7 @@ int main (int argc, char *argv[]){
             if(gameID2 == ""){
                 gameID2 = arr[5];
             }
-
+            tile = arr[12];
             //player compute move given Tile ID
             ourGameMove2 = player2->giveMyMove_p(arr[12]);
             reply = *(ourGameMove2) + *(ourGameMove2+1);
@@ -327,11 +331,11 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
-                    player1->placeOppoMove_p(theirGameMove1);
+                    player1->placeMove_p(theirGameMove1, 1);
                 }
                 else{
                     //update my stuff
-                    player1->placeMyMove_p(ourGameMove1);
+                    player1->placeMove_p(ourGameMove1, 0);
                 }
                 
             }
@@ -374,11 +378,11 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
-                    player2->placeOppoMove_p(theirGameMove2);
+                    player2->placeMove_p(theirGameMove2, 1);
                 }
                 else{
                     //update my stuff
-                    player2->placeMyMove_p(ourGameMove2);
+                    player2->placeMove_p(ourGameMove2, 0);
                 }
                 
             }

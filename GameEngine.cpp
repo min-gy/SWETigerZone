@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 //#include "GameState.h"
-//#include "MapClass.cpp"
+#include "MapClass.cpp"
 
 using namespace std;
 
@@ -17,7 +17,7 @@ const int END = 4;
 class GameEngine{
 
 public:
-    //Map * myMap;
+    Map * myMap;
     //GameState * currentState = NULL;
     //int nextStateEnum = NULLSTATE;
     //int currentStateEnum = NULLSTATE;
@@ -44,7 +44,7 @@ public:
 
 //Game engine class definition
 GameEngine::GameEngine(){
-    //myMap = new Map();
+    myMap = new Map();
 }
 
 GameEngine::~GameEngine(){
@@ -60,7 +60,7 @@ void GameEngine::addFirstTile_g(string tile, int x, int y, int orientation){
     //myMap->addTile(tile, x, y, orientation);
 }
 
-void GameEngine::placeMyMove_g(string tile, int x, int y, int orientation){
+void GameEngine::placeMyMove_g(string tile, int x, int y, int orientation, usOrThem){
     // take in int * move, int usOrThem
 	//place myMove
     //modifie map

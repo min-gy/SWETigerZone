@@ -29,8 +29,7 @@ public:
 	void runGame();
 	void addFirstTile_p(string, int, int , int);
 	int* giveMyMove_p(string);
-	void makeOppoMove_p(string);
-	void placeMyMove_p(int*);
+	void placeMove_p(int*, int);
 	void getTileStack(string);
 	void cleanUpGame();
 };
@@ -77,14 +76,13 @@ int* Player::makeMyMove_p(string tile){
 	return ptr;
 }
 
-void Player::placeMyMove_p(int * move){
+void Player::placeMove_p(string tile, int * move, int usOrThem){
 	//something that gives function arguments below
-	myGameEngine->placeMyMove_g(string tile, int x, int y, int orientation);
+	myGameEngine->placeMyMove_g(tile, x, y, orientation, urOrThem);
+
+	//
 }
 
-void Player::placeOppoMove_p(string move[]){
-	//myGameEngine->makeOppoMove_g(move argument)
-}
 
 void Player::getTileStack(string tileString){
 	tileStack = tileString;
