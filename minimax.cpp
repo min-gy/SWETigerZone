@@ -234,14 +234,14 @@ void DenCheck(tile _TileGrid[153][153], int X, int Y, int NewX, int NewY, int * 
 			{
 				if (MainList[_TileGrid[X][Y].CenterClusterid].MeepleCountMe == 1)
 				{
-					values[3] += DenScoreUpdate(MainList[_TileGrid[X][Y].CenterClusterid]);
+					values[2] += DenScoreUpdate(MainList[_TileGrid[X][Y].CenterClusterid]);
 				}
 				if (MainList[_TileGrid[X][Y].CenterClusterid].MeepleCountYou == 1)
 				{
-					values[4] += DenScoreUpdate(MainList[_TileGrid[X][Y].CenterClusterid]);
+					values[3] += DenScoreUpdate(MainList[_TileGrid[X][Y].CenterClusterid]);
 				}
-				values[1] += MeepleUpdateMe(MainList[_TileGrid[X][Y].CenterClusterid]);
-				values[2] += MeepleUpdateYou(MainList[_TileGrid[X][Y].CenterClusterid]);
+				values[0] += MeepleUpdateMe(MainList[_TileGrid[X][Y].CenterClusterid]);
+				values[1] += MeepleUpdateYou(MainList[_TileGrid[X][Y].CenterClusterid]);
 			}
 		}
 		if(_TileGrid[NewX][NewY].Den == true)
@@ -251,14 +251,14 @@ void DenCheck(tile _TileGrid[153][153], int X, int Y, int NewX, int NewY, int * 
 			{
 				if (MainList[_TileGrid[NewX][NewY].CenterClusterid].MeepleCountMe == 1)
 				{
-					values[3] += DenScoreUpdate(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
+					values[2] += DenScoreUpdate(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
 				}
 				if (MainList[_TileGrid[NewX][NewY].CenterClusterid].MeepleCountYou == 1)
 				{
-					values[4] += DenScoreUpdate(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
+					values[3] += DenScoreUpdate(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
 				}
-				values[1] += MeepleUpdateMe(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
-				values[2] += MeepleUpdateYou(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
+				values[0] += MeepleUpdateMe(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
+				values[1] += MeepleUpdateYou(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
 			}
 		}
 	}
@@ -330,14 +330,14 @@ void SingleUpdate(tile _TileGrid[153][153], tile CurrentTile, tile OldTile, int 
 				{
 					if (MainList[y].MeepleCountMe >= MainList[y].MeepleCountYou)
 					{
-						values[3] += ScoreUpdate(MainList[y]);	
+						values[2] += ScoreUpdate(MainList[y]);	
 					}
 					if (MainList[y].MeepleCountMe <= MainList[y].MeepleCountYou)
 					{
-						values[4] += ScoreUpdate(MainList[y]);
+						values[3] += ScoreUpdate(MainList[y]);
 					}
+					values[0] += MeepleUpdateMe(MainList[y]);
 					values[1] += MeepleUpdateMe(MainList[y]);
-					values[2] += MeepleUpdateMe(MainList[y]);
 				}
 			}
 		}
@@ -347,10 +347,10 @@ void SingleUpdate(tile _TileGrid[153][153], tile CurrentTile, tile OldTile, int 
 //update the components
 void updateComponents(tile _TileGrid[153][153], int X, int Y){
 	int * values;
+	values[0] = 0;
 	values[1] = 0;
 	values[2] = 0;
 	values[3] = 0;
-	values[4] = 0;
 	tile CurrentTile;
 	tile LeftTile;
 	tile RightTile;
@@ -358,7 +358,7 @@ void updateComponents(tile _TileGrid[153][153], int X, int Y){
 	tile DownTile;
 
 	CurrentTile = _TileGrid[X][Y];
-/*
+	/*
 	LeftTile = _TileGrid[X-1][Y];
 	RightTile = _TileGrid[X+1][Y];
 	UpTile = _TileGrid[X][Y+1];
@@ -386,6 +386,7 @@ void updateComponents(tile _TileGrid[153][153], int X, int Y){
 	SingleUpdate(_TileGrid, CurrentTile, LeftTile, 0, 2, 4, values);
 
 	DenUpdate(_TileGrid, X, Y, values);
+	updateTigerCount(values[0]);
 	//return values;
 }
 
@@ -439,6 +440,7 @@ int *MiniMaxDecision(tile _TileGrid[153][153], int moveNum, tile t, vector<tile>
 	if(m == 5)
 		updateCrocodileCount();
 	updateBoard(_TileGrid, x, y, t, z);
+	updateComponents(_TileGrid, x, y);
 	//update components?
 	//update meeplecount?
 	return bestmoves;
@@ -975,6 +977,7 @@ int main(){
 		//receive values from other player and message saying its our turn
 		//with the new values we would update x, y, t, and orientation before calling the updateBoard funtion
 		updateBoard(_TileGrid, x, y, t, orientation, _TilePresent);
+		updateComponents(_TileGrid, x, y);
 		tileResult = MiniMaxDecision(_TileGrid, moveNum, t, temp);
 		//return values to the server and wait for a reply
 	}
