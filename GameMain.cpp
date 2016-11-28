@@ -432,7 +432,7 @@ int main (int argc, char *argv[]){
 		    theirArr[0] = atoi(arr[9].c_str());
                     theirArr[1] = atoi(arr[10].c_str());
                     theirArr[2] = atoi(arr[11].c_str());
-		    player1->placeOPPOMove_p(arr[7], theirArr, 1);
+		    player1->placeMove_p(arr[7], theirArr, 1);
                 }
                 else
 		{
@@ -493,7 +493,7 @@ int main (int argc, char *argv[]){
 		    theirArr[0] = atoi(arr[9].c_str());
                     theirArr[1] = atoi(arr[10].c_str());
                     theirArr[2] = atoi(arr[11].c_str());
-		    player2->placeOPPOMove_p(arr[7], theirArr, 1);
+		    player2->placeMove_p(arr[7], theirArr, 1);
 
 
                 }
@@ -558,7 +558,7 @@ int main (int argc, char *argv[]){
 		    theirArr[0] = atoi(arr[9].c_str());
                     theirArr[1] = atoi(arr[10].c_str());
                     theirArr[2] = atoi(arr[11].c_str());
-		    player1->placeOPPOMove_p(arr[7], theirArr, 1);
+		    player1->placeMove_p(arr[7], theirArr, 1);
 
                 }
                 else
@@ -620,7 +620,7 @@ int main (int argc, char *argv[]){
 		    theirArr[0] = atoi(arr[9].c_str());
                     theirArr[1] = atoi(arr[10].c_str());
                     theirArr[2] = atoi(arr[11].c_str());
-		    player2->placeOPPOMove_p(arr[7], theirArr, 1);
+		    player2->placeMove_p(arr[7], theirArr, 1);
                     
                     
                 //decode theirGameMove string array to int*
