@@ -220,7 +220,7 @@ int main (int argc, char *argv[]){
 
            //ourGameMove1 = player1->giveMyMove_p(atoi(arr[10].c_str()), arr[12]);
 
-
+        
             if(*(ourGameMove1+3) == 0){
                 reply = "GAME " + gameID2 + " MOVE " + arr[3] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
         
