@@ -1421,7 +1421,7 @@ tile tileStructure(int i){
 		return Tile_27;
 	}
 	else if(i == 27){
-		tile Tile_28;
+		/*tile Tile_28;
 		Tile_28.des = {'T', 'L', 'L', 'L', 'C'};
 		Tile_28.type = {2,3,2,1,1,1,1,1};
 		Tile_28.clusterid = {1,2,3,4,4,4,4,4};
@@ -1434,6 +1434,43 @@ tile tileStructure(int i){
 		Tile_28.x = 0;
 		Tile_28.y = 0;
 		Tile_28.completion[4] = {false};
-		return Tile_28;
+		return Tile_28;*/
+		tile Tile_28;
+		//Tile_28.des = {'T', 'L', 'L', 'L', 'C'};
+		Tile_28.type.at(0) = 2;
+		Tile_28.type.at(1) = 3;
+		Tile_28.type.at(2) = 2;
+		Tile_28.type.at(3) = 1;
+		Tile_28.type.at(4) = 1;
+		Tile_28.type.at(5) = 1;
+		Tile_28.type.at(6) = 1;
+		Tile_28.type.at(7) = 1;
+		Tile_28.clusterid.at(0) = 1;
+		Tile_28.clusterid.at(1) = 2;
+		Tile_28.clusterid.at(2) = 3;
+		Tile_28.clusterid.at(3) = 4;
+		Tile_28.clusterid.at(4) = 4;
+		Tile_28.clusterid.at(5) = 4;
+		Tile_28.clusterid.at(6) = 4;
+		Tile_28.clusterid.at(7) = 4;
+		Tile_28.tiger.at(0) = false;
+		Tile_28.tiger.at(1) = false;
+		Tile_28.tiger.at(2) = false;
+		Tile_28.tiger.at(3) = false;
+		Tile_28.tiger.at(4) = false;
+		Tile_28.tiger.at(5) = false;
+		Tile_28.tiger.at(6) = false;
+		Tile_28.tiger.at(7) = false;
+		/*Tile_28.clusterid = {1,2,3,4,4,4,4,4};
+		Tile_28.tiger = {false,false,false,false,false,false,false,false};
+		Tile_28.croc_count = 1;
+		Tile_28.Ox = false;
+		Tile_28.Boar = false;
+		Tile_28.Deer = false;
+		Tile_28.Den = false;
+		Tile_28.x = 0;
+		Tile_28.y = 0;
+		Tile_28.completion[4] = {false};
+		return Tile_28;*/
 	}
 }
