@@ -224,8 +224,15 @@ int main (int argc, char *argv[]){
 
             printf("AI makes move for GameID1\n");
 
+
+
             //player compute move given Tile ID
 //            ourGameMove1 = player1->giveMyMove_p(arr[12]);
+
+
+            ourGameMove1 = player1->giveMyMove_p(arr[10], arr[12]);
+
+
             
 
 	    // if(ourGameMove1[0] == 0){
@@ -266,10 +273,18 @@ int main (int argc, char *argv[]){
             printf("AI makes move for gameID2\n");
 
             //player compute move given Tile ID
+
+
 //            ourGameMove2 = player2->giveMyMove_p(arr[12]);
 //            reply = *(ourGameMove2) + *(ourGameMove2+1);
 
             reply = "Made Move\n";
+
+
+            ourGameMove2 = player2->giveMyMove_p(arr[10], arr[12]);
+            reply = *(ourGameMove2) + *(ourGameMove2+1);
+
+
 
             // if(ourGameMove2[0] == 0){
             //     reply = "GAME " + gameID2 + "  PLACE " + arr[12] + " AT " + ourGameMove2[1] + " " + ourGameMove2[2] + " " + ourGameMove2[3] + " NONE\r\n";
