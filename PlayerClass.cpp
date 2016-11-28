@@ -90,6 +90,8 @@ public:
         int MeepleUpdateYou(ComponentTracker );
         void updateComponents(Tile[153][153], int, int);
         //void gameOver();
+
+        void placeOPPOMove_p(string, string[], int);
         
 
 };
@@ -403,10 +405,40 @@ int* Player::giveMyMove_p(int moveNum, string tile){
 	return bestmovesPtr;
 }
 
-void Player::placeMove_p(string tile, int * move){
+void Player::placeMove_p(string tile, int * move, int i){
 
-    Tile * temp = getTile(tile.c_str()); 
-    updateBoard(_TileGrid, *(move), *(move+1), temp, *(move+2));
+    Tile * temp = getTile(tile.c_str());
+    int x = *(move);
+    int x = *(move+1);
+    int z = *(move+2);
+    
+    int m = z;
+	if(m > 0 && m < 5)
+		updateTigerCount(0);
+	if(m == 5)
+		updateCrocodileCount();
+	updateBoard(_TileGrid, x, y, temp, z);
+	updateComponents(_TileGrid, x, y);
+ 
+
+}
+
+void Player::placeOPPOMove_p(string tile, string[] move, int i){
+
+//decode move string array to int* 
+    Tile * temp = getTile(tile.c_str());
+    int x = *(move);
+    int x = *(move+1);
+    int z = *(move+2);
+    
+    int m = z;
+	if(m > 0 && m < 5)
+		updateTigerCount(0);
+	if(m == 5)
+		updateCrocodileCount();
+	updateBoard(_TileGrid, x, y, temp, z);
+	updateComponents(_TileGrid, x, y);
+   
 
 }
 
@@ -537,6 +569,7 @@ int *Player::MiniMaxDecision(Tile _TileGrid[153][153], int moveNum, Tile t, vect
 	if(m == 5)
 		updateCrocodileCount();
 	updateBoard(_TileGrid, x, y, t, z);
+	updateComponents(_TileGrid, x, y);
 	//update components?
 	//update meeplecount?
 	return bestmoves;

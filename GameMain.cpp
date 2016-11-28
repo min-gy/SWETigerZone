@@ -26,8 +26,8 @@ int main (int argc, char *argv[]){
 
     //move order: classification(holla for explaination), x, y, orientation, ZONE
 
-    int ourGameMove1[4];
-    int ourGameMove2[4]
+    int* ourGameMove1;
+    int* ourGameMove2;
     string tile;
 
 
@@ -458,7 +458,7 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
-                    player2->placeMove_p(theirGameMove2, 1);
+                    player2->placeOPPOMove_p(theirGameMove2, 1);
                 }
                 else
 		{
@@ -512,7 +512,7 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
-                    player1->placeMove_p(theirGameMove1, 1);
+                    player1->placeOPPOMove_p(theirGameMove1, 1);
                 }
                 else
 		{
