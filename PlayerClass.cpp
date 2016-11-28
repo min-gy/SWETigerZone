@@ -36,7 +36,6 @@ public:
 	static Tile curTile;
 	static vector<emptySpace> emptyTiles;
 	
-
 	//myMovePtr = myMove;
 
 	//int tempNextState;
@@ -47,10 +46,13 @@ public:
 	void startNewGame();
 	//void runGame();
 	void addFirstTile_p(string, int, int , int);
-	int* giveMyMove_p(string);
-	void placeMove_p(int*, int);
-	void getTileStack(string);
+	int* giveMyMove_p(int, string);
+	void placeMove_p(string, int*, int);
+	void getTileStack(string[76]);
 	void cleanUpGame();
+
+        void updateBoard(Tile[153][153], int, int, Tile*, int);
+        Tile* getTile(char*);
 };
 
 Player::Player(){
@@ -85,20 +87,6 @@ void Player::cleanUpGame(){
 }
 */
 
-/*
-int* Player::makeMyMove_p(string tile){
-	//AI algorithm to decide to make move
-	//myGameEngine->getSomething();
-
-}
-*/
-
-
-// int* Player::makeMyMove_p(string tile){
-// 	//AI algorithm to decide to make move
-// 	//myGameEngine->getSomething();
-
-// }
 
 int* Player::giveMyMove_p(int moveNum, string tile){
 	//tileResult = MiniMaxDecision(_TileGrid, moveNum, tile, tileStack) to make decision
@@ -106,8 +94,8 @@ int* Player::giveMyMove_p(int moveNum, string tile){
 
 
 	//return myMovePtr;
-	int myMove[3] = {X, Y, orientation};
-	int* ptr = &success[0];
+	int myMove[3] = {0, 0, 0};
+	int* ptr = &myMove[0];
 	return ptr;
 }
 
@@ -115,14 +103,12 @@ int* Player::giveMyMove_p(int moveNum, string tile){
 
 void Player::placeMove_p(string tile, int * move, int usOrThem){
 
-    Tile * temp = new Tile();
-    temp = getTile(tile); 
-	updateBoard(_TileGrid, *(move), *(move+1), temp, *(move+2),)
+    Tile * temp = getTile(tile.c_str()); 
+    updateBoard(_TileGrid, *(move), *(move+1), temp, *(move+2));
 
 }
 
-void Player::getTileStack(string[] tileString){
-	Tile tempTile = new Tile();
+void Player::getTileStack(string tileString[]){
 	for(int i = 0; i < tileString.size(); i++)
 	{
 		//take that specific string named temp
@@ -131,16 +117,16 @@ void Player::getTileStack(string[] tileString){
 		// temp2[2] = temp1[i+2];
 		// temp2[3] = temp1[i+3];
 		// temp2[4] = temp1[i+4];
-		tempTile = getTile(tileString[i]);
+		Tile * tempTile = getTile(tileString[i].c_str());
 		randomTileStack.push_back(tempTile);
         }
 	//parse tileString to tileStack
 }
 
-void updateBoard(Tile _TileGrid[153][153], int x, int y, Tile t, int orien) {
+void Player::updateBoard(Tile _TileGrid[153][153], int x, int y, Tile * t, int orien) {
 	emptySpace temp;
-	t.orientation = orien;
-	_TileGrid[x][y] = t;
+	t->orientation = orien;
+	_TileGrid[x][y] = *t;
 	_TilePresent[x][y] = true;
 	//if a newly placed value is in our emptyTiles we need to erase it
 	if(!emptyTiles.empty()){
@@ -198,25 +184,10 @@ void updateBoard(Tile _TileGrid[153][153], int x, int y, Tile t, int orien) {
 	}
 }
 
-Tile* getTile(char *temp2){
-	char a = temp2[0];
-	char b = temp2[1];
-	char c = temp2[2];
-	char d = temp2[3];
-	char e = temp2[4];
-	for(int i = 0; i < 28; i++){
-		//tile structure holds all the hard coded values for each tile
-		Tile temp = tileStructure(i);
-		vector<char> temp1 = temp.des;
-		if(a == temp1[0] && b == temp1[1] && c == temp1[2] && d == temp1[3] && e == temp1[4])
-			return temp;
-	}
-}
-
 Tile* tileStructure(int i){
 	if(i == 0){
-		//tile Tile_1;
-		Tile tile_1 = new Tile(
+
+		Tile * tile_1 = new Tile(
                                 {'J', 'J', 'J', 'J', '-'},
                                 {2,2,2,2,2,2,2,2},
                                 {1,1,1,1,1,1,1,1},
@@ -243,11 +214,11 @@ Tile* tileStructure(int i){
 //		Tile_1.y = 0;
 //		Tile_1.completion[4] = {false};
         
-		return Tile_1;
+		return tile_1;
 	}
 	else if(i == 1){
-		tile Tile_2;
-        Tile tile_2 = new Tile(
+
+        Tile * tile_2 = new Tile(
                                {'J', 'J', 'J', 'J', 'X'},
                                {2,2,2,2,2,2,2,2},
                                {1,1,1,1,1,1,1,1},
@@ -272,11 +243,11 @@ Tile* tileStructure(int i){
 //		Tile_2.x = 0;
 //		Tile_2.y = 0;
 //		Tile_2.completion[4] = {false};
-		return Tile_2;
+		return tile_2;
 	}
 	else if(i == 2){
-		tile Tile_3;
-        Tile tile_3 = new Tile(
+
+        Tile * tile_3 = new Tile(
                                {'J', 'J', 'T', 'J', 'X'},
                                {2,2,2,2,2,3,2,2},
                                {1,1,1,1,1,1,1,1},
@@ -303,11 +274,11 @@ Tile* tileStructure(int i){
 //		Tile_3.y = 0;
 //		Tile_3.completion[4] = {false};
         
-		return Tile_3;
+		return tile_3;
 	}
 	else if(i == 3){
-		tile Tile_4;
-        Tile tile_4 = new Tile(
+
+        Tile * tile_4 = new Tile(
                                {'T', 'T', 'T', 'T', '-'},
                                {2,3,2,3,2,3,2,3},
                                {1,2,1,2,1,2,1,2},
@@ -332,11 +303,11 @@ Tile* tileStructure(int i){
 //		Tile_4.x = 0;
 //		Tile_4.y = 0;
 //		Tile_4.completion[4] = {false};
-		return Tile_4;
+		return tile_4;
 	}
 	else if(i == 4){
-		tile Tile_5;
-        Tile tile_5 = new Tile(
+	
+        Tile * tile_5 = new Tile(
                                {'T', 'J', 'T', 'J', '-'},
                                {2,3,2,2,2,3,2,2},
                                {1,2,1,1,1,2,1,1},
@@ -361,11 +332,11 @@ Tile* tileStructure(int i){
 //		Tile_5.x = 0;
 //		Tile_5.y = 0;
 //		Tile_5.completion[4] = {false};
-		return Tile_5;
+		return tile_5;
 	}
 	else if(i == 5){
-		tile Tile_6;
-        Tile tile_6 = new Tile(
+
+        Tile * tile_6 = new Tile(
                                {'T', 'J', 'J', 'T', '-'},
                                {2,3,2,2,2,2,2,3},
                                {1,2,1,1,1,1,1,2},
@@ -390,11 +361,11 @@ Tile* tileStructure(int i){
 //		Tile_6.x = 0;
 //		Tile_6.y = 0;
 //		Tile_6.completion[4] = {false};
-		return Tile_6;
+		return tile_6;
 	}
 	else if(i == 6){
-		tile Tile_7;
-        Tile tile_7 = new Tile(
+
+        Tile * tile_7 = new Tile(
                                {'T', 'J', 'T', 'T', '-'},
                                {2,3,2,2,2,2,3,2,3},
                                {1,2,1,1,1,2,1,2},
@@ -419,11 +390,11 @@ Tile* tileStructure(int i){
 //		Tile_7.x = 0;
 //		Tile_7.y = 0;
 //		Tile_7.completion[4] = {false};
-		return Tile_7;
+		return tile_7;
 	}
 	else if(i == 7){
-		tile Tile_8;
-        Tile tile_8 = new Tile(
+
+        Tile * tile_8 = new Tile(
                                {'L', 'L', 'L', 'L', '-'},
                                {1,1,1,1,1,1,1,1},
                                {1,1,1,1,1,1,1,1},
@@ -448,11 +419,11 @@ Tile* tileStructure(int i){
 //		Tile_8.x = 0;
 //		Tile_8.y = 0;
 //		Tile_8.completion[4] = {false};
-		return Tile_8;
+		return tile_8;
 	}
 	else if(i == 8){
-		tile Tile_9;
-        Tile tile_9 = new Tile(
+
+        Tile * tile_9 = new Tile(
                                {'J', 'L', 'L', 'L', '-'},
                                {2,2,2,1,1,1,1,1},
                                {1,1,1,2,2,2,2,2},
@@ -477,11 +448,11 @@ Tile* tileStructure(int i){
 //		Tile_9.x = 0;
 //		Tile_9.y = 0;
 //		Tile_9.completion[4] = {false};
-		return Tile_9;
+		return tile_9;
 	}
 	else if(i == 9){
-		tile Tile_10;
-        Tile tile_10 = new Tile(
+
+        Tile * tile_10 = new Tile(
                                {'L', 'L', 'J', 'J', '-'},
                                {2,1,1,1,2,2,2,2},
                                {1,2,2,2,1,1,1,1},
@@ -506,11 +477,11 @@ Tile* tileStructure(int i){
 //		Tile_10.x = 0;
 //		Tile_10.y = 0;
 //		Tile_10.completion[4] = {false};
-		return Tile_10;
+		return tile_10;
 	}
 	else if(i == 10){
-		tile Tile_11;
-        Tile tile_11 = new Tile(
+
+        Tile * tile_11 = new Tile(
                                {'J', 'L', 'J', 'L', '-'},
                                {2,2,2,1,2,2,2,1},
                                {1,1,1,2,3,3,3,2},
@@ -535,11 +506,11 @@ Tile* tileStructure(int i){
 //		Tile_11.x = 0;
 //		Tile_11.y = 0;
 //		Tile_11.completion[4] = {false};
-		return Tile_11;
+		return tile_11;
 	}
 	else if(i == 11){
-		tile Tile_12;
-        Tile tile_12 = new Tile(
+	
+        Tile * tile_12 = new Tile(
                                {'L', 'J', 'L', 'J', '-'},
                                {2,1,2,2,2,1,2,2},
                                {1,2,1,1,1,3,1,1},
@@ -564,11 +535,11 @@ Tile* tileStructure(int i){
 //		Tile_12.x = 0;
 //		Tile_12.y = 0;
 //		Tile_12.completion[4] = {false};
-		return Tile_12;
+		return tile_12;
 	}
 	else if(i == 12){
-		tile Tile_13;
-        Tile tile_13 = new Tile(
+
+        Tile * tile_13 = new Tile(
                                {'L', 'J', 'J', 'J', '-'},
                                {2,1,2,2,2,2,2,2},
                                {1,2,1,1,1,1,1,1},
@@ -593,11 +564,11 @@ Tile* tileStructure(int i){
 //		Tile_13.x = 0;
 //		Tile_13.y = 0;
 //		Tile_13.completion[4] = {false};
-		return Tile_13;
+		return tile_13;
 	}
 	else if(i == 13){
-		tile  Tile_14;
-        Tile tile_14 = new Tile(
+
+        Tile * tile_14 = new Tile(
                                {'J', 'L', 'L', 'J', '-'},
                                {2,2,2,1,4,1,2,2},
                                {1,1,1,2,0,3,1,1},
@@ -622,11 +593,11 @@ Tile* tileStructure(int i){
 //		Tile_14.x = 0;
 //		Tile_14.y = 0;
 //		Tile_14.completion[4] = {false};
-		return Tile_14;
+		return tile_14;
 	}
 	else if(i == 14){
-		tile Tile_15;
-        Tile tile_15 = new Tile(
+
+        Tile * tile_15 = new Tile(
                                {'T', 'L', 'J', 'T', '-'},
                                {2,3,2,1,2,2,2,3},
                                {1,2,1,3,1,1,1,2},
@@ -651,11 +622,11 @@ Tile* tileStructure(int i){
 //		Tile_15.x = 0;
 //		Tile_15.y = 0;
 //		Tile_15.completion[4] = {false};
-		return Tile_15;
+		return tile_15;
 	}
 	else if(i == 15){
-		tile Tile_16;
-        Tile tile_16 = new Tile(
+
+        Tile * tile_16 = new Tile(
                                {'T', 'L', 'J', 'T', 'P'},
                                {2,3,2,1,2,2,2,3},
                                {1,2,1,3,1,1,1,2},
@@ -680,11 +651,11 @@ Tile* tileStructure(int i){
 //		Tile_16.x = 0;
 //		Tile_16.y = 0;
 //		Tile_16.completion[4] = {false};
-		return Tile_16;
+		return tile_16;
 	}
 	else if(i == 16){
-		tile Tile_17;
-        Tile tile_17 = new Tile(
+
+        Tile * tile_17 = new Tile(
                                {'J', 'L', 'T', 'T', '-'},
                                {2,2,2,1,2,3,2,3},
                                {1,1,1,2,1,3,4,3},
@@ -709,11 +680,11 @@ Tile* tileStructure(int i){
 //		Tile_17.x = 0;
 //		Tile_17.y = 0;
 //		Tile_17.completion[4] = {false};
-		return Tile_17;
+		return tile_17;
 	}
 	else if(i == 17){
-		tile Tile_18;
-        Tile tile_18 = new Tile(
+	
+        Tile * tile_18 = new Tile(
                                {'J', 'L', 'T', 'T', 'B'},
                                {2,2,2,1,2,3,2,3},
                                {1,1,1,2,1,3,4,3},
@@ -738,11 +709,11 @@ Tile* tileStructure(int i){
 //		Tile_18.x = 0;
 //		Tile_18.y = 0;
 //		Tile_18.completion[4] = {false};
-		return Tile_18;
+		return tile_18;
 	}
 	else if(i == 18){
-		tile Tile_19;
-        Tile tile_19 = new Tile(
+	
+        Tile * tile_19 = new Tile(
                                {'T', 'L', 'T', 'J', '-'},
                                {2,3,2,1,2,3,2,3},
                                {1,2,3,4,3,2,1,1},
@@ -767,11 +738,11 @@ Tile* tileStructure(int i){
 //		Tile_19.x = 0;
 //		Tile_19.y = 0;
 //		Tile_19.completion[4] = {false};
-		return Tile_19;
+		return tile_19;
 	}
 	else if(i == 19){
-		tile Tile_20;
-        Tile tile_20 = new Tile(
+
+        Tile * tile_20 = new Tile(
                                {'T', 'L', 'T', 'J', 'D'},
                                {2,3,2,1,2,3,2,3},
                                {1,2,3,4,3,2,1,1},
@@ -796,11 +767,11 @@ Tile* tileStructure(int i){
 //		Tile_20.x = 0;
 //		Tile_20.y = 0;
 //		Tile_20.completion[4] = {false};
-		return Tile_20;
+		return tile_20;
 	}
 	else if(i == 20){
-		tile Tile_21;
-        Tile tile_21 = new Tile(
+
+        Tile * tile_21 = new Tile(
                                {'T', 'L', 'L', 'L', '-'},
                                {2,3,2,1,1,1,1,1},
                                {1,2,3,4,4,4,4,4},
@@ -825,11 +796,11 @@ Tile* tileStructure(int i){
 //		Tile_21.x = 0;
 //		Tile_21.y = 0;
 //		Tile_21.completion[4] = {false};
-		return Tile_21;
+		return tile_21;
 	}
 	else if(i == 21){
-		tile Tile_22;
-        Tile tile_22 = new Tile(
+
+        Tile * tile_22 = new Tile(
                                {'T', 'L', 'T', 'T', '-'},
                                {2,3,2,1,2,2,2,3},
                                {1,2,3,4,3,2,5,2},
@@ -854,11 +825,11 @@ Tile* tileStructure(int i){
 //		Tile_22.x = 0;
 //		Tile_22.y = 0;
 //		Tile_22.completion[4] = {false};
-		return Tile_22;
+		return tile_22;
 	}
 	else if(i == 22){
-		tile Tile_23;
-        Tile tile_23 = new Tile(
+
+        Tile * tile_23 = new Tile(
                                {'T', 'L', 'T', 'T', 'P'},
                                {2,3,2,1,2,2,2,3},
                                {1,2,3,4,3,2,5,2},
@@ -883,11 +854,11 @@ Tile* tileStructure(int i){
 //		Tile_23.x = 0;
 //		Tile_23.y = 0;
 //		Tile_23.completion[4] = {false};
-		return Tile_23;
+		return tile_23;
 	}	
 	else if(i == 23){
-		tile Tile_24;
-        Tile tile_24 = new Tile(
+
+        Tile * tile_24 = new Tile(
                                {'T', 'L', 'L', 'T', '-'},
                                {2,3,2,1,1,1,2,3},
                                {1,2,3,4,4,4,3,2},
@@ -912,11 +883,11 @@ Tile* tileStructure(int i){
 //		Tile_24.x = 0;
 //		Tile_24.y = 0;
 //		Tile_24.completion[4] = {false};
-		return Tile_24;
+		return tile_24;
 	}
 	else if(i == 24){
-		tile Tile_25;
-        Tile tile_25 = new Tile(
+
+        Tile * tile_25 = new Tile(
                                {'T', 'L', 'L', 'T', 'B'},
                                {2,3,2,1,1,1,2,3},
                                {1,2,3,4,4,4,3,2},
@@ -941,11 +912,11 @@ Tile* tileStructure(int i){
 //		Tile_25.x = 0;
 //		Tile_25.y = 0;
 //		Tile_25.completion[4] = {false};
-		return Tile_25;
+		return tile_25;
 	}
 	else if(i == 25){
-		tile Tile_26;
-        Tile tile_26 = new Tile(
+
+        Tile * tile_26 = new Tile(
                                {'L', 'J', 'T', 'J', '-'},
                                {2,1,2,2,2,3,2,2},
                                {1,2,3,3,3,4,1,1},
@@ -970,11 +941,11 @@ Tile* tileStructure(int i){
 //		Tile_26.x = 0;
 //		Tile_26.y = 0;
 //		Tile_26.completion[4] = {false};
-		return Tile_26;
+		return tile_26;
 	}
 	else if(i == 26){
-		tile Tile_27;
-        Tile tile_27 = new Tile(
+	
+        Tile * tile_27 = new Tile(
                                {'L', 'J', 'T', 'J', 'D'},
                                {2,1,2,2,2,3,2,2},
                                {1,2,3,3,3,4,1,1},
@@ -987,6 +958,8 @@ Tile* tileStructure(int i){
                                0,
                                0,
                                {false});
+
+                //Tile * tile_27 - new Tile
 //		Tile_27.des = {'L', 'J', 'T', 'J', 'D'};
 //		Tile_27.type = {2,1,2,2,2,3,2,2}; // has deer
 //		Tile_27.clusterid = {1,2,3,3,3,4,1,1};
@@ -999,11 +972,11 @@ Tile* tileStructure(int i){
 //		Tile_27.x = 0;
 //		Tile_27.y = 0;
 //		Tile_27.completion[4] = {false};
-		return Tile_27;
+		return tile_27;
 	}
 	else if(i == 27){
-		tile Tile_28;
-        Tile tile_28 = new Tile(
+		
+        Tile * tile_28 = new Tile(
                                {'T', 'L', 'L', 'L', 'C'},
                                {2,3,2,1,1,1,1,1},
                                {1,2,3,4,4,4,4,4},
@@ -1028,9 +1001,26 @@ Tile* tileStructure(int i){
 //		Tile_28.x = 0;
 //		Tile_28.y = 0;
 //		Tile_28.completion[4] = {false};
-		return Tile_28;
+		return tile_28;
 	}
 }
+
+
+Tile* Player::getTile(char *temp2){
+	char a = temp2[0];
+	char b = temp2[1];
+	char c = temp2[2];
+	char d = temp2[3];
+	char e = temp2[4];
+	for(int i = 0; i < 28; i++){
+		//tile structure holds all the hard coded values for each tile
+		Tile * temp = tileStructure(i);
+		vector<char> temp1 = temp->des;
+		if(a == temp1[0] && b == temp1[1] && c == temp1[2] && d == temp1[3] && e == temp1[4])
+			return temp;
+	}
+}
+
 
 
 

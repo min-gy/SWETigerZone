@@ -26,15 +26,26 @@ public:
     int x;
     int y;
     //0 = top, 1 = right, 2 = bottom, 3 = left
-    bool completion[];
-    bool * completionPtr = &completion[0];
+    vector<bool> completion;
 
-    Tile(vector<char>, vector<int>, vector<int>, vector<bool>, int, bool, bool, bool, bool, int, int, bool[]);
+    Tile(vector<char>, vector<int>, vector<int>, vector<bool>, int, bool, bool, bool, bool, int, int, vector<bool>);
     ~Tile();
 	
 };
 
-Tile::Tile(vector<char> description, vector<int> geoType, vector<int> clust, vector<bool> bigCat, int crocodile, bool ox, bool hog, bool deer, bool den, int X, int Y, bool completedSides[]){
+Tile::Tile(vector<char> description, 
+            vector<int> geoType, 
+            vector<int> clust, 
+            vector<bool> bigCat, 
+            int crocodile, 
+            bool ox, 
+            bool hog, 
+            bool deer, 
+            bool den, 
+            int X, 
+            int Y, 
+            vector<bool> completedSides){
+
     des  = description;
     type = geoType;
     clusterid = clust;
@@ -46,7 +57,7 @@ Tile::Tile(vector<char> description, vector<int> geoType, vector<int> clust, vec
     Den = den;
     x = X;
     y = Y;
-    completionPtr = completedSides;
+    completion = completedSides;
 }
 
 Tile::~Tile(){
