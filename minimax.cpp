@@ -997,6 +997,13 @@ tile tileStructure(int i){
 	
 		return Tile_1;*/
        // Tile_1.
+	Tile_1.des.at(0) = 'J';
+	Tile_1.des.at(1) = 'J';
+        Tile_1.des.at(2) = 'J';
+	Tile_1.des.at(3) = 'J';
+	Tile_1.des.at(4) = '-';
+
+	
         Tile_1.type.at(0) = 2;
         Tile_1.type.at(1) = 2;
         Tile_1.type.at(2) = 2;
@@ -1035,6 +1042,12 @@ tile tileStructure(int i){
     }
 	else if(i == 1){
         tile Tile_2;
+	Tile_2.des.at(0) = 'J';
+	Tile_2.des.at(1) = 'J';
+        Tile_2.des.at(2) = 'J';
+	Tile_2.des.at(3) = 'J';
+	Tile_2.des.at(4) = 'X';
+
         Tile_2.type.at(0) = 2;
         Tile_2.type.at(1) = 2;
         Tile_2.type.at(2) = 2;
@@ -1071,6 +1084,12 @@ tile tileStructure(int i){
 	}
 	else if(i == 2){
         tile Tile_3;
+	Tile_3.des.at(0) = 'J';
+	Tile_3.des.at(1) = 'J';
+        Tile_3.des.at(2) = 'T';
+	Tile_3.des.at(3) = 'J';
+	Tile_3.des.at(4) = 'X';
+	
         Tile_3.type.at(0) = 2;
         Tile_3.type.at(1) = 2;
         Tile_3.type.at(2) = 2;
@@ -1108,6 +1127,12 @@ tile tileStructure(int i){
 	else if(i == 3){
 		//
         tile Tile_4;
+	Tile_4.des.at(0) = 'T';
+	Tile_4.des.at(1) = 'T';
+        Tile_4.des.at(2) = 'T';
+	Tile_4.des.at(3) = 'T';
+	Tile_4.des.at(4) = '-';
+	
         Tile_4.type.at(0) = 2;
         Tile_4.type.at(1) = 3;
         Tile_4.type.at(2) = 2;
@@ -1144,6 +1169,12 @@ tile tileStructure(int i){
 	}
 	else if(i == 4){
         tile Tile_5;
+	Tile_5.des.at(0) = 'T';
+	Tile_5.des.at(1) = 'J';
+        Tile_5.des.at(2) = 'T';
+	Tile_5.des.at(3) = 'J';
+	Tile_5.des.at(4) = '-';
+
         Tile_5.type.at(0) = 2;
         Tile_5.type.at(1) = 3;
         Tile_5.type.at(2) = 2;
@@ -1180,6 +1211,12 @@ tile tileStructure(int i){
 	}
 	else if(i == 5){
         tile Tile_6;
+	Tile_6.des.at(0) = 'T';
+	Tile_6.des.at(1) = 'J';
+        Tile_6.des.at(2) = 'J';
+	Tile_6.des.at(3) = 'T';
+	Tile_6.des.at(4) = '-';
+	
         Tile_6.type.at(0) = 2;
         Tile_6.type.at(1) = 3;
         Tile_6.type.at(2) = 2;
@@ -1216,7 +1253,11 @@ tile tileStructure(int i){
 	}
 	else if(i == 6){
         tile Tile_7;
-        
+        Tile_7.des.at(0) = 'T';
+	Tile_7.des.at(1) = 'J';
+        Tile_7.des.at(2) = 'T';
+	Tile_7.des.at(3) = 'T';
+	Tile_7.des.at(4) = '-';
         Tile_7.type.at(0) = 2;
         Tile_7.type.at(1) = 3;
         Tile_7.type.at(2) = 2;
@@ -1253,6 +1294,12 @@ tile tileStructure(int i){
 	}
 	else if(i == 7){
         tile Tile_8;
+	Tile_8.des.at(0) = 'L';
+	Tile_8.des.at(1) = 'L';
+        Tile_8.des.at(2) = 'L';
+	Tile_8.des.at(3) = 'L';
+	Tile_8.des.at(4) = '-';
+	
         Tile_8.type.at(0) = 1;
         Tile_8.type.at(1) = 1;
         Tile_8.type.at(2) = 1;
@@ -1289,6 +1336,12 @@ tile tileStructure(int i){
 	}
 	else if(i == 8){
 		tile Tile_9;
+	       Tile_9.des.at(0) = 'J';
+	       Tile_9.des.at(1) = 'L';
+               Tile_9.des.at(2) = 'L';
+	       Tile_9.des.at(3) = 'L';
+	       Tile_9.des.at(4) = '-';
+	    
 		//Tile_9.des = {'J', 'L', 'L', 'L', '-'};
 		Tile_9.type.at(0) = 2;
 		Tile_9.type.at(1) = 2;
@@ -1329,6 +1382,12 @@ tile tileStructure(int i){
 	}
 	else if(i == 9){
 		tile Tile_10;
+		Tile_2.des.at(0) = 'L';
+		Tile_2.des.at(1) = 'L';
+       		Tile_2.des.at(2) = 'J';
+		Tile_2.des.at(3) = 'J';
+		Tile_2.des.at(4) = '-';
+		
 		//Tile_10.des = {'L', 'L', 'J', 'J', '-'};
 		Tile_10.type.at(0) = 2;
 		Tile_10.type.at(1) = 1;
@@ -1370,6 +1429,12 @@ tile tileStructure(int i){
 	else if(i == 10){
 		tile Tile_11;
 	//	Tile_11.des = {'J', 'L', 'J', 'L', '-'};
+		Tile_11.des.at(0) = 'J';
+		Tile_11.des.at(1) = 'L';
+       		Tile_11.des.at(2) = 'J';
+		Tile_11.des.at(3) = 'L';
+		Tile_11.des.at(4) = '-';
+		
 		Tile_11.type.at(0) = 2;
 		Tile_11.type.at(1) = 2;
 		Tile_11.type.at(2) = 2;
@@ -1410,6 +1475,11 @@ tile tileStructure(int i){
 	else if(i == 11){
 		tile Tile_12;
 	//	Tile_12.des = {'L', 'J', 'L', 'J', '-'};
+		Tile_12.des.at(0) = 'L';
+		Tile_12.des.at(1) = 'J';
+       		Tile_12.des.at(2) = 'L';
+		Tile_12.des.at(3) = 'J';
+		Tile_12.des.at(4) = '-';
 		Tile_12.type.at(0) = 2;
 		Tile_12.type.at(1) = 1;
 		Tile_12.type.at(2) = 2;
@@ -1450,6 +1520,11 @@ tile tileStructure(int i){
 	else if(i == 12){
 		tile Tile_13;
 	//	Tile_13.des = {'L', 'J', 'J', 'J', '-'};
+		Tile_13.des.at(0) = 'L';
+		Tile_13.des.at(1) = 'J';
+       		Tile_13.des.at(2) = 'J';
+		Tile_13.des.at(3) = 'J';
+		Tile_13.des.at(4) = '-';
 		Tile_13.type.at(0) = 2;
 		Tile_13.type.at(1) = 1;
 		Tile_13.type.at(2) = 2;
@@ -1490,6 +1565,11 @@ tile tileStructure(int i){
 	else if(i == 13){
 		tile  Tile_14;
 		//Tile_14.des = {'J', 'L', 'L', 'J', '-'};
+		Tile_14.des.at(0) = 'J';
+		Tile_14.des.at(1) = 'L';
+       		Tile_14.des.at(2) = 'L';
+		Tile_14.des.at(3) = 'J';
+		Tile_14.des.at(4) = '-';
 		Tile_14.type.at(0) = 2;
 		Tile_14.type.at(1) = 2;
 		Tile_14.type.at(2) = 2;
@@ -1530,6 +1610,11 @@ tile tileStructure(int i){
 	else if(i == 14){
 		tile Tile_15;
 		//Tile_15.des = {'T', 'L', 'J', 'T', '-'};
+		Tile_15.des.at(0) = 'T';
+		Tile_15.des.at(1) = 'L';
+       		Tile_15.des.at(2) = 'J';
+		Tile_15.des.at(3) = 'T';
+		Tile_15.des.at(4) = '-';
 		Tile_15.type.at(0) = 2;
 		Tile_15.type.at(1) = 3;
 		Tile_15.type.at(2) = 2;
@@ -1570,6 +1655,11 @@ tile tileStructure(int i){
 	else if(i == 15){
 		tile Tile_16;
 		//Tile_16.des = {'T', 'L', 'J', 'T', 'P'};
+		Tile_16.des.at(0) = 'T';
+		Tile_16.des.at(1) = 'L';
+       		Tile_16.des.at(2) = 'J';
+		Tile_16.des.at(3) = 'T';
+		Tile_16.des.at(4) = 'P';
 		Tile_16.type.at(0) = 2;
 		Tile_16.type.at(1) = 3;
 		Tile_16.type.at(2) = 2;
@@ -1610,6 +1700,11 @@ tile tileStructure(int i){
 	else if(i == 16){
 		tile Tile_17;
 	//	Tile_17.des = {'J', 'L', 'T', 'T', '-'};
+		Tile_17.des.at(0) = 'J';
+		Tile_17.des.at(1) = 'L';
+       		Tile_17.des.at(2) = 'T';
+		Tile_17.des.at(3) = 'T';
+		Tile_17.des.at(4) = '-';
 		Tile_17.type.at(0) = 2;
 		Tile_17.type.at(1) = 2;
 		Tile_17.type.at(2) = 2;
@@ -1650,6 +1745,11 @@ tile tileStructure(int i){
 	else if(i == 17){
 		tile Tile_18;
 	//	Tile_18.des = {'J', 'L', 'T', 'T', 'B'};
+		Tile_18.des.at(0) = 'J';
+		Tile_18.des.at(1) = 'L';
+       		Tile_18.des.at(2) = 'T';
+		Tile_18.des.at(3) = 'T';
+		Tile_18.des.at(4) = 'B';
 		Tile_18.type.at(0) = 2;
 		Tile_18.type.at(1) = 2;
 		Tile_18.type.at(2) = 2;
@@ -1690,6 +1790,11 @@ tile tileStructure(int i){
 	else if(i == 18){
 		tile Tile_19;
 	//	Tile_19.des = {'T', 'L', 'T', 'J', '-'};
+		Tile_19.des.at(0) = 'T';
+		Tile_19.des.at(1) = 'L';
+       		Tile_19.des.at(2) = 'T';
+		Tile_19.des.at(3) = 'J';
+		Tile_19.des.at(4) = '-';
 		Tile_19.type.at(0) = 2;
 		Tile_19.type.at(1) = 3;
 		Tile_19.type.at(2) = 2;
@@ -1730,6 +1835,11 @@ tile tileStructure(int i){
 	else if(i == 19){
 		tile Tile_20;
 	//	Tile_20.des = {'T', 'L', 'T', 'J', 'D'};
+		Tile_20.des.at(0) = 'T';
+		Tile_20.des.at(1) = 'L';
+       		Tile_20.des.at(2) = 'T';
+		Tile_20.des.at(3) = 'J';
+		Tile_20.des.at(4) = 'D';
 		Tile_20.type.at(0) = 2;
 		Tile_20.type.at(1) = 3;
 		Tile_20.type.at(2) = 2;
@@ -1770,6 +1880,11 @@ tile tileStructure(int i){
 	else if(i == 20){
 		tile Tile_21;
 	//	Tile_21.des = {'T', 'L', 'L', 'L', '-'};
+		Tile_21.des.at(0) = 'T';
+		Tile_21.des.at(1) = 'L';
+       		Tile_21.des.at(2) = 'L';
+		Tile_21.des.at(3) = 'L';
+		Tile_21.des.at(4) = '-';
 		Tile_21.type.at(0) = 2;
 		Tile_21.type.at(1) = 3;
 		Tile_21.type.at(2) = 2;
@@ -1810,6 +1925,11 @@ tile tileStructure(int i){
 	else if(i == 21){
 		tile Tile_22;
 	//	Tile_22.des = {'T', 'L', 'T', 'T', '-'};
+		Tile_22.des.at(0) = 'T';
+		Tile_22.des.at(1) = 'L';
+       		Tile_22.des.at(2) = 'T';
+		Tile_22.des.at(3) = 'T';
+		Tile_22.des.at(4) = '-';
 		Tile_22.type.at(0) = 2;
 		Tile_22.type.at(1) = 3;
 		Tile_22.type.at(2) = 2;
@@ -1850,6 +1970,11 @@ tile tileStructure(int i){
 	else if(i == 22){
 		tile Tile_23;
 	//	Tile_23.des = {'T', 'L', 'T', 'T', 'P'};
+		Tile_23.des.at(0) = 'T';
+		Tile_23.des.at(1) = 'L';
+       		Tile_23.des.at(2) = 'T';
+		Tile_23.des.at(3) = 'T';
+		Tile_23.des.at(4) = 'P';
 		Tile_23.type.at(0) = 2;
 		Tile_23.type.at(1) = 3;
 		Tile_23.type.at(2) = 2;
@@ -1890,6 +2015,11 @@ tile tileStructure(int i){
 	else if(i == 23){
 		tile Tile_24;
 	//	Tile_24.des = {'T', 'L', 'L', 'T', '-'};
+		Tile_24.des.at(0) = 'T';
+		Tile_24.des.at(1) = 'L';
+       		Tile_24.des.at(2) = 'L';
+		Tile_24.des.at(3) = 'T';
+		Tile_24.des.at(4) = '-';
 		Tile_24.type.at(0) = 2;
 		Tile_24.type.at(1) = 3;
 		Tile_24.type.at(2) = 2;
@@ -1930,6 +2060,11 @@ tile tileStructure(int i){
 	else if(i == 24){
 		tile Tile_25;
 	//	Tile_25.des = {'T', 'L', 'L', 'T', 'B'};
+		Tile_25.des.at(0) = 'T';
+		Tile_25.des.at(1) = 'L';
+       		Tile_25.des.at(2) = 'L';
+		Tile_25.des.at(3) = 'T';
+		Tile_25.des.at(4) = 'B';
 		Tile_25.type.at(0) = 2;
 		Tile_25.type.at(1) = 3;
 		Tile_25.type.at(2) = 2;
@@ -1970,6 +2105,11 @@ tile tileStructure(int i){
 	else if(i == 25){
 		tile Tile_26;
 	//	Tile_26.des = {'L', 'J', 'T', 'J', '-'};
+		Tile_26.des.at(0) = 'L';
+		Tile_26.des.at(1) = 'J';
+       		Tile_26.des.at(2) = 'T';
+		Tile_26.des.at(3) = 'J';
+		Tile_26.des.at(4) = '-';
 		Tile_26.type.at(0) = 2;
 		Tile_26.type.at(1) = 1;
 		Tile_26.type.at(2) = 2;
@@ -2010,6 +2150,11 @@ tile tileStructure(int i){
 	else if(i == 26){
 		tile Tile_27;
 	//	Tile_27.des = {'L', 'J', 'T', 'J', 'D'};
+		Tile_27.des.at(0) = 'L';
+		Tile_27.des.at(1) = 'J';
+       		Tile_27.des.at(2) = 'T';
+		Tile_27.des.at(3) = 'J';
+		Tile_27.des.at(4) = 'D';
 		Tile_27.type.at(0) = 2;
 		Tile_27.type.at(1) = 1;
 		Tile_27.type.at(2) = 2;
@@ -2064,6 +2209,11 @@ tile tileStructure(int i){
 		return Tile_28;*/
 		tile Tile_28;
 		//Tile_28.des = {'T', 'L', 'L', 'L', 'C'};
+		Tile_28.des.at(0) = 'T';
+		Tile_28.des.at(1) = 'L';
+       		Tile_28.des.at(2) = 'L';
+		Tile_28.des.at(3) = 'L';
+		Tile_28.des.at(4) = 'C';
 		Tile_28.type.at(0) = 2;
 		Tile_28.type.at(1) = 3;
 		Tile_28.type.at(2) = 2;
