@@ -616,6 +616,10 @@ int main (int argc, char *argv[]){
                     theirArr[1] = ctoi(arr[10].c_str());
                     theirArr[2] = ctoi(arr[11].c_str());
 		    player2->placeOPPOMove_p(arr[7], theirArr*, 1);
+                    
+                    
+                //decode theirGameMove string array to int*
+                //int* something = logic to return int* from theirGameMove
                 }
                 else
 		{
