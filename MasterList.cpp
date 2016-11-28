@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include "TileClass.cpp"
 #include "MapClass.cpp"
 
 using namespace std;
@@ -12,402 +11,406 @@ using namespace std;
 /// for the sake of "competeing corners" jungle takes presedense over river.  
     //Map Mappy = new Map;
 	
-  Tile[] createDeck(string[] givendeck)
+  Tile * createDeck(string * givendeck)
 	{
+		int LastClusterId;
+		LastClusterId = 0;
 	    Tile deck[77] ;
-	   for(int x = 0; if x < givendeck.length(); x++)
+	   for(int x = 0; x < givendeck.length(); x++)
 	  {	
 	        Tile * newTile = new Tile();
 		if(givendeck[x] == "JJJJ-")
 		{
-	        newTile->tileID = "JJJJ-";
-	        newTile->type.insert(type.end(), {2,2,2,2,2,2,2,2});
-	        newTile->clusterid.insert(clusterid.end(),{1,1,1,1,1,1,1,1});
-	        newTile->meeple.insert(meeple.end(),{false,false,false,false,false,false,false,false});
+	       // newTile->tileID = "JJJJ-";
+	        newTile->type = (2,2,2,2,2,2,2,2);
+	        newTile->clusterid = (LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1);
+	        newTile->meeple = (false,false,false,false,false,false,false,false);
 	        newTile->croc_count = 0;
 		newTile->orientation = 0;
-	        newTile->Ox = false;
-	 	newTile->Boar = false;
-		newTile->Deer = false;
-		newTile->Den = false;
+	        newTile->Ox = 0;
+	 	newTile->Boar = 0;
+		newTile->Deer = 0;
+		newTile->Monastery = false;
 		}
 		
 	//Tile * Tile_2 = new Tile();
 		else if(givendeck[x] == "JJJJX")
 		{
-	        newTile->tileID = "JJJJX";
-		newTile->type.insert(type.end(), {2,2,2,2,2,2,2,2}); // has den
-		newTile->clusterid.insert(clusterid.end(), {1,1,1,1,1,1,1,1});
-		newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
+	       // newTile->tileID = "JJJJX";
+		newTile->type = (2,2,2,2,2,2,2,2); // has den
+		newTile->clusterid = (LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1);
+		newTile->meeple.insert(false,false,false,false,false,false,false,false);
 		newTile->croc_count = 0;
 		newTile->orientation = 0;
-		newTile->Ox = false;
-		newTile->Boar = false;
-		newTile->Deer = false;
-		newTile->Den = true;
+		newTile->Ox = 0;
+		newTile->Boar = 0;
+		newTile->Deer = 0;
+		newTile->Monastery = true;
 		}	
     //Tile * Tile_3 = new Tile();
 		else if(givendeck[x] == "JJTJX")
 		{
 	    	//Tile_3->tileID = "JJTJX";
 		newTile->type.insert(type.end(),  {2,2,2,2,2,3,2,2}); // has den
-		newTile->clusterid.insert(clusterid.end(),{1,1,1,1,1,1,1,1});
+		newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1});
 		newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 		newTile->croc_count = 0;
 		newTile->orientation = 0;
-		newTile->Ox = false;
-		newTile->Boar = false;
-		newTile->Deer = false;
-		newTile->Den = true;
+		newTile->Ox = 0;
+		newTile->Boar = 0;
+		newTile->Deer = 0;
+		newTile->Monastery = true;
 		}
 		else if(givendeck[x] == "TTTT-"){
 		//Tile * Tile_4 = new Tile();
-		newTile->tileID = "TTTT-";
+		//newTile->tileID = "TTTT-";
 		newTile->type.insert(type.end(),  {2,3,2,3,2,3,2,3});
-		newTile->clusterid.insert(clusterid.end(),{1,2,3,4,5,6,7,8});
+		newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+4,LastClusterId+5,LastClusterId+6,LastClusterId+7,LastClusterId+8});
 		newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});	
 		newTile->croc_count = 0;
 		newTile->orientation = 0;
-		newTile->Ox = false;
-		newTile->Boar = false;
-		newTile->Deer = false;
-		newTile->Den = false;
+		newTile->Ox = 0;
+		newTile->Boar = 0;
+		newTile->Deer = 0;
+		newTile->Monastery = false;
 		}
 	//Tile * Tile_5 = new Tile();
 		else if(givendeck[x] == "TJTJ-")
 		{
-		newTile->tileID = "TJTJ-";
+		//newTile->tileID = "TJTJ-";
 		newTile->type.insert(type.end(), {2,3,2,2,2,3,2,2});
-		newTile->clusterid.insert(clusterid.end(),{1,2,3,3,3,2,1,1});
+		newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+3,LastClusterId+3,LastClusterId+2,LastClusterId+1,LastClusterId+1});
 		newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 		newTile->croc_count = 0;
 		newTile->orientation = 0;
-		newTile->Ox = false;
-		newTile->Boar = false;
-		newTile->Deer = false;
-		newTile->Den = false;
+		newTile->Ox = 0;
+		newTile->Boar = 0;
+		newTile->Deer = 0;
+		newTile->Monastery = false;
 		}
 	else if(givendeck[x] = "TJJT-"){
 	//Tile * Tile_6 = new Tile();
-	newTile->tileID = "TJJT-";
+	//newTile->tileID = "TJJT-";
 	newTile->type.insert(type.end( {2,3,2,2,2,2,2,3});
-	newTile->clusterid.insert(clusterid.end(),{1,2,3,3,3,3,3,2});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+3,LastClusterId+3,LastClusterId+3,LastClusterId+3,LastClusterId+2});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
          }
 				    
 	else if(givendeck[x] = "TJTT-"){		   
 	//Tile * Tile_7 = new Tile();
-	newTile->tileID = "TJTT-";
+	//newTile->tileID = "TJTT-";
 	newTile->type.insert(type.end(),  {2,3,2,2,2,2,3,2,3});
-	newTile->clusterid.insert(clusterid.end(),{1,2,3,3,3,4,5,6});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+3,LastClusterId+3,LastClusterId+4,LastClusterId+5,LastClusterId+6});
         newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});	
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 		}
 	else if(givendeck[x] = "LLLL-"){
 	//Tile * Tile_8 = new Tile();
-	newTile->tileID = "LLLL-";
+	//newTile->tileID = "LLLL-";
 	newTile->type.insert(type.end(), {1,1,1,1,1,1,1,1});
-	newTile->clusterid.insert(clusterid.end(),{1,1,1,1,1,1,1});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});	
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 	}
 				    
 	else if(givendeck[x] = "JLLL-"){
 	//Tile * Tile_9 = new Tile();
-	newTile->tileID = "JLLL-";
+	//newTile->tileID = "JLLL-";
 	newTile->type.insert(type.end(), {2,2,2,1,1,1,1,1});
-	newTile->clusterid.insert(clusterid.end(),{1,1,1,2,2,2,2,2});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+2,LastClusterId+2,LastClusterId+2,LastClusterId+2,LastClusterId+2});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-        newTile->Ox = false;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+        newTile->Ox = 0;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 	}
 				    
 	else if(givendeck[x] = "LLJJ-"){		   
 	//Tile * Tile_10 = new Tile();
-	newTile->tileID = "LLJJ-";
+	//newTile->tileID = "LLJJ-";
 	newTile->type.insert(type.end(),   {2,1,1,1,2,2,2,2});
-	newTile->clusterid.insert(clusterid.end(),{1,2,2,2,1,1,1,1});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+2,LastClusterId+2,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
         newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 		}
 				    
 	else if(givendeck[x] = "JLJL-"){	
 	//Tile * Tile_11 = new Tile();
-	newTile->tileID = "JLJL-";
+	//newTile->tileID = "JLJL-";
 	newTile->type.insert(type.end(),  {2,2,2,1,2,2,2,1});/////
-	newTile->clusterid.insert(clusterid.end(),{1,1,1,2,3,3,3,2});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+3,LastClusterId+3,LastClusterId+2});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 		}
 				    
 	else if(givendeck[x] = "LJLJ-")
 	{		   
 	//Tile * Tile_12 = new Tile();
-	newTile->tileID = "LJLJ-";
+	//newTile->tileID = "LJLJ-";
 	newTile->type.insert(type.end(), {2,1,2,2,2,1,2,2});////
-	newTile->clusterid.insert(clusterid.end(),{1,2,1,1,1,3,1,1});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+3,LastClusterId+1,LastClusterId+1});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 	}
 				    
 	else if(givendeck[x] = "LJJJ-"){			
 	//Tile * Tile_13 = new Tile();
-	newTile->tileID = "LJJJ-";
+	//newTile->tileID = "LJJJ-";
 	newTile->type.insert(type.end(),  {2,1,2,2,2,2,2,2});
-	newTile->clusterid.insert(clusterid.end(),{1,2,1,1,1,1,1,1}); 
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+1}); 
         newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 	}
 	
 	else if(givendeck[x] = "JLLJ-"){			    
 	//Tile *  Tile_14 = new Tile();
-	newTile->tileID = "JLLJ-";
+	//newTile->tileID = "JLLJ-";
 	newTile->type.insert(type.end(), {2,2,2,1,4,1,2,2});
-	newTile->clusterid.insert(clusterid.end(),{1,1,1,2,0,3,1,1});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+2,NULL,LastClusterId+3,LastClusterId+1,LastClusterId+1});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 	}
 				    
 	else if(givendeck[x] = "TLJT-"){			    
 	//Tile * Tile_15 = new Tile();
-	newTile->tileID = "TLJT-";
+	//newTile->tileID = "TLJT-";
 	newTile->type.insert(type.end(), {2,3,2,1,2,2,2,3});
-	newTile->clusterid.insert(clusterid.end(),{1,2,3,4,3,3,3,2});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+4,LastClusterId+3,LastClusterId+3,LastClusterId+3,LastClusterId+2});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 	}
 				    
 	else if(givendeck[x] = "TLJTP"){			    
 	//Tile * Tile_16 = new Tile();
-	newTile->tileID = "TLJTP";
+	//newTile->tileID = "TLJTP";
 	newTile->type.insert(type.end(), {2,3,2,1,2,2,2,3}); // has boar
-	newTile->clusterid.insert(clusterid.end(),{1,2,3,4,3,3,3,2});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+4,LastClusterId+3,LastClusterId+3,LastClusterId+3,LastClusterId+2});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
+	newTile->Ox = 0;
 	newTile->Boar = true;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 	}
 				    
 	else if(givendeck[x] = "JLTT-")
 	{			    
 	//Tile * Tile_17 = new Tile();
-	newTile->tileID = "JLTT-";
+	//newTile->tileID = "JLTT-";
 	newTile->type.insert(type.end(), {2,2,2,1,2,3,2,3});
-	newTile->clusterid.insert(clusterid.end(),{1,1,1,2,1,3,4,3});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+2,LastClusterId+1,LastClusterId+3,LastClusterId+4,LastClusterId+3});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 	}
 				    
 	else if(givendeck[x] = "JLTTB"){			    
 	//Tile * Tile_18 = new Tile();
-	newTile->tileID = "JLTTB";
+	//newTile->tileID = "JLTTB";
 	newTile->type.insert(type.end(), {2,2,2,1,2,3,2,3}); // has ox
-	newTile->clusterid.insert(clusterid.end(),{1,1,1,2,1,3,4,3});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+1,LastClusterId+1,LastClusterId+2,LastClusterId+1,LastClusterId+3,LastClusterId+4,LastClusterId+3});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
 	newTile->Ox = true;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 	}
 				    
 	else if(givendeck[x] = "TLTJ-"){			    
 	//Tile * Tile_19 = new Tile();
-	newTile->tileID = "TLTJ-";
+	//newTile->tileID = "TLTJ-";
 	newTile->type.insert(type.end(), {2,3,2,1,2,3,2,3});
-	newTile->clusterid.insert(clusterid.end(),{1,2,3,4,3,2,1,1});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+4,LastClusterId+3,LastClusterId+2,LastClusterId+1,LastClusterId+1});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 	}
 	
 	else if(givendeck[x] = "TLTJD" ){			    
 	//Tile * Tile_20 = new Tile();
-	newTile->tileID = "TLTJD";
+	//newTile->tileID = "TLTJD";
 	newTile->type.insert(type.end(), {2,3,2,1,2,3,2,3}); // has deer	
-	newTile->clusterid.insert(clusterid.end(),{1,2,3,4,3,2,1,1});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+4,LastClusterId+3,LastClusterId+2,LastClusterId+1,LastClusterId+1});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
 	newTile->Deer = true;
-	newTile->Den = false;
+	newTile->Monastery = false;
 	}
 				    
 	else if(givendeck[x] = "TLLL-"){			    
 	//Tile * Tile_21 = new Tile();
-	newTile->tileID = "TLLL-";
+	//newTile->tileID = "TLLL-";
 	newTile->type.insert(type.end(), {2,3,2,1,1,1,1,1});
-	newTile->clusterid.insert(clusterid.end(),{1,2,3,4,4,4,4,4});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+4,LastClusterId+4,LastClusterId+4,LastClusterId+4,LastClusterId+4});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 	}
 				    
 	else if(givendeck[x] = "TLTT-"){			    
 	//Tile * Tile_22 = new Tile();
-	newTile->tileID = "TLTT-";
+	//newTile->tileID = "TLTT-";
 	newTile->type.insert(type.end(), {2,3,2,1,2,2,2,3});
-	newTile->clusterid.insert(clusterid.end(),{1,2,3,4,3,5,6,7});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+4,LastClusterId+3,LastClusterId+5,LastClusterId+6,LastClusterId+7});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 	}			    
 	else if(givendeck[x] = "TLTTP"){	
 	//Tile * Tile_23 = new Tile();
-	newTile->tileID = "TLTTP";
+	//newTile->tileID = "TLTTP";
 	newTile->type.insert(type.end(), {2,3,2,1,2,2,2,3}); // has boar	
-	newTile->clusterid.insert(clusterid.end(),{1,2,3,4,3,5,6,7});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+4,LastClusterId+3,LastClusterId+5,LastClusterId+6,LastClusterId+7});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
+	newTile->Ox = 0;
 	newTile->Boar = true;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 	}
 				    
 	else if(givendeck[x] ="TLLT-"){			    
        // Tile * Tile_24 = new Tile();
-	newTile->tileID = "TLLT-";
+	//newTile->tileID = "TLLT-";
 	newTile->type.insert(type.end(), {2,3,2,1,1,1,2,3});
-	newTile->clusterid.insert(clusterid.end(),{1,2,3,4,4,4,3,2});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+4,LastClusterId+4,LastClusterId+4,LastClusterId+3,LastClusterId+2});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 	}			    
 	else if(givendeck[x] = "TLLTB"){	
        // Tile * Tile_25 = new Tile();
-	newTile->tileID = "TLLTB";
+	//newTile->tileID = "TLLTB";
         newTile->type.insert(type.end(), {2,3,2,1,1,1,2,3}); // has ox
-	newTile->clusterid.insert(clusterid.end(),{1,2,3,4,4,4,3,2});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+4,LastClusterId+4,LastClusterId+4,LastClusterId+3,LastClusterId+2});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
 	newTile->Ox = true;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 	}
 				    
 	else if(givendeck[x] = "LJTJ-")
 	{	
        // Tile * Tile_26 = new Tile();
-	newTile->tileID = "LJTJ-";
+	//newTile->tileID = "LJTJ-";
 	newTile->type.insert(type.end(), {2,1,2,2,2,3,2,2});
-	newTile->clusterid.insert(clusterid.end(),{1,2,3,3,3,4,1,1});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+3,LastClusterId+3,LastClusterId+4,LastClusterId+1,LastClusterId+1});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 	}	
 	else if(givendeck[x] = "LJTJD")
 	{			    
 	//Tile * Tile_27 = new Tile();
-	newTile->tileID = "LJTJD";
-	newTile->type.insert(type.end(), {2,1,2,2,2,3,2,2}); // has deer
-	newTile->clusterid.insert(clusterid.end(),{1,2,3,3,3,4,1,1});
-	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
+	//newTile->tileID = "LJTJD";
+	int *typearray[] = {2,1,2,2,2,3,2,2};
+	newTile->type(typearray,end(typearray)) ; // has deer
+	int * clustarry[] = {LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+3,LastClusterId+3,LastClusterId+4,LastClusterId+1,LastClusterId+1};
+	newTile->clusterid(clustarray, end(clusterid));
+	newTile->meeple = (8,flase);
 	newTile->croc_count = 0;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
 	newTile->Deer = true;
-	newTile->Den = false;
+	newTile->Monastery = false;
 	}
 				    
 	else if(givendeck[x] = "TLLLC")
 	{	
 	//Tile * Tile_28 = new Tile();
-	newTile->tileID = "TLLLC";
+	//newTile->tileID = "TLLLC";
 	newTile->type.insert(type.end(),{2,3,2,1,1,1,1,1});
-	newTile->clusterid.insert(clusterid.end(),{1,2,3,4,4,4,4,4});
+	newTile->clusterid.insert(clusterid.end(),{LastClusterId+1,LastClusterId+2,LastClusterId+3,LastClusterId+4,LastClusterId+4,LastClusterId+4,LastClusterId+4,LastClusterId+4});
 	newTile->meeple.insert(meeple.end(), {false,false,false,false,false,false,false,false});
 	newTile->croc_count = 1;
 	newTile->orientation = 0;
-	newTile->Ox = false;
-	newTile->Boar = false;
-	newTile->Deer = false;
-	newTile->Den = false;
+	newTile->Ox = 0;
+	newTile->Boar = 0;
+	newTile->Deer = 0;
+	newTile->Monastery = false;
 	}
 			     
 	deck[x]	= newTile;	     
@@ -424,7 +427,7 @@ using namespace std;
 	Tile_1.Ox = false;
 	Tile_1.Boar = false;
 	Tile_1.Deer = false;
-	Tile_1.Den = false;
+	Tile_1.Monastery = false;
 	
 	Tile  Tile_2 = new Tile();
 	Tile_2.tileID = "JJJJX";
@@ -435,7 +438,7 @@ using namespace std;
 	Tile_2.Ox = false;
 	Tile_2.Boar = false;
 	Tile_2.Deer = false;
-	Tile_2.Den = true;
+	Tile_2.Monastery = true;
 
         Tile  Tile_3 = new Tile();
 	Tile_3.tileID = "JJTJX";
@@ -446,7 +449,7 @@ using namespace std;
 	Tile_3.Ox = false;
 	Tile_3.Boar = false;
 	Tile_3.Deer = false;
-	Tile_3.Den = true;
+	Tile_3.Monastery = true;
 
 	
 	Tile  Tile_4 = new Tile();
@@ -458,7 +461,7 @@ using namespace std;
 	Tile_4.Ox = false;
 	Tile_4.Boar = false;
 	Tile_4.Deer = false;
-	Tile_4.Den = false;
+	Tile_4.Monastery = false;
 
 	
 	Tile  Tile_5 = new Tile();
@@ -470,7 +473,7 @@ using namespace std;
 	Tile_5.Ox = false;
 	Tile_5.Boar = false;
 	Tile_5.Deer = false;
-	Tile_5.Den = false;
+	Tile_5.Monastery = false;
 	
 	
 	Tile  Tile_6 = new Tile();
@@ -482,7 +485,7 @@ using namespace std;
 	Tile_6.Ox = false;
 	Tile_6.Boar = false;
 	Tile_6.Deer = false;
-	Tile_6.Den = false;
+	Tile_6.Monastery = false;
 
 	
 	Tile  Tile_7 = new Tile();
@@ -494,7 +497,7 @@ using namespace std;
 	Tile_7.Ox = false;
 	Tile_7.Boar = false;
 	Tile_7.Deer = false;
-	Tile_7.Den = false;
+	Tile_7.Monastery = false;
 	
 	
 	Tile  Tile_8 = new Tile();
@@ -506,7 +509,7 @@ using namespace std;
 	Tile_8.Ox = false;
 	Tile_8.Boar = false;
 	Tile_8.Deer = false;
-	Tile_8.Den = false;
+	Tile_8.Monastery = false;
 	
 	
 	
@@ -519,7 +522,7 @@ using namespace std;
     Tile_9.Ox = false;
 	Tile_9.Boar = false;
 	Tile_9.Deer = false;
-	Tile_9.Den = false;
+	Tile_9.Monastery = false;
 
 	
 	
@@ -532,7 +535,7 @@ using namespace std;
 	Tile_10.Ox = false;
 	Tile_10.Boar = false;
 	Tile_10.Deer = false;
-	Tile_10.Den = false;
+	Tile_10.Monastery = false;
 	
 	
 	
@@ -545,7 +548,7 @@ using namespace std;
 	Tile_11.Ox = false;
 	Tile_11.Boar = false;
 	Tile_11.Deer = false;
-	Tile_11.Den = false;
+	Tile_11.Monastery = false;
 	
 	
 	
@@ -558,7 +561,7 @@ using namespace std;
 	Tile_12.Ox = false;
 	Tile_12.Boar = false;
 	Tile_12.Deer = false;
-	Tile_12.Den = false;
+	Tile_12.Monastery = false;
 
 	
 	Tile  Tile_13 = new Tile();
@@ -570,7 +573,7 @@ using namespace std;
 	Tile_13.Ox = false;
 	Tile_13.Boar = false;
 	Tile_13.Deer = false;
-	Tile_13.Den = false;
+	Tile_13.Monastery = false;
 	
 
 	Tile  Tile_14 = new Tile();
@@ -582,7 +585,7 @@ using namespace std;
 	Tile_14.Ox = false;
 	Tile_14.Boar = false;
 	Tile_14.Deer = false;
-	Tile_14.Den = false;
+	Tile_14.Monastery = false;
 
 	
 	Tile  Tile_15 = new Tile();
@@ -594,7 +597,7 @@ using namespace std;
 	Tile_15.Ox = false;
 	Tile_15.Boar = false;
 	Tile_15.Deer = false;
-	Tile_15.Den = false;
+	Tile_15.Monastery = false;
 
 	
 	Tile  Tile_16 = new Tile();
@@ -606,7 +609,7 @@ using namespace std;
 	Tile_16.Ox = false;
 	Tile_16.Boar = true;
 	Tile_16.Deer = false;
-	Tile_16.Den = false;
+	Tile_16.Monastery = false;
 	
 	
 	Tile  Tile_17 = new Tile();
@@ -618,7 +621,7 @@ using namespace std;
 	Tile_17.Ox = false;
 	Tile_17.Boar = false;
 	Tile_17.Deer = false;
-	Tile_17.Den = false;
+	Tile_17.Monastery = false;
 
 	
 	Tile  Tile_18 = new Tile();
@@ -630,7 +633,7 @@ using namespace std;
 	Tile_18.Ox = true;
 	Tile_18.Boar = false;
 	Tile_18.Deer = false;
-	Tile_18.Den = false;
+	Tile_18.Monastery = false;
 
 	
 	Tile  Tile_19 = new Tile();
@@ -642,7 +645,7 @@ using namespace std;
 	Tile_19.Ox = false;
 	Tile_19.Boar = false;
 	Tile_19.Deer = false;
-	Tile_19.Den = false;
+	Tile_19.Monastery = false;
 	
 	
 	Tile  Tile_20 = new Tile();
@@ -654,7 +657,7 @@ using namespace std;
 	Tile_20.Ox = false;
 	Tile_20.Boar = false;
 	Tile_20.Deer = true;
-	Tile_20.Den = false;
+	Tile_20.Monastery = false;
 
 	
 	Tile  Tile_21 = new Tile();
@@ -666,7 +669,7 @@ using namespace std;
 	Tile_21.Ox = false;
 	Tile_21.Boar = false;
 	Tile_21.Deer = false;
-	Tile_21.Den = false;
+	Tile_21.Monastery = false;
 	
 	
 	Tile  Tile_22 = new Tile();
@@ -678,7 +681,7 @@ using namespace std;
 	Tile_22.Ox = false;
 	Tile_22.Boar = false;
 	Tile_22.Deer = false;
-	Tile_22.Den = false;
+	Tile_22.Monastery = false;
 	
 	
 	Tile  Tile_23 = new Tile();
@@ -690,7 +693,7 @@ using namespace std;
 	Tile_23.Ox = false;
 	Tile_23.Boar = true;
 	Tile_23.Deer = false;
-	Tile_23.Den = false;
+	Tile_23.Monastery = false;
 	
 
     Tile  Tile_24 = new Tile();
@@ -702,7 +705,7 @@ using namespace std;
 	Tile_24.Ox = false;
 	Tile_24.Boar = false;
 	Tile_24.Deer = false;
-	Tile_24.Den = false;
+	Tile_24.Monastery = false;
 	
 	
         Tile  Tile_25 = new Tile();
@@ -714,7 +717,7 @@ using namespace std;
 	Tile_25.Ox = true;
 	Tile_25.Boar = false;
 	Tile_25.Deer = false;
-	Tile_25.Den = false;
+	Tile_25.Monastery = false;
 	
 	
     Tile  Tile_26 = new Tile();
@@ -726,7 +729,7 @@ using namespace std;
 	Tile_26.Ox = false;
 	Tile_26.Boar = false;
 	Tile_26.Deer = false;
-	Tile_26.Den = false;
+	Tile_26.Monastery = false;
 	
 	
 	Tile  Tile_27 = new Tile();
@@ -738,7 +741,7 @@ using namespace std;
 	Tile_27.Ox = false;
 	Tile_27.Boar = false;
 	Tile_27.Deer = true;
-	Tile_27.Den = false;
+	Tile_27.Monastery = false;
 	
 	
 	Tile  Tile_28 = new Tile();
@@ -750,7 +753,7 @@ using namespace std;
 	Tile_28.Ox = false;
 	Tile_28.Boar = false;
 	Tile_28.Deer = false;
-	Tile_28.Den = false;*/
+	Tile_28.Monastery = false;*/
 	
 	/*placeTile(50, 50, Mappy, TileA);
 	int x = 0;

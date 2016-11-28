@@ -161,7 +161,6 @@ vector<Tile> legalTile(int x, int y, Map GameMap, Tile nextTile)
                                 tempTile = nextTile;
                                 tempTile.x = possibleConnections[i].x;
                                 tempTile.y = possibleConnections[i].y + 1;
-                                //rotate tile 0
                                 
                                 legalMovesFinal.push_back(tempTile);
                             }else if(tempSpot->top)
@@ -191,7 +190,6 @@ vector<Tile> legalTile(int x, int y, Map GameMap, Tile nextTile)
                                                                             tempTile = nextTile;
                                                                             tempTile.x = possibleConnections[i].x;
                                                                             tempTile.y = possibleConnections[i].y + 1;
-                                                                            //rotate tile 0
                                                                             
                                                                             legalMovesFinal.push_back(tempTile);
                                                                         }
@@ -202,7 +200,6 @@ vector<Tile> legalTile(int x, int y, Map GameMap, Tile nextTile)
                                                                 tempTile = nextTile;
                                                                 tempTile.x = possibleConnections[i].x;
                                                                 tempTile.y = possibleConnections[i].y + 1;
-                                                                //rotate tile 0
                                                                 
                                                                 legalMovesFinal.push_back(tempTile);
                                                             }
@@ -233,7 +230,6 @@ vector<Tile> legalTile(int x, int y, Map GameMap, Tile nextTile)
                                                             tempTile = nextTile;
                                                             tempTile.x = possibleConnections[i].x;
                                                             tempTile.y = possibleConnections[i].y + 1;
-                                                            //rotate tile 0
                                                             
                                                             legalMovesFinal.push_back(tempTile);
                                                         }
@@ -244,7 +240,6 @@ vector<Tile> legalTile(int x, int y, Map GameMap, Tile nextTile)
                                                 tempTile = nextTile;
                                                 tempTile.x = possibleConnections[i].x;
                                                 tempTile.y = possibleConnections[i].y + 1;
-                                                //rotate tile 0
                                                 
                                                 legalMovesFinal.push_back(tempTile);
                                             }
@@ -262,7 +257,6 @@ vector<Tile> legalTile(int x, int y, Map GameMap, Tile nextTile)
                                             tempTile = nextTile;
                                             tempTile.x = possibleConnections[i].x;
                                             tempTile.y = possibleConnections[i].y + 1;
-                                            //rotate tile 0
                                             
                                             legalMovesFinal.push_back(tempTile);
                                         }
@@ -274,6 +268,7 @@ vector<Tile> legalTile(int x, int y, Map GameMap, Tile nextTile)
                 }
                 
                 //rotate nextTile 90 degrees
+                rotateTile(nextTile, 90);
             }
         }
         
@@ -323,7 +318,6 @@ vector<Tile> legalTile(int x, int y, Map GameMap, Tile nextTile)
                                                                             tempTile = nextTile;
                                                                             tempTile.x = possibleConnections[i].x + 1;
                                                                             tempTile.y = possibleConnections[i].y;
-                                                                            //rotate tile 0
                                                                             
                                                                             legalMovesFinal.push_back(tempTile);
                                                                         }
@@ -334,7 +328,6 @@ vector<Tile> legalTile(int x, int y, Map GameMap, Tile nextTile)
                                                                 tempTile = nextTile;
                                                                 tempTile.x = possibleConnections[i].x + 1;
                                                                 tempTile.y = possibleConnections[i].y;
-                                                                //rotate tile 0
                                                                 
                                                                 legalMovesFinal.push_back(tempTile);
                                                             }
@@ -403,6 +396,7 @@ vector<Tile> legalTile(int x, int y, Map GameMap, Tile nextTile)
                 }
                 
                 //rotate nextTile 90 degrees
+                rotateTile(nextTile, 90);
             }
         }
         
@@ -531,6 +525,7 @@ vector<Tile> legalTile(int x, int y, Map GameMap, Tile nextTile)
                 }
                 
                 //rotate nextTile 90 degrees
+                rotateTile(nextTile, 90);
             }
         }
         
@@ -589,7 +584,6 @@ vector<Tile> legalTile(int x, int y, Map GameMap, Tile nextTile)
                                                                 tempTile = nextTile;
                                                                 tempTile.x = possibleConnections[i].x - 1;
                                                                 tempTile.y = possibleConnections[i].y;
-                                                                //rotate tile 0
                                                                 
                                                                 legalMovesFinal.push_back(tempTile);
                                                             }
@@ -658,6 +652,7 @@ vector<Tile> legalTile(int x, int y, Map GameMap, Tile nextTile)
                 }
                 
                 //rotate nextTile 90 degrees
+                rotateTile(nextTile, 90);
             }
         }
     }

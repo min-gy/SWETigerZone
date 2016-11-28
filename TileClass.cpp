@@ -9,7 +9,7 @@
 
 using namespace std;
 
-class Tile 
+class Tile
 {
 public:
 //Face values (sides of tile), values will correlate with types ///0-castle//, 1-castle, 2-field, 3-path
@@ -21,8 +21,6 @@ vector<bool> meeple;
 
 string tileID;
 
-
-
 bool Deer;
 bool Boar;
 bool Ox;
@@ -30,7 +28,11 @@ bool Monastery;
 bool MMeeple; //monastery meeple
 int CenterClusterid;
 int orientation;
-int croc_count;//public:
+int croc_count;
+int x;
+int y;
+int completion;
+    //public:
 //	Tile() : sides(8) 
 //	{}
 
