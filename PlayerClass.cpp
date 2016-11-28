@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <list>
 
 //#include "GameEngine.cpp"
 #include "TileClass.cpp"
@@ -69,10 +70,10 @@ public:
 
         void updateBoard(Tile[153][153], int, int, Tile*, int);
         Tile* getTile(char const*);
-        int* MiniMaxDecision(Tile[153[153], int, Tile, vector<Tile>);
+        int* MiniMaxDecision(Tile[153][153], int,  Tile, vector<Tile>);
         void generateMoves(Tile[153][153], list<int>, Tile);
-        int *MinMoveDecision(Tile[153][153], int, int, int, int, vector<tile>, Tile);
-        int *MaxMoveDecision(Tile[153][153], int, int, int, int, vector<tile>, Tile);
+        int *MinMoveDecision(Tile[153][153], int, int, int, int, vector<Tile>, Tile);
+        int *MaxMoveDecision(Tile[153][153], int, int, int, int, vector<Tile>, Tile);
         int *evaluatePosition(Tile[153][153], int, int, int, int, Tile);
         int tigerLocation(Tile[153][153], int, int, int, int, Tile);
         void tigerCheck(int[], Tile[153][153], int, int, Tile );
