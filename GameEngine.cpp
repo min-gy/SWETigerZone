@@ -17,7 +17,7 @@ const int END = 4;
 class GameEngine{
 
 public:
-    //Map * myMap;
+    Map * myMap;
     //GameState * currentState = NULL;
     //int nextStateEnum = NULLSTATE;
     //int currentStateEnum = NULLSTATE;
@@ -29,7 +29,8 @@ public:
     void init();
     void makeMyMove_g();
     void addFirstTile_g(string, int, int, int);
-    //void makeOppoMove_g();
+    void placeMyMove_g(string, int, int, int);
+    //void placeOppoMove_g();
 
     //int getCurrentStateEnum();
 
@@ -59,6 +60,9 @@ void GameEngine::addFirstTile_g(string tile, int x, int y, int orientation){
     //myMap->addTile(tile, x, y, orientation);
 }
 
+void GameEngine::placeMyMove_g(string tile, int x, int y, int orientation){
+    
+}
 // void GameEngine::setNextState(int newStateEnum){
 //     this->nextStateEnum = newStateEnum;
 //     // if(nextStateEnum != END){

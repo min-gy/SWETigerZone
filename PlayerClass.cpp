@@ -28,8 +28,8 @@ public:
 	void startNewGame();
 	void runGame();
 	void addFirstTile_p(string, int, int , int);
-	int* makeMyMove_p(string);
-	void makeOppoMove_p();
+	int* giveMyMove_p(string);
+	void placeOppoMove_p();
 	void takeTileStack(string);
 
 	void cleanUpGame();
@@ -65,8 +65,8 @@ void Player::cleanUpGame(){
 	delete myGameEngine;
 }
 
-int* Player::makeMyMove_p(string tile){
-	//myGameEngine->makeMyMove_g(tile);
+int* Player::giveMyMove_p(string tile){
+	//myGameEngine->giveMyMove_g(tile);
 	
 	//AI algorithm to decide to make move
 	
@@ -75,7 +75,11 @@ int* Player::makeMyMove_p(string tile){
 	return &success;
 }
 
-void Player::makeOppoMove_p(){
+void Player::placeMyMove_p(int move[]){
+	//myGameEngine->placeMyMove_g(tile);
+}
+
+void Player::placeOppoMove_p(string move[]){
 	//myGameEngine->makeOppoMove_g(move argument)
 }
 
