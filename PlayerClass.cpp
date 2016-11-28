@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include "GameEngine.cpp"
+#include "TileClass.cpp"
 
 using namespace std;
 
