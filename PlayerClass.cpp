@@ -82,9 +82,9 @@ public:
         //void initiateTileGrid();
         void InheritValue(ComponentTracker, ComponentTracker);
         int ScoreUpdate(ComponentTracker);
-        void SingleUpdate(Tile[153][153], Tile, Tile, int, int, int, int *);
+        //void SingleUpdate(Tile[153][153], Tile, Tile, int, int, int, int *);
         void DenUpdate(Tile[153][153], int , int , int * );
-        void DenCheck(Tile[153][153], int , int, int , int, int *);
+        //void DenCheck(Tile[153][153], int , int, int , int, int *);
         int DenScoreUpdate(ComponentTracker );
         int MeepleUpdateMe(ComponentTracker );
         int MeepleUpdateYou(ComponentTracker );
@@ -222,18 +222,18 @@ int Player::MeepleUpdateYou(ComponentTracker Region){
 // 	}
 // }
 
-void Player::DenUpdate(Tile _TileGrid[153][153], int X, int Y, int * values){
-	if (_TileGrid[X][Y].Den == true){
-		DenCheck(_TileGrid, X, Y, X+1, Y, values);
-		DenCheck(_TileGrid, X, Y, X+1, Y+1, values);
-		DenCheck(_TileGrid, X, Y, X+1, Y-1, values);
-		DenCheck(_TileGrid, X, Y, X-1, Y, values);
-		DenCheck(_TileGrid, X, Y, X-1, Y+1, values);
-		DenCheck(_TileGrid, X, Y, X-1, Y-1, values);
-		DenCheck(_TileGrid, X, Y, X, Y+1, values);
-		DenCheck(_TileGrid, X, Y, X, Y-1, values);
-	}
-}
+// void Player::DenUpdate(Tile _TileGrid[153][153], int X, int Y, int * values){
+// 	if (_TileGrid[X][Y].Den == true){
+// 		DenCheck(_TileGrid, X, Y, X+1, Y, values);
+// 		DenCheck(_TileGrid, X, Y, X+1, Y+1, values);
+// 		DenCheck(_TileGrid, X, Y, X+1, Y-1, values);
+// 		DenCheck(_TileGrid, X, Y, X-1, Y, values);
+// 		DenCheck(_TileGrid, X, Y, X-1, Y+1, values);
+// 		DenCheck(_TileGrid, X, Y, X-1, Y-1, values);
+// 		DenCheck(_TileGrid, X, Y, X, Y+1, values);
+// 		DenCheck(_TileGrid, X, Y, X, Y-1, values);
+// 	}
+// }
 
 // void Player::SingleUpdate(Tile _TileGrid[153][153], Tile CurrentTile, Tile OldTile, int newS, int oldS, int Side, int * values){
 // 	int x;
@@ -303,49 +303,49 @@ void Player::DenUpdate(Tile _TileGrid[153][153], int X, int Y, int * values){
 // }
 
 //update the components
-void Player::updateComponents(Tile _TileGrid[153][153], int X, int Y){
-	int * values;
-	values[1] = 0;
-	values[2] = 0;
-	values[3] = 0;
-	values[4] = 0;
-	Tile CurrentTile;
-	Tile LeftTile;
-	Tile RightTile;
-	Tile UpTile;
-	Tile DownTile;
+// void Player::updateComponents(Tile _TileGrid[153][153], int X, int Y){
+// 	int * values;
+// 	values[1] = 0;
+// 	values[2] = 0;
+// 	values[3] = 0;
+// 	values[4] = 0;
+// 	Tile CurrentTile;
+// 	Tile LeftTile;
+// 	Tile RightTile;
+// 	Tile UpTile;
+// 	Tile DownTile;
 
-	CurrentTile = _TileGrid[X][Y];
-/*
-	LeftTile = _TileGrid[X-1][Y];
-	RightTile = _TileGrid[X+1][Y];
-	UpTile = _TileGrid[X][Y+1];
-	DownTile = _TileGrid[X][Y-1];
-	*/
-	LeftTile = _TileGrid[X][Y-1];
-	RightTile = _TileGrid[X][Y+1];
-	UpTile = _TileGrid[X+1][Y];
-	DownTile = _TileGrid[X-1][Y];
-	//SingleUpdate(Map _TileGrid, Tile CurrentTile, Tile OldTile, int newS, int oldS);
-	SingleUpdate(_TileGrid, CurrentTile, UpTile, 0, 6, 1, values);
-	SingleUpdate(_TileGrid, CurrentTile, UpTile, 1, 5, 1, values);
-	SingleUpdate(_TileGrid, CurrentTile, UpTile, 2, 4, 1, values);
+// 	CurrentTile = _TileGrid[X][Y];
+// /*
+// 	LeftTile = _TileGrid[X-1][Y];
+// 	RightTile = _TileGrid[X+1][Y];
+// 	UpTile = _TileGrid[X][Y+1];
+// 	DownTile = _TileGrid[X][Y-1];
+// 	*/
+// 	LeftTile = _TileGrid[X][Y-1];
+// 	RightTile = _TileGrid[X][Y+1];
+// 	UpTile = _TileGrid[X+1][Y];
+// 	DownTile = _TileGrid[X-1][Y];
+// 	//SingleUpdate(Map _TileGrid, Tile CurrentTile, Tile OldTile, int newS, int oldS);
+// 	SingleUpdate(_TileGrid, CurrentTile, UpTile, 0, 6, 1, values);
+// 	SingleUpdate(_TileGrid, CurrentTile, UpTile, 1, 5, 1, values);
+// 	SingleUpdate(_TileGrid, CurrentTile, UpTile, 2, 4, 1, values);
 
-	SingleUpdate(_TileGrid, CurrentTile, RightTile, 2, 0, 2, values);
-	SingleUpdate(_TileGrid, CurrentTile, RightTile, 3, 7, 2, values);
-	SingleUpdate(_TileGrid, CurrentTile, RightTile, 4, 6, 2, values);
+// 	SingleUpdate(_TileGrid, CurrentTile, RightTile, 2, 0, 2, values);
+// 	SingleUpdate(_TileGrid, CurrentTile, RightTile, 3, 7, 2, values);
+// 	SingleUpdate(_TileGrid, CurrentTile, RightTile, 4, 6, 2, values);
 
-	SingleUpdate(_TileGrid, CurrentTile, DownTile, 4, 2, 3, values);
-	SingleUpdate(_TileGrid, CurrentTile, DownTile, 5, 1, 3, values);
-	SingleUpdate(_TileGrid, CurrentTile, DownTile, 6, 0, 3, values);
+// 	SingleUpdate(_TileGrid, CurrentTile, DownTile, 4, 2, 3, values);
+// 	SingleUpdate(_TileGrid, CurrentTile, DownTile, 5, 1, 3, values);
+// 	SingleUpdate(_TileGrid, CurrentTile, DownTile, 6, 0, 3, values);
 
-	SingleUpdate(_TileGrid, CurrentTile, LeftTile, 6, 4, 4, values);
-	SingleUpdate(_TileGrid, CurrentTile, LeftTile, 7, 3, 4, values);
-	SingleUpdate(_TileGrid, CurrentTile, LeftTile, 0, 2, 4, values);
+// 	SingleUpdate(_TileGrid, CurrentTile, LeftTile, 6, 4, 4, values);
+// 	SingleUpdate(_TileGrid, CurrentTile, LeftTile, 7, 3, 4, values);
+// 	SingleUpdate(_TileGrid, CurrentTile, LeftTile, 0, 2, 4, values);
 
-	DenUpdate(_TileGrid, X, Y, values);
-	//return values;
-}
+// 	DenUpdate(_TileGrid, X, Y, values);
+// 	//return values;
+// }
 
 /*
 void Player::cleanUpGame(){
@@ -366,7 +366,7 @@ void Player::InheritValue(ComponentTracker Child, ComponentTracker Parent)
 	//Delete Child from 'To-Check' List ```````````````WITHIN MAPCLASS``````````````````
 	//Only Check parents for scoring and updates
 }
-e
+
 int* Player::giveMyMove_p(int moveNum, string tile){
 
         int bvalue = -BESTVALUE;
@@ -1090,9 +1090,10 @@ Tile tileStructure(int i){
         Tile_1.Boar = false;
         Tile_1.Deer = false;
         Tile_1.Den = false;
+        Tile_1.CenterClusterid = 0;
         Tile_1.x = 0;
         Tile_1.y = 0;
-        Tile_1.completion[4] = {false};
+       // Tile_1.completion[4] = {false};
         
         
         
@@ -1134,9 +1135,10 @@ Tile tileStructure(int i){
 		Tile_2.Boar = false;
 		Tile_2.Deer = false;
 		Tile_2.Den = true;
+		Tile_2.CenterClusterid = 0;
 		Tile_2.x = 0;
 		Tile_2.y = 0;
-		Tile_2.completion[4] = {false};
+		//Tile_2.completion[4] = {false};
 		return Tile_2;
 	}
 	else if(i == 2){
@@ -1176,9 +1178,10 @@ Tile tileStructure(int i){
 		Tile_3.Boar = false;
 		Tile_3.Deer = false;
 		Tile_3.Den = true;
+		Tile_3.CenterClusterid = 0;
 		Tile_3.x = 0;
 		Tile_3.y = 0;
-		Tile_3.completion[4] = {false};
+		//Tile_3.completion[4] = {false};
 		return Tile_3;
 	}
 	else if(i == 3){
@@ -1219,9 +1222,10 @@ Tile tileStructure(int i){
 	Tile_4.Boar = false;
 	Tile_4.Deer = false;
 	Tile_4.Den = false;
+	Tile_4.CenterClusterid = 0;
 	Tile_4.x = 0;
 	Tile_4.y = 0;
-	Tile_4.completion[4] = {false};
+	//Tile_4.completion[4] = {false};
 	return Tile_4;
 	}
 	else if(i == 4){
@@ -1261,9 +1265,10 @@ Tile tileStructure(int i){
 		Tile_5.Boar = false;
 		Tile_5.Deer = false;
 		Tile_5.Den = false;
+		Tile_5.CenterClusterid = 0;
 		Tile_5.x = 0;
 		Tile_5.y = 0;
-		Tile_5.completion[4] = {false};
+		//Tile_5.completion[4] = {false};
 		return Tile_5;
 	}
 	else if(i == 5){
@@ -1303,9 +1308,10 @@ Tile tileStructure(int i){
 		Tile_6.Boar = false;
 		Tile_6.Deer = false;
 		Tile_6.Den = false;
+		Tile_6.CenterClusterid = 0;
 		Tile_6.x = 0;
 		Tile_6.y = 0;
-		Tile_6.completion[4] = {false};
+		//Tile_6.completion[4] = {false};
 		return Tile_6;
 	}
 	else if(i == 6){
@@ -1344,9 +1350,10 @@ Tile tileStructure(int i){
 		Tile_7.Boar = false;
 		Tile_7.Deer = false;
 		Tile_7.Den = false;
+		Tile_7.CenterClusterid = 0;
 		Tile_7.x = 0;
 		Tile_7.y = 0;
-		Tile_7.completion[4] = {false};
+		//Tile_7.completion[4] = {false};
 		return Tile_7;
 	}
 	else if(i == 7){
@@ -1386,9 +1393,10 @@ Tile tileStructure(int i){
 		Tile_8.Boar = false;
 		Tile_8.Deer = false;
 		Tile_8.Den = false;
+		Tile_8.CenterClusterid = 0;
 		Tile_8.x = 0;
 		Tile_8.y = 0;
-		Tile_8.completion[4] = {false};
+		//Tile_8.completion[4] = {false};
 		return Tile_8;
 	}
 	else if(i == 8){
@@ -1432,9 +1440,10 @@ Tile tileStructure(int i){
 		Tile_9.Boar = false;
 		Tile_9.Deer = false;
 		Tile_9.Den = false;
+		Tile_9.CenterClusterid = 0;
 		Tile_9.x = 0;
 		Tile_9.y = 0;
-		Tile_9.completion[4] = {false};
+		//Tile_9.completion[4] = {false};
 		return Tile_9;
 	}
 	else if(i == 9){
@@ -1478,9 +1487,10 @@ Tile tileStructure(int i){
 		Tile_10.Boar = false;
 		Tile_10.Deer = false;
 		Tile_10.Den = false;
+		Tile_10.CenterClusterid = 0;
 		Tile_10.x = 0;
 		Tile_10.y = 0;
-		Tile_10.completion[4] = {false};
+		//Tile_10.completion[4] = {false};
 		return Tile_10;
 	}
 	else if(i == 10){
@@ -1524,9 +1534,10 @@ Tile tileStructure(int i){
 		Tile_11.Boar = false;
 		Tile_11.Deer = false;
 		Tile_11.Den = false;
+		Tile_11.CenterClusterid = 0;
 		Tile_11.x = 0;
 		Tile_11.y = 0;
-		Tile_11.completion[4] = {false};
+		//Tile_11.completion[4] = {false};
 		return Tile_11;
 	}
 	else if(i == 11){
@@ -1569,9 +1580,10 @@ Tile tileStructure(int i){
 		Tile_12.Boar = false;
 		Tile_12.Deer = false;
 		Tile_12.Den = false;
+		Tile_12.CenterClusterid = 0;
 		Tile_12.x = 0;
 		Tile_12.y = 0;
-		Tile_12.completion[4] = {false};
+		//Tile_12.completion[4] = {false};
 		return Tile_12;
 	}
 	else if(i == 12){
@@ -1614,9 +1626,10 @@ Tile tileStructure(int i){
 		Tile_13.Boar = false;
 		Tile_13.Deer = false;
 		Tile_13.Den = false;
+		Tile_13.CenterClusterid = 0;
 		Tile_13.x = 0;
 		Tile_13.y = 0;
-		Tile_13.completion[4] = {false};
+		//Tile_13.completion[4] = {false};
 		return Tile_13;
 	}
 	else if(i == 13){
@@ -1659,9 +1672,10 @@ Tile tileStructure(int i){
 		Tile_14.Boar = false;
 		Tile_14.Deer = false;
 		Tile_14.Den = false;
+		Tile_14.CenterClusterid = 0;
 		Tile_14.x = 0;
 		Tile_14.y = 0;
-		Tile_14.completion[4] = {false};
+		//Tile_14.completion[4] = {false};
 		return Tile_14;
 	}
 	else if(i == 14){
@@ -1704,9 +1718,10 @@ Tile tileStructure(int i){
 		Tile_15.Boar = false;
 		Tile_15.Deer = false;
 		Tile_15.Den = false;
+		Tile_15.CenterClusterid = 0;
 		Tile_15.x = 0;
 		Tile_15.y = 0;
-		Tile_15.completion[4] = {false};
+		//Tile_15.completion[4] = {false};
 		return Tile_15;
 	}
 	else if(i == 15){
@@ -1749,9 +1764,10 @@ Tile tileStructure(int i){
 		Tile_16.Boar = true;
 		Tile_16.Deer = false;
 		Tile_16.Den = false;
+		Tile_16.CenterClusterid = 0;
 		Tile_16.x = 0;
 		Tile_16.y = 0;
-		Tile_16.completion[4] = {false};
+		//Tile_16.completion[4] = {false};
 		return Tile_16;
 	}
 	else if(i == 16){
@@ -1794,9 +1810,10 @@ Tile tileStructure(int i){
 		Tile_17.Boar = false;
 		Tile_17.Deer = false;
 		Tile_17.Den = false;
+		Tile_17.CenterClusterid = 0;
 		Tile_17.x = 0;
 		Tile_17.y = 0;
-		Tile_17.completion[4] = {false};
+		//Tile_17.completion[4] = {false};
 		return Tile_17;
 	}
 	else if(i == 17){
@@ -1839,9 +1856,10 @@ Tile tileStructure(int i){
 		Tile_18.Boar = false;
 		Tile_18.Deer = false;
 		Tile_18.Den = false;
+		Tile_18.CenterClusterid = 0;
 		Tile_18.x = 0;
 		Tile_18.y = 0;
-		Tile_18.completion[4] = {false};
+		//Tile_18.completion[4] = {false};
 		return Tile_18;
 	}
 	else if(i == 18){
@@ -1884,9 +1902,10 @@ Tile tileStructure(int i){
 		Tile_19.Boar = false;
 		Tile_19.Deer = false;
 		Tile_19.Den = false;
+		Tile_19.CenterClusterid = 0;
 		Tile_19.x = 0;
 		Tile_19.y = 0;
-		Tile_19.completion[4] = {false};
+		//Tile_19.completion[4] = {false};
 		return Tile_19;
 	}
 	else if(i == 19){
@@ -1929,9 +1948,10 @@ Tile tileStructure(int i){
 		Tile_20.Boar = false;
 		Tile_20.Deer = true;
 		Tile_20.Den = false;
+		Tile_20.CenterClusterid = 0;
 		Tile_20.x = 0;
 		Tile_20.y = 0;
-		Tile_20.completion[4] = {false};
+		//Tile_20.completion[4] = {false};
 		return Tile_20;
 	}
 	else if(i == 20){
@@ -1974,9 +1994,10 @@ Tile tileStructure(int i){
 		Tile_21.Boar = false;
 		Tile_21.Deer = false;
 		Tile_21.Den = false;
+		Tile_21.CenterClusterid = 0;
 		Tile_21.x = 0;
 		Tile_21.y = 0;
-		Tile_21.completion[4] = {false};
+		//Tile_21.completion[4] = {false};
 		return Tile_21;
 	}
 	else if(i == 21){
@@ -2019,9 +2040,10 @@ Tile tileStructure(int i){
 		Tile_22.Boar = false;
 		Tile_22.Deer = false;
 		Tile_22.Den = false;	
+		Tile_22.CenterClusterid = 0;
 		Tile_22.x = 0;
 		Tile_22.y = 0;
-		Tile_22.completion[4] = {false};
+		//Tile_22.completion[4] = {false};
 		return Tile_22;
 	}
 	else if(i == 22){
@@ -2064,9 +2086,10 @@ Tile tileStructure(int i){
 		Tile_23.Boar = true;
 		Tile_23.Deer = false;
 		Tile_23.Den = false;
+		Tile_23.CenterClusterid = 0;
 		Tile_23.x = 0;
 		Tile_23.y = 0;
-		Tile_23.completion[4] = {false};
+		//Tile_23.completion[4] = {false};
 		return Tile_23;
 	}	
 	else if(i == 23){
@@ -2109,9 +2132,10 @@ Tile tileStructure(int i){
 		Tile_24.Boar = false;
 		Tile_24.Deer = false;
 		Tile_24.Den = false;
+		Tile_24.CenterClusterid = 0;
 		Tile_24.x = 0;
 		Tile_24.y = 0;
-		Tile_24.completion[4] = {false};
+		//Tile_24.completion[4] = {false};
 		return Tile_24;
 	}
 	else if(i == 24){
@@ -2154,9 +2178,10 @@ Tile tileStructure(int i){
 		Tile_25.Boar = false;
 		Tile_25.Deer = false;
 		Tile_25.Den = false;
+		Tile_25.CenterClusterid = 0;
 		Tile_25.x = 0;
 		Tile_25.y = 0;
-		Tile_25.completion[4] = {false};
+		//Tile_25.completion[4] = {false};
 		return Tile_25;
 	}
 	else if(i == 25){
@@ -2199,9 +2224,10 @@ Tile tileStructure(int i){
 		Tile_26.Boar = false;
 		Tile_26.Deer = false;
 		Tile_26.Den = false;
+		Tile_26.CenterClusterid = 0;
 		Tile_26.x = 0;
 		Tile_26.y = 0;
-		Tile_26.completion[4] = {false};
+		//Tile_26.completion[4] = {false};
 		return Tile_26;
 	}
 	else if(i == 26){
@@ -2244,9 +2270,10 @@ Tile tileStructure(int i){
 		Tile_27.Boar = false;
 		Tile_27.Deer = true;
 		Tile_27.Den = false;
+		Tile_27.CenterClusterid = 0;
 		Tile_27.x = 0;
 		Tile_27.y = 0;
-		Tile_27.completion[4] = {false};
+		//Tile_27.completion[4] = {false};
 		return Tile_27;
 	}
 	else if(i == 27){
@@ -2302,9 +2329,14 @@ Tile tileStructure(int i){
 		Tile_28.Boar = false;
 		Tile_28.Deer = false;
 		Tile_28.Den = false;
+		Tile_28.CenterClusterid = 0;
 		Tile_28.x = 0;
 		Tile_28.y = 0;
-		Tile_28.completion[4] = {false};
+		//Tile_28.completion[4];
+		//Tile_28.completion[0] = false;
+		//Tile_28.completion[1] = false;
+		//Tile_28.completion[2] = false;
+		//Tile_28.completion[3] = false;
 		return Tile_28;
 	}
 }

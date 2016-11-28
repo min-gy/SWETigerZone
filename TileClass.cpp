@@ -19,6 +19,7 @@ public:
     vector<int> clusterid;
     vector<bool> tiger;
     int croc_count;
+    int CenterClusterid;
     bool Ox;
     bool Boar;
     bool Deer;
@@ -29,7 +30,7 @@ public:
     vector<bool> completion;
 
     Tile();
-    Tile(vector<char>, vector<int>, vector<int>, vector<bool>, int, bool, bool, bool, bool, int, int, vector<bool>);
+    Tile(vector<char>, vector<int>, vector<int>, vector<bool>, int, int, bool, bool, bool, bool, int, int, vector<bool>);
     ~Tile();
 	
 };
@@ -43,6 +44,7 @@ Tile::Tile(vector<char> description,
             vector<int> clust, 
             vector<bool> bigCat, 
             int crocodile, 
+            int id,
             bool ox, 
             bool hog, 
             bool deer, 
@@ -54,6 +56,7 @@ Tile::Tile(vector<char> description,
     des  = description;
     type = geoType;
     clusterid = clust;
+    CenterClusterid = id;
     tiger = bigCat;
     croc_count = crocodile;
     Ox = ox;
