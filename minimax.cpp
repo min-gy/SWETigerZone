@@ -608,7 +608,8 @@ int main(){
 	//all this information is given in the last messae we received but we also know the starting tile and then we update the board
 	int x = 0, y = 0, orientation = 0;
 	char temp2[] = {'T', 'L', 'T', 'J', '-'};
-	tile t = getTile(temp2);
+	tile val = getTile(temp2);
+	tile t = val;
 	updateBoard(_TileGrid, x, y, t, orientation, _TilePresent);
 	//receive a message saying the remaining <number_tiles> tiles are [<tiles>]
 	cin>> tileInput;
