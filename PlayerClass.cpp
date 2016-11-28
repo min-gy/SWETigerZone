@@ -71,7 +71,7 @@ public:
         void updateBoard(Tile[153][153], int, int, Tile*, int);
         Tile* getTile(char const*);
         int* MiniMaxDecision(Tile[153][153], int,  Tile, vector<Tile>);
-        void generateMoves(Tile[153][153], list<int>, Tile);
+        void generateMoves(Tile[153][153], list<int>&, Tile);
         int *MinMoveDecision(Tile[153][153], int, int, int, int, vector<Tile>, Tile);
         int *MaxMoveDecision(Tile[153][153], int, int, int, int, vector<Tile>, Tile);
         int *evaluatePosition(Tile[153][153], int, int, int, int, Tile);
@@ -91,7 +91,8 @@ public:
         void updateComponents(Tile[153][153], int, int);
         //void gameOver();
 
-        void placeOPPOMove_p(string, int[], int);
+        //void placeOPPOMove_p(string, string[], int);
+
 
         
         
@@ -181,45 +182,45 @@ int Player::MeepleUpdateYou(ComponentTracker Region){
 	return Region.MeepleCountYou;
 }
 
-void Player::DenCheck(Tile _TileGrid[153][153], int X, int Y, int NewX, int NewY, int * values){
-	if(_TileGrid[NewX][NewY].orientation != NULL)
-	{
-		if(_TileGrid[X][Y].Den == true)
-		{
-			MainList[_TileGrid[X][Y].CenterClusterid].IncompleteSides -= 1;
-			if (MainList[_TileGrid[X][Y].CenterClusterid].IncompleteSides == 0)
-			{
-				if (MainList[_TileGrid[X][Y].CenterClusterid].MeepleCountMe == 1)
-				{
-					values[3] += DenScoreUpdate(MainList[_TileGrid[X][Y].CenterClusterid]);
-				}
-				if (MainList[_TileGrid[X][Y].CenterClusterid].MeepleCountYou == 1)
-				{
-					values[4] += DenScoreUpdate(MainList[_TileGrid[X][Y].CenterClusterid]);
-				}
-				values[1] += MeepleUpdateMe(MainList[_TileGrid[X][Y].CenterClusterid]);
-				values[2] += MeepleUpdateYou(MainList[_TileGrid[X][Y].CenterClusterid]);
-			}
-		}
-		if(_TileGrid[NewX][NewY].Den == true)
-		{
-			MainList[_TileGrid[NewX][NewY].CenterClusterid].IncompleteSides -= 1;
-			if (MainList[_TileGrid[NewX][NewY].CenterClusterid].IncompleteSides == 0)
-			{
-				if (MainList[_TileGrid[NewX][NewY].CenterClusterid].MeepleCountMe == 1)
-				{
-					values[3] += DenScoreUpdate(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
-				}
-				if (MainList[_TileGrid[NewX][NewY].CenterClusterid].MeepleCountYou == 1)
-				{
-					values[4] += DenScoreUpdate(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
-				}
-				values[1] += MeepleUpdateMe(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
-				values[2] += MeepleUpdateYou(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
-			}
-		}
-	}
-}
+// void Player::DenCheck(Tile _TileGrid[153][153], int X, int Y, int NewX, int NewY, int * values){
+// 	if(_TileGrid[NewX][NewY].orientation != NULL)
+// 	{
+// 		if(_TileGrid[X][Y].Den == true)
+// 		{
+// 			MainList[_TileGrid[X][Y].CenterClusterid].IncompleteSides -= 1;
+// 			if (MainList[_TileGrid[X][Y].CenterClusterid].IncompleteSides == 0)
+// 			{
+// 				if (MainList[_TileGrid[X][Y].CenterClusterid].MeepleCountMe == 1)
+// 				{
+// 					values[3] += DenScoreUpdate(MainList[_TileGrid[X][Y].CenterClusterid]);
+// 				}
+// 				if (MainList[_TileGrid[X][Y].CenterClusterid].MeepleCountYou == 1)
+// 				{
+// 					values[4] += DenScoreUpdate(MainList[_TileGrid[X][Y].CenterClusterid]);
+// 				}
+// 				values[1] += MeepleUpdateMe(MainList[_TileGrid[X][Y].CenterClusterid]);
+// 				values[2] += MeepleUpdateYou(MainList[_TileGrid[X][Y].CenterClusterid]);
+// 			}
+// 		}
+// 		if(_TileGrid[NewX][NewY].Den == true)
+// 		{
+// 			MainList[_TileGrid[NewX][NewY].CenterClusterid].IncompleteSides -= 1;
+// 			if (MainList[_TileGrid[NewX][NewY].CenterClusterid].IncompleteSides == 0)
+// 			{
+// 				if (MainList[_TileGrid[NewX][NewY].CenterClusterid].MeepleCountMe == 1)
+// 				{
+// 					values[3] += DenScoreUpdate(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
+// 				}
+// 				if (MainList[_TileGrid[NewX][NewY].CenterClusterid].MeepleCountYou == 1)
+// 				{
+// 					values[4] += DenScoreUpdate(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
+// 				}
+// 				values[1] += MeepleUpdateMe(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
+// 				values[2] += MeepleUpdateYou(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
+// 			}
+// 		}
+// 	}
+// }
 
 void Player::DenUpdate(Tile _TileGrid[153][153], int X, int Y, int * values){
 	if (_TileGrid[X][Y].Den == true){
@@ -234,72 +235,72 @@ void Player::DenUpdate(Tile _TileGrid[153][153], int X, int Y, int * values){
 	}
 }
 
-void Player::SingleUpdate(Tile _TileGrid[153][153], Tile CurrentTile, Tile OldTile, int newS, int oldS, int Side, int * values){
-	int x;
-	int y;
-	bool DontAdd;
-	DontAdd = false;
-	//Catch for nonexistent tile
-	if (OldTile.orientation != NULL && CurrentTile.type.at(newS) != 4){
-		if (CurrentTile.type.at(newS) == OldTile.type.at(oldS)){
-			//Special Check for corner Jungle . Jungle
-			if ((newS % 2 == 0) && (CurrentTile.type.at(newS) == 2)){
-				switch(Side){
-      			  	case 1: 
-      			  		if (OldTile.type.at(5) == 1)
-      			  			DontAdd = true;
-      			  	break;
- 					case 2:
- 						if (OldTile.type.at(7) == 1)
-      			  			DontAdd = true;
- 					break;
-        			case 3:
-        				if (OldTile.type.at(1) == 1)
-      			  			DontAdd = true;
-        			break;
-        			case 4:
-        				if (OldTile.type.at(3) == 1)
-      			  			DontAdd = true;
-        			break;
-        		}
-			}
-			x = CurrentTile.clusterid.at(newS);
-			y = OldTile.clusterid.at(oldS);
-			while (x != MainList[x].ParentId)
-			{
-			 	x = MainList[x].ParentId;		
-			 	if (x == y)
-			 	{// REQUIRE CATCH FOR scenario in which y already absorbed into x.parent
-			 		DontAdd = true;
-			 	}	 	
-			}	
-			if (DontAdd == false)
-			{
-				while (y != MainList[y].ParentId)
-			 		y = MainList[y].ParentId;			 	
-				//InheritValue(ComponentTracker Child, ComponentTracker Parent)
-				InheritValue(MainList[x], MainList[y]);
-			}
-			if ((newS % 2 == 1) && (CurrentTile.type.at(newS) != 2)) 
-			{
-				MainList[y].IncompleteSides -= 2;
-				if ( MainList[y].IncompleteSides == 0 )
-				{
-					if (MainList[y].MeepleCountMe >= MainList[y].MeepleCountYou)
-					{
-						values[3] += ScoreUpdate(MainList[y]);	
-					}
-					if (MainList[y].MeepleCountMe <= MainList[y].MeepleCountYou)
-					{
-						values[4] += ScoreUpdate(MainList[y]);
-					}
-					values[1] += MeepleUpdateMe(MainList[y]);
-					values[2] += MeepleUpdateMe(MainList[y]);
-				}
-			}
-		}
-	}
-}
+// void Player::SingleUpdate(Tile _TileGrid[153][153], Tile CurrentTile, Tile OldTile, int newS, int oldS, int Side, int * values){
+// 	int x;
+// 	int y;
+// 	bool DontAdd;
+// 	DontAdd = false;
+// 	//Catch for nonexistent tile
+// 	if (OldTile.orientation != NULL && CurrentTile.type.at(newS) != 4){
+// 		if (CurrentTile.type.at(newS) == OldTile.type.at(oldS)){
+// 			//Special Check for corner Jungle . Jungle
+// 			if ((newS % 2 == 0) && (CurrentTile.type.at(newS) == 2)){
+// 				switch(Side){
+//       			  	case 1: 
+//       			  		if (OldTile.type.at(5) == 1)
+//       			  			DontAdd = true;
+//       			  	break;
+//  					case 2:
+//  						if (OldTile.type.at(7) == 1)
+//       			  			DontAdd = true;
+//  					break;
+//         			case 3:
+//         				if (OldTile.type.at(1) == 1)
+//       			  			DontAdd = true;
+//         			break;
+//         			case 4:
+//         				if (OldTile.type.at(3) == 1)
+//       			  			DontAdd = true;
+//         			break;
+//         		}
+// 			}
+// 			x = CurrentTile.clusterid.at(newS);
+// 			y = OldTile.clusterid.at(oldS);
+// 			while (x != MainList[x].ParentId)
+// 			{
+// 			 	x = MainList[x].ParentId;		
+// 			 	if (x == y)
+// 			 	{// REQUIRE CATCH FOR scenario in which y already absorbed into x.parent
+// 			 		DontAdd = true;
+// 			 	}	 	
+// 			}	
+// 			if (DontAdd == false)
+// 			{
+// 				while (y != MainList[y].ParentId)
+// 			 		y = MainList[y].ParentId;			 	
+// 				//InheritValue(ComponentTracker Child, ComponentTracker Parent)
+// 				InheritValue(MainList[x], MainList[y]);
+// 			}
+// 			if ((newS % 2 == 1) && (CurrentTile.type.at(newS) != 2)) 
+// 			{
+// 				MainList[y].IncompleteSides -= 2;
+// 				if ( MainList[y].IncompleteSides == 0 )
+// 				{
+// 					if (MainList[y].MeepleCountMe >= MainList[y].MeepleCountYou)
+// 					{
+// 						values[3] += ScoreUpdate(MainList[y]);	
+// 					}
+// 					if (MainList[y].MeepleCountMe <= MainList[y].MeepleCountYou)
+// 					{
+// 						values[4] += ScoreUpdate(MainList[y]);
+// 					}
+// 					values[1] += MeepleUpdateMe(MainList[y]);
+// 					values[2] += MeepleUpdateMe(MainList[y]);
+// 				}
+// 			}
+// 		}
+// 	}
+// }
 
 //update the components
 void Player::updateComponents(Tile _TileGrid[153][153], int X, int Y){
@@ -432,6 +433,7 @@ void Player::placeMove_p(string tile, int move[3], int i){
 
 }
 
+<<<<<<< HEAD
 void Player::placeOPPOMove_p(string tile, int move[3], int i){
 
 //decode move string array to int* 
@@ -439,17 +441,26 @@ void Player::placeOPPOMove_p(string tile, int move[3], int i){
     int x = move[0];
     int x = move[1];
     int z = move[2];
+=======
+// void Player::placeOPPOMove_p(string tile, int * move, int i){
+
+// //decode move string array to int* 
+//     Tile * temp = getTile(tile.c_str());
+//     int x = *(move);
+//     int x = *(move+1);
+//     int z = *(move+2);
+>>>>>>> bug
     
-//     int m = z;
-// 	if(m > 0 && m < 5)
-// 		updateTigerCount(0);
-// 	if(m == 5)
-// 		updateCrocodileCount();
-	updateBoard(_TileGrid, x, y, temp, z);
-	//updateComponents(_TileGrid, x, y);
+// //     int m = z;
+// // 	if(m > 0 && m < 5)
+// // 		updateTigerCount(0);
+// // 	if(m == 5)
+// // 		updateCrocodileCount();
+// 	updateBoard(_TileGrid, x, y, temp, z);
+// 	//updateComponents(_TileGrid, x, y);
    
 
-}
+// }
 
 void Player::getTileStack(vector<string> tileString){
 	for(int i = 0; i < tileString.size(); i++)
@@ -461,7 +472,7 @@ void Player::getTileStack(vector<string> tileString){
 		// temp2[3] = temp1[i+3];
 		// temp2[4] = temp1[i+4];
 		Tile * tempTile = getTile(tileString[i].c_str());
-                Tile myTile = &tempTile;
+                Tile myTile = *tempTile;
 		randomTileStack.push_back(myTile);
         }
 	//parse tileString to tileStack
@@ -810,66 +821,66 @@ void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile c
 }
 
 //This is the opponents future move
-int *Player::MinMoveDecision(Tile _TileGrid[153][153], int x, int y, int z, int moveNum, vector<tile> temp, Tile t) {
-	int *pvalue = evaluatePosition(_TileGrid, x, y, z, moveNum, t);
-	if(pvalue[0] == -1)
-		return pvalue;
-	int bvalue[2] = {+BESTVALUE, 0};
-	list<int> movelist;
-	//current tile searches the temp list, which holds the order of the tiles, for the tile we need
-	curTile = temp[moveNum-1];
-	generateMoves(_TileGrid, movelist, curTile);
-	while(!movelist.empty()) {
-		int x = movelist.front();
-		movelist.pop_front();
-		int y = movelist.front();
-		movelist.pop_front();
-		int z = movelist.front();
-		movelist.pop_front();
-		curTile.orientation = z;
-		_TileGrid[x][y] = curTile;
-		//this would be after we placed a valid move and then the opponent placed a valid move, it would come back to us
-		//int value = MaxMoveDecision(_TileGrid, x, y, z, moveNum+1, temp, t);
-		//if we dont do use max move then we need an evaluatePosition method to get value
-		int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, t);
-		if(value[0] > bvalue[0]){
-			bvalue[0] = value[0];
-			bvalue[1] = value[1];
-		}
-	}
-	return bvalue;
-}
+// int *Player::MinMoveDecision(Tile _TileGrid[153][153], int x, int y, int z, int moveNum, vector<Tile> temp, Tile t) {
+// 	int *pvalue = evaluatePosition(_TileGrid, x, y, z, moveNum, t);
+// 	if(pvalue[0] == -1)
+// 		return pvalue;
+// 	int bvalue[2] = {+BESTVALUE, 0};
+// 	list<int> movelist;
+// 	//current tile searches the temp list, which holds the order of the tiles, for the tile we need
+// 	curTile = temp[moveNum-1];
+// 	generateMoves(_TileGrid, movelist, curTile);
+// 	while(!movelist.empty()) {
+// 		int x = movelist.front();
+// 		movelist.pop_front();
+// 		int y = movelist.front();
+// 		movelist.pop_front();
+// 		int z = movelist.front();
+// 		movelist.pop_front();
+// 		curTile.orientation = z;
+// 		_TileGrid[x][y] = curTile;
+// 		//this would be after we placed a valid move and then the opponent placed a valid move, it would come back to us
+// 		//int value = MaxMoveDecision(_TileGrid, x, y, z, moveNum+1, temp, t);
+// 		//if we dont do use max move then we need an evaluatePosition method to get value
+// 		int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, t);
+// 		if(value[0] > bvalue[0]){
+// 			bvalue[0] = value[0];
+// 			bvalue[1] = value[1];
+// 		}
+// 	}
+// 	return bvalue;
+// }
 
-//this is our future move
-int *Player::MaxMoveDecision(Tile _TileGrid[153][153], int x, int y, int z, int moveNum, vector<tile> temp, Tile t) {
-	int *pvalue = evaluatePosition(_TileGrid, x, y, z, moveNum, t);
-	if(pvalue[0] == -1)
-		return pvalue;
-	int bvalue[2] = {+BESTVALUE, 0};
-	list<int> movelist;
-	//current tile searches the temp list, which holds the order of the tiles, for the tile we need
-	curTile = temp[moveNum];
-	generateMoves(_TileGrid, movelist, curTile);
-	while(!movelist.empty()) {
-		int x = movelist.front();
-		movelist.pop_front();
-		int y = movelist.front();
-		movelist.pop_front();
-		int z = movelist.front();
-		movelist.pop_front();
-		curTile.orientation = z;
-		_TileGrid[x][y] = curTile;
-		//just like the last one but the opposite, this will keep going until the last move
-		//int value = MinMoveDecision(_TileGrid, x, y, z, moveNum+1, temp, t);
-		//if we dont do use min move then we need an evaluatePosition method to get value
-		int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, t);
-		if(value[0] > bvalue[0]){
-			bvalue[0] = value[0];
-			bvalue[1] = value[1];
-		}
-	}
-	return bvalue;
-}
+// //this is our future move
+// int *Player::MaxMoveDecision(Tile _TileGrid[153][153], int x, int y, int z, int moveNum, vector<tile> temp, Tile t) {
+// 	int *pvalue = evaluatePosition(_TileGrid, x, y, z, moveNum, t);
+// 	if(pvalue[0] == -1)
+// 		return pvalue;
+// 	int bvalue[2] = {+BESTVALUE, 0};
+// 	list<int> movelist;
+// 	//current tile searches the temp list, which holds the order of the tiles, for the tile we need
+// 	curTile = temp[moveNum];
+// 	generateMoves(_TileGrid, movelist, curTile);
+// 	while(!movelist.empty()) {
+// 		int x = movelist.front();
+// 		movelist.pop_front();
+// 		int y = movelist.front();
+// 		movelist.pop_front();
+// 		int z = movelist.front();
+// 		movelist.pop_front();
+// 		curTile.orientation = z;
+// 		_TileGrid[x][y] = curTile;
+// 		//just like the last one but the opposite, this will keep going until the last move
+// 		//int value = MinMoveDecision(_TileGrid, x, y, z, moveNum+1, temp, t);
+// 		//if we dont do use min move then we need an evaluatePosition method to get value
+// 		int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, t);
+// 		if(value[0] > bvalue[0]){
+// 			bvalue[0] = value[0];
+// 			bvalue[1] = value[1];
+// 		}
+// 	}
+// 	return bvalue;
+// }
 
 //returns the value of the tile at that location also any prunning needed
 //also any logic here can be changed or added, this is just a starting point for checking and such
