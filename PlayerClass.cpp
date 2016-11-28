@@ -70,6 +70,7 @@ void Player::cleanUpGame(){
 	delete myGameEngine;
 }
 
+/*
 int* Player::makeMyMove_p(string tile){
 	//AI algorithm to decide to make move
 	myGameEngine->getSomething();
@@ -82,13 +83,17 @@ int* Player::makeMyMove_p(string tile){
 	int* ptr = &success[0];
 	return ptr;
 }
+*/
 
 void Player::placeMove_p(string tile, int * move, int usOrThem){
 	//something that gives function arguments below
 	myGameEngine->placeMyMove_g(tile, x, y, orientation, urOrThem);
 
-	//
+/*
+void Player::placeOppoMove_p(string move[]){
+	//myGameEngine->makeOppoMove_g(move argument)
 }
+*/
 
 
 void Player::getTileStack(string tileString){
