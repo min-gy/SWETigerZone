@@ -216,9 +216,19 @@ int main (int argc, char *argv[]){
 
 	    // if(ourGameMove1[0] == 0){
 
-            reply = *(ourGameMove1) + *(ourGameMove1+1);
+            //reply = *(ourGameMove1) + *(ourGameMove1+1);
 
-            
+           //ourGameMove1 = player1->giveMyMove_p(atoi(arr[10].c_str()), arr[12]);
+
+
+            if(*(ourGameMove1+3) == 0){
+                reply = "GAME " + gameID2 + " MOVE " + arr[3] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
+        
+            }
+            else if(*(ourGameMove1+3) != 0){
+                 reply = "GAME " + gameID1 + " MOVE " + arr[3] + "  PLACE " + arr[12] + " AT " + *(ourGameMove1) + " " + *(ourGameMove1+1) + " " + *(ourGameMove1+2) + " NONE\r\n";
+            }
+  
 
             // if(ourGameMove1[0] == 0){
 
@@ -248,9 +258,21 @@ int main (int argc, char *argv[]){
 
 	    // if(ourGameMove1[0] == 0){
 
-            reply = *(ourGameMove2) + *(ourGameMove2+1);
+            //reply = *(ourGameMove2) + *(ourGameMove2+1);
 
-            
+           //ourGameMove2 = player2->giveMyMove_p(atoi(arr[10].c_str()), arr[12]);
+
+            //reply = *(ourGameMove2) + *(ourGameMove2+1);
+
+
+            if(*(ourGameMove2+3) == 0){
+                reply = "GAME " + gameID2 + " MOVE " + arr[3] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
+        
+            }
+            else if(*(ourGameMove2+3) != 0){
+                 reply = "GAME " + gameID2 + " MOVE " + arr[3] + "  PLACE " + arr[12] + " AT " + *(ourGameMove2) + " " + *(ourGameMove2+1) + " " + *(ourGameMove2+2) + " NONE\r\n";
+            }
+ 
 
             // if(ourGameMove1[0] == 0){
 
@@ -373,7 +395,7 @@ int main (int argc, char *argv[]){
 		    {
 
                         theirGameMove1[0] = arr[7];
-                        theirGameMove1[1] = arr[8];
+                        theirGameMove1[1] = arr[9];
                         theirGameMove1[2] = arr[10];
                         theirGameMove1[3] = arr[11];
 
@@ -406,12 +428,20 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
-                    player1->placeMove_p(arr[7], theirGameMove1, 1);
+		    int * theirArr[3];
+		    theirArr[0] = ctoi(arr[9].c_str());
+                    theirArr[1] = ctoi(arr[10].c_str());
+                    theirArr[2] = ctoi(arr[11].c_str());
+		    player1->placeOPPOMove_p(arr[7], theirArr*, 1);
                 }
                 else
 		{
                     //update my stuff
-                    player1->placeMove_p(arr[7], ourGameMove1, 0);
+                    int * ourArr[3];
+		    theirArr[0] = ctoi(arr[9].c_str());
+                    theirArr[1] = ctoi(arr[10].c_str());
+                    theirArr[2] = ctoi(arr[11].c_str());
+		    player1->placeMove_p(arr[7], ourArr*, 1);
                 }
                 
             }
@@ -425,7 +455,7 @@ int main (int argc, char *argv[]){
 		    {
 
                         theirGameMove2[0] = arr[7];
-                        theirGameMove2[1] = arr[8];
+                        theirGameMove2[1] = arr[9];
                         theirGameMove2[2] = arr[10];
                         theirGameMove2[3] = arr[11];
 
@@ -458,12 +488,20 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
-                    player2->placeOPPOMove_p(arr[7], theirGameMove2, 1);
+		    int * theirArr[3];
+		    theirArr[0] = ctoi(arr[9].c_str());
+                    theirArr[1] = ctoi(arr[10].c_str());
+                    theirArr[2] = ctoi(arr[11].c_str());
+		    player2->placeOPPOMove_p(arr[7], theirArr*, 1);
                 }
                 else
 		{
                     //update my stuff
-                    player2->placeMove_p(arr[7], ourGameMove2, 0);
+                    int * ourArr[3];
+		    theirArr[0] = ctoi(arr[9].c_str());
+                    theirArr[1] = ctoi(arr[10].c_str());
+                    theirArr[2] = ctoi(arr[11].c_str());
+		    player2->placeMove_p(arr[7], ourArr*, 1);
                 }
                 
             }
@@ -479,7 +517,7 @@ int main (int argc, char *argv[]){
 		    {
 
                         theirGameMove1[0] = arr[7];
-                        theirGameMove1[1] = arr[8];
+                        theirGameMove1[1] = arr[9];
                         theirGameMove1[2] = arr[10];
                         theirGameMove1[3] = arr[11];
 
@@ -512,12 +550,20 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
-                    player1->placeOPPOMove_p(arr[7], theirGameMove1, 1);
+		    int * theirArr[3];
+		    theirArr[0] = ctoi(arr[9].c_str());
+                    theirArr[1] = ctoi(arr[10].c_str());
+                    theirArr[2] = ctoi(arr[11].c_str());
+		    player1->placeOPPOMove_p(arr[7], theirArr*, 1);
                 }
                 else
 		{
                     //update my stuff
-                    player1->placeMove_p(arr[7], ourGameMove1, 0);
+                    int * ourArr[3];
+		    theirArr[0] = ctoi(arr[9].c_str());
+                    theirArr[1] = ctoi(arr[10].c_str());
+                    theirArr[2] = ctoi(arr[11].c_str());
+		    player1->placeMove_p(arr[7], ourArr*, 1);
                 }
                 
             }
@@ -532,7 +578,7 @@ int main (int argc, char *argv[]){
 		    {
 
                         theirGameMove2[0] = arr[7];
-                        theirGameMove2[1] = arr[8];
+                        theirGameMove2[1] = arr[9];
                         theirGameMove2[2] = arr[10];
                         theirGameMove2[3] = arr[11];
 
@@ -565,16 +611,24 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
+		    int * theirArr[3];
+		    theirArr[0] = ctoi(arr[9].c_str());
+                    theirArr[1] = ctoi(arr[10].c_str());
+                    theirArr[2] = ctoi(arr[11].c_str());
+		    player2->placeOPPOMove_p(arr[7], theirArr*, 1);
                     
                     
                 //decode theirGameMove string array to int*
                 //int* something = logic to return int* from theirGameMove
-                    player2->placeMove_p(arr[7], something, 1);
                 }
                 else
 		{
                     //update my stuff
-                    player2->placeMove_p(arr[7], ourGameMove2, 0);
+                    int * ourArr[3];
+		    theirArr[0] = ctoi(arr[9].c_str());
+                    theirArr[1] = ctoi(arr[10].c_str());
+                    theirArr[2] = ctoi(arr[11].c_str());
+		    player2->placeMove_p(arr[7], ourArr*, 1);
                 }
                 
             }
