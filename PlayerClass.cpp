@@ -64,14 +64,16 @@ void Player::cleanUpGame(){
 	delete myGameEngine;
 }
 
-int* Player::giveMyMove_p(string tile){
+int[] Player::giveMyMove_p(string tile){
 	//myGameEngine->giveMyMove_g(tile);
 	
 	//AI algorithm to decide to make move
 	
 	//return myMovePtr;
-	int success = 0;
-	return &success;
+
+	int success[5] = {0, 1};
+
+	return success;
 }
 
 void Player::placeMyMove_p(int move[]){
