@@ -386,7 +386,7 @@ int main (int argc, char *argv[]){
                 }
                 
             }
-
+            //check
         }
 
         //modify our game based on given ....

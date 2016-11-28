@@ -30,7 +30,7 @@ public:
     void makeMyMove_g();
     void addFirstTile_g(string, int, int, int);
     void placeMyMove_g(string, int, int, int);
-    Map* getMap();
+
     //void placeOppoMove_g();
 
     //int getCurrentStateEnum();
