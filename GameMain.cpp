@@ -27,6 +27,7 @@ int main (int argc, char *argv[]){
     //move order: classification(holla for explaination), x, y, orientation, ZONE
     int ourGameMove1[5];
     int ourGameMove2[5];
+    string tile;
 
     //move order: tile, x, y, orientation, NONE OR CROC OR TRIGER ,zone, 
     string theirGameMove1[6];
@@ -404,7 +405,7 @@ int main (int argc, char *argv[]){
                 }
                 
             }
-
+            //check
         }
 	else //forfeited
 	{
