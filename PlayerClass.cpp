@@ -30,7 +30,7 @@ public:
 	void addFirstTile_p(string, int, int , int);
 	int* makeMyMove_p(string);
 	void makeOppoMove_p();
-	void takeTileStack(string);
+	void getTileStack(string);
 
 	void cleanUpGame();
 };
@@ -70,7 +70,7 @@ int* Player::makeMyMove_p(string tile){
 	//AI algorithm to decide to make move
 	
 	//return myMovePtr;
-	int success = 00;
+	int success = 0;
 	return &success;
 }
 
@@ -78,7 +78,7 @@ void Player::makeOppoMove_p(){
 	//myGameEngine->makeOppoMove_g(move argument)
 }
 
-void Player::takeTileStack(string tileString){
+void Player::getTileStack(string tileString){
 	tileStack = tileString;
 }
 
