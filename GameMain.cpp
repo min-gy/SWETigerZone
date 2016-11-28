@@ -215,7 +215,7 @@ int main (int argc, char *argv[]){
             }
 
             //player compute move given Tile ID
-            ourGameMove1 = player1->makeMyMove_p(arr[12]);
+            ourGameMove1 = player1->giveMyMove_p(arr[12]);
             
 
 	    // if(ourGameMove1[0] == 0){
@@ -253,7 +253,7 @@ int main (int argc, char *argv[]){
             }
 
             //player compute move given Tile ID
-            ourGameMove2 = player2->makeMyMove_p(arr[12]);
+            ourGameMove2 = player2->giveMyMove_p(arr[12]);
             reply = *(ourGameMove2) + *(ourGameMove2+1);
 
             // if(ourGameMove2[0] == 0){
@@ -342,7 +342,7 @@ int main (int argc, char *argv[]){
                     gameID2 = arr[1];
                 }
                 
-                if(arr[5] == oppoPlayerID){}
+                if(arr[5] == oppoPlayerID){
                     if(arr[6] == "PLACED"){
 
                         theirGameMove2[0] = arr[7];
