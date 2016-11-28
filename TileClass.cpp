@@ -28,10 +28,15 @@ public:
     //0 = top, 1 = right, 2 = bottom, 3 = left
     vector<bool> completion;
 
+    Tile();
     Tile(vector<char>, vector<int>, vector<int>, vector<bool>, int, bool, bool, bool, bool, int, int, vector<bool>);
     ~Tile();
 	
 };
+
+Tile::Tile(){
+
+}
 
 Tile::Tile(vector<char> description, 
             vector<int> geoType, 

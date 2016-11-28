@@ -32,7 +32,7 @@ int main (int argc, char *argv[]){
     string theirGameMove1[6];
     string theirGameMove2[6];
 
-    string tileStackString;
+    vector<string> tileStack;
 
     int challengeID;
     int roundNum;
@@ -185,14 +185,12 @@ int main (int argc, char *argv[]){
       {
         //THE REMAINING <number_tiles> TILES ARE [<tiles>]
 
-        //make empty string
-        tileStackString = "";
         for(int i = 6; 6 < 82; i++){
-            tileStackString.append(arr[i] + " ");
+            tileStack.push_back(arr[i]);
         }
         
-        player1->getTileStack(tileStackString);
-        player2->getTileStack(tileStackString);
+        player1->getTileStack(tileStackArr);
+        player2->getTileStack(tileStackArr);
  
         //store tile order
 

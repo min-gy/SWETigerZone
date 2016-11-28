@@ -58,6 +58,7 @@ int DenScoreUpdate(ComponentTracker Region);
 int MeepleUpdateMe(ComponentTracker Region);
 int MeepleUpdateYou(ComponentTracker Region);
 void updateComponents(tile _TileGrid[153][153], int x, int y);
+
 int *MinMoveDecision(tile _TileGrid[153][153], int x, int y, int z, int moveNum, vector<tile> temp, tile t);
 int *MaxMoveDecision(tile _TileGrid[153][153], int x, int y, int z, int moveNum, vector<tile> temp, tile t);
 int *evaluatePosition(tile _TileGrid[153][153], int x, int y, int z, int num, tile t);
