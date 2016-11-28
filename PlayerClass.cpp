@@ -114,14 +114,11 @@ int* Player::giveMyMove_p(int moveNum, string tile){
 
 
 void Player::placeMove_p(string tile, int * move, int usOrThem){
-	//something that gives function arguments below
-	//myGameEngine->placeMyMove_g(tile, x, y, orientation, urOrThem);
-	//updateBoard(_TileGrid, *(move), *(move+1), ***tile string need to be tile object, *(move+2),)
-/*
-void Player::placeOppoMove_p(string move[]){
-	//myGameEngine->makeOppoMove_g(move argument)
-}
-*/
+
+    Tile * temp = new Tile();
+    temp = getTile(tile); 
+	updateBoard(_TileGrid, *(move), *(move+1), temp, *(move+2),)
+
 }
 
 void Player::getTileStack(string[] tileString){
@@ -140,7 +137,7 @@ void Player::getTileStack(string[] tileString){
 	//parse tileString to tileStack
 }
 
-void updateBoard(tile _TileGrid[153][153], int x, int y, tile t, int orien) {
+void updateBoard(Tile _TileGrid[153][153], int x, int y, Tile t, int orien) {
 	emptySpace temp;
 	t.orientation = orien;
 	_TileGrid[x][y] = t;
