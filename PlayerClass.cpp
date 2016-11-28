@@ -364,8 +364,8 @@ void Player::InheritValue(ComponentTracker Child, ComponentTracker Parent)
 
 int* Player::giveMyMove_p(int moveNum, string tile){
 
-        Tile * ptr = getTile(tile.c_str())
-        Tile myTile = &ptr
+        Tile * ptr = getTile(tile.c_str());
+        Tile myTile = &ptr;
 	tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
 	//return tileResult;
 
@@ -376,7 +376,7 @@ int* Player::giveMyMove_p(int moveNum, string tile){
 	return resultPtr;
 }
 
-void Player::placeMove_p(string tile, int * move, int usOrThem){
+void Player::placeMove_p(string tile, int * move){
 
     Tile * temp = getTile(tile.c_str()); 
     updateBoard(_TileGrid, *(move), *(move+1), temp, *(move+2));
