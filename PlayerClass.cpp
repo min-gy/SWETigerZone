@@ -1052,10 +1052,10 @@ void Player::updateTigerCount(int value){
 
 Tile tileStructure(int i)
 {
-                printf("In tileStructure\n");
+                //printf("In tileStructure\n");
 		if(i == 0)
 		{
-		printf("In tileStructure in 0\n");
+		//printf("In tileStructure in 0\n");
 		Tile Tile_1;
 		/*Tile_1.des = {'J', 'J', 'J', 'J', '-'};
 		Tile_1.type = {2,2,2,2,2,2,2,2};
@@ -1064,13 +1064,13 @@ Tile tileStructure(int i)
 	
 		return Tile_1;*/
        // Tile_1.
-	//Tile_1.des.insert(0, 'J');//) = 'J';
-	//Tile_1.des.insert(1) = 'J';
-        //Tile_1.des.insert(2) = 'J';
-	//Tile_1.des.insert(3) = 'J';
-	//Tile_1.des.insert(4) = '-';
+	Tile_1.des.push_back('J');//) = 'J';
+	Tile_1.des.push_back('J');
+        Tile_1.des.push_back('J');
+	Tile_1.des.push_back('J');
+	Tile_1.des.push_back('-');
 
-        printf("In tileStructure after des\n");
+        //printf("In tileStructure after des\n");
 	
         Tile_1.type.push_back(2);
         Tile_1.type.push_back(2);
@@ -2354,7 +2354,7 @@ Tile tileStructure(int i)
 		//Tile_28.completion[3] = false;
 		return Tile_28;
         
-        cout<<"we made it"<<endl;
+        //cout<<"we made it"<<endl;
 	}
     
     
@@ -2362,24 +2362,28 @@ Tile tileStructure(int i)
 
 
 Tile* Player::getTile(char const* temp2){
-	printf("In getTile\n");
+	//printf("In getTile\n");
 	char a = temp2[0];
 	char b = temp2[1];
 	char c = temp2[2];
 	char d = temp2[3];
 	char e = temp2[4];
-        printf("In getTile passed chars\n");
+        //printf("In getTile passed chars\n");
 	for(int i = 0; i < 28; i++){
 		//tile structure holds all the hard coded values for each tile
-		printf("%d\n", i);
+		//printf("%d\n", i);
 		Tile temp = tileStructure(i);
-		printf("In getTile in For passed tileStructure\n");
+		//printf("In getTile in For passed tileStructure\n");
                 Tile * ptr = &temp;
-		vector<char> temp1 = ptr->des;
-		printf("%d\n", i);
-		if(a == temp1[0] && b == temp1[1] && c == temp1[2] && d == temp1[3] && e == temp1[4])
-		        printf("%d\n", i);
+		//vector<char> temp1 = ptr->des;
+		//printf("%d\n", i);
+		//printf("%c %c %c %c %c \n", a, b, c, d, e);
+		//printf("%c %c %c %c %c \n", temp.des.at(0), temp.des.at(1), temp.des.at(2), temp.des.at(3), temp.des.at(4));
+		if(a == temp.des[0] && b == temp.des[1] && c == temp.des[2] && d == temp.des[3] && e == temp.des[4])
+		{
+		        //printf("%d\n", i);
 			return ptr;
+                }
 	}
 	printf("DID NOT FIND TILE!\n");
 }
