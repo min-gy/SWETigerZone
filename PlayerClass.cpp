@@ -63,7 +63,7 @@ public:
 	void startNewGame();
 	//void runGame();
 	void addFirstTile_p(string, int, int , int);
-	int* giveMyMove_p(int, string);
+	vector<char> giveMyMove_p(int, string);
 	void placeMove_p(string, int[], int);
 	void getTileStack(vector<string>);
 	void cleanUpGame();
@@ -367,24 +367,21 @@ void Player::InheritValue(ComponentTracker Child, ComponentTracker Parent)
 	//Only Check parents for scoring and updates
 }
 
-int* Player::giveMyMove_p(int moveNum, string tile){
+vector<char> Player::giveMyMove_p(int moveNum, string tile){
 
         int bvalue = -BESTVALUE;
         int index = 0;
         Tile * ptr = getTile(tile.c_str());
         Tile myTile = *ptr;
 	//tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
-	list<int> movelist;
-        int bestmoves[4];
+        list<int> movelist;
+       vector<char> bestmoves;
         generateMoves(_TileGrid, movelist, myTile);
 
 
         if(movelist.size() == 0){
 		//we are going to do nothing
-		bestmoves[index] = 0;
-		bestmoves[index+1] = 0;
-		bestmoves[index+2] = 0;
-		bestmoves[index+3] = 0;
+
 		return bestmoves;
 		//but we do need to know how to repond to both of these things if our opponent does this to us
 	}
@@ -406,12 +403,16 @@ int* Player::giveMyMove_p(int moveNum, string tile){
 	// 		index = 0;
 	// 	}
 
-        bestmoves[index] = x;
-			bestmoves[index+1] = y;
-			bestmoves[index+2] = z;
+    bestmoves.push_back((char)0);
+    bestmoves.push_back((char)z);
+    bestmoves.push_back((char)y);
+    bestmoves.push_back((char)x);
+
+			
+			
 			//m represents 0 for not placing anything, 1 for tiger on a feild, 2 for tiger on water, 3 for tiger on a path, and 4 for placing a croc
-			bestmoves[index+3] = 0;
-	int* bestmovesPtr = &bestmoves[0];
+			
+	//int* bestmovesPtr = &bestmoves[0];
 	return bestmoves;
 }
 
