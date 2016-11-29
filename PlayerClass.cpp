@@ -2276,7 +2276,7 @@ Tile tileStructure(int i)
 		Tile_27.tiger.push_back(false);
 		Tile_27.tiger.push_back(false);
 		Tile_27.tiger.push_back(false);
-        Tile_27.tiger.push_back(false);)
+        Tile_27.tiger.push_back(false);
 		//Tile_27.type = {2,1,2,2,2,3,2,2}; // has deer
 		//Tile_27.clusterid = {1,2,3,3,3,4,1,1};
 		//Tile_27.tiger = {false,false,false,false,false,false,false,false};
@@ -2353,7 +2353,11 @@ Tile tileStructure(int i)
 		//Tile_28.completion[2] = false;
 		//Tile_28.completion[3] = false;
 		return Tile_28;
+        
+        cout<<"we made it"<<endl;
 	}
+    
+    
 }
 
 
