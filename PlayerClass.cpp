@@ -373,7 +373,8 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         int index = 0;
         Tile * ptr = getTile(tile.c_str());
         Tile myTile = *ptr;
-	//tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
+        int * tileResult;
+        tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
         list<int> movelist;
        vector<char> bestmoves;
         generateMoves(_TileGrid, movelist, myTile);
