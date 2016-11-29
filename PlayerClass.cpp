@@ -1107,6 +1107,10 @@ Tile tileStructure(int i)
        // Tile_1.completion[4] = {false};
          
 
+            for(int i = 0; i < Tile_1.type.size(); i++)
+            {
+                cout<< Tile_1.type.at(i); << " ";
+            }
 	printf("In tileStructure made it to return\n");
         return Tile_1;
     }
