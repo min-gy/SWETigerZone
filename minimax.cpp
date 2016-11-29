@@ -475,23 +475,23 @@ void generateMoves(tile _TileGrid[153][153], list<int> &movelist, tile curTile) 
 				a = 4, b = 5, c = 6, d = 2, e = 1, f = 0, g = 6, h = 7, i = 0, j = 4, k = 3, l = 2, z = 180;
 			else 
 				a = 6, b = 7, c = 0, d = 4, e = 3, f = 2, g = 0, h = 1, i = 2, j = 6, k = 5, l = 4, z = 270;
-			if(top == true){
+				if(top == true){
 				if(bottom == true){
 					if(right == true){
 						if(left == true){
 							//logic for if all four sides have tiles
 							tempTile2 = _TileGrid[x+1][y];
 							//Up
-							if(tempTile2.type[6] == tempTile1.type[a] && tempTile2.type[5] == tempTile1.type[b] && tempTile2.type[4] == tempTile1.type[c]){
+							if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
 								tempTile2 = _TileGrid[x-1][y];
 								//Down
-								if(tempTile2.type[0] == tempTile1.type[d] && tempTile2.type[1] == tempTile1.type[e] && tempTile2.type[2] == tempTile1.type[f]){
+								if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
 									tempTile2 = _TileGrid[x][y+1];
 									//Right
-									if(tempTile2.type[0] == tempTile1.type[g] && tempTile2.type[7] == tempTile1.type[h] && tempTile2.type[6] == tempTile1.type[i]){
+									if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
 										tempTile2 = _TileGrid[x][y-1];
 										//Left
-										if(tempTile2.type[2] == tempTile1.type[j] && tempTile2.type[3] == tempTile1.type[k] && tempTile2.type[4] == tempTile1.type[l]){
+										if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
 											movelist.push_back(x); /*x*/
 											movelist.push_back(y); /*y*/
 											movelist.push_back(z); /*z*/
@@ -503,11 +503,11 @@ void generateMoves(tile _TileGrid[153][153], list<int> &movelist, tile curTile) 
 						else{
 							//logic for if only the top, bottom, and right has tiles
 							tempTile2 = _TileGrid[x+1][y];
-							if(tempTile2.type[6] == tempTile1.type[a] && tempTile2.type[5] == tempTile1.type[b] && tempTile2.type[4] == tempTile1.type[c]){
+							if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
 								tempTile2 = _TileGrid[x-1][y];
-								if(tempTile2.type[0] == tempTile1.type[d] && tempTile2.type[1] == tempTile1.type[e] && tempTile2.type[2] == tempTile1.type[f]){
+								if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
 									tempTile2 = _TileGrid[x][y+1];
-									if(tempTile2.type[0] == tempTile1.type[g] && tempTile2.type[7] == tempTile1.type[h] && tempTile2.type[6] == tempTile1.type[i]){
+									if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
 										movelist.push_back(x); /*x*/
 										movelist.push_back(y); /*y*/
 										movelist.push_back(z); /*z*/
@@ -519,11 +519,11 @@ void generateMoves(tile _TileGrid[153][153], list<int> &movelist, tile curTile) 
 					else if(left == true){
 						//logic for if the top, bottom, and left have tiles
 						tempTile2 = _TileGrid[x+1][y];
-						if(tempTile2.type[6] == tempTile1.type[a] && tempTile2.type[5] == tempTile1.type[b] && tempTile2.type[4] == tempTile1.type[c]){
+						if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
 							tempTile2 = _TileGrid[x-1][y];
-							if(tempTile2.type[0] == tempTile1.type[d] && tempTile2.type[1] == tempTile1.type[e] && tempTile2.type[2] == tempTile1.type[f]){
+							if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
 								tempTile2 = _TileGrid[x][y-1];
-								if(tempTile2.type[2] == tempTile1.type[j] && tempTile2.type[3] == tempTile1.type[k] && tempTile2.type[4] == tempTile1.type[l]){
+								if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
 									movelist.push_back(x); /*x*/
 									movelist.push_back(y); /*y*/
 									movelist.push_back(z); /*z*/
@@ -534,9 +534,9 @@ void generateMoves(tile _TileGrid[153][153], list<int> &movelist, tile curTile) 
 					else{
 						//logic for if just the top and the bottom have a tile
 						tempTile2 = _TileGrid[x+1][y];
-						if(tempTile2.type[6] == tempTile1.type[a] && tempTile2.type[5] == tempTile1.type[b] && tempTile2.type[4] == tempTile1.type[c]){
+						if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
 							tempTile2 = _TileGrid[x-1][y];
-							if(tempTile2.type[0] == tempTile1.type[d] && tempTile2.type[1] == tempTile1.type[e] && tempTile2.type[2] == tempTile1.type[f]){
+							if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
 								movelist.push_back(x); /*x*/
 								movelist.push_back(y); /*y*/
 								movelist.push_back(z); /*z*/
@@ -548,11 +548,11 @@ void generateMoves(tile _TileGrid[153][153], list<int> &movelist, tile curTile) 
 					if(left == true){
 						//logic for if top, right, and left have tiles
 						tempTile2 = _TileGrid[x+1][y];
-						if(tempTile2.type[6] == tempTile1.type[a] && tempTile2.type[5] == tempTile1.type[b] && tempTile2.type[4] == tempTile1.type[c]){
+						if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
 							tempTile2 = _TileGrid[x][y+1];
-							if(tempTile2.type[0] == tempTile1.type[g] && tempTile2.type[7] == tempTile1.type[h] && tempTile2.type[6] == tempTile1.type[i]){
+							if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
 								tempTile2 = _TileGrid[x][y-1];
-								if(tempTile2.type[2] == tempTile1.type[j] && tempTile2.type[3] == tempTile1.type[k] && tempTile2.type[4] == tempTile1.type[l]){
+								if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
 									movelist.push_back(x); /*x*/
 									movelist.push_back(y); /*y*/
 									movelist.push_back(z); /*z*/
@@ -564,9 +564,9 @@ void generateMoves(tile _TileGrid[153][153], list<int> &movelist, tile curTile) 
 				if(left == true){
 					//logic for if the top and left have tiles
 					tempTile2 = _TileGrid[x+1][y];
-					if(tempTile2.type[6] == tempTile1.type[a] && tempTile2.type[5] == tempTile1.type[b] && tempTile2.type[4] == tempTile1.type[c]){
+					if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
 						tempTile2 = _TileGrid[x][y-1];
-						if(tempTile2.type[2] == tempTile1.type[j] && tempTile2.type[3] == tempTile1.type[k] && tempTile2.type[4] == tempTile1.type[l]){
+						if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
 							movelist.push_back(x); /*x*/
 							movelist.push_back(y); /*y*/
 							movelist.push_back(z); /*z*/
@@ -576,7 +576,7 @@ void generateMoves(tile _TileGrid[153][153], list<int> &movelist, tile curTile) 
 				else{
 					//logic for if only the top has a tile
 					tempTile2 = _TileGrid[x+1][y];
-					if(tempTile2.type[6] == tempTile1.type[a] && tempTile2.type[5] == tempTile1.type[b] && tempTile2.type[4] == tempTile1.type[c]){
+					if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
 						movelist.push_back(x); /*x*/
 						movelist.push_back(y); /*y*/
 						movelist.push_back(z); /*z*/
@@ -588,11 +588,11 @@ void generateMoves(tile _TileGrid[153][153], list<int> &movelist, tile curTile) 
 					if(left == true){
 						//logic for if the bottom, right, and left have tiles
 						tempTile2 = _TileGrid[x-1][y];
-						if(tempTile2.type[0] == tempTile1.type[d] && tempTile2.type[1] == tempTile1.type[e] && tempTile2.type[2] == tempTile1.type[f]){
+						if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
 							tempTile2 = _TileGrid[x][y+1];
-							if(tempTile2.type[0] == tempTile1.type[g] && tempTile2.type[7] == tempTile1.type[h] && tempTile2.type[6] == tempTile1.type[i]){
+							if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
 								tempTile2 = _TileGrid[x][y-1];
-								if(tempTile2.type[2] == tempTile1.type[j] && tempTile2.type[3] == tempTile1.type[k] && tempTile2.type[4] == tempTile1.type[l]){
+								if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
 									movelist.push_back(x); /*x*/
 									movelist.push_back(y); /*y*/
 									movelist.push_back(z); /*z*/
@@ -603,9 +603,9 @@ void generateMoves(tile _TileGrid[153][153], list<int> &movelist, tile curTile) 
 					else{
 						//logic for if the bottom and right have tiles
 						tempTile2 = _TileGrid[x-1][y];
-						if(tempTile2.type[0] == tempTile1.type[d] && tempTile2.type[1] == tempTile1.type[e] && tempTile2.type[2] == tempTile1.type[f]){
+						if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
 							tempTile2 = _TileGrid[x][y+1];
-							if(tempTile2.type[0] == tempTile1.type[g] && tempTile2.type[7] == tempTile1.type[h] && tempTile2.type[6] == tempTile1.type[i]){
+							if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
 								movelist.push_back(x); /*x*/
 								movelist.push_back(y); /*y*/
 								movelist.push_back(z); /*z*/
@@ -616,9 +616,9 @@ void generateMoves(tile _TileGrid[153][153], list<int> &movelist, tile curTile) 
 				if(left == true){
 					//logic for if the bottom and left have tiles
 					tempTile2 = _TileGrid[x-1][y];
-					if(tempTile2.type[0] == tempTile1.type[d] && tempTile2.type[1] == tempTile1.type[e] && tempTile2.type[2] == tempTile1.type[f]){
+					if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
 						tempTile2 = _TileGrid[x][y-1];
-						if(tempTile2.type[2] == tempTile1.type[j] && tempTile2.type[3] == tempTile1.type[k] && tempTile2.type[4] == tempTile1.type[l]){
+						if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
 							movelist.push_back(x); /*x*/
 							movelist.push_back(y); /*y*/
 							movelist.push_back(z); /*z*/
@@ -628,7 +628,7 @@ void generateMoves(tile _TileGrid[153][153], list<int> &movelist, tile curTile) 
 				else{
 					//logic for if just the bottom has a tile
 					tempTile2 = _TileGrid[x-1][y];
-					if(tempTile2.type[0] == tempTile1.type[d] && tempTile2.type[1] == tempTile1.type[e] && tempTile2.type[2] == tempTile1.type[f]){
+					if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
 						movelist.push_back(x); /*x*/
 						movelist.push_back(y); /*y*/
 						movelist.push_back(z); /*z*/
@@ -639,9 +639,9 @@ void generateMoves(tile _TileGrid[153][153], list<int> &movelist, tile curTile) 
 				if(left == true){
 					//logic for if the right and the left have tiles
 					tempTile2 = _TileGrid[x][y+1];
-					if(tempTile2.type[0] == tempTile1.type[g] && tempTile2.type[7] == tempTile1.type[h] && tempTile2.type[6] == tempTile1.type[i]){
+					if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
 						tempTile2 = _TileGrid[x][y-1];
-						if(tempTile2.type[2] == tempTile1.type[j] && tempTile2.type[3] == tempTile1.type[k] && tempTile2.type[4] == tempTile1.type[l]){
+						if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
 							movelist.push_back(x); /*x*/
 							movelist.push_back(y); /*y*/
 							movelist.push_back(z); /*z*/
@@ -651,7 +651,7 @@ void generateMoves(tile _TileGrid[153][153], list<int> &movelist, tile curTile) 
 				else{
 					//logic for if just the right has a tile
 					tempTile2 = _TileGrid[x][y+1];
-					if(tempTile2.type[0] == tempTile1.type[g] && tempTile2.type[7] == tempTile1.type[h] && tempTile2.type[6] == tempTile1.type[i]){
+					if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
 						movelist.push_back(x); /*x*/
 						movelist.push_back(y); /*y*/
 						movelist.push_back(z); /*z*/
@@ -661,7 +661,7 @@ void generateMoves(tile _TileGrid[153][153], list<int> &movelist, tile curTile) 
 			if(left == true){
 				//logic for if just the left has a tile
 				tempTile2 = _TileGrid[x][y-1];
-					if(tempTile2.type[2] == tempTile1.type[j] && tempTile2.type[3] == tempTile1.type[k] && tempTile2.type[4] == tempTile1.type[l]){
+					if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
 						movelist.push_back(x); /*x*/
 						movelist.push_back(y); /*y*/
 						movelist.push_back(z); /*z*/
