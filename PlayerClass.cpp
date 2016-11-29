@@ -456,6 +456,7 @@ void Player::placeMove_p(string tile, int move[3], int i){
 // }
 
 void Player::getTileStack(vector<string> tileString){
+        printf("In getTileStack\n");
 	for(int i = 0; i < tileString.size(); i++)
 	{
 		//take that specific string named temp
@@ -464,8 +465,11 @@ void Player::getTileStack(vector<string> tileString){
 		// temp2[2] = temp1[i+2];
 		// temp2[3] = temp1[i+3];
 		// temp2[4] = temp1[i+4];
+		printf("In getTileStack in For\n");
 		Tile * tempTile = getTile(tileString[i].c_str());
+		printf("In getTileStack in For passed tempTile\n");
                 Tile myTile = *tempTile;
+		printf("In getTileStack in For passed myTile\n");
 		randomTileStack.push_back(myTile);
         }
 	//parse tileString to tileStack
@@ -1046,8 +1050,10 @@ void Player::updateTigerCount(int value){
 }
 
 
-Tile tileStructure(int i){
-		if(i == 0){
+Tile tileStructure(int i)
+{
+		if(i == 0)
+		{
 		Tile Tile_1;
 		/*Tile_1.des = {'J', 'J', 'J', 'J', '-'};
 		Tile_1.type = {2,2,2,2,2,2,2,2};
@@ -1096,9 +1102,8 @@ Tile tileStructure(int i){
         Tile_1.x = 0;
         Tile_1.y = 0;
        // Tile_1.completion[4] = {false};
-        
-        
-        
+         
+        return Tile_1;
     }
 	else if(i == 1){
         Tile Tile_2;
@@ -2345,19 +2350,26 @@ Tile tileStructure(int i){
 
 
 Tile* Player::getTile(char const* temp2){
+	printf("In getTile\n");
 	char a = temp2[0];
 	char b = temp2[1];
 	char c = temp2[2];
 	char d = temp2[3];
 	char e = temp2[4];
+        printf("In getTile passed chars\n");
 	for(int i = 0; i < 28; i++){
 		//tile structure holds all the hard coded values for each tile
+		printf("%d\n", i);
 		Tile temp = tileStructure(i);
+		printf("In getTile in For passed tileStructure\n");
                 Tile * ptr = &temp;
 		vector<char> temp1 = ptr->des;
+		printf("%d\n", i);
 		if(a == temp1[0] && b == temp1[1] && c == temp1[2] && d == temp1[3] && e == temp1[4])
+		        printf("%d\n", i);
 			return ptr;
 	}
+	printf("DID NOT FIND TILE!\n");
 }
 
 
