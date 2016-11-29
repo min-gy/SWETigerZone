@@ -60,7 +60,7 @@ public:
 	Player();
 	~Player();
 
-	void startNewGame();
+	//void startNewGame();
 	//void runGame();
 	void addFirstTile_p(string, int, int , int);
 	vector<char> giveMyMove_p(int, string);
@@ -82,8 +82,8 @@ public:
         //void initiateTileGrid();
         void InheritValue(ComponentTracker, ComponentTracker);
         int ScoreUpdate(ComponentTracker);
-        //void SingleUpdate(Tile[153][153], Tile, Tile, int, int, int, int *);
-        void DenUpdate(Tile[153][153], int , int , int * );
+        void SingleUpdate(Tile[153][153], Tile, Tile, int, int, int, int *);
+        //void DenUpdate(Tile[153][153], int , int , int * );
         //void DenCheck(Tile[153][153], int , int, int , int, int *);
         int DenScoreUpdate(ComponentTracker );
         int MeepleUpdateMe(ComponentTracker );
@@ -235,117 +235,117 @@ int Player::MeepleUpdateYou(ComponentTracker Region){
 // 	}
 // }
 
-// void Player::SingleUpdate(Tile _TileGrid[153][153], Tile CurrentTile, Tile OldTile, int newS, int oldS, int Side, int * values){
-// 	int x;
-// 	int y;
-// 	bool DontAdd;
-// 	DontAdd = false;
-// 	//Catch for nonexistent tile
-// 	if (OldTile.orientation != NULL && CurrentTile.type.at(newS) != 4){
-// 		if (CurrentTile.type.at(newS) == OldTile.type.at(oldS)){
-// 			//Special Check for corner Jungle . Jungle
-// 			if ((newS % 2 == 0) && (CurrentTile.type.at(newS) == 2)){
-// 				switch(Side){
-//       			  	case 1: 
-//       			  		if (OldTile.type.at(5) == 1)
-//       			  			DontAdd = true;
-//       			  	break;
-//  					case 2:
-//  						if (OldTile.type.at(7) == 1)
-//       			  			DontAdd = true;
-//  					break;
-//         			case 3:
-//         				if (OldTile.type.at(1) == 1)
-//       			  			DontAdd = true;
-//         			break;
-//         			case 4:
-//         				if (OldTile.type.at(3) == 1)
-//       			  			DontAdd = true;
-//         			break;
-//         		}
-// 			}
-// 			x = CurrentTile.clusterid.at(newS);
-// 			y = OldTile.clusterid.at(oldS);
-// 			while (x != MainList[x].ParentId)
-// 			{
-// 			 	x = MainList[x].ParentId;		
-// 			 	if (x == y)
-// 			 	{// REQUIRE CATCH FOR scenario in which y already absorbed into x.parent
-// 			 		DontAdd = true;
-// 			 	}	 	
-// 			}	
-// 			if (DontAdd == false)
-// 			{
-// 				while (y != MainList[y].ParentId)
-// 			 		y = MainList[y].ParentId;			 	
-// 				//InheritValue(ComponentTracker Child, ComponentTracker Parent)
-// 				InheritValue(MainList[x], MainList[y]);
-// 			}
-// 			if ((newS % 2 == 1) && (CurrentTile.type.at(newS) != 2)) 
-// 			{
-// 				MainList[y].IncompleteSides -= 2;
-// 				if ( MainList[y].IncompleteSides == 0 )
-// 				{
-// 					if (MainList[y].MeepleCountMe >= MainList[y].MeepleCountYou)
-// 					{
-// 						values[3] += ScoreUpdate(MainList[y]);	
-// 					}
-// 					if (MainList[y].MeepleCountMe <= MainList[y].MeepleCountYou)
-// 					{
-// 						values[4] += ScoreUpdate(MainList[y]);
-// 					}
-// 					values[1] += MeepleUpdateMe(MainList[y]);
-// 					values[2] += MeepleUpdateMe(MainList[y]);
-// 				}
-// 			}
-// 		}
-// 	}
-// }
+ void Player::SingleUpdate(Tile _TileGrid[153][153], Tile CurrentTile, Tile OldTile, int newS, int oldS, int Side, int * values){
+ 	int x;
+ 	int y;
+ 	bool DontAdd;
+ 	DontAdd = false;
+ 	//Catch for nonexistent tile
+ 	if (OldTile.orientation != NULL && CurrentTile.type.at(newS) != 4){
+ 		if (CurrentTile.type.at(newS) == OldTile.type.at(oldS)){
+ 			//Special Check for corner Jungle . Jungle
+ 			if ((newS % 2 == 0) && (CurrentTile.type.at(newS) == 2)){
+ 				switch(Side){
+       			  	case 1: 
+       			  		if (OldTile.type.at(5) == 1)
+       			  			DontAdd = true;
+       			  	break;
+  					case 2:
+  						if (OldTile.type.at(7) == 1)
+       			  			DontAdd = true;
+  					break;
+         			case 3:
+         				if (OldTile.type.at(1) == 1)
+       			  			DontAdd = true;
+         			break;
+         			case 4:
+         				if (OldTile.type.at(3) == 1)
+       			  			DontAdd = true;
+         			break;
+         		}
+ 			}
+ 			x = CurrentTile.clusterid.at(newS);
+ 			y = OldTile.clusterid.at(oldS);
+ 			while (x != MainList[x].ParentId)
+ 			{
+ 			 	x = MainList[x].ParentId;		
+ 			 	if (x == y)
+ 			 	{// REQUIRE CATCH FOR scenario in which y already absorbed into x.parent
+ 			 		DontAdd = true;
+ 			 	}	 	
+ 			}	
+ 			if (DontAdd == false)
+ 			{
+ 				while (y != MainList[y].ParentId)
+ 			 		y = MainList[y].ParentId;			 	
+ 				//InheritValue(ComponentTracker Child, ComponentTracker Parent)
+ 				InheritValue(MainList[x], MainList[y]);
+ 			}
+ 			if ((newS % 2 == 1) && (CurrentTile.type.at(newS) != 2)) 
+ 			{
+ 				MainList[y].IncompleteSides -= 2;
+ 				if ( MainList[y].IncompleteSides == 0 )
+ 				{
+ 					if (MainList[y].MeepleCountMe >= MainList[y].MeepleCountYou)
+ 					{
+ 						values[3] += ScoreUpdate(MainList[y]);	
+ 					}
+ 					if (MainList[y].MeepleCountMe <= MainList[y].MeepleCountYou)
+ 					{
+ 						values[4] += ScoreUpdate(MainList[y]);
+ 					}
+ 					values[1] += MeepleUpdateMe(MainList[y]);
+ 					values[2] += MeepleUpdateMe(MainList[y]);
+ 				}
+ 			}
+ 		}
+ 	}
+ }
 
 //update the components
-// void Player::updateComponents(Tile _TileGrid[153][153], int X, int Y){
-// 	int * values;
-// 	values[1] = 0;
-// 	values[2] = 0;
-// 	values[3] = 0;
-// 	values[4] = 0;
-// 	Tile CurrentTile;
-// 	Tile LeftTile;
-// 	Tile RightTile;
-// 	Tile UpTile;
-// 	Tile DownTile;
+ void Player::updateComponents(Tile _TileGrid[153][153], int X, int Y){
+ 	int * values;
+ 	values[1] = 0;
+ 	values[2] = 0;
+ 	values[3] = 0;
+ 	values[4] = 0;
+ 	Tile CurrentTile;
+ 	Tile LeftTile;
+ 	Tile RightTile;
+ 	Tile UpTile;
+ 	Tile DownTile;
 
-// 	CurrentTile = _TileGrid[X][Y];
-// /*
-// 	LeftTile = _TileGrid[X-1][Y];
-// 	RightTile = _TileGrid[X+1][Y];
-// 	UpTile = _TileGrid[X][Y+1];
-// 	DownTile = _TileGrid[X][Y-1];
-// 	*/
-// 	LeftTile = _TileGrid[X][Y-1];
-// 	RightTile = _TileGrid[X][Y+1];
-// 	UpTile = _TileGrid[X+1][Y];
-// 	DownTile = _TileGrid[X-1][Y];
-// 	//SingleUpdate(Map _TileGrid, Tile CurrentTile, Tile OldTile, int newS, int oldS);
-// 	SingleUpdate(_TileGrid, CurrentTile, UpTile, 0, 6, 1, values);
-// 	SingleUpdate(_TileGrid, CurrentTile, UpTile, 1, 5, 1, values);
-// 	SingleUpdate(_TileGrid, CurrentTile, UpTile, 2, 4, 1, values);
+ 	CurrentTile = _TileGrid[X][Y];
+ /*
+ 	LeftTile = _TileGrid[X-1][Y];
+ 	RightTile = _TileGrid[X+1][Y];
+ 	UpTile = _TileGrid[X][Y+1];
+ 	DownTile = _TileGrid[X][Y-1];
+ 	*/
+ 	LeftTile = _TileGrid[X][Y-1];
+ 	RightTile = _TileGrid[X][Y+1];
+ 	UpTile = _TileGrid[X+1][Y];
+ 	DownTile = _TileGrid[X-1][Y];
+ 	//SingleUpdate(Map _TileGrid, Tile CurrentTile, Tile OldTile, int newS, int oldS);
+ 	SingleUpdate(_TileGrid, CurrentTile, UpTile, 0, 6, 1, values);
+ 	SingleUpdate(_TileGrid, CurrentTile, UpTile, 1, 5, 1, values);
+ 	SingleUpdate(_TileGrid, CurrentTile, UpTile, 2, 4, 1, values);
 
-// 	SingleUpdate(_TileGrid, CurrentTile, RightTile, 2, 0, 2, values);
-// 	SingleUpdate(_TileGrid, CurrentTile, RightTile, 3, 7, 2, values);
-// 	SingleUpdate(_TileGrid, CurrentTile, RightTile, 4, 6, 2, values);
+ 	SingleUpdate(_TileGrid, CurrentTile, RightTile, 2, 0, 2, values);
+ 	SingleUpdate(_TileGrid, CurrentTile, RightTile, 3, 7, 2, values);
+ 	SingleUpdate(_TileGrid, CurrentTile, RightTile, 4, 6, 2, values);
 
-// 	SingleUpdate(_TileGrid, CurrentTile, DownTile, 4, 2, 3, values);
-// 	SingleUpdate(_TileGrid, CurrentTile, DownTile, 5, 1, 3, values);
-// 	SingleUpdate(_TileGrid, CurrentTile, DownTile, 6, 0, 3, values);
+ 	SingleUpdate(_TileGrid, CurrentTile, DownTile, 4, 2, 3, values);
+ 	SingleUpdate(_TileGrid, CurrentTile, DownTile, 5, 1, 3, values);
+ 	SingleUpdate(_TileGrid, CurrentTile, DownTile, 6, 0, 3, values);
 
-// 	SingleUpdate(_TileGrid, CurrentTile, LeftTile, 6, 4, 4, values);
-// 	SingleUpdate(_TileGrid, CurrentTile, LeftTile, 7, 3, 4, values);
-// 	SingleUpdate(_TileGrid, CurrentTile, LeftTile, 0, 2, 4, values);
+ 	SingleUpdate(_TileGrid, CurrentTile, LeftTile, 6, 4, 4, values);
+ 	SingleUpdate(_TileGrid, CurrentTile, LeftTile, 7, 3, 4, values);
+ 	SingleUpdate(_TileGrid, CurrentTile, LeftTile, 0, 2, 4, values);
 
-// 	DenUpdate(_TileGrid, X, Y, values);
-// 	//return values;
-// }
+ 	//DenUpdate(_TileGrid, X, Y, values);
+ 	//return values;
+ }
 
 /*
 void Player::cleanUpGame(){
