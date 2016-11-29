@@ -472,6 +472,7 @@ void Player::getTileStack(vector<string> tileString){
 		printf("In getTileStack in For passed myTile\n");
 		randomTileStack.push_back(myTile);
         }
+	printf("added tile stack to randomTileStack");
 	//parse tileString to tileStack
 }
 
@@ -1111,7 +1112,7 @@ Tile tileStructure(int i)
 //            {
 //                cout<< Tile_1.type.at(i) << " ";
 //            }
-	printf("In tileStructure made it to return\n");
+	//printf("In tileStructure made it to return\n");
         return Tile_1;
     }
 	else if(i == 1){
