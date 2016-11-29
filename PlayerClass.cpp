@@ -1052,8 +1052,10 @@ void Player::updateTigerCount(int value){
 
 Tile tileStructure(int i)
 {
+                printf("In tileStructure\n");
 		if(i == 0)
 		{
+		printf("In tileStructure in 0\n");
 		Tile Tile_1;
 		/*Tile_1.des = {'J', 'J', 'J', 'J', '-'};
 		Tile_1.type = {2,2,2,2,2,2,2,2};
@@ -1062,14 +1064,16 @@ Tile tileStructure(int i)
 	
 		return Tile_1;*/
        // Tile_1.
-	Tile_1.des.at(0) = 'J';
-	Tile_1.des.at(1) = 'J';
-        Tile_1.des.at(2) = 'J';
-	Tile_1.des.at(3) = 'J';
-	Tile_1.des.at(4) = '-';
+	//Tile_1.des.insert(0, 'J');//) = 'J';
+	//Tile_1.des.insert(1) = 'J';
+        //Tile_1.des.insert(2) = 'J';
+	//Tile_1.des.insert(3) = 'J';
+	//Tile_1.des.insert(4) = '-';
 
+        printf("In tileStructure after des\n");
 	
         Tile_1.type.at(0) = 2;
+        printf("In tileStructure after at\n");
         Tile_1.type.at(1) = 2;
         Tile_1.type.at(2) = 2;
         Tile_1.type.at(3) = 2;
@@ -1103,6 +1107,8 @@ Tile tileStructure(int i)
         Tile_1.y = 0;
        // Tile_1.completion[4] = {false};
          
+
+	printf("In tileStructure made it to return\n");
         return Tile_1;
     }
 	else if(i == 1){
