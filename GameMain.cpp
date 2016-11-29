@@ -190,13 +190,16 @@ int main (int argc, char *argv[]){
       {
         //THE REMAINING <number_tiles> TILES ARE [<tiles>]
 
-        for(int i = 6; 6 < 82; i++){
+        for(int i = 6; i < 82; i++){
+	    printf("%s\n", arr[i].c_str());
             tileStack.push_back(arr[i]);
         }
         
+	printf("here\n");
         player1->getTileStack(tileStack);
         player2->getTileStack(tileStack);
- 
+        printf("there\n");
+
         //store tile order
 
         reply = "wait\r\n";
