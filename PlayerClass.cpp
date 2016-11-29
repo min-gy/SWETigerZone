@@ -1072,8 +1072,7 @@ Tile tileStructure(int i)
 
         printf("In tileStructure after des\n");
 	
-        Tile_1.type.at(0) = 2;
-        printf("In tileStructure after at\n");
+        Tile_1.type.push_back(2);
         Tile_1.type.at(1) = 2;
         Tile_1.type.at(2) = 2;
         Tile_1.type.at(3) = 2;
