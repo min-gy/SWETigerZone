@@ -468,11 +468,11 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         movelist.pop_front();
         cout << movelist.front() << " should be y" << endl;
         int y = movelist.front();
-        cout << x << " is y" << endl;
+        cout << y << " is y" << endl;
         movelist.pop_front();
         cout << movelist.front() << " should be z" << endl;
         int z = movelist.front();
-        cout << x << " is z" << endl;
+        cout << z << " is z" << endl;
         
 //        int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, myTile);
 //	 	if(value[0] > bvalue) {
@@ -798,8 +798,8 @@ list<int> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     		left = curr.left;
     		right = curr.right;
     		temp.pop_back();
-    		tempTile1 = _TileGrid[x][y];
-    		//tempTile1 = curTile;
+    		//tempTile1 = _TileGrid[x][y];
+    		tempTile1 = curTile;
     		for(int m = 0; m<4; m++)
             {
     			int a, b, c, d, e, f, g, h, z;
@@ -836,6 +836,8 @@ list<int> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                                 movelist.push_back(z);
                                                 movelist.push_back(y);
                                                 movelist.push_back(x);
+                                                
+                                                
                                             }
                                         }
                                     }
@@ -1003,6 +1005,7 @@ list<int> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                     movelist.push_back(z);
                     movelist.push_back(y);
                     movelist.push_back(x);
+                    
                 }
             }
         
