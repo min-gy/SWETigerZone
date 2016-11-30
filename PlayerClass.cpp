@@ -1075,24 +1075,25 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                     if(tempTile2->type.at(0) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(6) == tempTile1->type.at(e))
                     {
                         cout<<"right"<<endl;
-                        cout<<"orientation is "<<tempTile1->orientation<<endl;
+                        cout<<"orientation is "<<z<<endl;
 //                        movelist.push_back(z);
 //                        movelist.push_back(y);
 //                        movelist.push_back(x);
                         movelist.push_back(tempTile1);
                     }
                 }else if(bottom)
+                {
                     tempTile2 = _TileGrid[x][y-1];
                     if(tempTile2->type.at(0) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(2) == tempTile1->type.at(e))
                     {
                         cout<<"bottom"<<endl;
-                        cout<<"orientation is "<<tempTile1->orientation<<endl;
+                        cout<<"orientation is "<<z<<endl;
 //                        movelist.push_back(z);
 //                        movelist.push_back(y);
 //                        movelist.push_back(x);
                         movelist.push_back(tempTile1);
                     }
-                else
+                }else
                 {
 //                    movelist.push_back(z);
 //                    movelist.push_back(y);
