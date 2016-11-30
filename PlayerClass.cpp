@@ -132,7 +132,7 @@ Tile *Player::parseTile(string tileLetters)
         }
         if(tileLetters.compare(check) == 0)
         {
-            //cout<<check<<endl;
+            cout<<check<<endl;
             break;
         }
         
@@ -463,15 +463,15 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
 		//but we do need to know how to repond to both of these things if our opponent does this to us
 	
 		
-        int x = movelist.at(0)->x;
+        int x = movelist.at(movelist.size()- 1)->x;
         cout << x << " is x" << endl;
     
     
-    int y = movelist.at(0)->y;
+    int y = movelist.at(movelist.size()- 1)->y;
         cout << y << " is y" << endl;
     
     
-    int z = movelist.at(0)->orientation;
+    int z = movelist.at(movelist.size()- 1)->orientation;
         cout << z << " is z" << endl;
         
 //        int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, myTile);
@@ -820,7 +820,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     	emptySpace curr;
     	Tile * tempTile1;
     	Tile * tempTile2;
-    	int x, y;
+    	int x, y, z;
         bool top;
         bool bottom;
         bool left;
@@ -833,6 +833,9 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     		curr = temp.back();
     		x = curr.x;
     		y = curr.y;
+            tempTile1->x = curr.x;
+            tempTile1->y = curr.y;
+            tempTile1->orientation = z;
             cout<<"x is " << x<<endl;
             cout<<"y is " << y<<endl;
     		top = curr.top;
@@ -848,7 +851,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     		tempTile1 = curTile;
     		for(int m = 0; m<4; m++)
             {
-    			int a, b, c, d, e, f, g, h, z;
+    			int a, b, c, d, e, f, g, h;
     			if(m == 0)
     				a = 0, b = 1, c = 2, d = 3, e = 4, f = 5, g = 6, h = 7, z = 0;
     			else if(m == 1)
@@ -868,16 +871,16 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                             {
                                 //all sides
                                 tempTile2 = _TileGrid[x][y+1];
-                                if(tempTile2->type.at(6) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(4) == tempTile1->type.at(c))
+                                if(tempTile2->type.at(4) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(6) == tempTile1->type.at(c))
                                 {
                                     tempTile2 = _TileGrid[x+1][y];
-                                    if(tempTile2->type.at(0) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(6) == tempTile1->type.at(e))
+                                    if(tempTile2->type.at(6) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(0) == tempTile1->type.at(e))
                                     {
                                         tempTile2 = _TileGrid[x][y-1];
-                                        if(tempTile2->type.at(0) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(2) == tempTile1->type.at(e))
+                                        if(tempTile2->type.at(2) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(0) == tempTile1->type.at(e))
                                         {
                                             tempTile2 = _TileGrid[x-1][y];
-                                            if(tempTile2->type.at(2) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(4) == tempTile1->type.at(g))
+                                            if(tempTile2->type.at(4) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(2) == tempTile1->type.at(g))
                                             {
 //                                                movelist.push_back(z);
 //                                                movelist.push_back(y);
@@ -894,13 +897,13 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                             {
                                 //no left
                                 tempTile2 = _TileGrid[x][y+1];
-                                if(tempTile2->type.at(6) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(4) == tempTile1->type.at(c))
+                                if(tempTile2->type.at(4) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(6) == tempTile1->type.at(c))
                                 {
                                     tempTile2 = _TileGrid[x+1][y];
-                                    if(tempTile2->type.at(0) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(6) == tempTile1->type.at(e))
+                                    if(tempTile2->type.at(6) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(0) == tempTile1->type.at(e))
                                     {
                                         tempTile2 = _TileGrid[x][y-1];
-                                        if(tempTile2->type.at(0) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(2) == tempTile1->type.at(e))
+                                        if(tempTile2->type.at(2) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(0) == tempTile1->type.at(e))
                                         {
 //                                            movelist.push_back(z);
 //                                            movelist.push_back(y);
@@ -914,13 +917,13 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                         {
                             //no bottom
                             tempTile2 = _TileGrid[x][y+1];
-                            if(tempTile2->type.at(6) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(4) == tempTile1->type.at(c))
+                            if(tempTile2->type.at(4) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(6) == tempTile1->type.at(c))
                             {
                                 tempTile2 = _TileGrid[x+1][y];
-                                if(tempTile2->type.at(0) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(6) == tempTile1->type.at(e))
+                                if(tempTile2->type.at(6) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(0) == tempTile1->type.at(e))
                                 {
                                     tempTile2 = _TileGrid[x-1][y];
-                                    if(tempTile2->type.at(2) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(4) == tempTile1->type.at(g))
+                                    if(tempTile2->type.at(4) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(2) == tempTile1->type.at(g))
                                     {
 //                                        movelist.push_back(z);
 //                                        movelist.push_back(y);
@@ -933,10 +936,10 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                         {
                             //right and top
                             tempTile2 = _TileGrid[x][y+1];
-                            if(tempTile2->type.at(6) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(4) == tempTile1->type.at(c))
+                            if(tempTile2->type.at(4) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(6) == tempTile1->type.at(c))
                             {
                                 tempTile2 = _TileGrid[x+1][y];
-                                if(tempTile2->type.at(0) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(6) == tempTile1->type.at(e))
+                                if(tempTile2->type.at(6) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(0) == tempTile1->type.at(e))
                                 {
 //                                    movelist.push_back(z);
 //                                    movelist.push_back(y);
@@ -950,13 +953,13 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                     {
                         //no right
                         tempTile2 = _TileGrid[x][y+1];
-                        if(tempTile2->type.at(6) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(4) == tempTile1->type.at(c))
+                        if(tempTile2->type.at(4) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(6) == tempTile1->type.at(c))
                         {
                             tempTile2 = _TileGrid[x][y-1];
-                            if(tempTile2->type.at(0) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(2) == tempTile1->type.at(e))
+                            if(tempTile2->type.at(2) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(0) == tempTile1->type.at(e))
                             {
                                 tempTile2 = _TileGrid[x-1][y];
-                                if(tempTile2->type.at(2) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(4) == tempTile1->type.at(g))
+                                if(tempTile2->type.at(4) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(2) == tempTile1->type.at(g))
                                 {
 //                                    movelist.push_back(z);
 //                                    movelist.push_back(y);
@@ -970,10 +973,10 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                     {
                         //Top and bottom
                         tempTile2 = _TileGrid[x][y+1];
-                        if(tempTile2->type.at(6) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(4) == tempTile1->type.at(c))
+                        if(tempTile2->type.at(4) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(6) == tempTile1->type.at(c))
                         {
                             tempTile2 = _TileGrid[x][y-1];
-                            if(tempTile2->type.at(0) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(2) == tempTile1->type.at(e))
+                            if(tempTile2->type.at(2) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(0) == tempTile1->type.at(e))
                             {
 //                                movelist.push_back(z);
 //                                movelist.push_back(y);
@@ -985,7 +988,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                     {
                         //just top
                         tempTile2 = _TileGrid[x][y+1];
-                        if(tempTile2->type.at(6) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(4) == tempTile1->type.at(c))
+                        if(tempTile2->type.at(4) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(6) == tempTile1->type.at(c))
                         {
 //                            movelist.push_back(z);
 //                            movelist.push_back(y);
@@ -997,13 +1000,13 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                 {
                     //no top
                     tempTile2 = _TileGrid[x+1][y];
-                    if(tempTile2->type.at(0) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(6) == tempTile1->type.at(e))
+                    if(tempTile2->type.at(6) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(0) == tempTile1->type.at(e))
                     {
                         tempTile2 = _TileGrid[x][y-1];
-                        if(tempTile2->type.at(0) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(2) == tempTile1->type.at(e))
+                        if(tempTile2->type.at(2) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(1) == tempTile1->type.at(e))
                         {
                             tempTile2 = _TileGrid[x-1][y];
-                            if(tempTile2->type.at(2) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(4) == tempTile1->type.at(g))
+                            if(tempTile2->type.at(4) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(2) == tempTile1->type.at(g))
                             {
 //                                movelist.push_back(z);
 //                                movelist.push_back(y);
@@ -1016,10 +1019,10 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                 {
                     //bottom and left
                     tempTile2 = _TileGrid[x][y-1];
-                    if(tempTile2->type.at(0) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(2) == tempTile1->type.at(e))
+                    if(tempTile2->type.at(2) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(0) == tempTile1->type.at(e))
                     {
                         tempTile2 = _TileGrid[x-1][y];
-                        if(tempTile2->type.at(2) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(4) == tempTile1->type.at(g))
+                        if(tempTile2->type.at(4) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(2) == tempTile1->type.at(g))
                         {
 //                            movelist.push_back(z);
 //                            movelist.push_back(y);
@@ -1031,10 +1034,10 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                 {
                     //left and right
                     tempTile2 = _TileGrid[x+1][y];
-                    if(tempTile2->type.at(0) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(6) == tempTile1->type.at(e))
+                    if(tempTile2->type.at(6) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(0) == tempTile1->type.at(e))
                     {
                         tempTile2 = _TileGrid[x-1][y];
-                        if(tempTile2->type.at(2) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(4) == tempTile1->type.at(g))
+                        if(tempTile2->type.at(4) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(2) == tempTile1->type.at(g))
                         {
 //                            movelist.push_back(z);
 //                            movelist.push_back(y);
@@ -1047,10 +1050,10 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                     //bottom and right
                     cout<<"bottom and right"<<endl;
                     tempTile2 = _TileGrid[x][y-1];
-                    if(tempTile2->type.at(0) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(2) == tempTile1->type.at(e))
+                    if(tempTile2->type.at(2) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(0) == tempTile1->type.at(e))
                     {
                         tempTile2 = _TileGrid[x+1][y];
-                        if(tempTile2->type.at(0) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(6) == tempTile1->type.at(e))
+                        if(tempTile2->type.at(6) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(0) == tempTile1->type.at(e))
                         {
 //                            movelist.push_back(z);
 //                            movelist.push_back(y);
@@ -1061,7 +1064,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                 }else if(left)
                 {
                     tempTile2 = _TileGrid[x-1][y];
-                    if(tempTile2->type.at(2) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(4) == tempTile1->type.at(g))
+                    if(tempTile2->type.at(4) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(2) == tempTile1->type.at(g))
                     {
                         cout<<"left"<<endl;
 //                        movelist.push_back(z);
@@ -1072,7 +1075,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                 }else if(right)
                 {
                     tempTile2 = _TileGrid[x+1][y];
-                    if(tempTile2->type.at(0) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(6) == tempTile1->type.at(e))
+                    if(tempTile2->type.at(6) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(7) == tempTile1->type.at(e))
                     {
                         cout<<"right"<<endl;
                         cout<<"orientation is "<<z<<endl;
@@ -1084,7 +1087,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                 }else if(bottom)
                 {
                     tempTile2 = _TileGrid[x][y-1];
-                    if(tempTile2->type.at(0) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(2) == tempTile1->type.at(e))
+                    if(tempTile2->type.at(2) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(0) == tempTile1->type.at(e))
                     {
                         cout<<"bottom"<<endl;
                         cout<<"orientation is "<<z<<endl;
