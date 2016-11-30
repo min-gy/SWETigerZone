@@ -8,10 +8,12 @@
 
 //#include "GameEngine.cpp"
 typedef struct {
-    bool top;
-    bool bottom;
-    bool left;
-    bool right;
+
+	bool top;
+	bool bottom;
+	bool left;
+	bool right;
+
 	int x, y;
 } emptySpace;
 
@@ -113,6 +115,7 @@ Player::~Player(){
 
 }
 
+
 //void Player::startNewGame();
 //{
 //    
@@ -169,13 +172,13 @@ Tile *Player::parseTile(string tileLetters)
 //	printf("DID NOT FIND TILE!\n");
 //}
 
-void Player::addFirstTile_p(string firstTile, int x, int y, int orientation){
-//	myGameEngine->addFirstTile_g(tile, x, y, orientation);
-    
-    updateBoard(_TileGrid, x, y, parseTile(firstTile), orientation);
 
-    cout << "addFirstTile_p function sucessfully called"<<endl;
-        
+void Player::addFirstTile_p(string tile, int x, int y, int orientation){
+	//myGameEngine->addFirstTile_g(tile, x, y, orientation);
+	//cout << "addFirstTile_p function sucessfully called";
+        updateBoard(_TileGrid, x, y, getTile(tile.c_str()), orientation);
+	printf("EmptyTiles size: %d\n", emptyTiles.size());
+
 }
 
 int Player::ScoreUpdate(ComponentTracker Region){
@@ -441,8 +444,10 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         int * tileResult;
 	printf("In giveMyMove ready for minimaxDecision\n");
         //tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
+
     
         vector<Tile*> movelist;
+
         vector<char> bestmoves;
         movelist = generateMoves(_TileGrid, myTile);
     
@@ -451,7 +456,9 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         if(movelist.size() == 0)
         {
 		//we are going to do nothing
+
             cout<<"Why so empty"<<endl;
+
 		return bestmoves;
 		//but we do need to know how to repond to both of these things if our opponent does this to us
         }
@@ -485,10 +492,12 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
 //	 		index = 0;
 //	 	}
 
+
     bestmoves.push_back((char)x);
     bestmoves.push_back((char)y);
     bestmoves.push_back((char)z);
     bestmoves.push_back((char)0);
+
 
 			
 			
@@ -559,8 +568,14 @@ void Player::getTileStack(vector<string> tileString){
 }
 
 void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int orien) {
+        printf("In updateBoard\n");
 	emptySpace temp;
+	temp.top = false;
+	temp.bottom = false;
+	temp.right = false;
+	temp.left = false;
 	t->orientation = orien;
+
     x += 77;
     y += 77;
 	_TileGrid[x][y] = t;
@@ -570,6 +585,7 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 	if(!emptyTiles.empty())
     {
         cout<<"FUCKme"<<endl;
+
 		int s = emptyTiles.size();
 		for(int i = 0; i<s; i++)
         {
@@ -580,6 +596,7 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 			}
 		}
 	}
+
     
     temp.top = true;
     temp.right = true;
@@ -742,6 +759,7 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 //	}
 //    
 //    cout<<emptyTiles.at(0).x<<endl;
+
 }
 
 //start of minimax algorithm 
@@ -807,6 +825,7 @@ int *Player::MiniMaxDecision(Tile * _TileGrid[153][153], int moveNum, Tile *t, v
 }
 
 //generate possible valid moves, thinking of having it stacked as x, y, z, x, y, z, ... z being the orientation
+
 vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
 {
 //    vector<Tile> possibleConnections;
@@ -1109,6 +1128,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
         }
     cout<<"Gets to end of generate"<<endl;
     return movelist;
+
 }
 
     
