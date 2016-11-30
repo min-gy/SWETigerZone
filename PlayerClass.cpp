@@ -42,14 +42,14 @@ public:
 	int myMove[5];
 	string tileStack;
 	
-	vector<Tile> randomTileStack;
+	vector<Tile*> randomTileStack;
 	static const int BESTVALUE = 1000000;
-	 Tile _TileGrid[153][153];
+	 Tile * _TileGrid[153][153];
 	 bool _TilePresent[153][153];
 	 int tigerCount;
 	 int crocodileCount;
 	 int curScore;
-	 Tile curTile;
+	 //Tile curTile;
 	 vector<emptySpace> emptyTiles;
          ComponentTracker MainList[100];
 	
@@ -68,27 +68,27 @@ public:
 	void getTileStack(vector<string>);
 	void cleanUpGame();
 
-        void updateBoard(Tile[153][153], int, int, Tile*, int);
+        void updateBoard(Tile*[153][153], int, int, Tile*, int);
         Tile* getTile(char const*);
-        int* MiniMaxDecision(Tile[153][153], int,  Tile, vector<Tile>);
-        void generateMoves(Tile[153][153], list<int>&, Tile);
-        int *MinMoveDecision(Tile[153][153], int, int, int, int, vector<Tile>, Tile);
-        int *MaxMoveDecision(Tile[153][153], int, int, int, int, vector<Tile>, Tile);
-        int *evaluatePosition(Tile[153][153], int, int, int, int, Tile);
-        int tigerLocation(Tile[153][153], int, int, int, int, Tile);
-        void tigerCheck(int[], Tile[153][153], int, int, Tile );
+        int* MiniMaxDecision(Tile*[153][153], int,  Tile*, vector<Tile*>);
+        void generateMoves(Tile*[153][153], list<int>&, Tile*);
+        int *MinMoveDecision(Tile*[153][153], int, int, int, int, vector<Tile>, Tile);
+        int *MaxMoveDecision(Tile*[153][153], int, int, int, int, vector<Tile>, Tile);
+        int *evaluatePosition(Tile*[153][153], int, int, int, int, Tile*);
+        int tigerLocation(Tile*[153][153], int, int, int, int, Tile*);
+        void tigerCheck(int[], Tile*[153][153], int, int, Tile* );
         void updateTigerCount(int);
 
         //void initiateTileGrid();
         void InheritValue(ComponentTracker, ComponentTracker);
         int ScoreUpdate(ComponentTracker);
-        void SingleUpdate(Tile[153][153], Tile, Tile, int, int, int, int *);
+        void SingleUpdate(Tile*[153][153], Tile*, Tile*, int, int, int, int *);
         //void DenUpdate(Tile[153][153], int , int , int * );
         //void DenCheck(Tile[153][153], int , int, int , int, int *);
         int DenScoreUpdate(ComponentTracker );
         int MeepleUpdateMe(ComponentTracker );
         int MeepleUpdateYou(ComponentTracker );
-        void updateComponents(Tile[153][153], int, int);
+        void updateComponents(Tile*[153][153], int, int);
         //void gameOver();
 
         //void placeOPPOMove_p(string, string[], int);
@@ -235,37 +235,37 @@ int Player::MeepleUpdateYou(ComponentTracker Region){
 // 	}
 // }
 
- void Player::SingleUpdate(Tile _TileGrid[153][153], Tile CurrentTile, Tile OldTile, int newS, int oldS, int Side, int * values){
+ void Player::SingleUpdate(Tile * _TileGrid[153][153], Tile * CurrentTile, Tile * OldTile, int newS, int oldS, int Side, int * values){
  	int x;
  	int y;
  	bool DontAdd;
  	DontAdd = false;
  	//Catch for nonexistent tile
- 	if (OldTile.orientation != NULL && CurrentTile.type.at(newS) != 4){
- 		if (CurrentTile.type.at(newS) == OldTile.type.at(oldS)){
+ 	if (OldTile->orientation != NULL && CurrentTile->type.at(newS) != 4){
+ 		if (CurrentTile->type.at(newS) == OldTile->type.at(oldS)){
  			//Special Check for corner Jungle . Jungle
- 			if ((newS % 2 == 0) && (CurrentTile.type.at(newS) == 2)){
+ 			if ((newS % 2 == 0) && (CurrentTile->type.at(newS) == 2)){
  				switch(Side){
        			  	case 1: 
-       			  		if (OldTile.type.at(5) == 1)
+       			  		if (OldTile->type.at(5) == 1)
        			  			DontAdd = true;
        			  	break;
   					case 2:
-  						if (OldTile.type.at(7) == 1)
+  						if (OldTile->type.at(7) == 1)
        			  			DontAdd = true;
   					break;
          			case 3:
-         				if (OldTile.type.at(1) == 1)
+         				if (OldTile->type.at(1) == 1)
        			  			DontAdd = true;
          			break;
          			case 4:
-         				if (OldTile.type.at(3) == 1)
+         				if (OldTile->type.at(3) == 1)
        			  			DontAdd = true;
          			break;
          		}
  			}
- 			x = CurrentTile.clusterid.at(newS);
- 			y = OldTile.clusterid.at(oldS);
+ 			x = CurrentTile->clusterid.at(newS);
+ 			y = OldTile->clusterid.at(oldS);
  			while (x != MainList[x].ParentId)
  			{
  			 	x = MainList[x].ParentId;		
@@ -281,7 +281,7 @@ int Player::MeepleUpdateYou(ComponentTracker Region){
  				//InheritValue(ComponentTracker Child, ComponentTracker Parent)
  				InheritValue(MainList[x], MainList[y]);
  			}
- 			if ((newS % 2 == 1) && (CurrentTile.type.at(newS) != 2)) 
+ 			if ((newS % 2 == 1) && (CurrentTile->type.at(newS) != 2)) 
  			{
  				MainList[y].IncompleteSides -= 2;
  				if ( MainList[y].IncompleteSides == 0 )
@@ -303,17 +303,17 @@ int Player::MeepleUpdateYou(ComponentTracker Region){
  }
 
 //update the components
- void Player::updateComponents(Tile _TileGrid[153][153], int X, int Y){
+ void Player::updateComponents(Tile * _TileGrid[153][153], int X, int Y){
  	int * values;
  	values[1] = 0;
  	values[2] = 0;
  	values[3] = 0;
  	values[4] = 0;
- 	Tile CurrentTile;
- 	Tile LeftTile;
- 	Tile RightTile;
- 	Tile UpTile;
- 	Tile DownTile;
+ 	Tile * CurrentTile;
+ 	Tile * LeftTile;
+ 	Tile * RightTile;
+ 	Tile * UpTile;
+ 	Tile * DownTile;
 
  	CurrentTile = _TileGrid[X][Y];
  /*
@@ -369,17 +369,19 @@ void Player::InheritValue(ComponentTracker Child, ComponentTracker Parent)
 
 vector<char> Player::giveMyMove_p(int moveNum, string tile){
 
+        printf("In giveMyMove\n");
         int bvalue = -BESTVALUE;
         int index = 0;
         Tile * ptr = getTile(tile.c_str());
-        Tile myTile = *ptr;
+        Tile * myTile = ptr;
         int * tileResult;
+	printf("In giveMyMove ready for minimaxDecision\n");
         tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
         list<int> movelist;
-       vector<char> bestmoves;
+        vector<char> bestmoves;
         generateMoves(_TileGrid, movelist, myTile);
 
-
+        //printf("In giveMyMove made it passed init\n");
         if(movelist.size() == 0){
 		//we are going to do nothing
 
@@ -456,7 +458,7 @@ void Player::placeMove_p(string tile, int move[3], int i){
 // }
 
 void Player::getTileStack(vector<string> tileString){
-        printf("In getTileStack\n");
+        //printf("In getTileStack\n");
 	for(int i = 0; i < tileString.size(); i++)
 	{
 		//take that specific string named temp
@@ -465,21 +467,21 @@ void Player::getTileStack(vector<string> tileString){
 		// temp2[2] = temp1[i+2];
 		// temp2[3] = temp1[i+3];
 		// temp2[4] = temp1[i+4];
-		printf("In getTileStack in For\n");
+		//printf("In getTileStack in For\n");
 		Tile * tempTile = getTile(tileString[i].c_str());
-		printf("In getTileStack in For passed tempTile\n");
-                Tile myTile = *tempTile;
-		printf("In getTileStack in For passed myTile\n");
-		randomTileStack.push_back(myTile);
+		//printf("In getTileStack in For passed tempTile\n");
+                //Tile myTile = *tempTile;
+		//printf("In getTileStack in For passed myTile\n");
+		randomTileStack.push_back(tempTile);//myTile);
         }
-	printf("added tile stack to randomTileStack");
+	//printf("added tile stack to randomTileStack");
 	//parse tileString to tileStack
 }
 
-void Player::updateBoard(Tile _TileGrid[153][153], int x, int y, Tile * t, int orien) {
+void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int orien) {
 	emptySpace temp;
 	t->orientation = orien;
-	_TileGrid[x][y] = *t;
+	_TileGrid[x][y] = t;
 	_TilePresent[x][y] = true;
 	//if a newly placed value is in our emptyTiles we need to erase it
 	if(!emptyTiles.empty()){
@@ -538,8 +540,8 @@ void Player::updateBoard(Tile _TileGrid[153][153], int x, int y, Tile * t, int o
 }
 
 //start of minimax algorithm 
-int *Player::MiniMaxDecision(Tile _TileGrid[153][153], int moveNum, Tile t, vector<Tile> temp) {
-        Tile * tile = &t;
+int *Player::MiniMaxDecision(Tile * _TileGrid[153][153], int moveNum, Tile *t, vector<Tile*> temp) {
+        Tile * tile = t;
 	int bvalue = -BESTVALUE, index = 0, x, y, z;
 	list<int> movelist;
 	int bestmoves[4];
@@ -563,7 +565,7 @@ int *Player::MiniMaxDecision(Tile _TileGrid[153][153], int moveNum, Tile t, vect
 		movelist.pop_front();
 		z = movelist.front();
 		movelist.pop_front();
-		t.orientation = z;
+		t->orientation = z;
 		_TileGrid[x][y] = t;
 		//this next move is the opponent playing with the board we created after placing a valid tile
 		//int value = MinMoveDecision(_TileGrid, x, y, z, moveNum+1, temp, t);
@@ -595,11 +597,11 @@ int *Player::MiniMaxDecision(Tile _TileGrid[153][153], int moveNum, Tile t, vect
 }
 
 //generate possible valid moves, thinking of having it stacked as x, y, z, x, y, z, ... z being the orientation
-void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile curTile) {
+void Player::generateMoves(Tile * _TileGrid[153][153], list<int> &movelist, Tile *curTile) {
 	vector<emptySpace> temp = emptyTiles;
 	emptySpace curr;
-	Tile tempTile1;
-	Tile tempTile2;
+	Tile * tempTile1;
+	Tile * tempTile2;
 	int x, y;
 	bool top, bottom, left, right;
 	while(!temp.empty()){
@@ -612,6 +614,7 @@ void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile c
 		right = curr.right;
 		temp.pop_back();
 		tempTile1 = _TileGrid[x][y];
+		//tempTile1 = curTile;
 		for(int m = 0; m<4; m++){
 			int a, b, c, d, e, f, g, h, i, j, k, l, z;
 			if(m == 0)
@@ -629,16 +632,16 @@ void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile c
 							//logic for if all four sides have tiles
 							tempTile2 = _TileGrid[x+1][y];
 							//Up
-							if(tempTile2.type[6] == tempTile1.type[a] && tempTile2.type[5] == tempTile1.type[b] && tempTile2.type[4] == tempTile1.type[c]){
+							if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
 								tempTile2 = _TileGrid[x-1][y];
 								//Down
-								if(tempTile2.type[0] == tempTile1.type[d] && tempTile2.type[1] == tempTile1.type[e] && tempTile2.type[2] == tempTile1.type[f]){
+								if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
 									tempTile2 = _TileGrid[x][y+1];
 									//Right
-									if(tempTile2.type[0] == tempTile1.type[g] && tempTile2.type[7] == tempTile1.type[h] && tempTile2.type[6] == tempTile1.type[i]){
+									if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
 										tempTile2 = _TileGrid[x][y-1];
 										//Left
-										if(tempTile2.type[2] == tempTile1.type[j] && tempTile2.type[3] == tempTile1.type[k] && tempTile2.type[4] == tempTile1.type[l]){
+										if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
 											movelist.push_back(x); /*x*/
 											movelist.push_back(y); /*y*/
 											movelist.push_back(z); /*z*/
@@ -650,11 +653,11 @@ void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile c
 						else{
 							//logic for if only the top, bottom, and right has tiles
 							tempTile2 = _TileGrid[x+1][y];
-							if(tempTile2.type[6] == tempTile1.type[a] && tempTile2.type[5] == tempTile1.type[b] && tempTile2.type[4] == tempTile1.type[c]){
+							if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
 								tempTile2 = _TileGrid[x-1][y];
-								if(tempTile2.type[0] == tempTile1.type[d] && tempTile2.type[1] == tempTile1.type[e] && tempTile2.type[2] == tempTile1.type[f]){
+								if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
 									tempTile2 = _TileGrid[x][y+1];
-									if(tempTile2.type[0] == tempTile1.type[g] && tempTile2.type[7] == tempTile1.type[h] && tempTile2.type[6] == tempTile1.type[i]){
+									if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
 										movelist.push_back(x); /*x*/
 										movelist.push_back(y); /*y*/
 										movelist.push_back(z); /*z*/
@@ -666,11 +669,11 @@ void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile c
 					else if(left == true){
 						//logic for if the top, bottom, and left have tiles
 						tempTile2 = _TileGrid[x+1][y];
-						if(tempTile2.type[6] == tempTile1.type[a] && tempTile2.type[5] == tempTile1.type[b] && tempTile2.type[4] == tempTile1.type[c]){
+						if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
 							tempTile2 = _TileGrid[x-1][y];
-							if(tempTile2.type[0] == tempTile1.type[d] && tempTile2.type[1] == tempTile1.type[e] && tempTile2.type[2] == tempTile1.type[f]){
+							if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
 								tempTile2 = _TileGrid[x][y-1];
-								if(tempTile2.type[2] == tempTile1.type[j] && tempTile2.type[3] == tempTile1.type[k] && tempTile2.type[4] == tempTile1.type[l]){
+								if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
 									movelist.push_back(x); /*x*/
 									movelist.push_back(y); /*y*/
 									movelist.push_back(z); /*z*/
@@ -681,9 +684,9 @@ void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile c
 					else{
 						//logic for if just the top and the bottom have a tile
 						tempTile2 = _TileGrid[x+1][y];
-						if(tempTile2.type[6] == tempTile1.type[a] && tempTile2.type[5] == tempTile1.type[b] && tempTile2.type[4] == tempTile1.type[c]){
+						if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
 							tempTile2 = _TileGrid[x-1][y];
-							if(tempTile2.type[0] == tempTile1.type[d] && tempTile2.type[1] == tempTile1.type[e] && tempTile2.type[2] == tempTile1.type[f]){
+							if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
 								movelist.push_back(x); /*x*/
 								movelist.push_back(y); /*y*/
 								movelist.push_back(z); /*z*/
@@ -695,11 +698,11 @@ void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile c
 					if(left == true){
 						//logic for if top, right, and left have tiles
 						tempTile2 = _TileGrid[x+1][y];
-						if(tempTile2.type[6] == tempTile1.type[a] && tempTile2.type[5] == tempTile1.type[b] && tempTile2.type[4] == tempTile1.type[c]){
+						if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
 							tempTile2 = _TileGrid[x][y+1];
-							if(tempTile2.type[0] == tempTile1.type[g] && tempTile2.type[7] == tempTile1.type[h] && tempTile2.type[6] == tempTile1.type[i]){
+							if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
 								tempTile2 = _TileGrid[x][y-1];
-								if(tempTile2.type[2] == tempTile1.type[j] && tempTile2.type[3] == tempTile1.type[k] && tempTile2.type[4] == tempTile1.type[l]){
+								if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
 									movelist.push_back(x); /*x*/
 									movelist.push_back(y); /*y*/
 									movelist.push_back(z); /*z*/
@@ -711,9 +714,9 @@ void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile c
 				if(left == true){
 					//logic for if the top and left have tiles
 					tempTile2 = _TileGrid[x+1][y];
-					if(tempTile2.type[6] == tempTile1.type[a] && tempTile2.type[5] == tempTile1.type[b] && tempTile2.type[4] == tempTile1.type[c]){
+					if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
 						tempTile2 = _TileGrid[x][y-1];
-						if(tempTile2.type[2] == tempTile1.type[j] && tempTile2.type[3] == tempTile1.type[k] && tempTile2.type[4] == tempTile1.type[l]){
+						if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
 							movelist.push_back(x); /*x*/
 							movelist.push_back(y); /*y*/
 							movelist.push_back(z); /*z*/
@@ -723,7 +726,7 @@ void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile c
 				else{
 					//logic for if only the top has a tile
 					tempTile2 = _TileGrid[x+1][y];
-					if(tempTile2.type[6] == tempTile1.type[a] && tempTile2.type[5] == tempTile1.type[b] && tempTile2.type[4] == tempTile1.type[c]){
+					if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
 						movelist.push_back(x); /*x*/
 						movelist.push_back(y); /*y*/
 						movelist.push_back(z); /*z*/
@@ -735,11 +738,11 @@ void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile c
 					if(left == true){
 						//logic for if the bottom, right, and left have tiles
 						tempTile2 = _TileGrid[x-1][y];
-						if(tempTile2.type[0] == tempTile1.type[d] && tempTile2.type[1] == tempTile1.type[e] && tempTile2.type[2] == tempTile1.type[f]){
+						if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
 							tempTile2 = _TileGrid[x][y+1];
-							if(tempTile2.type[0] == tempTile1.type[g] && tempTile2.type[7] == tempTile1.type[h] && tempTile2.type[6] == tempTile1.type[i]){
+							if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
 								tempTile2 = _TileGrid[x][y-1];
-								if(tempTile2.type[2] == tempTile1.type[j] && tempTile2.type[3] == tempTile1.type[k] && tempTile2.type[4] == tempTile1.type[l]){
+								if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
 									movelist.push_back(x); /*x*/
 									movelist.push_back(y); /*y*/
 									movelist.push_back(z); /*z*/
@@ -750,9 +753,9 @@ void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile c
 					else{
 						//logic for if the bottom and right have tiles
 						tempTile2 = _TileGrid[x-1][y];
-						if(tempTile2.type[0] == tempTile1.type[d] && tempTile2.type[1] == tempTile1.type[e] && tempTile2.type[2] == tempTile1.type[f]){
+						if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
 							tempTile2 = _TileGrid[x][y+1];
-							if(tempTile2.type[0] == tempTile1.type[g] && tempTile2.type[7] == tempTile1.type[h] && tempTile2.type[6] == tempTile1.type[i]){
+							if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
 								movelist.push_back(x); /*x*/
 								movelist.push_back(y); /*y*/
 								movelist.push_back(z); /*z*/
@@ -763,9 +766,9 @@ void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile c
 				if(left == true){
 					//logic for if the bottom and left have tiles
 					tempTile2 = _TileGrid[x-1][y];
-					if(tempTile2.type[0] == tempTile1.type[d] && tempTile2.type[1] == tempTile1.type[e] && tempTile2.type[2] == tempTile1.type[f]){
+					if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
 						tempTile2 = _TileGrid[x][y-1];
-						if(tempTile2.type[2] == tempTile1.type[j] && tempTile2.type[3] == tempTile1.type[k] && tempTile2.type[4] == tempTile1.type[l]){
+						if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
 							movelist.push_back(x); /*x*/
 							movelist.push_back(y); /*y*/
 							movelist.push_back(z); /*z*/
@@ -775,7 +778,7 @@ void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile c
 				else{
 					//logic for if just the bottom has a tile
 					tempTile2 = _TileGrid[x-1][y];
-					if(tempTile2.type[0] == tempTile1.type[d] && tempTile2.type[1] == tempTile1.type[e] && tempTile2.type[2] == tempTile1.type[f]){
+					if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
 						movelist.push_back(x); /*x*/
 						movelist.push_back(y); /*y*/
 						movelist.push_back(z); /*z*/
@@ -786,9 +789,9 @@ void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile c
 				if(left == true){
 					//logic for if the right and the left have tiles
 					tempTile2 = _TileGrid[x][y+1];
-					if(tempTile2.type[0] == tempTile1.type[g] && tempTile2.type[7] == tempTile1.type[h] && tempTile2.type[6] == tempTile1.type[i]){
+					if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
 						tempTile2 = _TileGrid[x][y-1];
-						if(tempTile2.type[2] == tempTile1.type[j] && tempTile2.type[3] == tempTile1.type[k] && tempTile2.type[4] == tempTile1.type[l]){
+						if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
 							movelist.push_back(x); /*x*/
 							movelist.push_back(y); /*y*/
 							movelist.push_back(z); /*z*/
@@ -798,7 +801,7 @@ void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile c
 				else{
 					//logic for if just the right has a tile
 					tempTile2 = _TileGrid[x][y+1];
-					if(tempTile2.type[0] == tempTile1.type[g] && tempTile2.type[7] == tempTile1.type[h] && tempTile2.type[6] == tempTile1.type[i]){
+					if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
 						movelist.push_back(x); /*x*/
 						movelist.push_back(y); /*y*/
 						movelist.push_back(z); /*z*/
@@ -808,7 +811,7 @@ void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile c
 			if(left == true){
 				//logic for if just the left has a tile
 				tempTile2 = _TileGrid[x][y-1];
-					if(tempTile2.type[2] == tempTile1.type[j] && tempTile2.type[3] == tempTile1.type[k] && tempTile2.type[4] == tempTile1.type[l]){
+					if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
 						movelist.push_back(x); /*x*/
 						movelist.push_back(y); /*y*/
 						movelist.push_back(z); /*z*/
@@ -882,7 +885,7 @@ void Player::generateMoves(Tile _TileGrid[153][153], list<int> &movelist, Tile c
 
 //returns the value of the tile at that location also any prunning needed
 //also any logic here can be changed or added, this is just a starting point for checking and such
-int *Player::evaluatePosition(Tile _TileGrid[153][153], int x, int y, int z, int num, Tile t) {
+int *Player::evaluatePosition(Tile * _TileGrid[153][153], int x, int y, int z, int num, Tile *t) {
 	int value[2];
 	int mLocation;
 	//should first check to see if we are helping the other player out with this move and return '-'1, if we have time
@@ -926,7 +929,7 @@ int *Player::evaluatePosition(Tile _TileGrid[153][153], int x, int y, int z, int
 
 //picks tiger or croc location on tile
 //also any logic here can be changed or added, this is just a starting point for checking and such
-int Player::tigerLocation(Tile _TileGrid[153][153], int x, int y, int z, int moveNum, Tile t){
+int Player::tigerLocation(Tile * _TileGrid[153][153], int x, int y, int z, int moveNum, Tile *t){
 	int options[4];
 	tigerCheck(options, _TileGrid, x, y, t);
 	//moveNum is, for example, move number 2 or 3 so to get number of tiles left we subtract it from 76
@@ -987,7 +990,7 @@ int Player::tigerLocation(Tile _TileGrid[153][153], int x, int y, int z, int mov
 }
 
 //checks the components to see where we can legally place tigers on this tile
-void Player::tigerCheck(int options[4], Tile _TileGrid[153][153], int x, int y, Tile t){
+void Player::tigerCheck(int options[4], Tile * _TileGrid[153][153], int x, int y, Tile * t){
     if(tigerCount == 0){
         options[0] = 0;
 		options[1] = 0;
@@ -1000,43 +1003,43 @@ void Player::tigerCheck(int options[4], Tile _TileGrid[153][153], int x, int y, 
 		options[2] = 0;
 		options[3] = 0;
 		options[4] = 0;
-		int q = _TileGrid[x+1][y].clusterid.at(5);
+		int q = _TileGrid[x+1][y]->clusterid.at(5);
 		while (q != MainList[q].ParentId)
 		{
 			q = MainList[q].ParentId;
 		}
-		if (_TilePresent[x+1][y] == true && (_TileGrid[x+1][y].type.at(5) == 1 || _TileGrid[x+1][y].type.at(5) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0) 
+		if (_TilePresent[x+1][y] == true && (_TileGrid[x+1][y]->type.at(5) == 1 || _TileGrid[x+1][y]->type.at(5) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0) 
 		{
 			options[0] = 1;
 		}
-		q = _TileGrid[x-1][y].clusterid.at(1);
+		q = _TileGrid[x-1][y]->clusterid.at(1);
 		while (q != MainList[q].ParentId)
 		{
 			q = MainList[q].ParentId;
 		}
-		if (_TilePresent[x-1][y] == true && (_TileGrid[x-1][y].type.at(1) == 1 || _TileGrid[x-1][y].type.at(1) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0) 
+		if (_TilePresent[x-1][y] == true && (_TileGrid[x-1][y]->type.at(1) == 1 || _TileGrid[x-1][y]->type.at(1) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0) 
 		{
 			options[1] = 1;
 		}
-		q = _TileGrid[x][y+1].clusterid.at(7);
+		q = _TileGrid[x][y+1]->clusterid.at(7);
 		while (q != MainList[q].ParentId)
 		{
 			q = MainList[q].ParentId;
 		}
-		if (_TilePresent[x][y+1] == true && (_TileGrid[x][y+1].type.at(7) == 1 || _TileGrid[x][y+1].type.at(7) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0) 
+		if (_TilePresent[x][y+1] == true && (_TileGrid[x][y+1]->type.at(7) == 1 || _TileGrid[x][y+1]->type.at(7) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0) 
 		{
 			options[2] = 1;
 		}
-		q = _TileGrid[x][y-1].clusterid.at(3);
+		q = _TileGrid[x][y-1]->clusterid.at(3);
 		while (q != MainList[q].ParentId)
 		{
 			q = MainList[q].ParentId;
 		}
-		if (_TilePresent[x][y-1] == true && (_TileGrid[x][y-1].type.at(3) == 1 || _TileGrid[x][y-1].type.at(3) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0) 
+		if (_TilePresent[x][y-1] == true && (_TileGrid[x][y-1]->type.at(3) == 1 || _TileGrid[x][y-1]->type.at(3) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0) 
 		{
 			options[3] = 1;
 		}
-		if (t.Den == true)
+		if (t->Den == true)
 		{
 			options[4] = 1;
 		} 
@@ -2380,6 +2383,7 @@ Tile* Player::getTile(char const* temp2){
 		//printf("%d\n", i);
 		//printf("%c %c %c %c %c \n", a, b, c, d, e);
 		//printf("%c %c %c %c %c \n", temp.des.at(0), temp.des.at(1), temp.des.at(2), temp.des.at(3), temp.des.at(4));
+	        //printf("%c %c %c %c %c \n", ptr->des.at(0), ptr->des.at(1), ptr->des.at(2), ptr->des.at(3), ptr->des.at(4));
 		if(a == temp.des[0] && b == temp.des[1] && c == temp.des[2] && d == temp.des[3] && e == temp.des[4])
 		{
 		        //printf("%d\n", i);

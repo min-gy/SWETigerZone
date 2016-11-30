@@ -195,10 +195,10 @@ int main (int argc, char *argv[]){
             tileStack.push_back(arr[i]);
         }
         
-	printf("here\n");
+	//printf("here\n");
         player1->getTileStack(tileStack);
         player2->getTileStack(tileStack);
-        printf("there\n");
+        //printf("there\n");
 
         //store tile order
 
@@ -216,8 +216,9 @@ int main (int argc, char *argv[]){
         //if this is for game1
         if (arr[5] == gameID1)
         {
+	    printf("About to make my move2\n");
             ourGameMove1 = player1->giveMyMove_p(atoi(arr[10].c_str()), arr[12]);
-            
+            printf("Ready to return move2\n");
 
 	    // if(ourGameMove1[0] == 0){
 
@@ -308,7 +309,10 @@ int main (int argc, char *argv[]){
 
             //tile = arr[12];
 
+            printf("About to make my move\n");
             ourGameMove1 = player1->giveMyMove_p(atoi(arr[10].c_str()), arr[12]);
+            printf("About to make my move\n");
+
             //int k = *ourGameMove1;
 
 
