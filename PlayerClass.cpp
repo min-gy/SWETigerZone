@@ -176,7 +176,7 @@ Tile *Player::parseTile(string tileLetters)
 void Player::addFirstTile_p(string tile, int x, int y, int orientation){
 	//myGameEngine->addFirstTile_g(tile, x, y, orientation);
 	//cout << "addFirstTile_p function sucessfully called";
-        updateBoard(_TileGrid, x, y, getTile(tile.c_str()), orientation);
+        updateBoard(_TileGrid, x, y, parseTile(tile.c_str()), orientation);
 	printf("EmptyTiles size: %d\n", emptyTiles.size());
 
 }
@@ -839,7 +839,9 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     	emptySpace curr;
     	Tile * tempTile1;
     	Tile * tempTile2;
-    	int x, y, z;
+        int x = 0;
+        int y = 0;
+        int z = 0;
         bool top;
         bool bottom;
         bool left;
