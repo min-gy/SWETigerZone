@@ -379,24 +379,24 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
         list<int> movelist;
         vector<char> bestmoves;
-        generateMoves(_TileGrid, movelist, myTile);
+        movelist = generateMoves(_TileGrid, movelist, myTile);
 
         //printf("In giveMyMove made it passed init\n");
         if(movelist.size() == 0){
 		//we are going to do nothing
-
+		cout << movelist.front() << " should be x" << endl;
 		return bestmoves;
 		//but we do need to know how to repond to both of these things if our opponent does this to us
 	}
-		cout << move.list.front() << " should be x" << endl;
+		cout << movelist.front() << " should be x" << endl;
         int x = movelist.front();
         cout << x << " is x" << endl;
         movelist.pop_front();
-        cout << move.list.front() << " should be y" << endl;
+        cout << movelist.front() << " should be y" << endl;
         int y = movelist.front();
         cout << x << " is y" << endl;
         movelist.pop_front();
-        cout << move.list.front() << " should be z" << endl;
+        cout << movelist.front() << " should be z" << endl;
         int z = movelist.front();
         cout << x << " is z" << endl;
         
@@ -602,7 +602,7 @@ int *Player::MiniMaxDecision(Tile * _TileGrid[153][153], int moveNum, Tile *t, v
 }
 
 //generate possible valid moves, thinking of having it stacked as x, y, z, x, y, z, ... z being the orientation
-void Player::generateMoves(Tile * _TileGrid[153][153], list<int> &movelist, Tile *curTile) {
+void Player::generateMoves(Tile * _TileGrid[153][153], list<int> movelist, Tile *curTile) {
 	vector<emptySpace> temp = emptyTiles;
 	emptySpace curr;
 	Tile * tempTile1;
@@ -824,6 +824,7 @@ void Player::generateMoves(Tile * _TileGrid[153][153], list<int> &movelist, Tile
 			}
 		}
 	}
+	return movelist;
 }
 
 //This is the opponents future move
