@@ -132,7 +132,7 @@ Tile *Player::parseTile(string tileLetters)
         }
         if(tileLetters.compare(check) == 0)
         {
-            cout<<check<<endl;
+            //cout<<check<<endl;
             break;
         }
         
@@ -437,10 +437,11 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         int bvalue = -BESTVALUE;
         int index = 0;
         //Tile * ptr = getTile(tile.c_str());
-        Tile * myTile = parseTile(tile.c_str());
+        Tile * myTile = parseTile(tile);
         int * tileResult;
 	printf("In giveMyMove ready for minimaxDecision\n");
         tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
+    
         list<int> movelist;
         vector<char> bestmoves;
         movelist = generateMoves(_TileGrid, myTile);
@@ -524,7 +525,7 @@ void Player::placeMove_p(string tile, int move[3], int i){
 // }
 
 void Player::getTileStack(vector<string> tileString){
-        //printf("In getTileStack\n");
+        printf("In getTileStack\n");
 	for(int i = 0; i < tileString.size(); i++)
 	{
 		//take that specific string named temp
@@ -534,7 +535,7 @@ void Player::getTileStack(vector<string> tileString){
 		// temp2[3] = temp1[i+3];
 		// temp2[4] = temp1[i+4];
 		//printf("In getTileStack in For\n");
-		Tile * tempTile = parseTile(tileString.at(i).c_str());
+		Tile * tempTile = parseTile(tileString.at(i));
 		//printf("In getTileStack in For passed tempTile\n");
                 //Tile myTile = *tempTile;
 		//printf("In getTileStack in For passed myTile\n");

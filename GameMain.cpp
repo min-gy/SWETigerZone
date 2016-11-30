@@ -191,7 +191,7 @@ int main (int argc, char *argv[]){
         //THE REMAINING <number_tiles> TILES ARE [<tiles>]
 
         for(int i = 6; i < 82; i++){
-	    printf("%s\n", arr[i].c_str());
+	    //printf("%s\n", arr[i].c_str());
             tileStack.push_back(arr[i]);
         }
         
