@@ -184,42 +184,52 @@ int main(int argc, char *argv[])
        if (n < 0) error("ERROR reading from socket");
        printf("Here is the message: %s\n",buffer);
 
-       message = "GAME A MOVE <#> PLAYER <pid> FORFEITED:\r\n";
+       message = "GAME A MOVE <#> PLAYER red FORFEITED:\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
 
-       message = "GAME B MOVE <#> PLAYER <pid> FORFEITED:\r\n";
+       message = "GAME B MOVE <#> PLAYER blue FORFEITED:\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
 
-       message = "GAME A MOVE <#> PLAYER <pid> PLACED <tile> at <x> <y> <orientation> NONE\r\n";
+       message = "GAME A MOVE <#> PLAYER red FORFEITED:\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
 
-       message = "GAME B MOVE <#> PLAYER <pid> PLACED <tile> at <x> <y> <orientation> CROCODILE\r\n";
+       message = "GAME B MOVE <#> PLAYER blue FORFEITED:\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
 
-       message = "GAME A MOVE <#> PLAYER <pid> PLACED <tile> at <x> <y> <orientation> TIGER <zone>\r\n";
+       message = "GAME A MOVE <#> PLAYER red PLACED JJJJ- at 0 -1 0 NONE\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
 
-       message = "GAME B MOVE <#> PLAYER <pid> TILE <tile> UNPLACEABLE PASSED\r\n";
+       message = "GAME B MOVE <#> PLAYER blue PLACED JJJJ- at 1 0 90 CROCODILE\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
 
-       message = "GAME A MOVE <#> PLAYER <pid> TILE <tile> UNPLACEABLE RETRIEVED TIGER AT <x> <y>\r\n";
+       message = "GAME A MOVE <#> PLAYER red PLACED JJJJ- at 0 1 180 TIGER 4\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
 
-       message = "GAME B MOVE <#> PLAYER <pid> TILE <tile> UNPLACEABLE ADDED ANOTHER TIGER TO <x> <y>\r\n";
+       message = "GAME B MOVE <#> PLAYER blue TILE JJJJ- UNPLACEABLE PASSED\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+
+       message = "GAME A MOVE <#> PLAYER red TILE JJJJ- UNPLACEABLE RETRIEVED TIGER AT 2 1\r\n";
+       strncpy(mesg, message.c_str(), sizeof(mesg));
+       mesg[sizeof(mesg) - 1] = 0;
+       send(newsockfd, mesg, strlen(mesg), 0);
+
+       message = "GAME B MOVE <#> PLAYER blue TILE JJJJ- UNPLACEABLE ADDED ANOTHER TIGER TO 1 2\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
