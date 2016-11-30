@@ -440,7 +440,7 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         Tile * myTile = parseTile(tile);
         int * tileResult;
 	printf("In giveMyMove ready for minimaxDecision\n");
-        tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
+        //tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
     
         list<int> movelist;
         vector<char> bestmoves;
@@ -450,27 +450,28 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         //printf("In giveMyMove made it passed init\n");
         if(movelist.size() == 0){
 		//we are going to do nothing
-
+            cout<<"Why so empty"<<endl;
 		return bestmoves;
 		//but we do need to know how to repond to both of these things if our opponent does this to us
         }
-
+    
         int x = movelist.front();
+        cout<<"POP"<<endl;
         movelist.pop_front();
         int y = movelist.front();
         movelist.pop_front();
         int z = movelist.front();
         
-        // int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, myTile);
-	// 	if(value[0] > bvalue) {
-	// 		bvalue = value[0];
-	// 		bestmoves[index] = x;
-	// 		bestmoves[index+1] = y;
-	// 		bestmoves[index+2] = z;
-	// 		//m represents 0 for not placing anything, 1 for tiger on a feild, 2 for tiger on water, 3 for tiger on a path, and 4 for placing a croc
-	// 		bestmoves[index+3] = value[1];
-	// 		index = 0;
-	// 	}
+//        int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, myTile);
+//	 	if(value[0] > bvalue) {
+//	 		bvalue = value[0];
+//	 		bestmoves[index] = x;
+//	 		bestmoves[index+1] = y;
+//	 		bestmoves[index+2] = z;
+//	 		//m represents 0 for not placing anything, 1 for tiger on a feild, 2 for tiger on water, 3 for tiger on a path, and 4 for placing a croc
+//	 		bestmoves[index+3] = value[1];
+//	 		index = 0;
+//	 	}
 
     bestmoves.push_back((char)0);
     bestmoves.push_back((char)z);
@@ -552,68 +553,148 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 	_TilePresent[x][y] = true;
 	//if a newly placed value is in our emptyTiles we need to erase it
     cout<<"Updating board"<<endl;
-	if(!emptyTiles.empty()){
+	if(!emptyTiles.empty())
+    {
         cout<<"FUCKme"<<endl;
 		int s = emptyTiles.size();
-		for(int i = 0; i<s; i++){
-			if(emptyTiles[i].x == x && emptyTiles[i].y == y){
+		for(int i = 0; i<s; i++)
+        {
+			if(emptyTiles[i].x == x && emptyTiles[i].y == y)
+            {
 				emptyTiles.erase(emptyTiles.begin() + i);
 				break;
 			}
 		}
 	}
     
-	if(_TilePresent[x+1][y] == false)
+    if(!_TilePresent[x][y+1])
     {
-		temp.x = x+1;
-		temp.y = y;
-        cout<<"FUCKKKK"<<endl;
-		if(_TilePresent[x+2][y] == true)
-			temp.top = true;
-		if(_TilePresent[x+1][y+1] == true)
-			temp.right = true;
-		if(_TilePresent[x+1][y-1] == true)
-			temp.left = true;
-		emptyTiles.push_back(temp);
-	}
-	if(_TilePresent[x-1][y] == false)
-    {
-		temp.x = x-1;
-		temp.y = y;
-		if(_TilePresent[x-2][y] == true)
-			temp.bottom = true;
-		if(_TilePresent[x-1][y+1] == true)
-			temp.right = true;
-		if(_TilePresent[x-1][y-1] == true)
-			temp.left = true;
-		emptyTiles.push_back(temp);
-	}
-	if(_TilePresent[x][y+1] == false)
-    {
-		temp.x = x;
-		temp.y = y+1;
-		if(_TilePresent[x+1][y+1] == true)
-			temp.top = true;
-		if(_TilePresent[x-1][y+1] == true)
-			temp.bottom = true;
-		if(_TilePresent[x][y+2] == true)
-			temp.right = true;
-		emptyTiles.push_back(temp);
-	}
-	if(_TilePresent[x][y-1] == false)
-    {
-		temp.x = x;
-		temp.y = y-1;
-		if(_TilePresent[x+1][y-1] == true)
-			temp.top = true;
-		if(_TilePresent[x-1][y-1] == true)
-			temp.bottom = true;
-		if(_TilePresent[x+1][y-2] == true)
-			temp.left = true;
-		emptyTiles.push_back(temp);
-	}
+        temp.x = x;
+        temp.y = y + 1;
+        if(_TilePresent[x][y+2])
+        {
+            temp.top = true;
+        }
+        if(_TilePresent[x+1][y+1])
+        {
+            temp.right = true;
+        }
+        if(_TilePresent[x-1][y+1])
+        {
+            temp.left = true;
+        }
+        emptyTiles.push_back(temp);
+    }
     
-    cout<<emptyTiles.at(0).x<<endl;
+    if(!_TilePresent[x+1][y])
+    {
+        temp.x = x + 1;
+        temp.y = y;
+        if(_TilePresent[x+2][y])
+        {
+            temp.right = true;
+        }
+        if(_TilePresent[x+1][y+1])
+        {
+            temp.top = true;
+        }
+        if(_TilePresent[x+1][y-1])
+        {
+            temp.bottom = true;
+        }
+        emptyTiles.push_back(temp);
+    }
+    
+    if(!_TilePresent[x][y-1])
+    {
+
+        temp.x = x;
+        temp.y = y - 1;
+        if(_TilePresent[x][y-2])
+        {
+            temp.bottom = true;
+        }
+        if(_TilePresent[x+1][y-1])
+        {
+            temp.right = true;
+        }
+        if(_TilePresent[x-1][y-1])
+        {
+            temp.left = true;
+        }
+        emptyTiles.push_back(temp);
+    }
+    
+    if(!_TilePresent[x-1][y])
+    {
+        temp.x = x - 1;
+        temp.y = y;
+        if(_TilePresent[x-2][y])
+        {
+            temp.left = true;
+        }
+        if(_TilePresent[x-1][y+1])
+        {
+            temp.top = true;
+        }
+        if(_TilePresent[x-1][y+1])
+        {
+            temp.bottom = true;
+        }
+        emptyTiles.push_back(temp);
+    }
+
+//	if(_TilePresent[x+1][y] == false)
+//    {
+//		temp.x = x+1;
+//		temp.y = y;
+//        cout<<"FUCKKKK"<<endl;
+//		if(_TilePresent[x+2][y] == true)
+//			temp.top = true;
+//		if(_TilePresent[x+1][y+1] == true)
+//			temp.right = true;
+//		if(_TilePresent[x+1][y-1] == true)
+//			temp.left = true;
+//		emptyTiles.push_back(temp);
+//	}
+//	if(_TilePresent[x-1][y] == false)
+//    {
+//		temp.x = x-1;
+//		temp.y = y;
+//		if(_TilePresent[x-2][y] == true)
+//			temp.bottom = true;
+//		if(_TilePresent[x-1][y+1] == true)
+//			temp.right = true;
+//		if(_TilePresent[x-1][y-1] == true)
+//			temp.left = true;
+//		emptyTiles.push_back(temp);
+//	}
+//	if(_TilePresent[x][y+1] == false)
+//    {
+//		temp.x = x;
+//		temp.y = y+1;
+//		if(_TilePresent[x+1][y+1] == true)
+//			temp.top = true;
+//		if(_TilePresent[x-1][y+1] == true)
+//			temp.bottom = true;
+//		if(_TilePresent[x][y+2] == true)
+//			temp.right = true;
+//		emptyTiles.push_back(temp);
+//	}
+//	if(_TilePresent[x][y-1] == false)
+//    {
+//		temp.x = x;
+//		temp.y = y-1;
+//		if(_TilePresent[x+1][y-1] == true)
+//			temp.top = true;
+//		if(_TilePresent[x-1][y-1] == true)
+//			temp.bottom = true;
+//		if(_TilePresent[x+1][y-2] == true)
+//			temp.left = true;
+//		emptyTiles.push_back(temp);
+//	}
+//    
+//    cout<<emptyTiles.at(0).x<<endl;
 }
 
 //start of minimax algorithm 
@@ -650,7 +731,8 @@ int *Player::MiniMaxDecision(Tile * _TileGrid[153][153], int moveNum, Tile *t, v
 		//usually this next part wouldnt be here, because we would be going into the min move decision...
 		//but for now we will just evaluate the current valid positions here
 		int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, t);
-		if(value[0] > bvalue) {
+		if(value[0] > bvalue)
+        {
 			bvalue = value[0];
 			bestmoves[index] = x;
 			bestmoves[index+1] = y;
@@ -675,233 +757,481 @@ int *Player::MiniMaxDecision(Tile * _TileGrid[153][153], int moveNum, Tile *t, v
 }
 
 //generate possible valid moves, thinking of having it stacked as x, y, z, x, y, z, ... z being the orientation
-list<int> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile) {
-	vector<emptySpace> temp = emptyTiles;
-	emptySpace curr;
-	Tile * tempTile1;
-	Tile * tempTile2;
-	int x, y;
-	bool top, bottom, left, right;
-    list<int> movelist;
+list<int> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
+{
+//    vector<Tile> possibleConnections;
+//    vector<Tile> legalMovesFinal;
+//    Tile *tempTile = new Tile;
+//    emptySpace *tempSpot = new emptySpace;
     
-	while(!temp.empty()){
-		curr = temp.back();
-		x = curr.x;
-		y = curr.y;
-		top = curr.top;
-		bottom = curr.bottom;
-		left = curr.left;
-		right = curr.right;
-		temp.pop_back();
-		tempTile1 = _TileGrid[x][y];
-		//tempTile1 = curTile;
-		for(int m = 0; m<4; m++){
-			int a, b, c, d, e, f, g, h, i, j, k, l, z;
-			if(m == 0)
-				a = 0, b = 1, c = 2, d = 6, e = 5, f = 4, g = 2, h = 3, i = 4, j = 0, k = 7, l = 6, z = 0;
-			else if(m == 1)
-				a = 2, b = 3, c = 4, d = 0, e = 7, f = 6, g = 4, h = 5, i = 6, j = 2, k = 1, l = 0, z = 90;
-			else if(m == 2)
-				a = 4, b = 5, c = 6, d = 2, e = 1, f = 0, g = 6, h = 7, i = 0, j = 4, k = 3, l = 2, z = 180;
-			else 
-				a = 6, b = 7, c = 0, d = 4, e = 3, f = 2, g = 0, h = 1, i = 2, j = 6, k = 5, l = 4, z = 270;
-			if(top == true){
-				if(bottom == true){
-					if(right == true){
-						if(left == true){
-							//logic for if all four sides have tiles
-							tempTile2 = _TileGrid[x+1][y];
-							//Up
-							if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
-								tempTile2 = _TileGrid[x-1][y];
-								//Down
-								if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
-									tempTile2 = _TileGrid[x][y+1];
-									//Right
-									if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
-										tempTile2 = _TileGrid[x][y-1];
-										//Left
-										if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
-											movelist.push_back(x); /*x*/
-											movelist.push_back(y); /*y*/
-											movelist.push_back(z); /*z*/
-										}
-									}
-								}
-							}
-						}
-						else{
-							//logic for if only the top, bottom, and right has tiles
-							tempTile2 = _TileGrid[x+1][y];
-							if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
-								tempTile2 = _TileGrid[x-1][y];
-								if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
-									tempTile2 = _TileGrid[x][y+1];
-									if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
-										movelist.push_back(x); /*x*/
-										movelist.push_back(y); /*y*/
-										movelist.push_back(z); /*z*/
-									}
-								}
-							}
-						}
-					}
-					else if(left == true){
-						//logic for if the top, bottom, and left have tiles
-						tempTile2 = _TileGrid[x+1][y];
-						if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
-							tempTile2 = _TileGrid[x-1][y];
-							if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
-								tempTile2 = _TileGrid[x][y-1];
-								if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
-									movelist.push_back(x); /*x*/
-									movelist.push_back(y); /*y*/
-									movelist.push_back(z); /*z*/
-								}
-							}
-						}
-					}
-					else{
-						//logic for if just the top and the bottom have a tile
-						tempTile2 = _TileGrid[x+1][y];
-						if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
-							tempTile2 = _TileGrid[x-1][y];
-							if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
-								movelist.push_back(x); /*x*/
-								movelist.push_back(y); /*y*/
-								movelist.push_back(z); /*z*/
-							}
-						}
-					}
-				}
-				if(right == true){
-					if(left == true){
-						//logic for if top, right, and left have tiles
-						tempTile2 = _TileGrid[x+1][y];
-						if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
-							tempTile2 = _TileGrid[x][y+1];
-							if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
-								tempTile2 = _TileGrid[x][y-1];
-								if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
-									movelist.push_back(x); /*x*/
-									movelist.push_back(y); /*y*/
-									movelist.push_back(z); /*z*/
-								}
-							}
-						}
-					}
-				}
-				if(left == true){
-					//logic for if the top and left have tiles
-					tempTile2 = _TileGrid[x+1][y];
-					if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
-						tempTile2 = _TileGrid[x][y-1];
-						if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
-							movelist.push_back(x); /*x*/
-							movelist.push_back(y); /*y*/
-							movelist.push_back(z); /*z*/
-						}
-					}
-				}
-				else{
-					//logic for if only the top has a tile
-					tempTile2 = _TileGrid[x+1][y];
-					if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
-						movelist.push_back(x); /*x*/
-						movelist.push_back(y); /*y*/
-						movelist.push_back(z); /*z*/
-					}
-				}
-			}
-			if(bottom == true){
-				if(right == true){
-					if(left == true){
-						//logic for if the bottom, right, and left have tiles
-						tempTile2 = _TileGrid[x-1][y];
-						if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
-							tempTile2 = _TileGrid[x][y+1];
-							if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
-								tempTile2 = _TileGrid[x][y-1];
-								if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
-									movelist.push_back(x); /*x*/
-									movelist.push_back(y); /*y*/
-									movelist.push_back(z); /*z*/
-								}
-							}
-						}
-					}
-					else{
-						//logic for if the bottom and right have tiles
-						tempTile2 = _TileGrid[x-1][y];
-						if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
-							tempTile2 = _TileGrid[x][y+1];
-							if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
-								movelist.push_back(x); /*x*/
-								movelist.push_back(y); /*y*/
-								movelist.push_back(z); /*z*/
-							}
-						}
-					}
-				}
-				if(left == true){
-					//logic for if the bottom and left have tiles
-					tempTile2 = _TileGrid[x-1][y];
-					if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
-						tempTile2 = _TileGrid[x][y-1];
-						if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
-							movelist.push_back(x); /*x*/
-							movelist.push_back(y); /*y*/
-							movelist.push_back(z); /*z*/
-						}
-					}
-				}
-				else{
-					//logic for if just the bottom has a tile
-					tempTile2 = _TileGrid[x-1][y];
-					if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
-						movelist.push_back(x); /*x*/
-						movelist.push_back(y); /*y*/
-						movelist.push_back(z); /*z*/
-					}
-				}
-			}
-			if(right == true){
-				if(left == true){
-					//logic for if the right and the left have tiles
-					tempTile2 = _TileGrid[x][y+1];
-					if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
-						tempTile2 = _TileGrid[x][y-1];
-						if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
-							movelist.push_back(x); /*x*/
-							movelist.push_back(y); /*y*/
-							movelist.push_back(z); /*z*/
-						}
-					}
-				}
-				else{
-					//logic for if just the right has a tile
-					tempTile2 = _TileGrid[x][y+1];
-					if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
-						movelist.push_back(x); /*x*/
-						movelist.push_back(y); /*y*/
-						movelist.push_back(z); /*z*/
-					}
-				}
-			}
-			if(left == true){
-				//logic for if just the left has a tile
-				tempTile2 = _TileGrid[x][y-1];
-					if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
-						movelist.push_back(x); /*x*/
-						movelist.push_back(y); /*y*/
-						movelist.push_back(z); /*z*/
-					}
-			}
-		}
-	}
+    	vector<emptySpace> temp = emptyTiles;
+    	emptySpace curr;
+    	Tile * tempTile1;
+    	Tile * tempTile2;
+    	int x, y;
+    	bool top, bottom, left, right;
+        list<int> movelist;
     
+    	while(!temp.empty())
+        {
+            cout<<"Generating moves"<<endl;
+    		curr = temp.back();
+    		x = curr.x;
+    		y = curr.y;
+    		top = curr.top;
+    		bottom = curr.bottom;
+    		left = curr.left;
+    		right = curr.right;
+    		temp.pop_back();
+    		tempTile1 = _TileGrid[x][y];
+    		//tempTile1 = curTile;
+    		for(int m = 0; m<4; m++)
+            {
+    			int a, b, c, d, e, f, g, h, z;
+    			if(m == 0)
+    				a = 0, b = 1, c = 2, d = 3, e = 4, f = 5, g = 6, h = 7, z = 0;
+    			else if(m == 1)
+    				a = 2, b = 3, c = 4, d = 5, e = 6, f = 7, g = 0, h = 1, z = 90;
+    			else if(m == 2)
+    				a = 4, b = 5, c = 6, d = 7, e = 0, f = 1, g = 2, h = 3, z = 180;
+    			else
+    				a = 6, b = 7, c = 0, d = 1, e = 2, f = 3, g = 4, h = 5, z = 270;
+    
+                if(top)
+                {
+                    if(right)
+                    {
+                        if(bottom)
+                        {
+                            if(left)
+                            {
+                                //all sides
+                                tempTile2 = _TileGrid[x][y+1];
+                                if(tempTile2->type.at(6) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(4) == tempTile1->type.at(c))
+                                {
+                                    tempTile2 = _TileGrid[x+1][y];
+                                    if(tempTile2->type.at(0) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(6) == tempTile1->type.at(e))
+                                    {
+                                        tempTile2 = _TileGrid[x][y-1];
+                                        if(tempTile2->type.at(0) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(2) == tempTile1->type.at(e))
+                                        {
+                                            tempTile2 = _TileGrid[x-1][y];
+                                            if(tempTile2->type.at(2) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(4) == tempTile1->type.at(g))
+                                            {
+                                                movelist.push_back(z);
+                                                movelist.push_back(y);
+                                                movelist.push_back(x);
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }else
+                            {
+                                //no left
+                                tempTile2 = _TileGrid[x][y+1];
+                                if(tempTile2->type.at(6) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(4) == tempTile1->type.at(c))
+                                {
+                                    tempTile2 = _TileGrid[x+1][y];
+                                    if(tempTile2->type.at(0) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(6) == tempTile1->type.at(e))
+                                    {
+                                        tempTile2 = _TileGrid[x][y-1];
+                                        if(tempTile2->type.at(0) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(2) == tempTile1->type.at(e))
+                                        {
+                                            movelist.push_back(z);
+                                            movelist.push_back(y);
+                                            movelist.push_back(x);
+                                        }
+                                    }
+                                }
+                            }
+                        }else if(left)
+                        {
+                            //no bottom
+                            tempTile2 = _TileGrid[x][y+1];
+                            if(tempTile2->type.at(6) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(4) == tempTile1->type.at(c))
+                            {
+                                tempTile2 = _TileGrid[x+1][y];
+                                if(tempTile2->type.at(0) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(6) == tempTile1->type.at(e))
+                                {
+                                    tempTile2 = _TileGrid[x-1][y];
+                                    if(tempTile2->type.at(2) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(4) == tempTile1->type.at(g))
+                                    {
+                                        movelist.push_back(z);
+                                        movelist.push_back(y);
+                                        movelist.push_back(x);
+                                    }
+                                }
+                            }
+                        }else
+                        {
+                            //right and top
+                            tempTile2 = _TileGrid[x][y+1];
+                            if(tempTile2->type.at(6) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(4) == tempTile1->type.at(c))
+                            {
+                                tempTile2 = _TileGrid[x+1][y];
+                                if(tempTile2->type.at(0) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(6) == tempTile1->type.at(e))
+                                {
+                                    movelist.push_back(z);
+                                    movelist.push_back(y);
+                                    movelist.push_back(x);
+                                }
+
+                            }
+                        }
+                    }else if(bottom && left)
+                    {
+                        //no right
+                        tempTile2 = _TileGrid[x][y+1];
+                        if(tempTile2->type.at(6) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(4) == tempTile1->type.at(c))
+                        {
+                            tempTile2 = _TileGrid[x][y-1];
+                            if(tempTile2->type.at(0) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(2) == tempTile1->type.at(e))
+                            {
+                                tempTile2 = _TileGrid[x-1][y];
+                                if(tempTile2->type.at(2) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(4) == tempTile1->type.at(g))
+                                {
+                                    movelist.push_back(z);
+                                    movelist.push_back(y);
+                                    movelist.push_back(x);
+                                }
+                            }
+
+                        }
+                    }else if(bottom)
+                    {
+                        //Top and bottom
+                        tempTile2 = _TileGrid[x][y+1];
+                        if(tempTile2->type.at(6) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(4) == tempTile1->type.at(c))
+                        {
+                            tempTile2 = _TileGrid[x][y-1];
+                            if(tempTile2->type.at(0) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(2) == tempTile1->type.at(e))
+                            {
+                                movelist.push_back(z);
+                                movelist.push_back(y);
+                                movelist.push_back(x);
+                            }
+                        }
+                    }else
+                    {
+                        //just top
+                        tempTile2 = _TileGrid[x][y+1];
+                        if(tempTile2->type.at(6) == tempTile1->type.at(a) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(4) == tempTile1->type.at(c))
+                        {
+                            movelist.push_back(z);
+                            movelist.push_back(y);
+                            movelist.push_back(x);
+                        }
+                    }
+                }else if(bottom && left && right)
+                {
+                    //no top
+                    tempTile2 = _TileGrid[x+1][y];
+                    if(tempTile2->type.at(0) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(6) == tempTile1->type.at(e))
+                    {
+                        tempTile2 = _TileGrid[x][y-1];
+                        if(tempTile2->type.at(0) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(2) == tempTile1->type.at(e))
+                        {
+                            tempTile2 = _TileGrid[x-1][y];
+                            if(tempTile2->type.at(2) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(4) == tempTile1->type.at(g))
+                            {
+                                movelist.push_back(z);
+                                movelist.push_back(y);
+                                movelist.push_back(x);
+                            }
+                        }
+                    }
+                }else if(bottom && left)
+                {
+                    //bottom and left
+                    tempTile2 = _TileGrid[x][y-1];
+                    if(tempTile2->type.at(0) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(2) == tempTile1->type.at(e))
+                    {
+                        tempTile2 = _TileGrid[x-1][y];
+                        if(tempTile2->type.at(2) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(4) == tempTile1->type.at(g))
+                        {
+                            movelist.push_back(z);
+                            movelist.push_back(y);
+                            movelist.push_back(x);
+                        }
+                    }
+                }else if(left && right)
+                {
+                    //left and right
+                    tempTile2 = _TileGrid[x+1][y];
+                    if(tempTile2->type.at(0) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(6) == tempTile1->type.at(e))
+                    {
+                        tempTile2 = _TileGrid[x-1][y];
+                        if(tempTile2->type.at(2) == tempTile1->type.at(a) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(4) == tempTile1->type.at(g))
+                        {
+                            movelist.push_back(z);
+                            movelist.push_back(y);
+                            movelist.push_back(x);
+                        }
+                    }
+                }else if(bottom && right)
+                {
+                    //bottom and right
+                    tempTile2 = _TileGrid[x][y-1];
+                    if(tempTile2->type.at(0) == tempTile1->type.at(g) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(2) == tempTile1->type.at(e))
+                    {
+                        tempTile2 = _TileGrid[x+1][y];
+                        if(tempTile2->type.at(0) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(6) == tempTile1->type.at(e))
+                        {
+                            movelist.push_back(z);
+                            movelist.push_back(y);
+                            movelist.push_back(x);
+                        }
+                    }
+                }else
+                {
+                    movelist.push_back(z);
+                    movelist.push_back(y);
+                    movelist.push_back(x);
+                }
+            }
+        
+        }
+    cout<<"Gets to end of generate"<<endl;
     return movelist;
 }
+
+    
+
+    
+    
+    //	vector<emptySpace> temp = emptyTiles;
+    //	emptySpace curr;
+    //	Tile * tempTile1;
+    //	Tile * tempTile2;
+    //	int x, y;
+    //	bool top, bottom, left, right;
+    //    list<int> movelist;
+    //
+    //	while(!temp.empty())
+    //    {
+    //        cout<<"Generating moves"<<endl;
+    //		curr = temp.back();
+    //		x = curr.x;
+    //		y = curr.y;
+    //		top = curr.top;
+    //		bottom = curr.bottom;
+    //		left = curr.left;
+    //		right = curr.right;
+    //		temp.pop_back();
+    //		tempTile1 = _TileGrid[x][y];
+    //		//tempTile1 = curTile;
+    //		for(int m = 0; m<4; m++){
+    //			int a, b, c, d, e, f, g, h, i, j, k, l, z;
+    //			if(m == 0)
+    //				a = 0, b = 1, c = 2, d = 6, e = 5, f = 4, g = 2, h = 3, i = 4, j = 0, k = 7, l = 6, z = 0;
+//			else if(m == 1)
+//				a = 2, b = 3, c = 4, d = 0, e = 7, f = 6, g = 4, h = 5, i = 6, j = 2, k = 1, l = 0, z = 90;
+//			else if(m == 2)
+//				a = 4, b = 5, c = 6, d = 2, e = 1, f = 0, g = 6, h = 7, i = 0, j = 4, k = 3, l = 2, z = 180;
+//			else 
+//				a = 6, b = 7, c = 0, d = 4, e = 3, f = 2, g = 0, h = 1, i = 2, j = 6, k = 5, l = 4, z = 270;
+//			if(top == true){
+//				if(bottom == true){
+//					if(right == true){
+//						if(left == true){
+//							//logic for if all four sides have tiles
+//							tempTile2 = _TileGrid[x+1][y];
+//							//Up
+//							if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
+//								tempTile2 = _TileGrid[x-1][y];
+//								//Down
+//								if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
+//									tempTile2 = _TileGrid[x][y+1];
+//									//Right
+//									if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
+//										tempTile2 = _TileGrid[x][y-1];
+//										//Left
+//										if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
+//											movelist.push_back(x); /*x*/
+//											movelist.push_back(y); /*y*/
+//											movelist.push_back(z); /*z*/
+//										}
+//									}
+//								}
+//							}
+//						}
+//						else{
+//							//logic for if only the top, bottom, and right has tiles
+//							tempTile2 = _TileGrid[x+1][y];
+//							if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
+//								tempTile2 = _TileGrid[x-1][y];
+//								if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
+//									tempTile2 = _TileGrid[x][y+1];
+//									if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
+//										movelist.push_back(x); /*x*/
+//										movelist.push_back(y); /*y*/
+//										movelist.push_back(z); /*z*/
+//									}
+//								}
+//							}
+//						}
+//					}
+//					else if(left == true){
+//						//logic for if the top, bottom, and left have tiles
+//						tempTile2 = _TileGrid[x+1][y];
+//						if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
+//							tempTile2 = _TileGrid[x-1][y];
+//							if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
+//								tempTile2 = _TileGrid[x][y-1];
+//								if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
+//									movelist.push_back(x); /*x*/
+//									movelist.push_back(y); /*y*/
+//									movelist.push_back(z); /*z*/
+//								}
+//							}
+//						}
+//					}
+//					else{
+//						//logic for if just the top and the bottom have a tile
+//						tempTile2 = _TileGrid[x+1][y];
+//						if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
+//							tempTile2 = _TileGrid[x-1][y];
+//							if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
+//								movelist.push_back(x); /*x*/
+//								movelist.push_back(y); /*y*/
+//								movelist.push_back(z); /*z*/
+//							}
+//						}
+//					}
+//				}
+//				if(right == true){
+//					if(left == true){
+//						//logic for if top, right, and left have tiles
+//						tempTile2 = _TileGrid[x+1][y];
+//						if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
+//							tempTile2 = _TileGrid[x][y+1];
+//							if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
+//								tempTile2 = _TileGrid[x][y-1];
+//								if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
+//									movelist.push_back(x); /*x*/
+//									movelist.push_back(y); /*y*/
+//									movelist.push_back(z); /*z*/
+//								}
+//							}
+//						}
+//					}
+//				}
+//				if(left == true){
+//					//logic for if the top and left have tiles
+//					tempTile2 = _TileGrid[x+1][y];
+//					if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
+//						tempTile2 = _TileGrid[x][y-1];
+//						if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
+//							movelist.push_back(x); /*x*/
+//							movelist.push_back(y); /*y*/
+//							movelist.push_back(z); /*z*/
+//						}
+//					}
+//				}
+//				else{
+//					//logic for if only the top has a tile
+//					tempTile2 = _TileGrid[x+1][y];
+//					if(tempTile2->type[6] == tempTile1->type[a] && tempTile2->type[5] == tempTile1->type[b] && tempTile2->type[4] == tempTile1->type[c]){
+//						movelist.push_back(x); /*x*/
+//						movelist.push_back(y); /*y*/
+//						movelist.push_back(z); /*z*/
+//					}
+//				}
+//            }else{
+//                cout<<"no tile"<<endl;
+//                movelist.push_back(x); /*x*/
+//                movelist.push_back(y); /*y*/
+//                movelist.push_back(z); /*z*/
+//                m = 5;
+//            }
+//			if(bottom == true){
+//				if(right == true){
+//					if(left == true){
+//						//logic for if the bottom, right, and left have tiles
+//						tempTile2 = _TileGrid[x-1][y];
+//						if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
+//							tempTile2 = _TileGrid[x][y+1];
+//							if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
+//								tempTile2 = _TileGrid[x][y-1];
+//								if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
+//									movelist.push_back(x); /*x*/
+//									movelist.push_back(y); /*y*/
+//									movelist.push_back(z); /*z*/
+//								}
+//							}
+//						}
+//					}
+//					else{
+//						//logic for if the bottom and right have tiles
+//						tempTile2 = _TileGrid[x-1][y];
+//						if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
+//							tempTile2 = _TileGrid[x][y+1];
+//							if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
+//								movelist.push_back(x); /*x*/
+//								movelist.push_back(y); /*y*/
+//								movelist.push_back(z); /*z*/
+//							}
+//						}
+//					}
+//				}
+//				if(left == true){
+//					//logic for if the bottom and left have tiles
+//					tempTile2 = _TileGrid[x-1][y];
+//					if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
+//						tempTile2 = _TileGrid[x][y-1];
+//						if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
+//							movelist.push_back(x); /*x*/
+//							movelist.push_back(y); /*y*/
+//							movelist.push_back(z); /*z*/
+//						}
+//					}
+//				}
+//				else{
+//					//logic for if just the bottom has a tile
+//					tempTile2 = _TileGrid[x-1][y];
+//					if(tempTile2->type[0] == tempTile1->type[d] && tempTile2->type[1] == tempTile1->type[e] && tempTile2->type[2] == tempTile1->type[f]){
+//						movelist.push_back(x); /*x*/
+//						movelist.push_back(y); /*y*/
+//						movelist.push_back(z); /*z*/
+//					}
+//				}
+//			}
+//			if(right == true){
+//				if(left == true){
+//					//logic for if the right and the left have tiles
+//					tempTile2 = _TileGrid[x][y+1];
+//					if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
+//						tempTile2 = _TileGrid[x][y-1];
+//						if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
+//							movelist.push_back(x); /*x*/
+//							movelist.push_back(y); /*y*/
+//							movelist.push_back(z); /*z*/
+//						}
+//					}
+//				}
+//				else{
+//					//logic for if just the right has a tile
+//					tempTile2 = _TileGrid[x][y+1];
+//					if(tempTile2->type[0] == tempTile1->type[g] && tempTile2->type[7] == tempTile1->type[h] && tempTile2->type[6] == tempTile1->type[i]){
+//						movelist.push_back(x); /*x*/
+//						movelist.push_back(y); /*y*/
+//						movelist.push_back(z); /*z*/
+//					}
+//				}
+//			}
+//			if(left == true){
+//				//logic for if just the left has a tile
+//				tempTile2 = _TileGrid[x][y-1];
+//					if(tempTile2->type[2] == tempTile1->type[j] && tempTile2->type[3] == tempTile1->type[k] && tempTile2->type[4] == tempTile1->type[l]){
+//						movelist.push_back(x); /*x*/
+//						movelist.push_back(y); /*y*/
+//						movelist.push_back(z); /*z*/
+//					}
+//			}
+//		}
+//	}
+
 
 //This is the opponents future move
 // int *Player::MinMoveDecision(Tile _TileGrid[153][153], int x, int y, int z, int moveNum, vector<Tile> temp, Tile t) {
