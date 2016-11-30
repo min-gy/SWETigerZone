@@ -492,11 +492,13 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
 //	 		index = 0;
 //	 	}
 
-
+    x = x - 77 + 48;
+    y = y - 77 + 48;
+    //char *str[z.size()];
+    bestmoves.push_back(0);
     bestmoves.push_back((char)x);
     bestmoves.push_back((char)y);
     bestmoves.push_back((char)z);
-    bestmoves.push_back((char)0);
 
 
 			
@@ -837,8 +839,8 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     
         cout<<"the size of empty tiles in generate is " <<temp.size()<<endl;
     	emptySpace curr;
-    	Tile * tempTile1;
-    	Tile * tempTile2;
+    	Tile * tempTile1 = new Tile;
+        Tile * tempTile2 = new Tile;
         int x = 0;
         int y = 0;
         int z = 0;
