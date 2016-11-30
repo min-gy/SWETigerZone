@@ -174,6 +174,7 @@ int main(int argc, char *argv[])
        if (n < 0) error("ERROR reading from socket");
        printf("Here is the message: %s\n",buffer);
 
+/*
        message = "GAME A MOVE <#> PLAYER <pid> (<move> or FORFEITED:)\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
@@ -194,7 +195,7 @@ int main(int argc, char *argv[])
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
        send(newsockfd, mesg, strlen(mesg), 0);
-
+*/
        }
 
        message = "GAME A OVER PLAYER <pid> <score> PLAYER <pid> <score>\r\n";
