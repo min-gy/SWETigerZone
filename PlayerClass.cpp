@@ -440,7 +440,7 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         Tile * myTile = parseTile(tile);
         int * tileResult;
 	printf("In giveMyMove ready for minimaxDecision\n");
-        tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
+        //tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
     
         list<int> movelist;
         vector<char> bestmoves;
@@ -448,25 +448,23 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
     
     
         //printf("In giveMyMove made it passed init\n");
-        if(movelist.size() == 0){
+        if(movelist.size() == 0)
+        {
 		//we are going to do nothing
-<<<<<<< HEAD
             cout<<"Why so empty"<<endl;
 		return bestmoves;
 		//but we do need to know how to repond to both of these things if our opponent does this to us
         }
     
-        int x = movelist.front();
-        cout<<"POP"<<endl;
-=======
-		cout << movelist.front() << " should be x" << endl;
-		return bestmoves;
+//        int x = movelist.front();
+//        cout<<"POP"<<endl;
+//		cout << movelist.front() << " should be x" << endl;
+//		return bestmoves;
 		//but we do need to know how to repond to both of these things if our opponent does this to us
-	}
+	
 		cout << movelist.front() << " should be x" << endl;
         int x = movelist.front();
         cout << x << " is x" << endl;
->>>>>>> origin/master
         movelist.pop_front();
         cout << movelist.front() << " should be y" << endl;
         int y = movelist.front();
@@ -1491,7 +1489,7 @@ void Player::tigerCheck(int options[9], Tile * _TileGrid[153][153], int x, int y
             {
                 q = MainList[q].ParentId;
             }
-            if (_TilePresent[x][y-1] == true && (_TileGrid[x][y-1]->type.at(3) == 1 || _TileGrid[x][y-1]->type.at(3) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0)
+            if ((_TileGrid[x][y-1]->type.at(3) == 1 || _TileGrid[x][y-1]->type.at(3) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0)
             {
                 options[3] = 1;
             }
