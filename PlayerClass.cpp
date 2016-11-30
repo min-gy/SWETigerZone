@@ -450,6 +450,7 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         //printf("In giveMyMove made it passed init\n");
         if(movelist.size() == 0){
 		//we are going to do nothing
+<<<<<<< HEAD
             cout<<"Why so empty"<<endl;
 		return bestmoves;
 		//but we do need to know how to repond to both of these things if our opponent does this to us
@@ -457,10 +458,23 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
     
         int x = movelist.front();
         cout<<"POP"<<endl;
+=======
+		cout << movelist.front() << " should be x" << endl;
+		return bestmoves;
+		//but we do need to know how to repond to both of these things if our opponent does this to us
+	}
+		cout << movelist.front() << " should be x" << endl;
+        int x = movelist.front();
+        cout << x << " is x" << endl;
+>>>>>>> origin/master
         movelist.pop_front();
+        cout << movelist.front() << " should be y" << endl;
         int y = movelist.front();
+        cout << x << " is y" << endl;
         movelist.pop_front();
+        cout << movelist.front() << " should be z" << endl;
         int z = movelist.front();
+        cout << x << " is z" << endl;
         
 //        int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, myTile);
 //	 	if(value[0] > bvalue) {
