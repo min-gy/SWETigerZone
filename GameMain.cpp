@@ -228,11 +228,11 @@ int main (int argc, char *argv[]){
 
         
             if(ourGameMove1.empty()){
-                reply = "GAME " + gameID2 + " MOVE " + arr[3] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
+                reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
         
             }
             else if(!ourGameMove1.empty()){
-                 reply = "GAME " + gameID1 + " MOVE " + arr[3] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(0) + " " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " NONE\r\n";
+                 reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(0) + " " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " NONE\r\n";
             }
   
 
@@ -272,11 +272,11 @@ int main (int argc, char *argv[]){
 
 
             if(ourGameMove2.empty()){
-                reply = "GAME " + gameID2 + " MOVE " + arr[3] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
+                reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
         
             }
             else if(!ourGameMove2.empty()){
-                 reply = "GAME " + gameID2 + " MOVE " + arr[3] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(0) + " " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " NONE\r\n";
+                 reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(0) + " " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " NONE\r\n";
             }
  
 
@@ -317,14 +317,14 @@ int main (int argc, char *argv[]){
 
 
             if(ourGameMove1.empty()){
-                reply = "GAME " + gameID2 + " MOVE " + arr[3] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
+                reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
         
             }
             // else if((ourGameMove1[3]) != 0){
             //      reply = "GAME " + gameID1 + " MOVE " + arr[3] + "  PLACE " + arr[12] + " AT " + (*ourGameMove1)[0]  + " " + (*ourGameMove1)[1] + " " + (*ourGameMove1)[2] + " NONE\r\n";
             // }
             else if(!ourGameMove1.empty()){
-                 reply = "GAME " + gameID1 + " MOVE " + arr[3] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(0)  + " " + ourGameMove1.at(1)  + " " + ourGameMove1.at(2)  + " NONE\r\n";
+                 reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(0)  + " " + ourGameMove1.at(1)  + " " + ourGameMove1.at(2)  + " NONE\r\n";
             }
             // else if(*(ourGameMove1+3) == 4){
             //     reply = "GAME " + gameID1 + " PLACE " + arr[12] + " AT " + ourGameMove1[1] + " " + ourGameMove1[2] + " " + ourGameMove1[3] + " CROCODILE\r\n";
@@ -356,11 +356,11 @@ int main (int argc, char *argv[]){
 
 
             if(ourGameMove2.empty()){
-                reply = "GAME " + gameID2 + " MOVE " + arr[3] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
+                reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
         
             }
             else if(!ourGameMove2.empty()){
-                 reply = "GAME " + gameID2 + " MOVE " + arr[3] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(0) + " " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " NONE\r\n";
+                 reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(0) + " " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " NONE\r\n";
             }
             // else if(*(ourGameMove2+3) == 4){
             //     reply = "GAME " + gameID2 + " PLACE " + arr[12] + " AT " + ourGameMove2[1] + " " + ourGameMove2[2] + " " + ourGameMove2[3] + " CROCODILE\r\n";
@@ -406,7 +406,7 @@ int main (int argc, char *argv[]){
 		{
                     if(arr[6] == "PLACED")
 		    {
-
+                        /*
                         theirGameMove1[0] = arr[7];
                         theirGameMove1[1] = arr[9];
                         theirGameMove1[2] = arr[10];
@@ -420,7 +420,15 @@ int main (int argc, char *argv[]){
 			{
                             theirGameMove1[5] = arr[13];
                         }
+			*/
+                      int theirArr[3];
+		      theirArr[0] = atoi(arr[9].c_str());
+                      theirArr[1] = atoi(arr[10].c_str());
+                      theirArr[2] = atoi(arr[11].c_str());
+		      printf("Their Move: %d %d %d\n", theirArr[0], theirArr[1], theirArr[2]);
+		      player1->placeMove_p(arr[7], theirArr, 1);
                     }
+		    /*
                     else if(arr[6] == "TILE")
 		    {
                         theirGameMove1[0] = arr[7];
@@ -445,16 +453,22 @@ int main (int argc, char *argv[]){
 		    theirArr[0] = atoi(arr[9].c_str());
                     theirArr[1] = atoi(arr[10].c_str());
                     theirArr[2] = atoi(arr[11].c_str());
+		    printf("Their Move: %d %d %d\n", theirArr[0], theirArr[1], theirArr[2]);
 		    player1->placeMove_p(arr[7], theirArr, 1);
+		    */
                 }
                 else
 		{
-                    //update my stuff
+                    if(arr[6] == "PLACED")
+		    {
+                     //update my stuff
                     int ourArr[3];
 		    ourArr[0] = atoi(arr[9].c_str());
                     ourArr[1] = atoi(arr[10].c_str());
                     ourArr[2] = atoi(arr[11].c_str());
+		    printf("our Move: %d %d %d\n", ourArr[0], ourArr[1], ourArr[2]);
 		    player1->placeMove_p(arr[7], ourArr, 1);
+		    }
                 }
                 
             }
@@ -462,28 +476,37 @@ int main (int argc, char *argv[]){
             else if(arr[1] == gameID2 )
 	    {
                 
+                //if this move info is from opponent
                 if(arr[5] == oppoPlayerID)
 		{
                     if(arr[6] == "PLACED")
 		    {
-
-                        theirGameMove2[0] = arr[7];
-                        theirGameMove2[1] = arr[9];
-                        theirGameMove2[2] = arr[10];
-                        theirGameMove2[3] = arr[11];
+                        /*
+                        theirGameMove1[0] = arr[7];
+                        theirGameMove1[1] = arr[9];
+                        theirGameMove1[2] = arr[10];
+                        theirGameMove1[3] = arr[11];
 
                         //classification: none, croc, or tiger
-                        theirGameMove2[4] = arr[12];
+                        theirGameMove1[4] = arr[12];
                         
                         //if it's tiger, store zone
-                        if(theirGameMove2[4] == "TIGER")
+                        if(theirGameMove1[4] == "TIGER")
 			{
-                            theirGameMove2[5] = arr[13];
+                            theirGameMove1[5] = arr[13];
                         }
+			*/
+                      int theirArr[3];
+		      theirArr[0] = atoi(arr[9].c_str());
+                      theirArr[1] = atoi(arr[10].c_str());
+                      theirArr[2] = atoi(arr[11].c_str());
+		      printf("Their Move: %d %d %d\n", theirArr[0], theirArr[1], theirArr[2]);
+		      player1->placeMove_p(arr[7], theirArr, 1);
                     }
+		    /*
                     else if(arr[6] == "TILE")
 		    {
-                        theirGameMove2[0] = arr[7];
+                        theirGameMove1[0] = arr[7];
 
                         if (arr[9] == "PASSED")
 			{
@@ -491,33 +514,36 @@ int main (int argc, char *argv[]){
                         }
                         else if (arr[9] == "RETRIEVED")
 			{
-                            theirGameMove2[1] = arr[12];
-                            theirGameMove2[2] = arr[13];
+                            theirGameMove1[1] = arr[12];
+                            theirGameMove1[2] = arr[13];
                         }
                         else if (arr[9] == "ADDED")
 			{
-                            theirGameMove2[1] = arr[13];
-                            theirGameMove2[2] = arr[14];
+                            theirGameMove1[1] = arr[13];
+                            theirGameMove1[2] = arr[14];
                         }
                     }
                     //placing opponent's move
-
 		    int theirArr[3];
 		    theirArr[0] = atoi(arr[9].c_str());
                     theirArr[1] = atoi(arr[10].c_str());
                     theirArr[2] = atoi(arr[11].c_str());
-		    player2->placeMove_p(arr[7], theirArr, 1);
-
-
+		    printf("Their Move: %d %d %d\n", theirArr[0], theirArr[1], theirArr[2]);
+		    player1->placeMove_p(arr[7], theirArr, 1);
+		    */
                 }
                 else
 		{
-                    //update my stuff
+                    if(arr[6] == "PLACED")
+		    {
+                     //update my stuff
                     int ourArr[3];
 		    ourArr[0] = atoi(arr[9].c_str());
                     ourArr[1] = atoi(arr[10].c_str());
                     ourArr[2] = atoi(arr[11].c_str());
-		    player2->placeMove_p(arr[7], ourArr, 1);
+		    printf("our Move: %d %d %d\n", ourArr[0], ourArr[1], ourArr[2]);
+		    player1->placeMove_p(arr[7], ourArr, 1);
+		    }
                 }
                 
             }
@@ -531,7 +557,7 @@ int main (int argc, char *argv[]){
 		{
                     if(arr[6] == "PLACED")
 		    {
-
+                        /*
                         theirGameMove1[0] = arr[7];
                         theirGameMove1[1] = arr[9];
                         theirGameMove1[2] = arr[10];
@@ -545,7 +571,15 @@ int main (int argc, char *argv[]){
 			{
                             theirGameMove1[5] = arr[13];
                         }
+			*/
+                      int theirArr[3];
+		      theirArr[0] = atoi(arr[9].c_str());
+                      theirArr[1] = atoi(arr[10].c_str());
+                      theirArr[2] = atoi(arr[11].c_str());
+		      printf("Their Move: %d %d %d\n", theirArr[0], theirArr[1], theirArr[2]);
+		      player1->placeMove_p(arr[7], theirArr, 1);
                     }
+		    /*
                     else if(arr[6] == "TILE")
 		    {
                         theirGameMove1[0] = arr[7];
@@ -566,22 +600,26 @@ int main (int argc, char *argv[]){
                         }
                     }
                     //placing opponent's move
-
 		    int theirArr[3];
 		    theirArr[0] = atoi(arr[9].c_str());
                     theirArr[1] = atoi(arr[10].c_str());
                     theirArr[2] = atoi(arr[11].c_str());
+		    printf("Their Move: %d %d %d\n", theirArr[0], theirArr[1], theirArr[2]);
 		    player1->placeMove_p(arr[7], theirArr, 1);
-
+		    */
                 }
                 else
 		{
-                    //update my stuff
+                    if(arr[6] == "PLACED")
+		    {
+                     //update my stuff
                     int ourArr[3];
 		    ourArr[0] = atoi(arr[9].c_str());
                     ourArr[1] = atoi(arr[10].c_str());
                     ourArr[2] = atoi(arr[11].c_str());
+		    printf("our Move: %d %d %d\n", ourArr[0], ourArr[1], ourArr[2]);
 		    player1->placeMove_p(arr[7], ourArr, 1);
+		    }
                 }
                 
             }
@@ -590,28 +628,37 @@ int main (int argc, char *argv[]){
 	    {
                 gameID2 = arr[1];
                 
+                //if this move info is from opponent
                 if(arr[5] == oppoPlayerID)
 		{
                     if(arr[6] == "PLACED")
 		    {
-
-                        theirGameMove2[0] = arr[7];
-                        theirGameMove2[1] = arr[9];
-                        theirGameMove2[2] = arr[10];
-                        theirGameMove2[3] = arr[11];
+                        /*
+                        theirGameMove1[0] = arr[7];
+                        theirGameMove1[1] = arr[9];
+                        theirGameMove1[2] = arr[10];
+                        theirGameMove1[3] = arr[11];
 
                         //classification: none, croc, or tiger
-                        theirGameMove2[4] = arr[12];
+                        theirGameMove1[4] = arr[12];
                         
                         //if it's tiger, store zone
-                        if(theirGameMove2[4] == "TIGER")
+                        if(theirGameMove1[4] == "TIGER")
 			{
-                            theirGameMove2[5] = arr[13];
+                            theirGameMove1[5] = arr[13];
                         }
+			*/
+                      int theirArr[3];
+		      theirArr[0] = atoi(arr[9].c_str());
+                      theirArr[1] = atoi(arr[10].c_str());
+                      theirArr[2] = atoi(arr[11].c_str());
+		      printf("Their Move: %d %d %d\n", theirArr[0], theirArr[1], theirArr[2]);
+		      player1->placeMove_p(arr[7], theirArr, 1);
                     }
+		    /*
                     else if(arr[6] == "TILE")
 		    {
-                        theirGameMove2[0] = arr[7];
+                        theirGameMove1[0] = arr[7];
 
                         if (arr[9] == "PASSED")
 			{
@@ -619,13 +666,13 @@ int main (int argc, char *argv[]){
                         }
                         else if (arr[9] == "RETRIEVED")
 			{
-                            theirGameMove2[1] = arr[12];
-                            theirGameMove2[2] = arr[13];
+                            theirGameMove1[1] = arr[12];
+                            theirGameMove1[2] = arr[13];
                         }
                         else if (arr[9] == "ADDED")
 			{
-                            theirGameMove2[1] = arr[13];
-                            theirGameMove2[2] = arr[14];
+                            theirGameMove1[1] = arr[13];
+                            theirGameMove1[2] = arr[14];
                         }
                     }
                     //placing opponent's move
@@ -633,20 +680,22 @@ int main (int argc, char *argv[]){
 		    theirArr[0] = atoi(arr[9].c_str());
                     theirArr[1] = atoi(arr[10].c_str());
                     theirArr[2] = atoi(arr[11].c_str());
-		    player2->placeMove_p(arr[7], theirArr, 1);
-                    
-                    
-                //decode theirGameMove string array to int*
-                //int* something = logic to return int* from theirGameMove
+		    printf("Their Move: %d %d %d\n", theirArr[0], theirArr[1], theirArr[2]);
+		    player1->placeMove_p(arr[7], theirArr, 1);
+		    */
                 }
                 else
 		{
-                    //update my stuff
+                    if(arr[6] == "PLACED")
+		    {
+                     //update my stuff
                     int ourArr[3];
 		    ourArr[0] = atoi(arr[9].c_str());
                     ourArr[1] = atoi(arr[10].c_str());
                     ourArr[2] = atoi(arr[11].c_str());
-		    player2->placeMove_p(arr[7], ourArr, 1);
+		    printf("our Move: %d %d %d\n", ourArr[0], ourArr[1], ourArr[2]);
+		    player1->placeMove_p(arr[7], ourArr, 1);
+		    }
                 }
                 
             }
