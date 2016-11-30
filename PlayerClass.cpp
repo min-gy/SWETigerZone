@@ -8,7 +8,10 @@
 
 //#include "GameEngine.cpp"
 typedef struct {
-	bool top = false, bottom = false, left = false, right = false;
+	bool top;
+	bool bottom;
+	bool left;
+	bool right;
 	int x, y;
 } emptySpace;
 
@@ -110,8 +113,9 @@ Player::~Player(){
 
 void Player::addFirstTile_p(string tile, int x, int y, int orientation){
 	//myGameEngine->addFirstTile_g(tile, x, y, orientation);
-	cout << "addFirstTile_p function sucessfully called";
-        
+	//cout << "addFirstTile_p function sucessfully called";
+        updateBoard(_TileGrid, x, y, getTile(tile.c_str()), orientation);
+	printf("EmptyTiles size: %d\n", emptyTiles.size());
 }
 
 int Player::ScoreUpdate(ComponentTracker Region){
@@ -376,7 +380,7 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         Tile * myTile = ptr;
         int * tileResult;
 	printf("In giveMyMove ready for minimaxDecision\n");
-        tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
+        //tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
         list<int> movelist;
         vector<char> bestmoves;
         generateMoves(_TileGrid, movelist, myTile);
@@ -385,6 +389,10 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         if(movelist.size() == 0){
 		//we are going to do nothing
 		cout << movelist.front() << " should be x" << endl;
+		bestmoves.push_back('0');
+		bestmoves.push_back('0');
+		bestmoves.push_back('0');
+		bestmoves.push_back('0');
 		return bestmoves;
 		//but we do need to know how to repond to both of these things if our opponent does this to us
 	}
@@ -411,10 +419,12 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
 	// 		index = 0;
 	// 	}
 
+    updateBoard(_TileGrid, x, y, getTile(tile.c_str()), z);
+
     bestmoves.push_back((char)0);
-    bestmoves.push_back((char)z);
-    bestmoves.push_back((char)y);
     bestmoves.push_back((char)x);
+    bestmoves.push_back((char)y);
+    bestmoves.push_back((char)z);
 
 			
 			
@@ -484,12 +494,22 @@ void Player::getTileStack(vector<string> tileString){
 }
 
 void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int orien) {
+        printf("In updateBoard\n");
 	emptySpace temp;
+	temp.top = false;
+	temp.bottom = false;
+	temp.right = false;
+	temp.left = false;
 	t->orientation = orien;
+	t->x = x+77;
+	t->y = y+77;
+	x=x+77;
+	y=y+77;
 	_TileGrid[x][y] = t;
 	_TilePresent[x][y] = true;
 	//if a newly placed value is in our emptyTiles we need to erase it
 	if(!emptyTiles.empty()){
+	        printf("Empty Tiles is populated\n");
 		int s = emptyTiles.size();
 		for(int i = 0; i<s; i++){
 			if(emptyTiles[i].x == x && emptyTiles[i].y == y){
@@ -499,6 +519,7 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 		}
 	}
 	if(_TilePresent[x+1][y] == false){
+	        printf("Right is false\n");
 		temp.x = x+1;
 		temp.y = y;
 		if(_TilePresent[x+2][y] == true)
@@ -508,8 +529,10 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 		if(_TilePresent[x+1][y-1] == true)
 			temp.left = true;
 		emptyTiles.push_back(temp);
+		printf("Empty Tiles size: %d\n", emptyTiles.size());
 	}
 	if(_TilePresent[x-1][y] == false){
+	        printf("Left is false\n");
 		temp.x = x-1;
 		temp.y = y;
 		if(_TilePresent[x-2][y] == true)
@@ -519,8 +542,10 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 		if(_TilePresent[x-1][y-1] == true)
 			temp.left = true;
 		emptyTiles.push_back(temp);
-	}
+	        printf("Empty Tiles size: %d\n", emptyTiles.size());
+        }
 	if(_TilePresent[x][y+1] == false){
+	        printf("Top is false\n");
 		temp.x = x;
 		temp.y = y+1;
 		if(_TilePresent[x+1][y+1] == true)
@@ -530,8 +555,10 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 		if(_TilePresent[x][y+2] == true)
 			temp.right = true;
 		emptyTiles.push_back(temp);
+                printf("Empty Tiles size: %d\n", emptyTiles.size());
 	}
 	if(_TilePresent[x][y-1] == false){
+	        printf("Bottom is false\n");
 		temp.x = x;
 		temp.y = y-1;
 		if(_TilePresent[x+1][y-1] == true)
@@ -541,7 +568,9 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 		if(_TilePresent[x+1][y-2] == true)
 			temp.left = true;
 		emptyTiles.push_back(temp);
-	}
+	        printf("Empty Tiles size: %d\n", emptyTiles.size());
+        }
+	
 }
 
 //start of minimax algorithm 
@@ -609,7 +638,9 @@ void Player::generateMoves(Tile * _TileGrid[153][153], list<int> &movelist, Tile
 	Tile * tempTile2;
 	int x, y;
 	bool top, bottom, left, right;
+	printf("Before while\n");
 	while(!temp.empty()){
+	        printf("In while\n");
 		curr = temp.back();
 		x = curr.x;
 		y = curr.y;
@@ -618,8 +649,8 @@ void Player::generateMoves(Tile * _TileGrid[153][153], list<int> &movelist, Tile
 		left = curr.left;
 		right = curr.right;
 		temp.pop_back();
-		tempTile1 = _TileGrid[x][y];
-		//tempTile1 = curTile;
+		//tempTile1 = _TileGrid[x][y];
+		tempTile1 = curTile;
 		for(int m = 0; m<4; m++){
 			int a, b, c, d, e, f, g, h, i, j, k, l, z;
 			if(m == 0)
@@ -631,9 +662,13 @@ void Player::generateMoves(Tile * _TileGrid[153][153], list<int> &movelist, Tile
 			else 
 				a = 6, b = 7, c = 0, d = 4, e = 3, f = 2, g = 0, h = 1, i = 2, j = 6, k = 5, l = 4, z = 270;
 			if(top == true){
+			printf("TOP true\n");
 				if(bottom == true){
+			        printf("BOTTOM true\n");
 					if(right == true){
+					        printf("RIGHT true\n");
 						if(left == true){
+						        printf("LEFT true\n");
 							//logic for if all four sides have tiles
 							tempTile2 = _TileGrid[x+1][y];
 							//Up
@@ -823,6 +858,10 @@ void Player::generateMoves(Tile * _TileGrid[153][153], list<int> &movelist, Tile
 					}
 			}
 		}
+	}
+	if(movelist.empty())
+	{
+          printf("Movelist is Empty\n");
 	}
 }
 
