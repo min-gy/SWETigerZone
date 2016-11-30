@@ -388,12 +388,17 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
 		return bestmoves;
 		//but we do need to know how to repond to both of these things if our opponent does this to us
 	}
-
+		cout << move.list.front() << " should be x" << endl;
         int x = movelist.front();
+        cout << x << " is x" << endl;
         movelist.pop_front();
+        cout << move.list.front() << " should be y" << endl;
         int y = movelist.front();
+        cout << x << " is y" << endl;
         movelist.pop_front();
+        cout << move.list.front() << " should be z" << endl;
         int z = movelist.front();
+        cout << x << " is z" << endl;
         
         // int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, myTile);
 	// 	if(value[0] > bvalue) {
