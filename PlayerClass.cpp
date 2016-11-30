@@ -440,7 +440,7 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         Tile * myTile = parseTile(tile);
         int * tileResult;
 	printf("In giveMyMove ready for minimaxDecision\n");
-        //tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
+        tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
     
         list<int> movelist;
         vector<char> bestmoves;
@@ -730,7 +730,9 @@ int *Player::MiniMaxDecision(Tile * _TileGrid[153][153], int moveNum, Tile *t, v
 		//int value = MinMoveDecision(_TileGrid, x, y, z, moveNum+1, temp, t);
 		//usually this next part wouldnt be here, because we would be going into the min move decision...
 		//but for now we will just evaluate the current valid positions here
+        cout<<"movelist was full"<<endl;
 		int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, t);
+        cout<<"evaluate position is working"<<endl;
 		if(value[0] > bvalue)
         {
 			bvalue = value[0];
@@ -744,6 +746,7 @@ int *Player::MiniMaxDecision(Tile * _TileGrid[153][153], int moveNum, Tile *t, v
 		//since we havent chosen this location yet, I want to to go back to nothing
 		//_TileGrid[x][y] = NULL;
 	}
+    cout<<"evaluate position is working"<<endl;
 	int m = bestmoves[3];
 	if(m > 0 && m < 5)
 		updateTigerCount(0);
@@ -1299,9 +1302,10 @@ list<int> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
 //also any logic here can be changed or added, this is just a starting point for checking and such
 int *Player::evaluatePosition(Tile * _TileGrid[153][153], int x, int y, int z, int num, Tile *t) {
 	int value[2];
-	int mLocation;
+	int mLocation = tigerLocation(_TileGrid, x, y, z, num, t);
+    cout<<"the tiger location function works"<<endl;
 	//should first check to see if we are helping the other player out with this move and return '-'1, if we have time
-	if((mLocation = tigerLocation(_TileGrid, x, y, z, num, t)) > 0){
+	if(mLocation  > 0){
 		//return a value of 10 for feilds
 		if(mLocation == 4){
 			value[0] = 20;
@@ -1342,8 +1346,9 @@ int *Player::evaluatePosition(Tile * _TileGrid[153][153], int x, int y, int z, i
 //picks tiger or croc location on tile
 //also any logic here can be changed or added, this is just a starting point for checking and such
 int Player::tigerLocation(Tile * _TileGrid[153][153], int x, int y, int z, int moveNum, Tile *t){
-	int options[4];
+    int options[9];
 	tigerCheck(options, _TileGrid, x, y, t);
+    cout<<"the tiger check function works"<<endl;
 	//moveNum is, for example, move number 2 or 3 so to get number of tiles left we subtract it from 76
 	int num = 76 - moveNum;
 	//options[0] = the feild, options[1] = the water, options[2] = the path, options[3] = places a crocodile, options[4] = den
@@ -1402,59 +1407,86 @@ int Player::tigerLocation(Tile * _TileGrid[153][153], int x, int y, int z, int m
 }
 
 //checks the components to see where we can legally place tigers on this tile
-void Player::tigerCheck(int options[4], Tile * _TileGrid[153][153], int x, int y, Tile * t){
+void Player::tigerCheck(int options[9], Tile * _TileGrid[153][153], int x, int y, Tile * t){
     if(tigerCount == 0){
         options[0] = 0;
 		options[1] = 0;
 		options[2] = 0;
 		options[3] = 0;
+        options[4] = 0;
+        options[5] = 0;
+        options[6] = 0;
+        options[7] = 0;
+        options[8] = 0;
+        cout<<"out of tigers"<<endl;
     }
 	else{
 		options[0] = 0;
 		options[1] = 0;
 		options[2] = 0;
 		options[3] = 0;
-		options[4] = 0;
-		int q = _TileGrid[x+1][y]->clusterid.at(5);
-		while (q != MainList[q].ParentId)
-		{
-			q = MainList[q].ParentId;
-		}
-		if (_TilePresent[x+1][y] == true && (_TileGrid[x+1][y]->type.at(5) == 1 || _TileGrid[x+1][y]->type.at(5) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0) 
-		{
-			options[0] = 1;
-		}
-		q = _TileGrid[x-1][y]->clusterid.at(1);
-		while (q != MainList[q].ParentId)
-		{
-			q = MainList[q].ParentId;
-		}
-		if (_TilePresent[x-1][y] == true && (_TileGrid[x-1][y]->type.at(1) == 1 || _TileGrid[x-1][y]->type.at(1) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0) 
-		{
-			options[1] = 1;
-		}
-		q = _TileGrid[x][y+1]->clusterid.at(7);
-		while (q != MainList[q].ParentId)
-		{
-			q = MainList[q].ParentId;
-		}
-		if (_TilePresent[x][y+1] == true && (_TileGrid[x][y+1]->type.at(7) == 1 || _TileGrid[x][y+1]->type.at(7) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0) 
-		{
-			options[2] = 1;
-		}
-		q = _TileGrid[x][y-1]->clusterid.at(3);
-		while (q != MainList[q].ParentId)
-		{
-			q = MainList[q].ParentId;
-		}
-		if (_TilePresent[x][y-1] == true && (_TileGrid[x][y-1]->type.at(3) == 1 || _TileGrid[x][y-1]->type.at(3) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0) 
-		{
-			options[3] = 1;
-		}
-		if (t->Den == true)
-		{
-			options[4] = 1;
-		} 
+		//options[4] = 0;
+        cout<<"hmmmm"<<endl;
+        int q;
+        if(_TilePresent[x][y+1])
+        {
+            q = _TileGrid[x][y]->clusterid.at(5);
+            cout<<"q was set"<<endl;
+            while (q != MainList[q].ParentId)
+            {
+                cout<<"q could be compared to Mainlist"<<endl;
+                q = MainList[q].ParentId;
+            }
+            if ((_TileGrid[x][y+1]->type.at(5) == 1 || _TileGrid[x][y+1]->type.at(5) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0)
+            {
+                options[0] = 1;
+            }
+        }
+        
+        if(_TilePresent[x-1][y])
+        {
+            q = _TileGrid[x-1][y]->clusterid.at(1);
+            while (q != MainList[q].ParentId)
+            {
+                q = MainList[q].ParentId;
+            }
+            if ((_TileGrid[x-1][y]->type.at(1) == 1 || _TileGrid[x-1][y]->type.at(1) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0)
+            {
+                options[1] = 1;
+            }
+        }
+        
+		if(_TilePresent[x+1][y])
+        {
+            q = _TileGrid[x+1][y]->clusterid.at(7);
+            while (q != MainList[q].ParentId)
+            {
+                q = MainList[q].ParentId;
+            }
+            if ((_TileGrid[x+1][y]->type.at(7) == 1 || _TileGrid[x+1][y]->type.at(7) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0)
+            {
+                options[2] = 1;
+            }
+            
+        }
+        
+        if(_TilePresent[x+1][y])
+        {
+            q = _TileGrid[x][y-1]->clusterid.at(3);
+            while (q != MainList[q].ParentId)
+            {
+                q = MainList[q].ParentId;
+            }
+            if (_TilePresent[x][y-1] == true && (_TileGrid[x][y-1]->type.at(3) == 1 || _TileGrid[x][y-1]->type.at(3) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0)
+            {
+                options[3] = 1;
+            }
+            if (t->Den == true)
+            {
+                options[4] = 1;
+            }
+        }
+        
 	}
 }
 //this updates our tigerCount. If the value is zero then we used a tiger, if the number is something else then we are receiving our tiger(s)
