@@ -71,7 +71,7 @@ public:
         void updateBoard(Tile*[153][153], int, int, Tile*, int);
         Tile* getTile(char const*);
         int* MiniMaxDecision(Tile*[153][153], int,  Tile*, vector<Tile*>);
-        void generateMoves(Tile*[153][153], list<int>&, Tile*);
+        list<int> generateMoves(Tile*[153][153], list<int>&, Tile*);
         int *MinMoveDecision(Tile*[153][153], int, int, int, int, vector<Tile>, Tile);
         int *MaxMoveDecision(Tile*[153][153], int, int, int, int, vector<Tile>, Tile);
         int *evaluatePosition(Tile*[153][153], int, int, int, int, Tile*);
@@ -551,7 +551,7 @@ int *Player::MiniMaxDecision(Tile * _TileGrid[153][153], int moveNum, Tile *t, v
 	list<int> movelist;
 	int bestmoves[4];
 	//this function generates only valid possible moves
-	generateMoves(_TileGrid, movelist, t);
+	movelist = generateMoves(_TileGrid, movelist, t);
 	//if generatemoves comes up with nothing then the tile doesnt work with the current board so need to handle the exceptions
 	if(movelist.size() == 0){
 		//we are going to do nothing
@@ -602,7 +602,7 @@ int *Player::MiniMaxDecision(Tile * _TileGrid[153][153], int moveNum, Tile *t, v
 }
 
 //generate possible valid moves, thinking of having it stacked as x, y, z, x, y, z, ... z being the orientation
-void Player::generateMoves(Tile * _TileGrid[153][153], list<int> movelist, Tile *curTile) {
+list<int> Player::generateMoves(Tile * _TileGrid[153][153], list<int> movelist, Tile *curTile) {
 	vector<emptySpace> temp = emptyTiles;
 	emptySpace curr;
 	Tile * tempTile1;
