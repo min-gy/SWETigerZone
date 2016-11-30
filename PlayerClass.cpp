@@ -8,7 +8,10 @@
 
 //#include "GameEngine.cpp"
 typedef struct {
-	bool top = false, bottom = false, left = false, right = false;
+    bool top;
+    bool bottom;
+    bool left;
+    bool right;
 	int x, y;
 } emptySpace;
 
@@ -45,13 +48,15 @@ public:
 	vector<Tile*> randomTileStack;
 	static const int BESTVALUE = 1000000;
 	 Tile * _TileGrid[153][153];
-	 bool _TilePresent[153][153];
+    bool _TilePresent[153][153];
 	 int tigerCount;
 	 int crocodileCount;
 	 int curScore;
 	 //Tile curTile;
 	 vector<emptySpace> emptyTiles;
          ComponentTracker MainList[100];
+    Tile *tileStructure(int);
+    Tile *parseTile(string);
 	
 	//myMovePtr = myMove;
 
@@ -69,9 +74,9 @@ public:
 	void cleanUpGame();
 
         void updateBoard(Tile*[153][153], int, int, Tile*, int);
-        Tile* getTile(char const*);
+        //Tile* getTile(char const*);
         int* MiniMaxDecision(Tile*[153][153], int,  Tile*, vector<Tile*>);
-        void generateMoves(Tile*[153][153], list<int>&, Tile*);
+        list<int> generateMoves(Tile*[153][153], Tile*);
         int *MinMoveDecision(Tile*[153][153], int, int, int, int, vector<Tile>, Tile);
         int *MaxMoveDecision(Tile*[153][153], int, int, int, int, vector<Tile>, Tile);
         int *evaluatePosition(Tile*[153][153], int, int, int, int, Tile*);
@@ -108,9 +113,68 @@ Player::~Player(){
 
 }
 
-void Player::addFirstTile_p(string tile, int x, int y, int orientation){
-	//myGameEngine->addFirstTile_g(tile, x, y, orientation);
-	cout << "addFirstTile_p function sucessfully called";
+//void Player::startNewGame();
+//{
+//    
+//}
+
+Tile *Player::parseTile(string tileLetters)
+{
+    int i;
+    
+    for(i = 0; i < 28; i++)
+    {
+        string check = "";
+        
+        for(int j = 0; j < 5; j++)
+        {
+            check += tileStructure(i)->des.at(j);
+        }
+        if(tileLetters.compare(check) == 0)
+        {
+            cout<<check<<endl;
+            break;
+        }
+        
+    }
+    
+    return tileStructure(i);
+}
+
+//Tile* Player::getTile(char const* temp2){
+//	//printf("In getTile\n");
+//	char a = temp2[0];
+//	char b = temp2[1];
+//	char c = temp2[2];
+//	char d = temp2[3];
+//	char e = temp2[4];
+//        //printf("In getTile passed chars\n");
+//	for(int i = 0; i < 28; i++){
+//		//tile structure holds all the hard coded values for each tile
+//		//printf("%d\n", i);
+//		Tile *temp = tileStructure(i);
+//		//printf("In getTile in For passed tileStructure\n");
+//                Tile * ptr = &temp;
+//		//vector<char> temp1 = ptr->des;
+//		//printf("%d\n", i);
+//		//printf("%c %c %c %c %c \n", a, b, c, d, e);
+//		//printf("%c %c %c %c %c \n", temp.des.at(0), temp.des.at(1), temp.des.at(2), temp.des.at(3), temp.des.at(4));
+//	        //printf("%c %c %c %c %c \n", ptr->des.at(0), ptr->des.at(1), ptr->des.at(2), ptr->des.at(3), ptr->des.at(4));
+//		if(a == temp.des[0] && b == temp.des[1] && c == temp.des[2] && d == temp.des[3] && e == temp.des[4])
+//		{
+//		        //printf("%d\n", i);
+//			return ptr;
+//                }
+//	}
+//	printf("DID NOT FIND TILE!\n");
+//}
+
+void Player::addFirstTile_p(string firstTile, int x, int y, int orientation){
+//	myGameEngine->addFirstTile_g(tile, x, y, orientation);
+    
+    updateBoard(_TileGrid, x, y, parseTile(firstTile), orientation);
+
+    cout << "addFirstTile_p function sucessfully called"<<endl;
         
 }
 
@@ -185,45 +249,45 @@ int Player::MeepleUpdateYou(ComponentTracker Region){
 // void Player::DenCheck(Tile _TileGrid[153][153], int X, int Y, int NewX, int NewY, int * values){
 // 	if(_TileGrid[NewX][NewY].orientation != NULL)
 // 	{
-// 		if(_TileGrid[X][Y].Den == true)
+// 		if(_TileGrid[X][Y]->Den == true)
 // 		{
-// 			MainList[_TileGrid[X][Y].CenterClusterid].IncompleteSides -= 1;
-// 			if (MainList[_TileGrid[X][Y].CenterClusterid].IncompleteSides == 0)
+// 			MainList[_TileGrid[X][Y]->CenterClusterid].IncompleteSides -= 1;
+// 			if (MainList[_TileGrid[X][Y]->CenterClusterid].IncompleteSides == 0)
 // 			{
-// 				if (MainList[_TileGrid[X][Y].CenterClusterid].MeepleCountMe == 1)
+// 				if (MainList[_TileGrid[X][Y]->CenterClusterid].MeepleCountMe == 1)
 // 				{
-// 					values[3] += DenScoreUpdate(MainList[_TileGrid[X][Y].CenterClusterid]);
+// 					values[3] += DenScoreUpdate(MainList[_TileGrid[X][Y]->CenterClusterid]);
 // 				}
-// 				if (MainList[_TileGrid[X][Y].CenterClusterid].MeepleCountYou == 1)
+// 				if (MainList[_TileGrid[X][Y]->CenterClusterid].MeepleCountYou == 1)
 // 				{
-// 					values[4] += DenScoreUpdate(MainList[_TileGrid[X][Y].CenterClusterid]);
+// 					values[4] += DenScoreUpdate(MainList[_TileGrid[X][Y]->CenterClusterid]);
 // 				}
-// 				values[1] += MeepleUpdateMe(MainList[_TileGrid[X][Y].CenterClusterid]);
-// 				values[2] += MeepleUpdateYou(MainList[_TileGrid[X][Y].CenterClusterid]);
+// 				values[1] += MeepleUpdateMe(MainList[_TileGrid[X][Y]->CenterClusterid]);
+// 				values[2] += MeepleUpdateYou(MainList[_TileGrid[X][Y]->CenterClusterid]);
 // 			}
 // 		}
-// 		if(_TileGrid[NewX][NewY].Den == true)
+// 		if(_TileGrid[NewX][NewY]->Den == true)
 // 		{
-// 			MainList[_TileGrid[NewX][NewY].CenterClusterid].IncompleteSides -= 1;
-// 			if (MainList[_TileGrid[NewX][NewY].CenterClusterid].IncompleteSides == 0)
+// 			MainList[_TileGrid[NewX][NewY]->CenterClusterid].IncompleteSides -= 1;
+// 			if (MainList[_TileGrid[NewX][NewY]->CenterClusterid].IncompleteSides == 0)
 // 			{
-// 				if (MainList[_TileGrid[NewX][NewY].CenterClusterid].MeepleCountMe == 1)
+// 				if (MainList[_TileGrid[NewX][NewY]->CenterClusterid].MeepleCountMe == 1)
 // 				{
-// 					values[3] += DenScoreUpdate(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
+// 					values[3] += DenScoreUpdate(MainList[_TileGrid[NewX][NewY]->CenterClusterid]);
 // 				}
-// 				if (MainList[_TileGrid[NewX][NewY].CenterClusterid].MeepleCountYou == 1)
+// 				if (MainList[_TileGrid[NewX][NewY]->CenterClusterid].MeepleCountYou == 1)
 // 				{
-// 					values[4] += DenScoreUpdate(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
+// 					values[4] += DenScoreUpdate(MainList[_TileGrid[NewX][NewY]->CenterClusterid]);
 // 				}
-// 				values[1] += MeepleUpdateMe(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
-// 				values[2] += MeepleUpdateYou(MainList[_TileGrid[NewX][NewY].CenterClusterid]);
+// 				values[1] += MeepleUpdateMe(MainList[_TileGrid[NewX][NewY]->CenterClusterid]);
+// 				values[2] += MeepleUpdateYou(MainList[_TileGrid[NewX][NewY]->CenterClusterid]);
 // 			}
 // 		}
 // 	}
 // }
 
 // void Player::DenUpdate(Tile _TileGrid[153][153], int X, int Y, int * values){
-// 	if (_TileGrid[X][Y].Den == true){
+// 	if (_TileGrid[X][Y]->Den == true){
 // 		DenCheck(_TileGrid, X, Y, X+1, Y, values);
 // 		DenCheck(_TileGrid, X, Y, X+1, Y+1, values);
 // 		DenCheck(_TileGrid, X, Y, X+1, Y-1, values);
@@ -372,22 +436,23 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         printf("In giveMyMove\n");
         int bvalue = -BESTVALUE;
         int index = 0;
-        Tile * ptr = getTile(tile.c_str());
-        Tile * myTile = ptr;
+        //Tile * ptr = getTile(tile.c_str());
+        Tile * myTile = parseTile(tile.c_str());
         int * tileResult;
 	printf("In giveMyMove ready for minimaxDecision\n");
         tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
         list<int> movelist;
         vector<char> bestmoves;
-        generateMoves(_TileGrid, movelist, myTile);
-
+        movelist = generateMoves(_TileGrid, myTile);
+    
+    
         //printf("In giveMyMove made it passed init\n");
         if(movelist.size() == 0){
 		//we are going to do nothing
 
 		return bestmoves;
 		//but we do need to know how to repond to both of these things if our opponent does this to us
-	}
+        }
 
         int x = movelist.front();
         movelist.pop_front();
@@ -421,7 +486,7 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
 
 void Player::placeMove_p(string tile, int move[3], int i){
 
-    Tile * temp = getTile(tile.c_str());
+    Tile * temp = parseTile(tile.c_str());
     int x = move[0];
     int y = move[1];
     int z = move[2];
@@ -432,6 +497,7 @@ void Player::placeMove_p(string tile, int move[3], int i){
 // 	if(m == 5)
 // 		updateCrocodileCount();
 	updateBoard(_TileGrid, x, y, temp, z);
+    
 	//updateComponents(_TileGrid, x, y);
  
 
@@ -468,7 +534,7 @@ void Player::getTileStack(vector<string> tileString){
 		// temp2[3] = temp1[i+3];
 		// temp2[4] = temp1[i+4];
 		//printf("In getTileStack in For\n");
-		Tile * tempTile = getTile(tileString[i].c_str());
+		Tile * tempTile = parseTile(tileString.at(i).c_str());
 		//printf("In getTileStack in For passed tempTile\n");
                 //Tile myTile = *tempTile;
 		//printf("In getTileStack in For passed myTile\n");
@@ -484,7 +550,9 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 	_TileGrid[x][y] = t;
 	_TilePresent[x][y] = true;
 	//if a newly placed value is in our emptyTiles we need to erase it
+    cout<<"Updating board"<<endl;
 	if(!emptyTiles.empty()){
+        cout<<"FUCKme"<<endl;
 		int s = emptyTiles.size();
 		for(int i = 0; i<s; i++){
 			if(emptyTiles[i].x == x && emptyTiles[i].y == y){
@@ -493,9 +561,12 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 			}
 		}
 	}
-	if(_TilePresent[x+1][y] == false){
+    
+	if(_TilePresent[x+1][y] == false)
+    {
 		temp.x = x+1;
 		temp.y = y;
+        cout<<"FUCKKKK"<<endl;
 		if(_TilePresent[x+2][y] == true)
 			temp.top = true;
 		if(_TilePresent[x+1][y+1] == true)
@@ -504,7 +575,8 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 			temp.left = true;
 		emptyTiles.push_back(temp);
 	}
-	if(_TilePresent[x-1][y] == false){
+	if(_TilePresent[x-1][y] == false)
+    {
 		temp.x = x-1;
 		temp.y = y;
 		if(_TilePresent[x-2][y] == true)
@@ -515,7 +587,8 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 			temp.left = true;
 		emptyTiles.push_back(temp);
 	}
-	if(_TilePresent[x][y+1] == false){
+	if(_TilePresent[x][y+1] == false)
+    {
 		temp.x = x;
 		temp.y = y+1;
 		if(_TilePresent[x+1][y+1] == true)
@@ -526,7 +599,8 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 			temp.right = true;
 		emptyTiles.push_back(temp);
 	}
-	if(_TilePresent[x][y-1] == false){
+	if(_TilePresent[x][y-1] == false)
+    {
 		temp.x = x;
 		temp.y = y-1;
 		if(_TilePresent[x+1][y-1] == true)
@@ -537,6 +611,8 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 			temp.left = true;
 		emptyTiles.push_back(temp);
 	}
+    
+    cout<<emptyTiles.at(0).x<<endl;
 }
 
 //start of minimax algorithm 
@@ -546,7 +622,7 @@ int *Player::MiniMaxDecision(Tile * _TileGrid[153][153], int moveNum, Tile *t, v
 	list<int> movelist;
 	int bestmoves[4];
 	//this function generates only valid possible moves
-	generateMoves(_TileGrid, movelist, t);
+	movelist = generateMoves(_TileGrid, t);
 	//if generatemoves comes up with nothing then the tile doesnt work with the current board so need to handle the exceptions
 	if(movelist.size() == 0){
 		//we are going to do nothing
@@ -554,6 +630,7 @@ int *Player::MiniMaxDecision(Tile * _TileGrid[153][153], int moveNum, Tile *t, v
 		bestmoves[index+1] = 0;
 		bestmoves[index+2] = 0;
 		bestmoves[index+3] = 0;
+        cout<<"movelist is still empty"<<endl;
 		return bestmoves;
 		//but we do need to know how to repond to both of these things if our opponent does this to us
 	}
@@ -597,13 +674,15 @@ int *Player::MiniMaxDecision(Tile * _TileGrid[153][153], int moveNum, Tile *t, v
 }
 
 //generate possible valid moves, thinking of having it stacked as x, y, z, x, y, z, ... z being the orientation
-void Player::generateMoves(Tile * _TileGrid[153][153], list<int> &movelist, Tile *curTile) {
+list<int> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile) {
 	vector<emptySpace> temp = emptyTiles;
 	emptySpace curr;
 	Tile * tempTile1;
 	Tile * tempTile2;
 	int x, y;
 	bool top, bottom, left, right;
+    list<int> movelist;
+    
 	while(!temp.empty()){
 		curr = temp.back();
 		x = curr.x;
@@ -819,6 +898,8 @@ void Player::generateMoves(Tile * _TileGrid[153][153], list<int> &movelist, Tile
 			}
 		}
 	}
+    
+    return movelist;
 }
 
 //This is the opponents future move
@@ -1054,13 +1135,14 @@ void Player::updateTigerCount(int value){
 }
 
 
-Tile tileStructure(int i)
+Tile *Player::tileStructure(int i)
 {
                 //printf("In tileStructure\n");
 		if(i == 0)
 		{
 		//printf("In tileStructure in 0\n");
-		Tile Tile_1;
+            Tile *Tile_1 = new Tile();
+            //printf("In tileStructure made it to return\n");
 		/*Tile_1.des = {'J', 'J', 'J', 'J', '-'};
 		Tile_1.type = {2,2,2,2,2,2,2,2};
 		Tile_1.clusterid = {1,1,1,1,1,1,1,1};
@@ -1068,1230 +1150,1226 @@ Tile tileStructure(int i)
 	
 		return Tile_1;*/
        // Tile_1.
-	Tile_1.des.push_back('J');//) = 'J';
-	Tile_1.des.push_back('J');
-        Tile_1.des.push_back('J');
-	Tile_1.des.push_back('J');
-	Tile_1.des.push_back('-');
+	Tile_1->des.push_back('J');//) = 'J';
+	Tile_1->des.push_back('J');
+        Tile_1->des.push_back('J');
+	Tile_1->des.push_back('J');
+	Tile_1->des.push_back('-');
 
         //printf("In tileStructure after des\n");
 	
-        Tile_1.type.push_back(2);
-        Tile_1.type.push_back(2);
-        Tile_1.type.push_back(2);
-        Tile_1.type.push_back(2);
-        Tile_1.type.push_back(2);
-        Tile_1.type.push_back(2);
-        Tile_1.type.push_back(2);
-        Tile_1.type.push_back(2);
-        Tile_1.clusterid.push_back(1);
-        Tile_1.clusterid.push_back(1);
-        Tile_1.clusterid.push_back(1);
-        Tile_1.clusterid.push_back(1);
-        Tile_1.clusterid.push_back(1);
-        Tile_1.clusterid.push_back(1);
-        Tile_1.clusterid.push_back(1);
-        Tile_1.clusterid.push_back(1);
-            Tile_1.tiger.push_back(false);
-            Tile_1.tiger.push_back(false);
-            Tile_1.tiger.push_back(false);
-            Tile_1.tiger.push_back(false);
-            Tile_1.tiger.push_back(false);
-            Tile_1.tiger.push_back(false);
-            Tile_1.tiger.push_back(false);
-            Tile_1.tiger.push_back(false);
-        Tile_1.croc_count = 0;
-        Tile_1.Ox = false;
-        Tile_1.Boar = false;
-        Tile_1.Deer = false;
-        Tile_1.Den = false;
-        Tile_1.CenterClusterid = 0;
-        Tile_1.x = 0;
-        Tile_1.y = 0;
+        Tile_1->type.push_back(2);
+        Tile_1->type.push_back(2);
+        Tile_1->type.push_back(2);
+        Tile_1->type.push_back(2);
+        Tile_1->type.push_back(2);
+        Tile_1->type.push_back(2);
+        Tile_1->type.push_back(2);
+        Tile_1->type.push_back(2);
+        Tile_1->clusterid.push_back(1);
+        Tile_1->clusterid.push_back(1);
+        Tile_1->clusterid.push_back(1);
+        Tile_1->clusterid.push_back(1);
+        Tile_1->clusterid.push_back(1);
+        Tile_1->clusterid.push_back(1);
+        Tile_1->clusterid.push_back(1);
+        Tile_1->clusterid.push_back(1);
+            Tile_1->tiger.push_back(false);
+            Tile_1->tiger.push_back(false);
+            Tile_1->tiger.push_back(false);
+            Tile_1->tiger.push_back(false);
+            Tile_1->tiger.push_back(false);
+            Tile_1->tiger.push_back(false);
+            Tile_1->tiger.push_back(false);
+            Tile_1->tiger.push_back(false);
+        Tile_1->croc_count = 0;
+        Tile_1->Ox = false;
+        Tile_1->Boar = false;
+        Tile_1->Deer = false;
+        Tile_1->Den = false;
+        Tile_1->CenterClusterid = 0;
+        Tile_1->x = 0;
+        Tile_1->y = 0;
        // Tile_1.completion[4] = {false};
          
 
-//            for(int i = 0; i < Tile_1.type.size(); i++)
-//            {
-//                cout<< Tile_1.type.at(i) << " ";
-//            }
 	//printf("In tileStructure made it to return\n");
         return Tile_1;
     }
 	else if(i == 1){
-        Tile Tile_2;
-	Tile_2.des.push_back('J');
-	Tile_2.des.push_back('J');
-        Tile_2.des.push_back('J');
-	Tile_2.des.push_back('J');
-	Tile_2.des.push_back('X');
+        Tile *Tile_2 = new Tile();
+	Tile_2->des.push_back('J');
+	Tile_2->des.push_back('J');
+        Tile_2->des.push_back('J');
+	Tile_2->des.push_back('J');
+	Tile_2->des.push_back('X');
 
-        Tile_2.type.push_back(2);
-        Tile_2.type.push_back(2);
-        Tile_2.type.push_back(2);
-        Tile_2.type.push_back(2);
-        Tile_2.type.push_back(2);
-        Tile_2.type.push_back(2);
-        Tile_2.type.push_back(2);
-        Tile_2.type.push_back(2);
-        Tile_2.clusterid.push_back(1);
-        Tile_2.clusterid.push_back(1);
-        Tile_2.clusterid.push_back(1);
-        Tile_2.clusterid.push_back(1);
-        Tile_2.clusterid.push_back(1);
-        Tile_2.clusterid.push_back(1);
-        Tile_2.clusterid.push_back(1);
-        Tile_2.clusterid.push_back(1);
-        Tile_2.tiger.push_back(false);
-        Tile_2.tiger.push_back(false);
-        Tile_2.tiger.push_back(false);
-        Tile_2.tiger.push_back(false);
-        Tile_2.tiger.push_back(false);
-        Tile_2.tiger.push_back(false);
-        Tile_2.tiger.push_back(false);
-        Tile_2.tiger.push_back(false);
-		Tile_2.croc_count = 0;
-		Tile_2.Ox = false;
-		Tile_2.Boar = false;
-		Tile_2.Deer = false;
-		Tile_2.Den = true;
-		Tile_2.CenterClusterid = 0;
-		Tile_2.x = 0;
-		Tile_2.y = 0;
+        Tile_2->type.push_back(2);
+        Tile_2->type.push_back(2);
+        Tile_2->type.push_back(2);
+        Tile_2->type.push_back(2);
+        Tile_2->type.push_back(2);
+        Tile_2->type.push_back(2);
+        Tile_2->type.push_back(2);
+        Tile_2->type.push_back(2);
+        Tile_2->clusterid.push_back(1);
+        Tile_2->clusterid.push_back(1);
+        Tile_2->clusterid.push_back(1);
+        Tile_2->clusterid.push_back(1);
+        Tile_2->clusterid.push_back(1);
+        Tile_2->clusterid.push_back(1);
+        Tile_2->clusterid.push_back(1);
+        Tile_2->clusterid.push_back(1);
+        Tile_2->tiger.push_back(false);
+        Tile_2->tiger.push_back(false);
+        Tile_2->tiger.push_back(false);
+        Tile_2->tiger.push_back(false);
+        Tile_2->tiger.push_back(false);
+        Tile_2->tiger.push_back(false);
+        Tile_2->tiger.push_back(false);
+        Tile_2->tiger.push_back(false);
+		Tile_2->croc_count = 0;
+		Tile_2->Ox = false;
+		Tile_2->Boar = false;
+		Tile_2->Deer = false;
+		Tile_2->Den = true;
+		Tile_2->CenterClusterid = 0;
+		Tile_2->x = 0;
+		Tile_2->y = 0;
 		//Tile_2.completion[4] = {false};
 		return Tile_2;
 	}
 	else if(i == 2){
-        Tile Tile_3;
-	Tile_3.des.push_back('J');
-	Tile_3.des.push_back('J');
-        Tile_3.des.push_back('T');
-	Tile_3.des.push_back('J');
-	Tile_3.des.push_back('X');
+        Tile *Tile_3 = new Tile();
+	Tile_3->des.push_back('J');
+	Tile_3->des.push_back('J');
+        Tile_3->des.push_back('T');
+	Tile_3->des.push_back('J');
+	Tile_3->des.push_back('X');
 	
-        Tile_3.type.push_back(2);
-        Tile_3.type.push_back(2);
-        Tile_3.type.push_back(2);
-        Tile_3.type.push_back(2);
-        Tile_3.type.push_back(2);
-        Tile_3.type.push_back(3);
-        Tile_3.type.push_back(2);
-        Tile_3.type.push_back(2);
-        Tile_3.clusterid.push_back(1);
-        Tile_3.clusterid.push_back(1);
-        Tile_3.clusterid.push_back(1);
-        Tile_3.clusterid.push_back(1);
-        Tile_3.clusterid.push_back(1);
-        Tile_3.clusterid.push_back(2);
-        Tile_3.clusterid.push_back(1);
-        Tile_3.clusterid.push_back(1);
-        Tile_3.tiger.push_back(false);
-        Tile_3.tiger.push_back(false);
-        Tile_3.tiger.push_back(false);
-        Tile_3.tiger.push_back(false);
-        Tile_3.tiger.push_back(false);
-        Tile_3.tiger.push_back(false);
-        Tile_3.tiger.push_back(false);
-        Tile_3.tiger.push_back(false);
-		Tile_3.croc_count = 0;
-		Tile_3.Ox = false;
-		Tile_3.Boar = false;
-		Tile_3.Deer = false;
-		Tile_3.Den = true;
-		Tile_3.CenterClusterid = 0;
-		Tile_3.x = 0;
-		Tile_3.y = 0;
+        Tile_3->type.push_back(2);
+        Tile_3->type.push_back(2);
+        Tile_3->type.push_back(2);
+        Tile_3->type.push_back(2);
+        Tile_3->type.push_back(2);
+        Tile_3->type.push_back(3);
+        Tile_3->type.push_back(2);
+        Tile_3->type.push_back(2);
+        Tile_3->clusterid.push_back(1);
+        Tile_3->clusterid.push_back(1);
+        Tile_3->clusterid.push_back(1);
+        Tile_3->clusterid.push_back(1);
+        Tile_3->clusterid.push_back(1);
+        Tile_3->clusterid.push_back(2);
+        Tile_3->clusterid.push_back(1);
+        Tile_3->clusterid.push_back(1);
+        Tile_3->tiger.push_back(false);
+        Tile_3->tiger.push_back(false);
+        Tile_3->tiger.push_back(false);
+        Tile_3->tiger.push_back(false);
+        Tile_3->tiger.push_back(false);
+        Tile_3->tiger.push_back(false);
+        Tile_3->tiger.push_back(false);
+        Tile_3->tiger.push_back(false);
+		Tile_3->croc_count = 0;
+		Tile_3->Ox = false;
+		Tile_3->Boar = false;
+		Tile_3->Deer = false;
+		Tile_3->Den = true;
+		Tile_3->CenterClusterid = 0;
+		Tile_3->x = 0;
+		Tile_3->y = 0;
 		//Tile_3.completion[4] = {false};
 		return Tile_3;
 	}
 	else if(i == 3){
 		//
-        Tile Tile_4;
-	Tile_4.des.push_back('T');
-	Tile_4.des.push_back('T');
-        Tile_4.des.push_back('T');
-	Tile_4.des.push_back('T');
-	Tile_4.des.push_back('-');
+        Tile *Tile_4 = new Tile();
+	Tile_4->des.push_back('T');
+	Tile_4->des.push_back('T');
+        Tile_4->des.push_back('T');
+	Tile_4->des.push_back('T');
+	Tile_4->des.push_back('-');
 	
-        Tile_4.type.push_back(2);
-        Tile_4.type.push_back(3);
-        Tile_4.type.push_back(2);
-        Tile_4.type.push_back(3);
-        Tile_4.type.push_back(2);
-        Tile_4.type.push_back(3);
-        Tile_4.type.push_back(2);
-        Tile_4.type.push_back(3);
-        Tile_4.clusterid.push_back(1);
-        Tile_4.clusterid.push_back(2);
-        Tile_4.clusterid.push_back(3);
-        Tile_4.clusterid.push_back(4);
-        Tile_4.clusterid.push_back(5);
-        Tile_4.clusterid.push_back(6);
-        Tile_4.clusterid.push_back(7);
-        Tile_4.clusterid.push_back(8);
-        Tile_4.tiger.push_back(false);
-        Tile_4.tiger.push_back(false);
-        Tile_4.tiger.push_back(false);
-        Tile_4.tiger.push_back(false);
-        Tile_4.tiger.push_back(false);
-        Tile_4.tiger.push_back(false);
-        Tile_4.tiger.push_back(false);
-        Tile_4.tiger.push_back(false);
-	Tile_4.croc_count = 0;
-	Tile_4.Ox = false;
-	Tile_4.Boar = false;
-	Tile_4.Deer = false;
-	Tile_4.Den = false;
-	Tile_4.CenterClusterid = 0;
-	Tile_4.x = 0;
-	Tile_4.y = 0;
+        Tile_4->type.push_back(2);
+        Tile_4->type.push_back(3);
+        Tile_4->type.push_back(2);
+        Tile_4->type.push_back(3);
+        Tile_4->type.push_back(2);
+        Tile_4->type.push_back(3);
+        Tile_4->type.push_back(2);
+        Tile_4->type.push_back(3);
+        Tile_4->clusterid.push_back(1);
+        Tile_4->clusterid.push_back(2);
+        Tile_4->clusterid.push_back(3);
+        Tile_4->clusterid.push_back(4);
+        Tile_4->clusterid.push_back(5);
+        Tile_4->clusterid.push_back(6);
+        Tile_4->clusterid.push_back(7);
+        Tile_4->clusterid.push_back(8);
+        Tile_4->tiger.push_back(false);
+        Tile_4->tiger.push_back(false);
+        Tile_4->tiger.push_back(false);
+        Tile_4->tiger.push_back(false);
+        Tile_4->tiger.push_back(false);
+        Tile_4->tiger.push_back(false);
+        Tile_4->tiger.push_back(false);
+        Tile_4->tiger.push_back(false);
+	Tile_4->croc_count = 0;
+	Tile_4->Ox = false;
+	Tile_4->Boar = false;
+	Tile_4->Deer = false;
+	Tile_4->Den = false;
+	Tile_4->CenterClusterid = 0;
+	Tile_4->x = 0;
+	Tile_4->y = 0;
 	//Tile_4.completion[4] = {false};
 	return Tile_4;
 	}
 	else if(i == 4){
-        Tile Tile_5;
-	Tile_5.des.push_back('T');
-	Tile_5.des.push_back('J');
-        Tile_5.des.push_back('T');
-	Tile_5.des.push_back('J');
-	Tile_5.des.push_back('-');
+        Tile *Tile_5 = new Tile();
+	Tile_5->des.push_back('T');
+	Tile_5->des.push_back('J');
+        Tile_5->des.push_back('T');
+	Tile_5->des.push_back('J');
+	Tile_5->des.push_back('-');
 
-        Tile_5.type.push_back(2);
-        Tile_5.type.push_back(3);
-        Tile_5.type.push_back(2);
-        Tile_5.type.push_back(2);
-        Tile_5.type.push_back(2);
-        Tile_5.type.push_back(3);
-        Tile_5.type.push_back(2);
-        Tile_5.type.push_back(2);
-        Tile_5.clusterid.push_back(1);
-        Tile_5.clusterid.push_back(2);
-        Tile_5.clusterid.push_back(3);
-        Tile_5.clusterid.push_back(3);
-        Tile_5.clusterid.push_back(3);
-        Tile_5.clusterid.push_back(2);
-        Tile_5.clusterid.push_back(1);
-        Tile_5.clusterid.push_back(1);
-        Tile_5.tiger.push_back(false);
-        Tile_5.tiger.push_back(false);
-        Tile_5.tiger.push_back(false);
-        Tile_5.tiger.push_back(false);
-        Tile_5.tiger.push_back(false);
-        Tile_5.tiger.push_back(false);
-        Tile_5.tiger.push_back(false);
-        Tile_5.tiger.push_back(false);
-		Tile_5.croc_count = 0;
-		Tile_5.Ox = false;
-		Tile_5.Boar = false;
-		Tile_5.Deer = false;
-		Tile_5.Den = false;
-		Tile_5.CenterClusterid = 0;
-		Tile_5.x = 0;
-		Tile_5.y = 0;
+        Tile_5->type.push_back(2);
+        Tile_5->type.push_back(3);
+        Tile_5->type.push_back(2);
+        Tile_5->type.push_back(2);
+        Tile_5->type.push_back(2);
+        Tile_5->type.push_back(3);
+        Tile_5->type.push_back(2);
+        Tile_5->type.push_back(2);
+        Tile_5->clusterid.push_back(1);
+        Tile_5->clusterid.push_back(2);
+        Tile_5->clusterid.push_back(3);
+        Tile_5->clusterid.push_back(3);
+        Tile_5->clusterid.push_back(3);
+        Tile_5->clusterid.push_back(2);
+        Tile_5->clusterid.push_back(1);
+        Tile_5->clusterid.push_back(1);
+        Tile_5->tiger.push_back(false);
+        Tile_5->tiger.push_back(false);
+        Tile_5->tiger.push_back(false);
+        Tile_5->tiger.push_back(false);
+        Tile_5->tiger.push_back(false);
+        Tile_5->tiger.push_back(false);
+        Tile_5->tiger.push_back(false);
+        Tile_5->tiger.push_back(false);
+		Tile_5->croc_count = 0;
+		Tile_5->Ox = false;
+		Tile_5->Boar = false;
+		Tile_5->Deer = false;
+		Tile_5->Den = false;
+		Tile_5->CenterClusterid = 0;
+		Tile_5->x = 0;
+		Tile_5->y = 0;
 		//Tile_5.completion[4] = {false};
 		return Tile_5;
 	}
 	else if(i == 5){
-        Tile Tile_6;
-	Tile_6.des.push_back('T');
-	Tile_6.des.push_back('J');
-        Tile_6.des.push_back('J');
-	Tile_6.des.push_back('T');
-	Tile_6.des.push_back('-');
+        Tile *Tile_6 = new Tile();
+	Tile_6->des.push_back('T');
+	Tile_6->des.push_back('J');
+        Tile_6->des.push_back('J');
+	Tile_6->des.push_back('T');
+	Tile_6->des.push_back('-');
 	
-        Tile_6.type.push_back(2);
-        Tile_6.type.push_back(3);
-        Tile_6.type.push_back(2);
-        Tile_6.type.push_back(2);
-        Tile_6.type.push_back(2);
-        Tile_6.type.push_back(2);
-        Tile_6.type.push_back(2);
-        Tile_6.type.push_back(3);
-        Tile_6.clusterid.push_back(1);
-        Tile_6.clusterid.push_back(2);
-        Tile_6.clusterid.push_back(3);
-        Tile_6.clusterid.push_back(3);
-        Tile_6.clusterid.push_back(3);
-        Tile_6.clusterid.push_back(3);
-        Tile_6.clusterid.push_back(3);
-        Tile_6.clusterid.push_back(2);
-        Tile_6.tiger.push_back(false);
-        Tile_6.tiger.push_back(false);
-        Tile_6.tiger.push_back(false);
-        Tile_6.tiger.push_back(false);
-        Tile_6.tiger.push_back(false);
-        Tile_6.tiger.push_back(false);
-        Tile_6.tiger.push_back(false);
-        Tile_6.tiger.push_back(false);
-		Tile_6.croc_count = 0;
-		Tile_6.Ox = false;
-		Tile_6.Boar = false;
-		Tile_6.Deer = false;
-		Tile_6.Den = false;
-		Tile_6.CenterClusterid = 0;
-		Tile_6.x = 0;
-		Tile_6.y = 0;
+        Tile_6->type.push_back(2);
+        Tile_6->type.push_back(3);
+        Tile_6->type.push_back(2);
+        Tile_6->type.push_back(2);
+        Tile_6->type.push_back(2);
+        Tile_6->type.push_back(2);
+        Tile_6->type.push_back(2);
+        Tile_6->type.push_back(3);
+        Tile_6->clusterid.push_back(1);
+        Tile_6->clusterid.push_back(2);
+        Tile_6->clusterid.push_back(3);
+        Tile_6->clusterid.push_back(3);
+        Tile_6->clusterid.push_back(3);
+        Tile_6->clusterid.push_back(3);
+        Tile_6->clusterid.push_back(3);
+        Tile_6->clusterid.push_back(2);
+        Tile_6->tiger.push_back(false);
+        Tile_6->tiger.push_back(false);
+        Tile_6->tiger.push_back(false);
+        Tile_6->tiger.push_back(false);
+        Tile_6->tiger.push_back(false);
+        Tile_6->tiger.push_back(false);
+        Tile_6->tiger.push_back(false);
+        Tile_6->tiger.push_back(false);
+		Tile_6->croc_count = 0;
+		Tile_6->Ox = false;
+		Tile_6->Boar = false;
+		Tile_6->Deer = false;
+		Tile_6->Den = false;
+		Tile_6->CenterClusterid = 0;
+		Tile_6->x = 0;
+		Tile_6->y = 0;
 		//Tile_6.completion[4] = {false};
 		return Tile_6;
 	}
 	else if(i == 6){
-        Tile Tile_7;
-        Tile_7.des.push_back('T');
-	Tile_7.des.push_back('J');
-        Tile_7.des.push_back('T');
-	Tile_7.des.push_back('T');
-	Tile_7.des.push_back('-');
-        Tile_7.type.push_back(2);
-        Tile_7.type.push_back(3);
-        Tile_7.type.push_back(2);
-        Tile_7.type.push_back(2);
-        Tile_7.type.push_back(2);
-        Tile_7.type.push_back(3);
-        Tile_7.type.push_back(2);
-        Tile_7.type.push_back(3);
-        Tile_7.clusterid.push_back(1);
-        Tile_7.clusterid.push_back(2);
-        Tile_7.clusterid.push_back(3);
-        Tile_7.clusterid.push_back(3);
-        Tile_7.clusterid.push_back(3);
-        Tile_7.clusterid.push_back(4);
-        Tile_7.clusterid.push_back(5);
-        Tile_7.clusterid.push_back(6);
-        Tile_7.tiger.push_back(false);
-        Tile_7.tiger.push_back(false);
-        Tile_7.tiger.push_back(false);
-        Tile_7.tiger.push_back(false);
-        Tile_7.tiger.push_back(false);
-        Tile_7.tiger.push_back(false);
-        Tile_7.tiger.push_back(false);
-        Tile_7.tiger.push_back(false);
-		Tile_7.croc_count = 0;
-		Tile_7.Ox = false;
-		Tile_7.Boar = false;
-		Tile_7.Deer = false;
-		Tile_7.Den = false;
-		Tile_7.CenterClusterid = 0;
-		Tile_7.x = 0;
-		Tile_7.y = 0;
+        Tile *Tile_7 = new Tile();
+        Tile_7->des.push_back('T');
+	Tile_7->des.push_back('J');
+        Tile_7->des.push_back('T');
+	Tile_7->des.push_back('T');
+	Tile_7->des.push_back('-');
+        Tile_7->type.push_back(2);
+        Tile_7->type.push_back(3);
+        Tile_7->type.push_back(2);
+        Tile_7->type.push_back(2);
+        Tile_7->type.push_back(2);
+        Tile_7->type.push_back(3);
+        Tile_7->type.push_back(2);
+        Tile_7->type.push_back(3);
+        Tile_7->clusterid.push_back(1);
+        Tile_7->clusterid.push_back(2);
+        Tile_7->clusterid.push_back(3);
+        Tile_7->clusterid.push_back(3);
+        Tile_7->clusterid.push_back(3);
+        Tile_7->clusterid.push_back(4);
+        Tile_7->clusterid.push_back(5);
+        Tile_7->clusterid.push_back(6);
+        Tile_7->tiger.push_back(false);
+        Tile_7->tiger.push_back(false);
+        Tile_7->tiger.push_back(false);
+        Tile_7->tiger.push_back(false);
+        Tile_7->tiger.push_back(false);
+        Tile_7->tiger.push_back(false);
+        Tile_7->tiger.push_back(false);
+        Tile_7->tiger.push_back(false);
+		Tile_7->croc_count = 0;
+		Tile_7->Ox = false;
+		Tile_7->Boar = false;
+		Tile_7->Deer = false;
+		Tile_7->Den = false;
+		Tile_7->CenterClusterid = 0;
+		Tile_7->x = 0;
+		Tile_7->y = 0;
 		//Tile_7.completion[4] = {false};
 		return Tile_7;
 	}
 	else if(i == 7){
-        Tile Tile_8;
-	Tile_8.des.push_back('L');
-	Tile_8.des.push_back('L');
-        Tile_8.des.push_back('L');
-	Tile_8.des.push_back('L');
-	Tile_8.des.push_back('-');
+        Tile *Tile_8 = new Tile();
+	Tile_8->des.push_back('L');
+	Tile_8->des.push_back('L');
+        Tile_8->des.push_back('L');
+	Tile_8->des.push_back('L');
+	Tile_8->des.push_back('-');
 	
-        Tile_8.type.push_back(1);
-        Tile_8.type.push_back(1);
-        Tile_8.type.push_back(1);
-        Tile_8.type.push_back(1);
-        Tile_8.type.push_back(1);
-        Tile_8.type.push_back(1);
-        Tile_8.type.push_back(1);
-        Tile_8.type.push_back(1);
-        Tile_8.clusterid.push_back(1);
-        Tile_8.clusterid.push_back(1);
-        Tile_8.clusterid.push_back(1);
-        Tile_8.clusterid.push_back(1);
-        Tile_8.clusterid.push_back(1);
-        Tile_8.clusterid.push_back(1);
-        Tile_8.clusterid.push_back(1);
-        Tile_8.clusterid.push_back(1);
-        Tile_8.tiger.push_back(false);
-        Tile_8.tiger.push_back(false);
-        Tile_8.tiger.push_back(false);
-        Tile_8.tiger.push_back(false);
-        Tile_8.tiger.push_back(false);
-        Tile_8.tiger.push_back(false);
-        Tile_8.tiger.push_back(false);
-        Tile_8.tiger.push_back(false);
-		Tile_8.croc_count = 0;
-		Tile_8.Ox = false;
-		Tile_8.Boar = false;
-		Tile_8.Deer = false;
-		Tile_8.Den = false;
-		Tile_8.CenterClusterid = 0;
-		Tile_8.x = 0;
-		Tile_8.y = 0;
+        Tile_8->type.push_back(1);
+        Tile_8->type.push_back(1);
+        Tile_8->type.push_back(1);
+        Tile_8->type.push_back(1);
+        Tile_8->type.push_back(1);
+        Tile_8->type.push_back(1);
+        Tile_8->type.push_back(1);
+        Tile_8->type.push_back(1);
+        Tile_8->clusterid.push_back(1);
+        Tile_8->clusterid.push_back(1);
+        Tile_8->clusterid.push_back(1);
+        Tile_8->clusterid.push_back(1);
+        Tile_8->clusterid.push_back(1);
+        Tile_8->clusterid.push_back(1);
+        Tile_8->clusterid.push_back(1);
+        Tile_8->clusterid.push_back(1);
+        Tile_8->tiger.push_back(false);
+        Tile_8->tiger.push_back(false);
+        Tile_8->tiger.push_back(false);
+        Tile_8->tiger.push_back(false);
+        Tile_8->tiger.push_back(false);
+        Tile_8->tiger.push_back(false);
+        Tile_8->tiger.push_back(false);
+        Tile_8->tiger.push_back(false);
+		Tile_8->croc_count = 0;
+		Tile_8->Ox = false;
+		Tile_8->Boar = false;
+		Tile_8->Deer = false;
+		Tile_8->Den = false;
+		Tile_8->CenterClusterid = 0;
+		Tile_8->x = 0;
+		Tile_8->y = 0;
 		//Tile_8.completion[4] = {false};
 		return Tile_8;
 	}
 	else if(i == 8){
-		Tile Tile_9;
-	       Tile_9.des.push_back('J');
-	       Tile_9.des.push_back('L');
-               Tile_9.des.push_back('L');
-	       Tile_9.des.push_back('L');
-	       Tile_9.des.push_back('-');
+		Tile *Tile_9 = new Tile();
+	       Tile_9->des.push_back('J');
+	       Tile_9->des.push_back('L');
+               Tile_9->des.push_back('L');
+	       Tile_9->des.push_back('L');
+	       Tile_9->des.push_back('-');
 	    
 		//Tile_9.des = {'J', 'L', 'L', 'L', '-'};
-		Tile_9.type.push_back(2);
-		Tile_9.type.push_back(2);
-		Tile_9.type.push_back(2);
-		Tile_9.type.push_back(1);
-		Tile_9.type.push_back(1);
-		Tile_9.type.push_back(1);
-		Tile_9.type.push_back(1);
-		Tile_9.type.push_back(1);
-		Tile_9.clusterid.push_back(1);
-		Tile_9.clusterid.push_back(1);
-		Tile_9.clusterid.push_back(1);
-		Tile_9.clusterid.push_back(2);
-		Tile_9.clusterid.push_back(2);
-		Tile_9.clusterid.push_back(2);
-		Tile_9.clusterid.push_back(2);
-		Tile_9.clusterid.push_back(2);
-		Tile_9.tiger.push_back(false);
-		Tile_9.tiger.push_back(false);
-		Tile_9.tiger.push_back(false);
-		Tile_9.tiger.push_back(false);
-		Tile_9.tiger.push_back(false);
-		Tile_9.tiger.push_back(false);
-		Tile_9.tiger.push_back(false);
-		Tile_9.tiger.push_back(false);
+		Tile_9->type.push_back(2);
+		Tile_9->type.push_back(2);
+		Tile_9->type.push_back(2);
+		Tile_9->type.push_back(1);
+		Tile_9->type.push_back(1);
+		Tile_9->type.push_back(1);
+		Tile_9->type.push_back(1);
+		Tile_9->type.push_back(1);
+		Tile_9->clusterid.push_back(1);
+		Tile_9->clusterid.push_back(1);
+		Tile_9->clusterid.push_back(1);
+		Tile_9->clusterid.push_back(2);
+		Tile_9->clusterid.push_back(2);
+		Tile_9->clusterid.push_back(2);
+		Tile_9->clusterid.push_back(2);
+		Tile_9->clusterid.push_back(2);
+		Tile_9->tiger.push_back(false);
+		Tile_9->tiger.push_back(false);
+		Tile_9->tiger.push_back(false);
+		Tile_9->tiger.push_back(false);
+		Tile_9->tiger.push_back(false);
+		Tile_9->tiger.push_back(false);
+		Tile_9->tiger.push_back(false);
+		Tile_9->tiger.push_back(false);
 		//Tile_9.type = {2,2,2,1,1,1,1,1};
 		//Tile_9.clusterid = {1,1,1,2,2,2,2,2};
 		//Tile_9.tiger = {false,false,false,false,false,false,false,false};
-		Tile_9.croc_count = 0;
-		Tile_9.Ox = false;
-		Tile_9.Boar = false;
-		Tile_9.Deer = false;
-		Tile_9.Den = false;
-		Tile_9.CenterClusterid = 0;
-		Tile_9.x = 0;
-		Tile_9.y = 0;
+		Tile_9->croc_count = 0;
+		Tile_9->Ox = false;
+		Tile_9->Boar = false;
+		Tile_9->Deer = false;
+		Tile_9->Den = false;
+		Tile_9->CenterClusterid = 0;
+		Tile_9->x = 0;
+		Tile_9->y = 0;
 		//Tile_9.completion[4] = {false};
 		return Tile_9;
 	}
 	else if(i == 9){
-		Tile Tile_10;
-		Tile_10.des.push_back('L');
-		Tile_10.des.push_back('L');
-       		Tile_10.des.push_back('J');
-		Tile_10.des.push_back('J');
-		Tile_10.des.push_back('-');
+		Tile *Tile_10 = new Tile();
+		Tile_10->des.push_back('L');
+		Tile_10->des.push_back('L');
+       		Tile_10->des.push_back('J');
+		Tile_10->des.push_back('J');
+		Tile_10->des.push_back('-');
 		
 		//Tile_10.des = {'L', 'L', 'J', 'J', '-'};
-		Tile_10.type.push_back(2);
-		Tile_10.type.push_back(1);
-		Tile_10.type.push_back(1);
-		Tile_10.type.push_back(1);
-		Tile_10.type.push_back(2);
-		Tile_10.type.push_back(2);
-		Tile_10.type.push_back(2);
-		Tile_10.type.push_back(2);
-		Tile_10.clusterid.push_back(1);
-		Tile_10.clusterid.push_back(2);
-		Tile_10.clusterid.push_back(2);
-		Tile_10.clusterid.push_back(2);
-		Tile_10.clusterid.push_back(1);
-		Tile_10.clusterid.push_back(1);
-		Tile_10.clusterid.push_back(1);
-		Tile_10.clusterid.push_back(1);
-		Tile_10.tiger.push_back(false);
-		Tile_10.tiger.push_back(false);
-		Tile_10.tiger.push_back(false);
-		Tile_10.tiger.push_back(false);
-		Tile_10.tiger.push_back(false);
-		Tile_10.tiger.push_back(false);
-		Tile_10.tiger.push_back(false);
-		Tile_10.tiger.push_back(false);
+		Tile_10->type.push_back(2);
+		Tile_10->type.push_back(1);
+		Tile_10->type.push_back(1);
+		Tile_10->type.push_back(1);
+		Tile_10->type.push_back(2);
+		Tile_10->type.push_back(2);
+		Tile_10->type.push_back(2);
+		Tile_10->type.push_back(2);
+		Tile_10->clusterid.push_back(1);
+		Tile_10->clusterid.push_back(2);
+		Tile_10->clusterid.push_back(2);
+		Tile_10->clusterid.push_back(2);
+		Tile_10->clusterid.push_back(1);
+		Tile_10->clusterid.push_back(1);
+		Tile_10->clusterid.push_back(1);
+		Tile_10->clusterid.push_back(1);
+		Tile_10->tiger.push_back(false);
+		Tile_10->tiger.push_back(false);
+		Tile_10->tiger.push_back(false);
+		Tile_10->tiger.push_back(false);
+		Tile_10->tiger.push_back(false);
+		Tile_10->tiger.push_back(false);
+		Tile_10->tiger.push_back(false);
+		Tile_10->tiger.push_back(false);
 		//Tile_10.type = {2,1,1,1,2,2,2,2};
 		//Tile_10.clusterid = {1,2,2,2,1,1,1,1};
 		//Tile_10.tiger = {false,false,false,false,false,false,false,false};
-		Tile_10.croc_count = 0;
-		Tile_10.Ox = false;
-		Tile_10.Boar = false;
-		Tile_10.Deer = false;
-		Tile_10.Den = false;
-		Tile_10.CenterClusterid = 0;
-		Tile_10.x = 0;
-		Tile_10.y = 0;
+		Tile_10->croc_count = 0;
+		Tile_10->Ox = false;
+		Tile_10->Boar = false;
+		Tile_10->Deer = false;
+		Tile_10->Den = false;
+		Tile_10->CenterClusterid = 0;
+		Tile_10->x = 0;
+		Tile_10->y = 0;
 		//Tile_10.completion[4] = {false};
 		return Tile_10;
 	}
 	else if(i == 10){
-		Tile Tile_11;
+		Tile *Tile_11 = new Tile();
 	//	Tile_11.des = {'J', 'L', 'J', 'L', '-'};
-		Tile_11.des.push_back('J');
-		Tile_11.des.push_back('L');
-       		Tile_11.des.push_back('J');
-		Tile_11.des.push_back('L');
-		Tile_11.des.push_back('-');
+		Tile_11->des.push_back('J');
+		Tile_11->des.push_back('L');
+       		Tile_11->des.push_back('J');
+		Tile_11->des.push_back('L');
+		Tile_11->des.push_back('-');
 		
-		Tile_11.type.push_back(2);
-		Tile_11.type.push_back(2);
-		Tile_11.type.push_back(2);
-		Tile_11.type.push_back(1);
-		Tile_11.type.push_back(2);
-		Tile_11.type.push_back(2);
-		Tile_11.type.push_back(2);
-		Tile_11.type.push_back(1);
-		Tile_11.clusterid.push_back(1);
-		Tile_11.clusterid.push_back(1);
-		Tile_11.clusterid.push_back(1);
-		Tile_11.clusterid.push_back(2);
-		Tile_11.clusterid.push_back(3);
-		Tile_11.clusterid.push_back(3);
-		Tile_11.clusterid.push_back(3);
-		Tile_11.clusterid.push_back(2);
-		Tile_11.tiger.push_back(false);
-		Tile_11.tiger.push_back(false);
-		Tile_11.tiger.push_back(false);
-		Tile_11.tiger.push_back(false);
-		Tile_11.tiger.push_back(false);
-		Tile_11.tiger.push_back(false);
-		Tile_11.tiger.push_back(false);
-		Tile_11.tiger.push_back(false);
+		Tile_11->type.push_back(2);
+		Tile_11->type.push_back(2);
+		Tile_11->type.push_back(2);
+		Tile_11->type.push_back(1);
+		Tile_11->type.push_back(2);
+		Tile_11->type.push_back(2);
+		Tile_11->type.push_back(2);
+		Tile_11->type.push_back(1);
+		Tile_11->clusterid.push_back(1);
+		Tile_11->clusterid.push_back(1);
+		Tile_11->clusterid.push_back(1);
+		Tile_11->clusterid.push_back(2);
+		Tile_11->clusterid.push_back(3);
+		Tile_11->clusterid.push_back(3);
+		Tile_11->clusterid.push_back(3);
+		Tile_11->clusterid.push_back(2);
+		Tile_11->tiger.push_back(false);
+		Tile_11->tiger.push_back(false);
+		Tile_11->tiger.push_back(false);
+		Tile_11->tiger.push_back(false);
+		Tile_11->tiger.push_back(false);
+		Tile_11->tiger.push_back(false);
+		Tile_11->tiger.push_back(false);
+		Tile_11->tiger.push_back(false);
 		//Tile_11.type = {2,2,2,1,2,2,2,1};/////
 		//Tile_11.clusterid = {1,1,1,2,3,3,3,2};
 		//Tile_11.tiger = {false,false,false,false,false,false,false,false};
-		Tile_11.croc_count = 0;
-		Tile_11.Ox = false;
-		Tile_11.Boar = false;
-		Tile_11.Deer = false;
-		Tile_11.Den = false;
-		Tile_11.CenterClusterid = 0;
-		Tile_11.x = 0;
-		Tile_11.y = 0;
+		Tile_11->croc_count = 0;
+		Tile_11->Ox = false;
+		Tile_11->Boar = false;
+		Tile_11->Deer = false;
+		Tile_11->Den = false;
+		Tile_11->CenterClusterid = 0;
+		Tile_11->x = 0;
+		Tile_11->y = 0;
 		//Tile_11.completion[4] = {false};
 		return Tile_11;
 	}
 	else if(i == 11){
-		Tile Tile_12;
+        Tile *Tile_12 = new Tile();
 	//	Tile_12.des = {'L', 'J', 'L', 'J', '-'};
-		Tile_12.des.push_back('L');
-		Tile_12.des.push_back('J');
-       		Tile_12.des.push_back('L');
-		Tile_12.des.push_back('J');
-		Tile_12.des.push_back('-');
-		Tile_12.type.push_back(2);
-		Tile_12.type.push_back(1);
-		Tile_12.type.push_back(2);
-		Tile_12.type.push_back(2);
-		Tile_12.type.push_back(2);
-		Tile_12.type.push_back(1);
-		Tile_12.type.push_back(2);
-		Tile_12.type.push_back(2);
-		Tile_12.clusterid.push_back(1);
-		Tile_12.clusterid.push_back(2);
-		Tile_12.clusterid.push_back(1);
-		Tile_12.clusterid.push_back(1);
-		Tile_12.clusterid.push_back(1);
-		Tile_12.clusterid.push_back(3);
-		Tile_12.clusterid.push_back(1);
-		Tile_12.clusterid.push_back(1);
-		Tile_12.tiger.push_back(false);
-		Tile_12.tiger.push_back(false);
-		Tile_12.tiger.push_back(false);
-		Tile_12.tiger.push_back(false);
-		Tile_12.tiger.push_back(false);
-		Tile_12.tiger.push_back(false);
-		Tile_12.tiger.push_back(false);
-		Tile_12.tiger.push_back(false);
+		Tile_12->des.push_back('L');
+		Tile_12->des.push_back('J');
+       		Tile_12->des.push_back('L');
+		Tile_12->des.push_back('J');
+		Tile_12->des.push_back('-');
+		Tile_12->type.push_back(2);
+		Tile_12->type.push_back(1);
+		Tile_12->type.push_back(2);
+		Tile_12->type.push_back(2);
+		Tile_12->type.push_back(2);
+		Tile_12->type.push_back(1);
+		Tile_12->type.push_back(2);
+		Tile_12->type.push_back(2);
+		Tile_12->clusterid.push_back(1);
+		Tile_12->clusterid.push_back(2);
+		Tile_12->clusterid.push_back(1);
+		Tile_12->clusterid.push_back(1);
+		Tile_12->clusterid.push_back(1);
+		Tile_12->clusterid.push_back(3);
+		Tile_12->clusterid.push_back(1);
+		Tile_12->clusterid.push_back(1);
+		Tile_12->tiger.push_back(false);
+		Tile_12->tiger.push_back(false);
+		Tile_12->tiger.push_back(false);
+		Tile_12->tiger.push_back(false);
+		Tile_12->tiger.push_back(false);
+		Tile_12->tiger.push_back(false);
+		Tile_12->tiger.push_back(false);
+		Tile_12->tiger.push_back(false);
 		//Tile_12.type = {2,1,2,2,2,1,2,2};////
 		//Tile_12.clusterid = {1,2,1,1,1,3,1,1};
 		//Tile_12.tiger = {false,false,false,false,false,false,false,false};
-		Tile_12.croc_count = 0;
-		Tile_12.Ox = false;
-		Tile_12.Boar = false;
-		Tile_12.Deer = false;
-		Tile_12.Den = false;
-		Tile_12.CenterClusterid = 0;
-		Tile_12.x = 0;
-		Tile_12.y = 0;
+		Tile_12->croc_count = 0;
+		Tile_12->Ox = false;
+		Tile_12->Boar = false;
+		Tile_12->Deer = false;
+		Tile_12->Den = false;
+		Tile_12->CenterClusterid = 0;
+		Tile_12->x = 0;
+		Tile_12->y = 0;
 		//Tile_12.completion[4] = {false};
 		return Tile_12;
 	}
 	else if(i == 12){
-		Tile Tile_13;
+		Tile *Tile_13 = new Tile();
 	//	Tile_13.des = {'L', 'J', 'J', 'J', '-'};
-		Tile_13.des.push_back('L');
-		Tile_13.des.push_back('J');
-       		Tile_13.des.push_back('J');
-		Tile_13.des.push_back('J');
-		Tile_13.des.push_back('-');
-		Tile_13.type.push_back(2);
-		Tile_13.type.push_back(1);
-		Tile_13.type.push_back(2);
-		Tile_13.type.push_back(2);
-		Tile_13.type.push_back(2);
-		Tile_13.type.push_back(2);
-		Tile_13.type.push_back(2);
-		Tile_13.type.push_back(2);
-		Tile_13.clusterid.push_back(1);
-		Tile_13.clusterid.push_back(2);
-		Tile_13.clusterid.push_back(1);
-		Tile_13.clusterid.push_back(1);
-		Tile_13.clusterid.push_back(1);
-		Tile_13.clusterid.push_back(1);
-		Tile_13.clusterid.push_back(1);
-        Tile_13.clusterid.push_back(1);
-		Tile_13.tiger.push_back(false);
-		Tile_13.tiger.push_back(false);
-		Tile_13.tiger.push_back(false);
-		Tile_13.tiger.push_back(false);
-		Tile_13.tiger.push_back(false);
-		Tile_13.tiger.push_back(false);
-		Tile_13.tiger.push_back(false);
-		Tile_13.tiger.push_back(false);
+		Tile_13->des.push_back('L');
+		Tile_13->des.push_back('J');
+       		Tile_13->des.push_back('J');
+		Tile_13->des.push_back('J');
+		Tile_13->des.push_back('-');
+		Tile_13->type.push_back(2);
+		Tile_13->type.push_back(1);
+		Tile_13->type.push_back(2);
+		Tile_13->type.push_back(2);
+		Tile_13->type.push_back(2);
+		Tile_13->type.push_back(2);
+		Tile_13->type.push_back(2);
+		Tile_13->type.push_back(2);
+		Tile_13->clusterid.push_back(1);
+		Tile_13->clusterid.push_back(2);
+		Tile_13->clusterid.push_back(1);
+		Tile_13->clusterid.push_back(1);
+		Tile_13->clusterid.push_back(1);
+		Tile_13->clusterid.push_back(1);
+		Tile_13->clusterid.push_back(1);
+        Tile_13->clusterid.push_back(1);
+		Tile_13->tiger.push_back(false);
+		Tile_13->tiger.push_back(false);
+		Tile_13->tiger.push_back(false);
+		Tile_13->tiger.push_back(false);
+		Tile_13->tiger.push_back(false);
+		Tile_13->tiger.push_back(false);
+		Tile_13->tiger.push_back(false);
+		Tile_13->tiger.push_back(false);
 		//Tile_13.type = {2,1,2,2,2,2,2,2};
 		//Tile_13.clusterid = {1,2,1,1,1,1,1,1}; 
 		//Tile_13.tiger = {false,false,false,false,false,false,false,false};
-		Tile_13.croc_count = 0;
-		Tile_13.Ox = false;
-		Tile_13.Boar = false;
-		Tile_13.Deer = false;
-		Tile_13.Den = false;
-		Tile_13.CenterClusterid = 0;
-		Tile_13.x = 0;
-		Tile_13.y = 0;
+		Tile_13->croc_count = 0;
+		Tile_13->Ox = false;
+		Tile_13->Boar = false;
+		Tile_13->Deer = false;
+		Tile_13->Den = false;
+		Tile_13->CenterClusterid = 0;
+		Tile_13->x = 0;
+		Tile_13->y = 0;
 		//Tile_13.completion[4] = {false};
 		return Tile_13;
 	}
 	else if(i == 13){
-		Tile  Tile_14;
+		Tile  *Tile_14 = new Tile();
 		//Tile_14.des = {'J', 'L', 'L', 'J', '-'};
-		Tile_14.des.push_back('J');
-		Tile_14.des.push_back('L');
-       		Tile_14.des.push_back('L');
-		Tile_14.des.push_back('J');
-		Tile_14.des.push_back('-');
-		Tile_14.type.push_back(2);
-		Tile_14.type.push_back(2);
-		Tile_14.type.push_back(2);
-		Tile_14.type.push_back(1);
-		Tile_14.type.push_back(4);
-		Tile_14.type.push_back(1);
-		Tile_14.type.push_back(2);
-		Tile_14.type.push_back(2);
-		Tile_14.clusterid.push_back(1);
-		Tile_14.clusterid.push_back(1);
-		Tile_14.clusterid.push_back(1);
-		Tile_14.clusterid.push_back(2);
-		Tile_14.clusterid.push_back(0);
-		Tile_14.clusterid.push_back(3);
-		Tile_14.clusterid.push_back(1);
-		Tile_14.clusterid.push_back(1);
-		Tile_14.tiger.push_back(false);
-		Tile_14.tiger.push_back(false);
-		Tile_14.tiger.push_back(false);
-		Tile_14.tiger.push_back(false);
-		Tile_14.tiger.push_back(false);
-		Tile_14.tiger.push_back(false);
-		Tile_14.tiger.push_back(false);
-		Tile_14.tiger.push_back(false);
+		Tile_14->des.push_back('J');
+		Tile_14->des.push_back('L');
+       		Tile_14->des.push_back('L');
+		Tile_14->des.push_back('J');
+		Tile_14->des.push_back('-');
+		Tile_14->type.push_back(2);
+		Tile_14->type.push_back(2);
+		Tile_14->type.push_back(2);
+		Tile_14->type.push_back(1);
+		Tile_14->type.push_back(4);
+		Tile_14->type.push_back(1);
+		Tile_14->type.push_back(2);
+		Tile_14->type.push_back(2);
+		Tile_14->clusterid.push_back(1);
+		Tile_14->clusterid.push_back(1);
+		Tile_14->clusterid.push_back(1);
+		Tile_14->clusterid.push_back(2);
+		Tile_14->clusterid.push_back(0);
+		Tile_14->clusterid.push_back(3);
+		Tile_14->clusterid.push_back(1);
+		Tile_14->clusterid.push_back(1);
+		Tile_14->tiger.push_back(false);
+		Tile_14->tiger.push_back(false);
+		Tile_14->tiger.push_back(false);
+		Tile_14->tiger.push_back(false);
+		Tile_14->tiger.push_back(false);
+		Tile_14->tiger.push_back(false);
+		Tile_14->tiger.push_back(false);
+		Tile_14->tiger.push_back(false);
 		//Tile_14.type = {2,2,2,1,4,1,2,2};
 		//Tile_14.clusterid = {1,1,1,2,0,3,1,1};
 		//Tile_14.tiger = {false,false,false,false,false,false,false,false};
-		Tile_14.croc_count = 0;
-		Tile_14.Ox = false;
-		Tile_14.Boar = false;
-		Tile_14.Deer = false;
-		Tile_14.Den = false;
-		Tile_14.CenterClusterid = 0;
-		Tile_14.x = 0;
-		Tile_14.y = 0;
+		Tile_14->croc_count = 0;
+		Tile_14->Ox = false;
+		Tile_14->Boar = false;
+		Tile_14->Deer = false;
+		Tile_14->Den = false;
+		Tile_14->CenterClusterid = 0;
+		Tile_14->x = 0;
+		Tile_14->y = 0;
 		//Tile_14.completion[4] = {false};
 		return Tile_14;
 	}
 	else if(i == 14){
-		Tile Tile_15;
+		Tile *Tile_15 = new Tile();
 		//Tile_15.des = {'T', 'L', 'J', 'T', '-'};
-		Tile_15.des.push_back('T');
-		Tile_15.des.push_back('L');
-       		Tile_15.des.push_back('J');
-		Tile_15.des.push_back('T');
-		Tile_15.des.push_back('-');
-		Tile_15.type.push_back(2);
-		Tile_15.type.push_back(3);
-		Tile_15.type.push_back(2);
-		Tile_15.type.push_back(1);
-		Tile_15.type.push_back(2);
-		Tile_15.type.push_back(2);
-		Tile_15.type.push_back(2);
-		Tile_15.type.push_back(3);
-		Tile_15.clusterid.push_back(1);
-		Tile_15.clusterid.push_back(2);
-		Tile_15.clusterid.push_back(1);
-		Tile_15.clusterid.push_back(3);
-		Tile_15.clusterid.push_back(1);
-		Tile_15.clusterid.push_back(1);
-		Tile_15.clusterid.push_back(1);
-		Tile_15.clusterid.push_back(2);
-		Tile_15.tiger.push_back(false);
-		Tile_15.tiger.push_back(false);
-		Tile_15.tiger.push_back(false);
-		Tile_15.tiger.push_back(false);
-		Tile_15.tiger.push_back(false);
-		Tile_15.tiger.push_back(false);
-		Tile_15.tiger.push_back(false);
-		Tile_15.tiger.push_back(false);
+		Tile_15->des.push_back('T');
+		Tile_15->des.push_back('L');
+       		Tile_15->des.push_back('J');
+		Tile_15->des.push_back('T');
+		Tile_15->des.push_back('-');
+		Tile_15->type.push_back(2);
+		Tile_15->type.push_back(3);
+		Tile_15->type.push_back(2);
+		Tile_15->type.push_back(1);
+		Tile_15->type.push_back(2);
+		Tile_15->type.push_back(2);
+		Tile_15->type.push_back(2);
+		Tile_15->type.push_back(3);
+		Tile_15->clusterid.push_back(1);
+		Tile_15->clusterid.push_back(2);
+		Tile_15->clusterid.push_back(1);
+		Tile_15->clusterid.push_back(3);
+		Tile_15->clusterid.push_back(1);
+		Tile_15->clusterid.push_back(1);
+		Tile_15->clusterid.push_back(1);
+		Tile_15->clusterid.push_back(2);
+		Tile_15->tiger.push_back(false);
+		Tile_15->tiger.push_back(false);
+		Tile_15->tiger.push_back(false);
+		Tile_15->tiger.push_back(false);
+		Tile_15->tiger.push_back(false);
+		Tile_15->tiger.push_back(false);
+		Tile_15->tiger.push_back(false);
+		Tile_15->tiger.push_back(false);
 		//Tile_15.type = {2,3,2,1,2,2,2,3};
 		//Tile_15.clusterid = {1,2,1,3,1,1,1,2};
 		//Tile_15.tiger = {false,false,false,false,false,false,false,false};
-		Tile_15.croc_count = 0;
-		Tile_15.Ox = false;
-		Tile_15.Boar = false;
-		Tile_15.Deer = false;
-		Tile_15.Den = false;
-		Tile_15.CenterClusterid = 0;
-		Tile_15.x = 0;
-		Tile_15.y = 0;
+		Tile_15->croc_count = 0;
+		Tile_15->Ox = false;
+		Tile_15->Boar = false;
+		Tile_15->Deer = false;
+		Tile_15->Den = false;
+		Tile_15->CenterClusterid = 0;
+		Tile_15->x = 0;
+		Tile_15->y = 0;
 		//Tile_15.completion[4] = {false};
 		return Tile_15;
 	}
 	else if(i == 15){
-		Tile Tile_16;
+		Tile *Tile_16 = new Tile();
 		//Tile_16.des = {'T', 'L', 'J', 'T', 'P'};
-		Tile_16.des.push_back('T');
-		Tile_16.des.push_back('L');
-       		Tile_16.des.push_back('J');
-		Tile_16.des.push_back('T');
-		Tile_16.des.push_back('P');
-		Tile_16.type.push_back(2);
-		Tile_16.type.push_back(3);
-		Tile_16.type.push_back(2);
-		Tile_16.type.push_back(1);
-		Tile_16.type.push_back(2);
-		Tile_16.type.push_back(2);
-		Tile_16.type.push_back(2);
-		Tile_16.type.push_back(3);
-		Tile_16.clusterid.push_back(1);
-		Tile_16.clusterid.push_back(2);
-		Tile_16.clusterid.push_back(1);
-		Tile_16.clusterid.push_back(3);
-		Tile_16.clusterid.push_back(1);
-		Tile_16.clusterid.push_back(1);
-		Tile_16.clusterid.push_back(1);
-		Tile_16.clusterid.push_back(2);
-		Tile_16.tiger.push_back(false);
-		Tile_16.tiger.push_back(false);
-		Tile_16.tiger.push_back(false);
-		Tile_16.tiger.push_back(false);
-		Tile_16.tiger.push_back(false);
-		Tile_16.tiger.push_back(false);
-		Tile_16.tiger.push_back(false);
-		Tile_16.tiger.push_back(false);
+		Tile_16->des.push_back('T');
+		Tile_16->des.push_back('L');
+       		Tile_16->des.push_back('J');
+		Tile_16->des.push_back('T');
+		Tile_16->des.push_back('P');
+		Tile_16->type.push_back(2);
+		Tile_16->type.push_back(3);
+		Tile_16->type.push_back(2);
+		Tile_16->type.push_back(1);
+		Tile_16->type.push_back(2);
+		Tile_16->type.push_back(2);
+		Tile_16->type.push_back(2);
+		Tile_16->type.push_back(3);
+		Tile_16->clusterid.push_back(1);
+		Tile_16->clusterid.push_back(2);
+		Tile_16->clusterid.push_back(1);
+		Tile_16->clusterid.push_back(3);
+		Tile_16->clusterid.push_back(1);
+		Tile_16->clusterid.push_back(1);
+		Tile_16->clusterid.push_back(1);
+		Tile_16->clusterid.push_back(2);
+		Tile_16->tiger.push_back(false);
+		Tile_16->tiger.push_back(false);
+		Tile_16->tiger.push_back(false);
+		Tile_16->tiger.push_back(false);
+		Tile_16->tiger.push_back(false);
+		Tile_16->tiger.push_back(false);
+		Tile_16->tiger.push_back(false);
+		Tile_16->tiger.push_back(false);
 		//Tile_16.type = {2,3,2,1,2,2,2,3}; // has boar
 		//Tile_16.clusterid = {1,2,1,3,1,1,1,2};
 		//Tile_16.tiger = {false,false,false,false,false,false,false,false};
-		Tile_16.croc_count = 0;
-		Tile_16.Ox = false;
-		Tile_16.Boar = true;
-		Tile_16.Deer = false;
-		Tile_16.Den = false;
-		Tile_16.CenterClusterid = 0;
-		Tile_16.x = 0;
-		Tile_16.y = 0;
+		Tile_16->croc_count = 0;
+		Tile_16->Ox = false;
+		Tile_16->Boar = true;
+		Tile_16->Deer = false;
+		Tile_16->Den = false;
+		Tile_16->CenterClusterid = 0;
+		Tile_16->x = 0;
+		Tile_16->y = 0;
 		//Tile_16.completion[4] = {false};
 		return Tile_16;
 	}
 	else if(i == 16){
-		Tile Tile_17;
+		Tile *Tile_17 = new Tile();
 	//	Tile_17.des = {'J', 'L', 'T', 'T', '-'};
-		Tile_17.des.push_back('J');
-		Tile_17.des.push_back('L');
-       		Tile_17.des.push_back('T');
-		Tile_17.des.push_back('T');
-		Tile_17.des.push_back('-');
-		Tile_17.type.push_back(2);
-		Tile_17.type.push_back(2);
-		Tile_17.type.push_back(2);
-		Tile_17.type.push_back(1);
-		Tile_17.type.push_back(2);
-		Tile_17.type.push_back(3);
-		Tile_17.type.push_back(2);
-		Tile_17.type.push_back(3);
-		Tile_17.clusterid.push_back(1);
-		Tile_17.clusterid.push_back(1);
-		Tile_17.clusterid.push_back(1);
-		Tile_17.clusterid.push_back(2);
-		Tile_17.clusterid.push_back(1);
-		Tile_17.clusterid.push_back(3);
-		Tile_17.clusterid.push_back(4);
-		Tile_17.clusterid.push_back(3);
-		Tile_17.tiger.push_back(false);
-		Tile_17.tiger.push_back(false);
-		Tile_17.tiger.push_back(false);
-		Tile_17.tiger.push_back(false);
-		Tile_17.tiger.push_back(false);
-        Tile_17.tiger.push_back(false);
-		Tile_17.tiger.push_back(false);
-        Tile_17.tiger.push_back(false);
+		Tile_17->des.push_back('J');
+		Tile_17->des.push_back('L');
+       		Tile_17->des.push_back('T');
+		Tile_17->des.push_back('T');
+		Tile_17->des.push_back('-');
+		Tile_17->type.push_back(2);
+		Tile_17->type.push_back(2);
+		Tile_17->type.push_back(2);
+		Tile_17->type.push_back(1);
+		Tile_17->type.push_back(2);
+		Tile_17->type.push_back(3);
+		Tile_17->type.push_back(2);
+		Tile_17->type.push_back(3);
+		Tile_17->clusterid.push_back(1);
+		Tile_17->clusterid.push_back(1);
+		Tile_17->clusterid.push_back(1);
+		Tile_17->clusterid.push_back(2);
+		Tile_17->clusterid.push_back(1);
+		Tile_17->clusterid.push_back(3);
+		Tile_17->clusterid.push_back(4);
+		Tile_17->clusterid.push_back(3);
+		Tile_17->tiger.push_back(false);
+		Tile_17->tiger.push_back(false);
+		Tile_17->tiger.push_back(false);
+		Tile_17->tiger.push_back(false);
+		Tile_17->tiger.push_back(false);
+        Tile_17->tiger.push_back(false);
+		Tile_17->tiger.push_back(false);
+        Tile_17->tiger.push_back(false);
 		//Tile_17.type = {2,2,2,1,2,3,2,3};
 		//Tile_17.clusterid = {1,1,1,2,1,3,4,3};
 		//Tile_17.tiger = {false,false,false,false,false,false,false,false};
-		Tile_17.croc_count = 0;
-		Tile_17.Ox = false;
-		Tile_17.Boar = false;
-		Tile_17.Deer = false;
-		Tile_17.Den = false;
-		Tile_17.CenterClusterid = 0;
-		Tile_17.x = 0;
-		Tile_17.y = 0;
+		Tile_17->croc_count = 0;
+		Tile_17->Ox = false;
+		Tile_17->Boar = false;
+		Tile_17->Deer = false;
+		Tile_17->Den = false;
+		Tile_17->CenterClusterid = 0;
+		Tile_17->x = 0;
+		Tile_17->y = 0;
 		//Tile_17.completion[4] = {false};
 		return Tile_17;
 	}
 	else if(i == 17){
-		Tile Tile_18;
+		Tile *Tile_18 = new Tile();
 	//	Tile_18.des = {'J', 'L', 'T', 'T', 'B'};
-		Tile_18.des.push_back('J');
-		Tile_18.des.push_back('L');
-       		Tile_18.des.push_back('T');
-		Tile_18.des.push_back('T');
-		Tile_18.des.push_back('B');
-		Tile_18.type.push_back(2);
-		Tile_18.type.push_back(2);
-		Tile_18.type.push_back(2);
-		Tile_18.type.push_back(1);
-		Tile_18.type.push_back(2);
-		Tile_18.type.push_back(3);
-		Tile_18.type.push_back(2);
-        Tile_18.type.push_back(3);
-		Tile_18.clusterid.push_back(1);
-		Tile_18.clusterid.push_back(1);
-		Tile_18.clusterid.push_back(1);
-		Tile_18.clusterid.push_back(2);
-		Tile_18.clusterid.push_back(1);
-		Tile_18.clusterid.push_back(3);
-		Tile_18.clusterid.push_back(4);
-		Tile_18.clusterid.push_back(3);
-		Tile_18.tiger.push_back(false);
-		Tile_18.tiger.push_back(false);
-		Tile_18.tiger.push_back(false);
-		Tile_18.tiger.push_back(false);
-		Tile_18.tiger.push_back(false);
-		Tile_18.tiger.push_back(false);
-		Tile_18.tiger.push_back(false);
-		Tile_18.tiger.push_back(false);
+		Tile_18->des.push_back('J');
+		Tile_18->des.push_back('L');
+       		Tile_18->des.push_back('T');
+		Tile_18->des.push_back('T');
+		Tile_18->des.push_back('B');
+		Tile_18->type.push_back(2);
+		Tile_18->type.push_back(2);
+		Tile_18->type.push_back(2);
+		Tile_18->type.push_back(1);
+		Tile_18->type.push_back(2);
+		Tile_18->type.push_back(3);
+		Tile_18->type.push_back(2);
+        Tile_18->type.push_back(3);
+		Tile_18->clusterid.push_back(1);
+		Tile_18->clusterid.push_back(1);
+		Tile_18->clusterid.push_back(1);
+		Tile_18->clusterid.push_back(2);
+		Tile_18->clusterid.push_back(1);
+		Tile_18->clusterid.push_back(3);
+		Tile_18->clusterid.push_back(4);
+		Tile_18->clusterid.push_back(3);
+		Tile_18->tiger.push_back(false);
+		Tile_18->tiger.push_back(false);
+		Tile_18->tiger.push_back(false);
+		Tile_18->tiger.push_back(false);
+		Tile_18->tiger.push_back(false);
+		Tile_18->tiger.push_back(false);
+		Tile_18->tiger.push_back(false);
+		Tile_18->tiger.push_back(false);
 		//Tile_18.type = {2,2,2,1,2,3,2,3}; // has ox
 		//Tile_18.clusterid = {1,1,1,2,1,3,4,3};
 		//Tile_18.tiger = {false,false,false,false,false,false,false,false};
-		Tile_18.croc_count = 0;
-		Tile_18.Ox = true;
-		Tile_18.Boar = false;
-		Tile_18.Deer = false;
-		Tile_18.Den = false;
-		Tile_18.CenterClusterid = 0;
-		Tile_18.x = 0;
-		Tile_18.y = 0;
+		Tile_18->croc_count = 0;
+		Tile_18->Ox = true;
+		Tile_18->Boar = false;
+		Tile_18->Deer = false;
+		Tile_18->Den = false;
+		Tile_18->CenterClusterid = 0;
+		Tile_18->x = 0;
+		Tile_18->y = 0;
 		//Tile_18.completion[4] = {false};
 		return Tile_18;
 	}
 	else if(i == 18){
-		Tile Tile_19;
+		Tile *Tile_19 = new Tile();
 	//	Tile_19.des = {'T', 'L', 'T', 'J', '-'};
-		Tile_19.des.push_back('T');
-		Tile_19.des.push_back('L');
-       		Tile_19.des.push_back('T');
-		Tile_19.des.push_back('J');
-		Tile_19.des.push_back('-');
-		Tile_19.type.push_back(2);
-		Tile_19.type.push_back(3);
-		Tile_19.type.push_back(2);
-		Tile_19.type.push_back(1);
-		Tile_19.type.push_back(2);
-		Tile_19.type.push_back(3);
-		Tile_19.type.push_back(2);
-		Tile_19.type.push_back(3);
-		Tile_19.clusterid.push_back(1);
-		Tile_19.clusterid.push_back(2);
-		Tile_19.clusterid.push_back(3);
-		Tile_19.clusterid.push_back(4);
-		Tile_19.clusterid.push_back(3);
-		Tile_19.clusterid.push_back(2);
-		Tile_19.clusterid.push_back(1);
-		Tile_19.clusterid.push_back(1);
-		Tile_19.tiger.push_back(false);
-		Tile_19.tiger.push_back(false);
-		Tile_19.tiger.push_back(false);
-		Tile_19.tiger.push_back(false);
-		Tile_19.tiger.push_back(false);
-		Tile_19.tiger.push_back(false);
-		Tile_19.tiger.push_back(false);
-		Tile_19.tiger.push_back(false);
+		Tile_19->des.push_back('T');
+		Tile_19->des.push_back('L');
+       		Tile_19->des.push_back('T');
+		Tile_19->des.push_back('J');
+		Tile_19->des.push_back('-');
+		Tile_19->type.push_back(2);
+		Tile_19->type.push_back(3);
+		Tile_19->type.push_back(2);
+		Tile_19->type.push_back(1);
+		Tile_19->type.push_back(2);
+		Tile_19->type.push_back(3);
+		Tile_19->type.push_back(2);
+		Tile_19->type.push_back(3);
+		Tile_19->clusterid.push_back(1);
+		Tile_19->clusterid.push_back(2);
+		Tile_19->clusterid.push_back(3);
+		Tile_19->clusterid.push_back(4);
+		Tile_19->clusterid.push_back(3);
+		Tile_19->clusterid.push_back(2);
+		Tile_19->clusterid.push_back(1);
+		Tile_19->clusterid.push_back(1);
+		Tile_19->tiger.push_back(false);
+		Tile_19->tiger.push_back(false);
+		Tile_19->tiger.push_back(false);
+		Tile_19->tiger.push_back(false);
+		Tile_19->tiger.push_back(false);
+		Tile_19->tiger.push_back(false);
+		Tile_19->tiger.push_back(false);
+		Tile_19->tiger.push_back(false);
 		//Tile_19.type = {2,3,2,1,2,3,2,3};
 		//Tile_19.clusterid = {1,2,3,4,3,2,1,1};
 		//Tile_19.tiger = {false,false,false,false,false,false,false,false};
-		Tile_19.croc_count = 0;
-		Tile_19.Ox = false;
-		Tile_19.Boar = false;
-		Tile_19.Deer = false;
-		Tile_19.Den = false;
-		Tile_19.CenterClusterid = 0;
-		Tile_19.x = 0;
-		Tile_19.y = 0;
+		Tile_19->croc_count = 0;
+		Tile_19->Ox = false;
+		Tile_19->Boar = false;
+		Tile_19->Deer = false;
+		Tile_19->Den = false;
+		Tile_19->CenterClusterid = 0;
+		Tile_19->x = 0;
+		Tile_19->y = 0;
 		//Tile_19.completion[4] = {false};
 		return Tile_19;
 	}
 	else if(i == 19){
-		Tile Tile_20;
+		Tile *Tile_20 = new Tile();
 	//	Tile_20.des = {'T', 'L', 'T', 'J', 'D'};
-		Tile_20.des.push_back('T');
-		Tile_20.des.push_back('L');
-       		Tile_20.des.push_back('T');
-		Tile_20.des.push_back('J');
-		Tile_20.des.push_back('D');
-		Tile_20.type.push_back(2);
-		Tile_20.type.push_back(3);
-		Tile_20.type.push_back(2);
-		Tile_20.type.push_back(1);
-		Tile_20.type.push_back(2);
-		Tile_20.type.push_back(3);
-		Tile_20.type.push_back(2);
-		Tile_20.type.push_back(3);
-		Tile_20.clusterid.push_back(1);
-		Tile_20.clusterid.push_back(2);
-		Tile_20.clusterid.push_back(3);
-		Tile_20.clusterid.push_back(4);
-		Tile_20.clusterid.push_back(3);
-		Tile_20.clusterid.push_back(2);
-		Tile_20.clusterid.push_back(1);
-		Tile_20.clusterid.push_back(1);
-		Tile_20.tiger.push_back(false);
-		Tile_20.tiger.push_back(false);
-		Tile_20.tiger.push_back(false);
-		Tile_20.tiger.push_back(false);
-		Tile_20.tiger.push_back(false);
-		Tile_20.tiger.push_back(false);
-		Tile_20.tiger.push_back(false);
-		Tile_20.tiger.push_back(false);
+		Tile_20->des.push_back('T');
+		Tile_20->des.push_back('L');
+       		Tile_20->des.push_back('T');
+		Tile_20->des.push_back('J');
+		Tile_20->des.push_back('D');
+		Tile_20->type.push_back(2);
+		Tile_20->type.push_back(3);
+		Tile_20->type.push_back(2);
+		Tile_20->type.push_back(1);
+		Tile_20->type.push_back(2);
+		Tile_20->type.push_back(3);
+		Tile_20->type.push_back(2);
+		Tile_20->type.push_back(3);
+		Tile_20->clusterid.push_back(1);
+		Tile_20->clusterid.push_back(2);
+		Tile_20->clusterid.push_back(3);
+		Tile_20->clusterid.push_back(4);
+		Tile_20->clusterid.push_back(3);
+		Tile_20->clusterid.push_back(2);
+		Tile_20->clusterid.push_back(1);
+		Tile_20->clusterid.push_back(1);
+		Tile_20->tiger.push_back(false);
+		Tile_20->tiger.push_back(false);
+		Tile_20->tiger.push_back(false);
+		Tile_20->tiger.push_back(false);
+		Tile_20->tiger.push_back(false);
+		Tile_20->tiger.push_back(false);
+		Tile_20->tiger.push_back(false);
+		Tile_20->tiger.push_back(false);
 		//Tile_20.type = {2,3,2,1,2,3,2,3}; // has deer	
 		//Tile_20.clusterid = {1,2,3,4,3,2,1,1};
 		//Tile_20.tiger = {false,false,false,false,false,false,false,false};
-		Tile_20.croc_count = 0;
-		Tile_20.Ox = false;
-		Tile_20.Boar = false;
-		Tile_20.Deer = true;
-		Tile_20.Den = false;
-		Tile_20.CenterClusterid = 0;
-		Tile_20.x = 0;
-		Tile_20.y = 0;
+		Tile_20->croc_count = 0;
+		Tile_20->Ox = false;
+		Tile_20->Boar = false;
+		Tile_20->Deer = true;
+		Tile_20->Den = false;
+		Tile_20->CenterClusterid = 0;
+		Tile_20->x = 0;
+		Tile_20->y = 0;
 		//Tile_20.completion[4] = {false};
 		return Tile_20;
 	}
 	else if(i == 20){
-		Tile Tile_21;
+		Tile *Tile_21 = new Tile();
 	//	Tile_21.des = {'T', 'L', 'L', 'L', '-'};
-		Tile_21.des.push_back('T');
-		Tile_21.des.push_back('L');
-       		Tile_21.des.push_back('L');
-		Tile_21.des.push_back('L');
-		Tile_21.des.push_back('-');
-		Tile_21.type.push_back(2);
-		Tile_21.type.push_back(3);
-		Tile_21.type.push_back(2);
-		Tile_21.type.push_back(1);
-		Tile_21.type.push_back(1);
-		Tile_21.type.push_back(1);
-		Tile_21.type.push_back(1);
-		Tile_21.type.push_back(1);
-		Tile_21.clusterid.push_back(1);
-		Tile_21.clusterid.push_back(2);
-		Tile_21.clusterid.push_back(3);
-		Tile_21.clusterid.push_back(4);
-		Tile_21.clusterid.push_back(4);
-		Tile_21.clusterid.push_back(4);
-		Tile_21.clusterid.push_back(4);
-		Tile_21.clusterid.push_back(4);
-		Tile_21.tiger.push_back(false);
-		Tile_21.tiger.push_back(false);
-		Tile_21.tiger.push_back(false);
-		Tile_21.tiger.push_back(false);
-		Tile_21.tiger.push_back(false);
-		Tile_21.tiger.push_back(false);
-		Tile_21.tiger.push_back(false);
-		Tile_21.tiger.push_back(false);
+		Tile_21->des.push_back('T');
+		Tile_21->des.push_back('L');
+       		Tile_21->des.push_back('L');
+		Tile_21->des.push_back('L');
+		Tile_21->des.push_back('-');
+		Tile_21->type.push_back(2);
+		Tile_21->type.push_back(3);
+		Tile_21->type.push_back(2);
+		Tile_21->type.push_back(1);
+		Tile_21->type.push_back(1);
+		Tile_21->type.push_back(1);
+		Tile_21->type.push_back(1);
+		Tile_21->type.push_back(1);
+		Tile_21->clusterid.push_back(1);
+		Tile_21->clusterid.push_back(2);
+		Tile_21->clusterid.push_back(3);
+		Tile_21->clusterid.push_back(4);
+		Tile_21->clusterid.push_back(4);
+		Tile_21->clusterid.push_back(4);
+		Tile_21->clusterid.push_back(4);
+		Tile_21->clusterid.push_back(4);
+		Tile_21->tiger.push_back(false);
+		Tile_21->tiger.push_back(false);
+		Tile_21->tiger.push_back(false);
+		Tile_21->tiger.push_back(false);
+		Tile_21->tiger.push_back(false);
+		Tile_21->tiger.push_back(false);
+		Tile_21->tiger.push_back(false);
+		Tile_21->tiger.push_back(false);
 		//Tile_21.type = {2,3,2,1,1,1,1,1};
 		//Tile_21.clusterid = {1,2,3,4,4,4,4,4};
 		//Tile_21.tiger = {false,false,false,false,false,false,false,false};
-		Tile_21.croc_count = 0;
-		Tile_21.Ox = false;
-		Tile_21.Boar = false;
-		Tile_21.Deer = false;
-		Tile_21.Den = false;
-		Tile_21.CenterClusterid = 0;
-		Tile_21.x = 0;
-		Tile_21.y = 0;
-		//Tile_21.completion[4] = {false};
+		Tile_21->croc_count = 0;
+		Tile_21->Ox = false;
+		Tile_21->Boar = false;
+		Tile_21->Deer = false;
+		Tile_21->Den = false;
+		Tile_21->CenterClusterid = 0;
+		Tile_21->x = 0;
+		Tile_21->y = 0;
+		//Tile_*21.completion[4] = {false};
 		return Tile_21;
 	}
 	else if(i == 21){
-		Tile Tile_22;
+		Tile *Tile_22 = new Tile();
 	//	Tile_22.des = {'T', 'L', 'T', 'T', '-'};
-		Tile_22.des.push_back('T');
-		Tile_22.des.push_back('L');
-       		Tile_22.des.push_back('T');
-		Tile_22.des.push_back('T');
-		Tile_22.des.push_back('-');
-		Tile_22.type.push_back(2);
-		Tile_22.type.push_back(3);
-		Tile_22.type.push_back(2);
-		Tile_22.type.push_back(1);
-		Tile_22.type.push_back(2);
-		Tile_22.type.push_back(2);
-		Tile_22.type.push_back(2);
-		Tile_22.type.push_back(3);
-		Tile_22.clusterid.push_back(1);
-		Tile_22.clusterid.push_back(2);
-		Tile_22.clusterid.push_back(3);
-		Tile_22.clusterid.push_back(4);
-		Tile_22.clusterid.push_back(3);
-		Tile_22.clusterid.push_back(2);
-		Tile_22.clusterid.push_back(5);
-		Tile_22.clusterid.push_back(2);
-		Tile_22.tiger.push_back(false);
-		Tile_22.tiger.push_back(false);
-		Tile_22.tiger.push_back(false);
-		Tile_22.tiger.push_back(false);
-		Tile_22.tiger.push_back(false);
-		Tile_22.tiger.push_back(false);
-		Tile_22.tiger.push_back(false);
-		Tile_22.tiger.push_back(false);
+		Tile_22->des.push_back('T');
+		Tile_22->des.push_back('L');
+       		Tile_22->des.push_back('T');
+		Tile_22->des.push_back('T');
+		Tile_22->des.push_back('-');
+		Tile_22->type.push_back(2);
+		Tile_22->type.push_back(3);
+		Tile_22->type.push_back(2);
+		Tile_22->type.push_back(1);
+		Tile_22->type.push_back(2);
+		Tile_22->type.push_back(2);
+		Tile_22->type.push_back(2);
+		Tile_22->type.push_back(3);
+		Tile_22->clusterid.push_back(1);
+		Tile_22->clusterid.push_back(2);
+		Tile_22->clusterid.push_back(3);
+		Tile_22->clusterid.push_back(4);
+		Tile_22->clusterid.push_back(3);
+		Tile_22->clusterid.push_back(2);
+		Tile_22->clusterid.push_back(5);
+		Tile_22->clusterid.push_back(2);
+		Tile_22->tiger.push_back(false);
+		Tile_22->tiger.push_back(false);
+		Tile_22->tiger.push_back(false);
+		Tile_22->tiger.push_back(false);
+		Tile_22->tiger.push_back(false);
+		Tile_22->tiger.push_back(false);
+		Tile_22->tiger.push_back(false);
+		Tile_22->tiger.push_back(false);
 		//Tile_22.type = {2,3,2,1,2,2,2,3};
 		//Tile_22.clusterid = {1,2,3,4,3,2,5,2};
 		//Tile_22.tiger = {false,false,false,false,false,false,false,false};
-		Tile_22.croc_count = 0;
-		Tile_22.Ox = false;
-		Tile_22.Boar = false;
-		Tile_22.Deer = false;
-		Tile_22.Den = false;	
-		Tile_22.CenterClusterid = 0;
-		Tile_22.x = 0;
-		Tile_22.y = 0;
+		Tile_22->croc_count = 0;
+		Tile_22->Ox = false;
+		Tile_22->Boar = false;
+		Tile_22->Deer = false;
+		Tile_22->Den = false;	
+		Tile_22->CenterClusterid = 0;
+		Tile_22->x = 0;
+		Tile_22->y = 0;
 		//Tile_22.completion[4] = {false};
 		return Tile_22;
 	}
 	else if(i == 22){
-		Tile Tile_23;
+		Tile *Tile_23 = new Tile();
 	//	Tile_23.des = {'T', 'L', 'T', 'T', 'P'};
-		Tile_23.des.push_back('T');
-		Tile_23.des.push_back('L');
-       		Tile_23.des.push_back('T');
-		Tile_23.des.push_back('T');
-		Tile_23.des.push_back('P');
-		Tile_23.type.push_back(2);
-		Tile_23.type.push_back(3);
-		Tile_23.type.push_back(2);
-		Tile_23.type.push_back(1);
-		Tile_23.type.push_back(2);
-		Tile_23.type.push_back(2);
-		Tile_23.type.push_back(2);
-		Tile_23.type.push_back(3);
-		Tile_23.clusterid.push_back(1);
-		Tile_23.clusterid.push_back(2);
-		Tile_23.clusterid.push_back(3);
-		Tile_23.clusterid.push_back(4);
-		Tile_23.clusterid.push_back(3);
-		Tile_23.clusterid.push_back(2);
-		Tile_23.clusterid.push_back(5);
-		Tile_23.clusterid.push_back(2);
-		Tile_23.tiger.push_back(false);
-		Tile_23.tiger.push_back(false);
-		Tile_23.tiger.push_back(false);
-		Tile_23.tiger.push_back(false);
-		Tile_23.tiger.push_back(false);
-		Tile_23.tiger.push_back(false);
-		Tile_23.tiger.push_back(false);
-		Tile_23.tiger.push_back(false);
+		Tile_23->des.push_back('T');
+		Tile_23->des.push_back('L');
+       		Tile_23->des.push_back('T');
+		Tile_23->des.push_back('T');
+		Tile_23->des.push_back('P');
+		Tile_23->type.push_back(2);
+		Tile_23->type.push_back(3);
+		Tile_23->type.push_back(2);
+		Tile_23->type.push_back(1);
+		Tile_23->type.push_back(2);
+		Tile_23->type.push_back(2);
+		Tile_23->type.push_back(2);
+		Tile_23->type.push_back(3);
+		Tile_23->clusterid.push_back(1);
+		Tile_23->clusterid.push_back(2);
+		Tile_23->clusterid.push_back(3);
+		Tile_23->clusterid.push_back(4);
+		Tile_23->clusterid.push_back(3);
+		Tile_23->clusterid.push_back(2);
+		Tile_23->clusterid.push_back(5);
+		Tile_23->clusterid.push_back(2);
+		Tile_23->tiger.push_back(false);
+		Tile_23->tiger.push_back(false);
+		Tile_23->tiger.push_back(false);
+		Tile_23->tiger.push_back(false);
+		Tile_23->tiger.push_back(false);
+		Tile_23->tiger.push_back(false);
+		Tile_23->tiger.push_back(false);
+		Tile_23->tiger.push_back(false);
 		//Tile_23.type = {2,3,2,1,2,2,2,3}; // has boar	
 		//Tile_23.clusterid = {1,2,3,4,3,2,5,2};
 		//Tile_23.tiger = {false,false,false,false,false,false,false,false};
-		Tile_23.croc_count = 0;
-		Tile_23.Ox = false;
-		Tile_23.Boar = true;
-		Tile_23.Deer = false;
-		Tile_23.Den = false;
-		Tile_23.CenterClusterid = 0;
-		Tile_23.x = 0;
-		Tile_23.y = 0;
+		Tile_23->croc_count = 0;
+		Tile_23->Ox = false;
+		Tile_23->Boar = true;
+		Tile_23->Deer = false;
+		Tile_23->Den = false;
+		Tile_23->CenterClusterid = 0;
+		Tile_23->x = 0;
+		Tile_23->y = 0;
 		//Tile_23.completion[4] = {false};
 		return Tile_23;
 	}	
 	else if(i == 23){
-		Tile Tile_24;
+		Tile *Tile_24 = new Tile();
 	//	Tile_24.des = {'T', 'L', 'L', 'T', '-'};
-		Tile_24.des.push_back('T');
-		Tile_24.des.push_back('L');
-       		Tile_24.des.push_back('L');
-		Tile_24.des.push_back('T');
-		Tile_24.des.push_back('-');
-		Tile_24.type.push_back(2);
-		Tile_24.type.push_back(3);
-		Tile_24.type.push_back(2);
-		Tile_24.type.push_back(1);
-        Tile_24.type.push_back(1);
-		Tile_24.type.push_back(1);
-		Tile_24.type.push_back(2);
-		Tile_24.type.push_back(3);
-		Tile_24.clusterid.push_back(1);
-		Tile_24.clusterid.push_back(2);
-		Tile_24.clusterid.push_back(3);
-		Tile_24.clusterid.push_back(4);
-		Tile_24.clusterid.push_back(4);
-		Tile_24.clusterid.push_back(4);
-		Tile_24.clusterid.push_back(3);
-		Tile_24.clusterid.push_back(2);
-		Tile_24.tiger.push_back(false);
-		Tile_24.tiger.push_back(false);
-		Tile_24.tiger.push_back(false);
-		Tile_24.tiger.push_back(false);
-		Tile_24.tiger.push_back(false);
-		Tile_24.tiger.push_back(false);
-		Tile_24.tiger.push_back(false);
-		Tile_24.tiger.push_back(false);
+		Tile_24->des.push_back('T');
+		Tile_24->des.push_back('L');
+       		Tile_24->des.push_back('L');
+		Tile_24->des.push_back('T');
+		Tile_24->des.push_back('-');
+		Tile_24->type.push_back(2);
+		Tile_24->type.push_back(3);
+		Tile_24->type.push_back(2);
+		Tile_24->type.push_back(1);
+        Tile_24->type.push_back(1);
+		Tile_24->type.push_back(1);
+		Tile_24->type.push_back(2);
+		Tile_24->type.push_back(3);
+		Tile_24->clusterid.push_back(1);
+		Tile_24->clusterid.push_back(2);
+		Tile_24->clusterid.push_back(3);
+		Tile_24->clusterid.push_back(4);
+		Tile_24->clusterid.push_back(4);
+		Tile_24->clusterid.push_back(4);
+		Tile_24->clusterid.push_back(3);
+		Tile_24->clusterid.push_back(2);
+		Tile_24->tiger.push_back(false);
+		Tile_24->tiger.push_back(false);
+		Tile_24->tiger.push_back(false);
+		Tile_24->tiger.push_back(false);
+		Tile_24->tiger.push_back(false);
+		Tile_24->tiger.push_back(false);
+		Tile_24->tiger.push_back(false);
+		Tile_24->tiger.push_back(false);
 		//Tile_24.type = {2,3,2,1,1,1,2,3};
 		//Tile_24.clusterid = {1,2,3,4,4,4,3,2};
 		//Tile_24.tiger = {false,false,false,false,false,false,false,false};
-		Tile_24.croc_count = 0;
-		Tile_24.Ox = false;
-		Tile_24.Boar = false;
-		Tile_24.Deer = false;
-		Tile_24.Den = false;
-		Tile_24.CenterClusterid = 0;
-		Tile_24.x = 0;
-		Tile_24.y = 0;
+		Tile_24->croc_count = 0;
+		Tile_24->Ox = false;
+		Tile_24->Boar = false;
+		Tile_24->Deer = false;
+		Tile_24->Den = false;
+		Tile_24->CenterClusterid = 0;
+		Tile_24->x = 0;
+		Tile_24->y = 0;
 		//Tile_24.completion[4] = {false};
 		return Tile_24;
 	}
 	else if(i == 24){
-		Tile Tile_25;
+		Tile *Tile_25 = new Tile();
 	//	Tile_25.des = {'T', 'L', 'L', 'T', 'B'};
-		Tile_25.des.push_back('T');
-		Tile_25.des.push_back('L');
-       		Tile_25.des.push_back('L');
-		Tile_25.des.push_back('T');
-		Tile_25.des.push_back('B');
-		Tile_25.type.push_back(2);
-		Tile_25.type.push_back(3);
-		Tile_25.type.push_back(2);
-		Tile_25.type.push_back(1);
-		Tile_25.type.push_back(1);
-		Tile_25.type.push_back(1);
-		Tile_25.type.push_back(2);
-		Tile_25.type.push_back(3);
-		Tile_25.clusterid.push_back(1);
-		Tile_25.clusterid.push_back(2);
-		Tile_25.clusterid.push_back(3);
-		Tile_25.clusterid.push_back(4);
-		Tile_25.clusterid.push_back(4);
-		Tile_25.clusterid.push_back(3);
-		Tile_25.clusterid.push_back(2);
-		Tile_25.tiger.push_back(false);
-		Tile_25.tiger.push_back(false);
-		Tile_25.tiger.push_back(false);
-		Tile_25.tiger.push_back(false);
-		Tile_25.tiger.push_back(false);
-		Tile_25.tiger.push_back(false);
-		Tile_25.tiger.push_back(false);
-		Tile_25.tiger.push_back(false);
+		Tile_25->des.push_back('T');
+		Tile_25->des.push_back('L');
+       		Tile_25->des.push_back('L');
+		Tile_25->des.push_back('T');
+		Tile_25->des.push_back('B');
+		Tile_25->type.push_back(2);
+		Tile_25->type.push_back(3);
+		Tile_25->type.push_back(2);
+		Tile_25->type.push_back(1);
+		Tile_25->type.push_back(1);
+		Tile_25->type.push_back(1);
+		Tile_25->type.push_back(2);
+		Tile_25->type.push_back(3);
+		Tile_25->clusterid.push_back(1);
+		Tile_25->clusterid.push_back(2);
+		Tile_25->clusterid.push_back(3);
+		Tile_25->clusterid.push_back(4);
+		Tile_25->clusterid.push_back(4);
+		Tile_25->clusterid.push_back(3);
+		Tile_25->clusterid.push_back(2);
+		Tile_25->tiger.push_back(false);
+		Tile_25->tiger.push_back(false);
+		Tile_25->tiger.push_back(false);
+		Tile_25->tiger.push_back(false);
+		Tile_25->tiger.push_back(false);
+		Tile_25->tiger.push_back(false);
+		Tile_25->tiger.push_back(false);
+		Tile_25->tiger.push_back(false);
 		//Tile_25.type = {2,3,2,1,1,1,2,3}; // has ox
 		//Tile_25.clusterid = {1,2,3,4,4,4,3,2};
 		//Tile_25.tiger = {false,false,false,false,false,false,false,false};
-		Tile_25.croc_count = 0;
-		Tile_25.Ox = true;
-		Tile_25.Boar = false;
-		Tile_25.Deer = false;
-		Tile_25.Den = false;
-		Tile_25.CenterClusterid = 0;
-		Tile_25.x = 0;
-		Tile_25.y = 0;
+		Tile_25->croc_count = 0;
+		Tile_25->Ox = true;
+		Tile_25->Boar = false;
+		Tile_25->Deer = false;
+		Tile_25->Den = false;
+		Tile_25->CenterClusterid = 0;
+		Tile_25->x = 0;
+		Tile_25->y = 0;
 		//Tile_25.completion[4] = {false};
 		return Tile_25;
 	}
 	else if(i == 25){
-		Tile Tile_26;
+		Tile *Tile_26 = new Tile();
 	//	Tile_26.des = {'L', 'J', 'T', 'J', '-'};
-		Tile_26.des.push_back('L');
-		Tile_26.des.push_back('J');
-       		Tile_26.des.push_back('T');
-		Tile_26.des.push_back('J');
-		Tile_26.des.push_back('-');
-		Tile_26.type.push_back(2);
-		Tile_26.type.push_back(1);
-		Tile_26.type.push_back(2);
-		Tile_26.type.push_back(2);
-		Tile_26.type.push_back(2);
-		Tile_26.type.push_back(3);
-		Tile_26.type.push_back(2);
-		Tile_26.type.push_back(2);
-		Tile_26.clusterid.push_back(1);
-		Tile_26.clusterid.push_back(2);
-		Tile_26.clusterid.push_back(3);
-		Tile_26.clusterid.push_back(3);
-		Tile_26.clusterid.push_back(3);
-		Tile_26.clusterid.push_back(4);
-		Tile_26.clusterid.push_back(1);
-		Tile_26.clusterid.push_back(1);
-		Tile_26.tiger.push_back(false);
-		Tile_26.tiger.push_back(false);
-		Tile_26.tiger.push_back(false);
-		Tile_26.tiger.push_back(false);
-		Tile_26.tiger.push_back(false);
-		Tile_26.tiger.push_back(false);
-		Tile_26.tiger.push_back(false);
-		Tile_26.tiger.push_back(false);
+		Tile_26->des.push_back('L');
+		Tile_26->des.push_back('J');
+       		Tile_26->des.push_back('T');
+		Tile_26->des.push_back('J');
+		Tile_26->des.push_back('-');
+		Tile_26->type.push_back(2);
+		Tile_26->type.push_back(1);
+		Tile_26->type.push_back(2);
+		Tile_26->type.push_back(2);
+		Tile_26->type.push_back(2);
+		Tile_26->type.push_back(3);
+		Tile_26->type.push_back(2);
+		Tile_26->type.push_back(2);
+		Tile_26->clusterid.push_back(1);
+		Tile_26->clusterid.push_back(2);
+		Tile_26->clusterid.push_back(3);
+		Tile_26->clusterid.push_back(3);
+		Tile_26->clusterid.push_back(3);
+		Tile_26->clusterid.push_back(4);
+		Tile_26->clusterid.push_back(1);
+		Tile_26->clusterid.push_back(1);
+		Tile_26->tiger.push_back(false);
+		Tile_26->tiger.push_back(false);
+		Tile_26->tiger.push_back(false);
+		Tile_26->tiger.push_back(false);
+		Tile_26->tiger.push_back(false);
+		Tile_26->tiger.push_back(false);
+		Tile_26->tiger.push_back(false);
+		Tile_26->tiger.push_back(false);
 		//Tile_26.type = {2,1,2,2,2,3,2,2};
 		//Tile_26.clusterid = {1,2,3,3,3,4,1,1};
 		//Tile_26.tiger = {false,false,false,false,false,false,false,false};
-		Tile_26.croc_count = 0;
-		Tile_26.Ox = false;
-		Tile_26.Boar = false;
-		Tile_26.Deer = false;
-		Tile_26.Den = false;
-		Tile_26.CenterClusterid = 0;
-		Tile_26.x = 0;
-		Tile_26.y = 0;
+		Tile_26->croc_count = 0;
+		Tile_26->Ox = false;
+		Tile_26->Boar = false;
+		Tile_26->Deer = false;
+		Tile_26->Den = false;
+		Tile_26->CenterClusterid = 0;
+		Tile_26->x = 0;
+		Tile_26->y = 0;
 		//Tile_26.completion[4] = {false};
 		return Tile_26;
 	}
 	else if(i == 26){
-		Tile Tile_27;
+		Tile *Tile_27 = new Tile();
 	//	Tile_27.des = {'L', 'J', 'T', 'J', 'D'};
-		Tile_27.des.push_back('L');
-		Tile_27.des.push_back('J');
-       		Tile_27.des.push_back('T');
-		Tile_27.des.push_back('J');
-		Tile_27.des.push_back('D');
-		Tile_27.type.push_back(2);
-		Tile_27.type.push_back(1);
-		Tile_27.type.push_back(2);
-		Tile_27.type.push_back(2);
-		Tile_27.type.push_back(2);
-		Tile_27.type.push_back(3);
-		Tile_27.type.push_back(2);
-		Tile_27.type.push_back(2);
-		Tile_27.clusterid.push_back(1);
-		Tile_27.clusterid.push_back(2);
-		Tile_27.clusterid.push_back(3);
-		Tile_27.clusterid.push_back(3);
-		Tile_27.clusterid.push_back(3);
-		Tile_27.clusterid.push_back(4);
-		Tile_27.clusterid.push_back(1);
-		Tile_27.clusterid.push_back(1);
-		Tile_27.tiger.push_back(false);
-		Tile_27.tiger.push_back(false);
-		Tile_27.tiger.push_back(false);
-		Tile_27.tiger.push_back(false);
-		Tile_27.tiger.push_back(false);
-		Tile_27.tiger.push_back(false);
-		Tile_27.tiger.push_back(false);
-        Tile_27.tiger.push_back(false);
+		Tile_27->des.push_back('L');
+		Tile_27->des.push_back('J');
+       		Tile_27->des.push_back('T');
+		Tile_27->des.push_back('J');
+		Tile_27->des.push_back('D');
+		Tile_27->type.push_back(2);
+		Tile_27->type.push_back(1);
+		Tile_27->type.push_back(2);
+		Tile_27->type.push_back(2);
+		Tile_27->type.push_back(2);
+		Tile_27->type.push_back(3);
+		Tile_27->type.push_back(2);
+		Tile_27->type.push_back(2);
+		Tile_27->clusterid.push_back(1);
+		Tile_27->clusterid.push_back(2);
+		Tile_27->clusterid.push_back(3);
+		Tile_27->clusterid.push_back(3);
+		Tile_27->clusterid.push_back(3);
+		Tile_27->clusterid.push_back(4);
+		Tile_27->clusterid.push_back(1);
+		Tile_27->clusterid.push_back(1);
+		Tile_27->tiger.push_back(false);
+		Tile_27->tiger.push_back(false);
+		Tile_27->tiger.push_back(false);
+		Tile_27->tiger.push_back(false);
+		Tile_27->tiger.push_back(false);
+		Tile_27->tiger.push_back(false);
+		Tile_27->tiger.push_back(false);
+        Tile_27->tiger.push_back(false);
 		//Tile_27.type = {2,1,2,2,2,3,2,2}; // has deer
 		//Tile_27.clusterid = {1,2,3,3,3,4,1,1};
 		//Tile_27.tiger = {false,false,false,false,false,false,false,false};
-		Tile_27.croc_count = 0;
-		Tile_27.Ox = false;
-		Tile_27.Boar = false;
-		Tile_27.Deer = true;
-		Tile_27.Den = false;
-		Tile_27.CenterClusterid = 0;
-		Tile_27.x = 0;
-		Tile_27.y = 0;
+		Tile_27->croc_count = 0;
+		Tile_27->Ox = false;
+		Tile_27->Boar = false;
+		Tile_27->Deer = true;
+		Tile_27->Den = false;
+		Tile_27->CenterClusterid = 0;
+		Tile_27->x = 0;
+		Tile_27->y = 0;
 		//Tile_27.completion[4] = {false};
 		return Tile_27;
 	}
@@ -2301,56 +2379,56 @@ Tile tileStructure(int i)
 		Tile_28.type = {2,3,2,1,1,1,1,1};
 		Tile_28.clusterid = {1,2,3,4,4,4,4,4};
 		Tile_28.tiger = {false,false,false,false,false,false,false,false};
-		Tile_28.croc_count = 1;
-		Tile_28.Ox = false;
-		Tile_28.Boar = false;
-		Tile_28.Deer = false;
-		Tile_28.Den = false;
+		Tile_28->croc_count = 1;
+		Tile_28->Ox = false;
+		Tile_28->Boar = false;
+		Tile_28->Deer = false;
+		Tile_28->Den = false;
 		Tile_28.x = 0;
-		Tile_28.y = 0;
+		Tile_28->y = 0;
 		Tile_28.completion[4] = {false};
 		return Tile_28;*/
-		Tile Tile_28;
+		Tile *Tile_28 = new Tile();
 		//Tile_28.des = {'T', 'L', 'L', 'L', 'C'};
-		Tile_28.des.push_back('T');
-		Tile_28.des.push_back('L');
-       		Tile_28.des.push_back('L');
-		Tile_28.des.push_back('L');
-		Tile_28.des.push_back('C');
-		Tile_28.type.push_back(2);
-		Tile_28.type.push_back(3);
-		Tile_28.type.push_back(2);
-		Tile_28.type.push_back(1);
-		Tile_28.type.push_back(1);
-		Tile_28.type.push_back(1);
-		Tile_28.type.push_back(1);
-		Tile_28.type.push_back(1);
-		Tile_28.clusterid.push_back(1);
-		Tile_28.clusterid.push_back(2);
-		Tile_28.clusterid.push_back(3);
-		Tile_28.clusterid.push_back(4);
-		Tile_28.clusterid.push_back(4);
-		Tile_28.clusterid.push_back(4);
-		Tile_28.clusterid.push_back(4);
-		Tile_28.clusterid.push_back(4);
-		Tile_28.tiger.push_back(false);
-		Tile_28.tiger.push_back(false);
-		Tile_28.tiger.push_back(false);
-		Tile_28.tiger.push_back(false);
-		Tile_28.tiger.push_back(false);
-		Tile_28.tiger.push_back(false);
-		Tile_28.tiger.push_back(false);
-		Tile_28.tiger.push_back(false);
+		Tile_28->des.push_back('T');
+		Tile_28->des.push_back('L');
+       		Tile_28->des.push_back('L');
+		Tile_28->des.push_back('L');
+		Tile_28->des.push_back('C');
+		Tile_28->type.push_back(2);
+		Tile_28->type.push_back(3);
+		Tile_28->type.push_back(2);
+		Tile_28->type.push_back(1);
+		Tile_28->type.push_back(1);
+		Tile_28->type.push_back(1);
+		Tile_28->type.push_back(1);
+		Tile_28->type.push_back(1);
+		Tile_28->clusterid.push_back(1);
+		Tile_28->clusterid.push_back(2);
+		Tile_28->clusterid.push_back(3);
+		Tile_28->clusterid.push_back(4);
+		Tile_28->clusterid.push_back(4);
+		Tile_28->clusterid.push_back(4);
+		Tile_28->clusterid.push_back(4);
+		Tile_28->clusterid.push_back(4);
+		Tile_28->tiger.push_back(false);
+		Tile_28->tiger.push_back(false);
+		Tile_28->tiger.push_back(false);
+		Tile_28->tiger.push_back(false);
+		Tile_28->tiger.push_back(false);
+		Tile_28->tiger.push_back(false);
+		Tile_28->tiger.push_back(false);
+		Tile_28->tiger.push_back(false);
 		//Tile_28.clusterid = {1,2,3,4,4,4,4,4};
 		//Tile_28.tiger = {false,false,false,false,false,false,false,false};
-		Tile_28.croc_count = 1;
-		Tile_28.Ox = false;
-		Tile_28.Boar = false;
-		Tile_28.Deer = false;
-		Tile_28.Den = false;
-		Tile_28.CenterClusterid = 0;
-		Tile_28.x = 0;
-		Tile_28.y = 0;
+		Tile_28->croc_count = 1;
+		Tile_28->Ox = false;
+		Tile_28->Boar = false;
+		Tile_28->Deer = false;
+		Tile_28->Den = false;
+		Tile_28->CenterClusterid = 0;
+		Tile_28->x = 0;
+		Tile_28->y = 0;
 		//Tile_28.completion[4];
 		//Tile_28.completion[0] = false;
 		//Tile_28.completion[1] = false;
@@ -2359,39 +2437,15 @@ Tile tileStructure(int i)
 		return Tile_28;
         
         //cout<<"we made it"<<endl;
-	}
+    }else{
+        cout<<"SHIT"<<endl;
+    }
     
     
 }
 
 
-Tile* Player::getTile(char const* temp2){
-	//printf("In getTile\n");
-	char a = temp2[0];
-	char b = temp2[1];
-	char c = temp2[2];
-	char d = temp2[3];
-	char e = temp2[4];
-        //printf("In getTile passed chars\n");
-	for(int i = 0; i < 28; i++){
-		//tile structure holds all the hard coded values for each tile
-		//printf("%d\n", i);
-		Tile temp = tileStructure(i);
-		//printf("In getTile in For passed tileStructure\n");
-                Tile * ptr = &temp;
-		//vector<char> temp1 = ptr->des;
-		//printf("%d\n", i);
-		//printf("%c %c %c %c %c \n", a, b, c, d, e);
-		//printf("%c %c %c %c %c \n", temp.des.at(0), temp.des.at(1), temp.des.at(2), temp.des.at(3), temp.des.at(4));
-	        //printf("%c %c %c %c %c \n", ptr->des.at(0), ptr->des.at(1), ptr->des.at(2), ptr->des.at(3), ptr->des.at(4));
-		if(a == temp.des[0] && b == temp.des[1] && c == temp.des[2] && d == temp.des[3] && e == temp.des[4])
-		{
-		        //printf("%d\n", i);
-			return ptr;
-                }
-	}
-	printf("DID NOT FIND TILE!\n");
-}
+
 
 
 

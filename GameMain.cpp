@@ -164,10 +164,10 @@ int main (int argc, char *argv[]){
 
         //start new game
         Player * player1 = new Player();
-        //player1->startNewGame();
+//        player1->startNewGame();
 
         Player * player2 = new Player();
-        //player2->startNewGame();
+//        player2->startNewGame();
         
         //player1->runGame();
 
