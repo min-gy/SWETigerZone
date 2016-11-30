@@ -228,21 +228,35 @@ int main (int argc, char *argv[]){
            //ourGameMove1 = player1->giveMyMove_p(atoi(arr[10].c_str()), arr[12]);
 
         
+            int lengthOfMove = ourGameMove1.size();
             if(ourGameMove1.empty()){
                 reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
-        
+                
             }
             else
-	    {
-	         if(arr[12] == "JJJJX" || arr[12] == "JJTJX")
-		 {
-                     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " TIGER 5\r\n";
-		 }
-		 else //we want to place a tiger
-		 {
-		     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " NONE\r\n";
-		 }
+            {
+                if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && lengthOfMove == 4)
+                {
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " TIGER 5\r\n";
+                }else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && lengthOfMove == 5)
+                {
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " TIGER 5\r\n";
+                }else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && lengthOfMove == 6)
+                {
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
+                }
+                else if(lengthOfMove == 4)//we want to place a tiger
+                {
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " NONE\r\n";
+                }else if(lengthOfMove == 5)
+                {
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " NONE\r\n";
+                }else if(lengthOfMove == 6)
+                {
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + ourGameMove1.at(5) +" NONE\r\n";
+                }
             }
+
   
 
             // if(ourGameMove1[0] == 0){
@@ -279,21 +293,33 @@ int main (int argc, char *argv[]){
 
             //reply = *(ourGameMove2) + *(ourGameMove2+1);
 
-
+        int lengthOfMove = ourGameMove2.size();
             if(ourGameMove2.empty()){
                 reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
         
             }
             else
-	    {
-	         if(arr[12] == "JJJJX" || arr[12] == "JJTJX")
-		 {
-                     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " TIGER 5\r\n";
-		 }
-		 else //we want to place a tiger
-		 {
-		     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " NONE\r\n";
-		 }
+            {
+                 if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && lengthOfMove == 4)
+                 {
+                         reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " TIGER 5\r\n";
+                 }else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && lengthOfMove == 5)
+                 {
+                     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " TIGER 5\r\n";
+                 }else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && lengthOfMove == 6)
+                 {
+                     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + ourGameMove2.at(5) + " TIGER 5\r\n";
+                 }
+                 else if(lengthOfMove == 4)//we want to place a tiger
+                 {
+                     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " NONE\r\n";
+                 }else if(lengthOfMove == 5)
+                 {
+                     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " NONE\r\n";
+                 }else if(lengthOfMove == 6)
+                 {
+                     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + ourGameMove2.at(5) +" NONE\r\n";
+                 }
             }
  
 
@@ -342,22 +368,34 @@ int main (int argc, char *argv[]){
 
             //int k = *ourGameMove1;
 
-            if(ourGameMove1.empty()){
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
-        
+        int lengthOfMove = ourGameMove1.size();
+        if(ourGameMove1.empty()){
+            reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
+            
+        }
+        else
+        {
+            if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && lengthOfMove == 4)
+            {
+                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " TIGER 5\r\n";
+            }else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && lengthOfMove == 5)
+            {
+                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " TIGER 5\r\n";
+            }else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && lengthOfMove == 6)
+            {
+                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
             }
-            else
-	    {
-	         if(arr[12] == "JJJJX" || arr[12] == "JJTJX")
-		 {
-                     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " TIGER 5\r\n";
-		 }
-		 else //we want to place a tiger
-		 {
-		     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " NONE\r\n";
-		 }
+            else if(lengthOfMove == 4)//we want to place a tiger
+            {
+                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " NONE\r\n";
+            }else if(lengthOfMove == 5)
+            {
+                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " NONE\r\n";
+            }else if(lengthOfMove == 6)
+            {
+                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + ourGameMove1.at(5) +" NONE\r\n";
             }
- 
+        }
 
 
 /*
