@@ -87,6 +87,7 @@ int main(int argc, char *argv[])
 
 
      std::string message;
+     std::string cliMessage;
      char mesg[1024];
      //while(1)
      //{
@@ -98,6 +99,11 @@ int main(int argc, char *argv[])
        n = read(newsockfd,buffer,255);
        if (n < 0) error("ERROR reading from socket");
        printf("Here is the message: %s\n",buffer);
+       cliMessage = std::string(buffer);
+       if(cliMessage.compare("JOIN tp\r\n") != 0)
+       {
+         printf("Join message not correct\n");
+       }
 
        message = "HELLO!\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
