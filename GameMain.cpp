@@ -1,4 +1,7 @@
-
+//first start the server
+//then the client
+//./server.o 20001
+//./client.o 127.0.0.1 20001 tournamentPassword teamUserName teamPassword
 
 #include <vector>
 #include <iostream>
@@ -28,8 +31,8 @@ int main (int argc, char *argv[]){
 
     //move order: classification(holla for explaination), x, y, orientation, ZONE
 
-    vector<string> ourGameMove1;
-    vector<string> ourGameMove2;
+    vector<std::string> ourGameMove1;
+    vector<std::string> ourGameMove2;
     string tile;
 
 
@@ -218,158 +221,26 @@ int main (int argc, char *argv[]){
         //if this is for game1
         if (arr[5] == gameID1)
         {
-	    printf("About to make my move2\n");
+	        printf("About to make my move2\n");
             ourGameMove1 = player1->giveMyMove_p(atoi(arr[10].c_str()), arr[12]);
             printf("Ready to return move2\n");
-
-	    // if(ourGameMove1[0] == 0){
-
-            //reply = *(ourGameMove1) + *(ourGameMove1+1);
-
-           //ourGameMove1 = player1->giveMyMove_p(atoi(arr[10].c_str()), arr[12]);
-
-            int total = ourGameMove1.size();
-            int xLength = ourGameMove1.at(total - 3);
-            int yLength = ourGameMove1.at(total - 2);
-            int oLength = ourGameMove1.at(total - 1);
             
             if(ourGameMove1.empty())
             {
                 printf("Empty game move returned\n");
                 reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
-                
             }
             else
             {
-                if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && total == 4)
+                if((arr[12] != "JJJJX" && arr[12] != "JJTJX"))  //if not a den
                 {
-                    printf("Placing tiger with orientation 0\n");
+                    printf("Placing none\n");
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " NONE\r\n";
+                }
+                else  //if den we want to place a tiger
+                {
+                    printf("Placing tiger\n");
                     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " TIGER 5\r\n";
-                }
-                else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 1 && oLength == 2)
-                {
-                    printf("Placing tiger with orientation 90\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " TIGER 5\r\n";
-                }
-                else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 1 && oLength == 3)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
-                }
-                else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 1 && oLength == 3)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + ourGameMove1.at(5) + ourGameMove1.at(6) + " TIGER 5\r\n";
-                }
-                else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 2 && oLength == 3)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + ourGameMove1.at(5) + ourGameMove1.at(6) + " TIGER 5\r\n";
-                }
-                else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 2 && oLength == 3)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " " + ourGameMove1.at(5) + ourGameMove1.at(6) + ourGameMove1.at(7) + " TIGER 5\r\n";
-                }
-                else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 1 && oLength == 2)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
-                }
-                else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 1 && oLength == 2)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
-                }
-                else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 2 && oLength == 2)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
-                }
-                else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 2 && oLength == 2)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " " + ourGameMove1.at(5) + ourGameMove1.at(6) + " TIGER 5\r\n";
-                }
-                else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 1 && oLength == 1)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + " TIGER 5\r\n";
-                }
-                else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 2 && oLength == 1)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + " TIGER 5\r\n";
-                }
-                else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 2 && oLength == 1)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " " + ourGameMove1.at(5) + " TIGER 5\r\n";
-                }
-                else if(total == 4)
-                {
-                    printf("Placing tiger with orientation 0\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " TIGER 5\r\n";
-                }
-                else if(xLength == 1 && yLength == 1 && oLength == 2)
-                {
-                    printf("Placing tiger with orientation 90\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " TIGER 5\r\n";
-                }
-                else if(xLength == 1 && yLength == 1 && oLength == 3)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
-                }
-                else if(xLength == 2 && yLength == 1 && oLength == 3)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + ourGameMove1.at(5) + ourGameMove1.at(6) + " TIGER 5\r\n";
-                }
-                else if(xLength == 1 && yLength == 2 && oLength == 3)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + ourGameMove1.at(5) + ourGameMove1.at(6) + " TIGER 5\r\n";
-                }
-                else if(xLength == 2 && yLength == 2 && oLength == 3)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " " + ourGameMove1.at(5) + ourGameMove1.at(6) + ourGameMove1.at(7) + " TIGER 5\r\n";
-                }
-                else if(xLength == 1 && yLength == 1 && oLength == 2)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
-                }
-                else if(xLength == 2 && yLength == 1 && oLength == 2)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
-                }
-                else if(xLength == 1 && yLength == 2 && oLength == 2)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
-                }
-                else if(xLength == 2 && yLength == 2 && oLength == 2)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " " + ourGameMove1.at(5) + ourGameMove1.at(6) + " TIGER 5\r\n";
-                }
-                else if(xLength == 2 && yLength == 1 && oLength == 1)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + " TIGER 5\r\n";
-                }
-                else if(xLength == 1 && yLength == 2 && oLength == 1)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + " TIGER 5\r\n";
-                }
-                else if(xLength == 2 && yLength == 2 && oLength == 1)
-                {
-                    printf("Placing tiger with orientation 180 or 270\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " " + ourGameMove1.at(5) + " TIGER 5\r\n";
                 }
             }
 
@@ -401,158 +272,24 @@ int main (int argc, char *argv[]){
             ourGameMove2 = player2->giveMyMove_p(atoi(arr[10].c_str()), arr[12]);
             
 
-	    // if(ourGameMove1[0] == 0){
-
-            //reply = *(ourGameMove2) + *(ourGameMove2+1);
-
-           //ourGameMove2 = player2->giveMyMove_p(atoi(arr[10].c_str()), arr[12]);
-
-            //reply = *(ourGameMove2) + *(ourGameMove2+1);
-
-        int total = ourGameMove2.size();
-        int xLength = ourGameMove2.at(total - 3);
-        int yLength = ourGameMove2.at(total - 2);
-        int oLength = ourGameMove2.at(total - 1);
-        
-        if(ourGameMove2.empty()){
-            printf("Empty game move returned\n");
-            reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
-            
-        }
-        else
-        {
-            if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && total == 4)
+	        if(ourGameMove2.empty())
             {
-                printf("Placing tiger with orientation 0\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " TIGER 5\r\n";
+                printf("Empty game move returned\n");
+                reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
             }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 1 && oLength == 2)
+            else
             {
-                printf("Placing tiger with orientation 90\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " TIGER 5\r\n";
+                if((arr[12] != "JJJJX" && arr[12] != "JJTJX"))  //if not a den
+                {
+                    printf("Placing none\n");
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " NONE\r\n";
+                }
+                else  //if den we want to place a tiger
+                {
+                    printf("Placing tiger\n");
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " TIGER 5\r\n";
+                }
             }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 1 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 1 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + ourGameMove2.at(5) + ourGameMove2.at(6) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 2 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + ourGameMove2.at(5) + ourGameMove2.at(6) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 2 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " " + ourGameMove2.at(5) + ourGameMove2.at(6) + ourGameMove2.at(7) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 1 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 1 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 2 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 2 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " " + ourGameMove2.at(5) + ourGameMove2.at(6) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 1 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 2 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 2 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " " + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            //////////////////////////
-            else if(total == 4)
-            {
-                printf("Placing tiger with orientation 0\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 1 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 90\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 1 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 1 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + ourGameMove2.at(5) + ourGameMove2.at(6) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 2 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + ourGameMove2.at(5) + ourGameMove2.at(6) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 2 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " " + ourGameMove2.at(5) + ourGameMove2.at(6) + ourGameMove2.at(7) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 1 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 1 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 2 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 2 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " " + ourGameMove2.at(5) + ourGameMove2.at(6) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 1 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 2 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 2 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " " + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-        }
 
 /*
             if(ourGameMove2.empty()){
@@ -597,150 +334,23 @@ int main (int argc, char *argv[]){
             ourGameMove1 = player1->giveMyMove_p(atoi(arr[10].c_str()), arr[12]);
             printf("About to make my move\n");
 
-            //int k = *ourGameMove1;
-
-        int total = ourGameMove1.size();
-        int xLength = ourGameMove1.at(total - 3);
-        int yLength = ourGameMove1.at(total - 2);
-        int oLength = ourGameMove1.at(total - 1);
-        
-        if(ourGameMove1.empty()){
-            printf("Empty game move returned\n");
-            reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
-            
-        }
-        else
-        {
-            if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && total == 4)
+            if(ourGameMove1.empty())
             {
-                printf("Placing tiger with orientation 0\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " TIGER 5\r\n";
+                printf("Empty game move returned\n");
+                reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
             }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 1 && oLength == 2)
+            else
             {
-                printf("Placing tiger with orientation 90\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 1 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 1 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + ourGameMove1.at(5) + ourGameMove1.at(6) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 2 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + ourGameMove1.at(5) + ourGameMove1.at(6) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 2 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " " + ourGameMove1.at(5) + ourGameMove1.at(6) + ourGameMove1.at(7) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 1 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 1 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 2 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 2 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " " + ourGameMove1.at(5) + ourGameMove1.at(6) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 1 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 2 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 2 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " " + ourGameMove1.at(5) + " TIGER 5\r\n";
-            }
-            //////////////////////////
-            else if(total == 4)
-            {
-                printf("Placing tiger with orientation 0\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 1 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 90\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 1 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 1 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + ourGameMove1.at(5) + ourGameMove1.at(6) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 2 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + ourGameMove1.at(5) + ourGameMove1.at(6) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 2 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " " + ourGameMove1.at(5) + ourGameMove1.at(6) + ourGameMove1.at(7) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 1 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 1 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 2 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + ourGameMove1.at(5) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 2 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " " + ourGameMove1.at(5) + ourGameMove1.at(6) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 1 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 2 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + ourGameMove1.at(3) + " " + ourGameMove1.at(4) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 2 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + ourGameMove1.at(4) + " " + ourGameMove1.at(5) + " TIGER 5\r\n";
+                if((arr[12] != "JJJJX" && arr[12] != "JJTJX"))  //if not a den
+                {
+                    printf("Placing none\n");
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " NONE\r\n";
+                }
+                else  //if den we want to place a tiger
+                {
+                    printf("Placing tiger\n");
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " TIGER 5\r\n";
+                }
             }
 
 
@@ -783,151 +393,23 @@ int main (int argc, char *argv[]){
             //player compute move given Tile ID
             ourGameMove2 = player2->giveMyMove_p(atoi(arr[10].c_str()), arr[12]);
 
-            //reply = *(ourGameMove2) + *(ourGameMove2+1);
-
-        
-        int total = ourGameMove2.size();
-        int xLength = ourGameMove2.at(total - 3);
-        int yLength = ourGameMove2.at(total - 2);
-        int oLength = ourGameMove2.at(total - 1);
-        
-        if(ourGameMove2.empty()){
-            printf("Empty game move returned\n");
-            reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
-            
-        }
-        else
-        {
-            if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && total == 4)
+            if(ourGameMove2.empty())
             {
-                printf("Placing tiger with orientation 0\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " TIGER 5\r\n";
+                printf("Empty game move returned\n");
+                reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
             }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 1 && oLength == 2)
+            else
             {
-                printf("Placing tiger with orientation 90\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 1 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 1 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + ourGameMove2.at(5) + ourGameMove2.at(6) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 2 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + ourGameMove2.at(5) + ourGameMove2.at(6) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 2 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " " + ourGameMove2.at(5) + ourGameMove2.at(6) + ourGameMove2.at(7) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 1 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 1 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 2 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 2 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " " + ourGameMove2.at(5) + ourGameMove2.at(6) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 1 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 1 && yLength == 2 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + " TIGER 5\r\n";
-            }
-            else if((arr[12] == "JJJJX" || arr[12] == "JJTJX") && xLength == 2 && yLength == 2 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " " + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            //////////////////////////
-            else if(total == 4)
-            {
-                printf("Placing tiger with orientation 0\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 1 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 90\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 1 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 1 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + ourGameMove2.at(5) + ourGameMove2.at(6) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 2 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + ourGameMove2.at(5) + ourGameMove2.at(6) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 2 && oLength == 3)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " " + ourGameMove2.at(5) + ourGameMove2.at(6) + ourGameMove2.at(7) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 1 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 1 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 2 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + ourGameMove2.at(5) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 2 && oLength == 2)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " " + ourGameMove2.at(5) + ourGameMove2.at(6) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 1 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + " TIGER 5\r\n";
-            }
-            else if(xLength == 1 && yLength == 2 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + ourGameMove2.at(3) + " " + ourGameMove2.at(4) + " TIGER 5\r\n";
-            }
-            else if(xLength == 2 && yLength == 2 && oLength == 1)
-            {
-                printf("Placing tiger with orientation 180 or 270\n");
-                reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + ourGameMove2.at(4) + " " + ourGameMove2.at(5) + " TIGER 5\r\n";
+                if((arr[12] != "JJJJX" && arr[12] != "JJTJX"))  //if not a den
+                {
+                    printf("Placing none\n");
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " NONE\r\n";
+                }
+                else  //if den we want to place a tiger
+                {
+                    printf("Placing tiger\n");
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " TIGER 5\r\n";
+                }
             }
 
 
