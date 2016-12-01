@@ -71,7 +71,7 @@ public:
 	//void startNewGame();
 	//void runGame();
 	void addFirstTile_p(string, int, int , int);
-	vector<char> giveMyMove_p(int, string);
+	vector<string> giveMyMove_p(int, string);
 	void placeMove_p(string, int[], int);
 	void getTileStack(vector<string>);
 	void cleanUpGame();
@@ -435,7 +435,7 @@ void Player::InheritValue(ComponentTracker Child, ComponentTracker Parent)
 	//Only Check parents for scoring and updates
 }
 
-vector<char> Player::giveMyMove_p(int moveNum, string tile){
+vector<string> Player::giveMyMove_p(int moveNum, string tile){
 
         printf("In giveMyMove\n");
         int bvalue = -BESTVALUE;
@@ -449,7 +449,7 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
     
         vector<Tile*> movelist;
 
-        vector<char> bestmoves;
+        vector<string> bestmoves;
         movelist = generateMoves(_TileGrid, myTile);
     
     
@@ -499,32 +499,18 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
     ostringstream xC;
     xC << x;
     string xCoord = xC.str();
-    for(int i = 0; i < xCoord.size(); i++)
-    {
-        bestmoves.push_back(xC.str()[i]);
-    }
     bestmoves.push_back(xC);
          
     ostringstream yC;
     yC << y;
     string yCoord = yC.str();
-    for(int i = 0; i < yCoord.size(); i++)
-    {
-        bestmoves.push_back(yC.str()[i]);
-    }
     bestmoves.push_back(yC);
          
-    ostringstream s;
-    s << z;
-    string rotation = s.str();
-    for(int i = 0; i < rotation.size(); i++)
-    {
-        bestmoves.push_back(s.str()[i]);
-    }
+    ostringstream oC;
+    oC << z;
+    string oCoord = oC.str();
+    bestmoves.push_back(oCoord);
     
-    bestmoves.push_back(xCoord);
-    bestmoves.push_back(yCoord);
-    bestmoves.push_back(rotation);
     updateBoard(_TileGrid, x, y, myTile, z);
     
 
