@@ -809,6 +809,13 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     	while(!temp.empty())
         {
             cout<<"Generating moves"<<endl;
+            
+            for(int i = 0; i < 5; i++)
+            {
+                cout<<curTile->des.at(i);
+            }
+            
+            
     		curr = temp.back();
     		x = curr.x;
     		y = curr.y;
@@ -1053,6 +1060,12 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                 }else if(right)
                 {
                     tempTile2 = _TileGrid[x+1][y];
+                    
+                    for(int i = 0; i < 8; i++)
+                    {
+                        cout<<_TileGrid[x+1][y]->type.at(i);
+                    }
+                    
                     if(tempTile2->type.at(0) == tempTile1->type.at(c) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(6) == tempTile1->type.at(e))
                     {
                         cout<<"right"<<endl;
@@ -2422,7 +2435,7 @@ Tile *Player::tileStructure(int i)
 		Tile_19->type.push_back(2);
 		Tile_19->type.push_back(3);
 		Tile_19->type.push_back(2);
-		Tile_19->type.push_back(3);
+		Tile_19->type.push_back(2);
 		Tile_19->clusterid.push_back(1);
 		Tile_19->clusterid.push_back(2);
 		Tile_19->clusterid.push_back(3);
@@ -2468,7 +2481,7 @@ Tile *Player::tileStructure(int i)
 		Tile_20->type.push_back(2);
 		Tile_20->type.push_back(3);
 		Tile_20->type.push_back(2);
-		Tile_20->type.push_back(3);
+		Tile_20->type.push_back(2);
 		Tile_20->clusterid.push_back(1);
 		Tile_20->clusterid.push_back(2);
 		Tile_20->clusterid.push_back(3);
@@ -2558,7 +2571,7 @@ Tile *Player::tileStructure(int i)
 		Tile_22->type.push_back(2);
 		Tile_22->type.push_back(1);
 		Tile_22->type.push_back(2);
-		Tile_22->type.push_back(2);
+		Tile_22->type.push_back(3);
 		Tile_22->type.push_back(2);
 		Tile_22->type.push_back(3);
 		Tile_22->clusterid.push_back(1);
@@ -2604,7 +2617,7 @@ Tile *Player::tileStructure(int i)
 		Tile_23->type.push_back(2);
 		Tile_23->type.push_back(1);
 		Tile_23->type.push_back(2);
-		Tile_23->type.push_back(2);
+		Tile_23->type.push_back(3);
 		Tile_23->type.push_back(2);
 		Tile_23->type.push_back(3);
 		Tile_23->clusterid.push_back(1);
