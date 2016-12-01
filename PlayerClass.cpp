@@ -492,24 +492,29 @@ vector<string> Player::giveMyMove_p(int moveNum, string tile){
 //	 	}
 
     x = x - 77;
-    y = (153 - (y - 77));
     
-    bestmoves.push_back(0);
+    y = 77 - y;
+
+    
+    
+    bestmoves.push_back("0");
     
     ostringstream xC;
     xC << x;
     string xCoord = xC.str();
-    bestmoves.push_back(xC);
+    bestmoves.push_back(xCoord);
          
     ostringstream yC;
     yC << y;
     string yCoord = yC.str();
-    bestmoves.push_back(yC);
+    bestmoves.push_back(yCoord);
          
     ostringstream oC;
     oC << z;
     string oCoord = oC.str();
     bestmoves.push_back(oCoord);
+    
+    
     
     updateBoard(_TileGrid, x, y, myTile, z);
     
@@ -816,7 +821,6 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     		curr = temp.back();
     		x = curr.x;
     		y = curr.y;
-            
             cout<<"x is " << x<<endl;
             cout<<"y is " << y<<endl;
     		top = curr.top;
@@ -832,9 +836,8 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     		tempTile1 = curTile;
     		for(int m = 0; m<4; m++)
             {
-                tempTile1->x = curr.x;
-                tempTile1->y = curr.y;
-                tempTile1->orientation = 0;
+                
+                //tempTile1->orientation = 0;
                 
     			int a, b, c, d, e, f, g, h;
     			if(m == 0)
@@ -869,6 +872,8 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                             {
                                                 cout<<"bottom and right and left and top"<<endl;
                                                 cout<<"orientation is "<<z<<endl;
+                                                tempTile1->x = x;
+                                                tempTile1->y = y;
                                                 tempTile1->orientation = z;
                                                 movelist.push_back(tempTile1);
                                                 
@@ -892,6 +897,8 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                         {
                                             cout<<"bottom and right and top"<<endl;
                                             cout<<"orientation is "<<z<<endl;
+                                            tempTile1->x = x;
+                                            tempTile1->y = y;
                                             tempTile1->orientation = z;
                                             movelist.push_back(tempTile1);
                                         }
@@ -912,6 +919,8 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                     {
                                         cout<<"top and right and left"<<endl;
                                         cout<<"orientation is "<<z<<endl;
+                                        tempTile1->x = x;
+                                        tempTile1->y = y;
                                         tempTile1->orientation = z;
                                         movelist.push_back(tempTile1);
                                     }
@@ -928,6 +937,8 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                 {
                                     cout<<"top and right"<<endl;
                                     cout<<"orientation is "<<z<<endl;
+                                    tempTile1->x = x;
+                                    tempTile1->y = y;
                                     tempTile1->orientation = z;
                                     movelist.push_back(tempTile1);
                                 }
@@ -948,6 +959,8 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                 {
                                     cout<<"bottom and right and left"<<endl;
                                     cout<<"orientation is "<<z<<endl;
+                                    tempTile1->x = x;
+                                    tempTile1->y = y;
                                     tempTile1->orientation = z;
                                     movelist.push_back(tempTile1);
                                 }
@@ -965,6 +978,8 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                             {
                                 cout<<"bottom and top"<<endl;
                                 cout<<"orientation is "<<z<<endl;
+                                tempTile1->x = x;
+                                tempTile1->y = y;
                                 tempTile1->orientation = z;
                                 movelist.push_back(tempTile1);
                             }
@@ -977,6 +992,8 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                         {
                             cout<<"top"<<endl;
                             cout<<"orientation is "<<z<<endl;
+                            tempTile1->x = x;
+                            tempTile1->y = y;
                             tempTile1->orientation = z;
                             movelist.push_back(tempTile1);
                         }
@@ -995,6 +1012,8 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                             {
                                 cout<<"bottom and right and left"<<endl;
                                 cout<<"orientation is "<<z<<endl;
+                                tempTile1->x = x;
+                                tempTile1->y = y;
                                 tempTile1->orientation = z;
                                 movelist.push_back(tempTile1);
                             }
@@ -1011,6 +1030,8 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                         {
                             cout<<"bottom and left"<<endl;
                             cout<<"orientation is "<<z<<endl;
+                            tempTile1->x = x;
+                            tempTile1->y = y;
                             tempTile1->orientation = z;
                             movelist.push_back(tempTile1);
                         }
@@ -1026,6 +1047,8 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                         {
                             cout<<"left and right"<<endl;
                             cout<<"orientation is "<<z<<endl;
+                            tempTile1->x = x;
+                            tempTile1->y = y;
                             tempTile1->orientation = z;
                             movelist.push_back(tempTile1);
                         }
@@ -1042,6 +1065,8 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                         {
                             cout<<"bottom and right"<<endl;
                             cout<<"orientation is "<<z<<endl;
+                            tempTile1->x = x;
+                            tempTile1->y = y;
                             tempTile1->orientation = z;
                             movelist.push_back(tempTile1);
                         }
@@ -1053,6 +1078,8 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                     {
                         cout<<"left"<<endl;
                         cout<<"orientation is "<<z<<endl;
+                        tempTile1->x = x;
+                        tempTile1->y = y;
                         tempTile1->orientation = z;
                         movelist.push_back(tempTile1);
                     }
@@ -1069,6 +1096,8 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                     {
                         cout<<"right"<<endl;
                         cout<<"orientation is "<<z<<endl;
+                        tempTile1->x = x;
+                        tempTile1->y = y;
                         tempTile1->orientation = z;
                         movelist.push_back(tempTile1);
                     }
@@ -1079,12 +1108,16 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                     {
                         cout<<"bottom"<<endl;
                         cout<<"orientation is "<<z<<endl;
+                        tempTile1->x = x;
+                        tempTile1->y = y;
                         tempTile1->orientation = z;
                         movelist.push_back(tempTile1);
                     }
                 }else
                 {
                     cout<<"Nothing"<<endl;
+                    tempTile1->x = x;
+                    tempTile1->y = y;
                     tempTile1->orientation = z;
                     movelist.push_back(tempTile1);
                 }
@@ -2254,11 +2287,11 @@ Tile *Player::tileStructure(int i)
 		Tile_15->type.push_back(3);
 		Tile_15->clusterid.push_back(1);
 		Tile_15->clusterid.push_back(2);
-		Tile_15->clusterid.push_back(1);
 		Tile_15->clusterid.push_back(3);
-		Tile_15->clusterid.push_back(1);
-		Tile_15->clusterid.push_back(1);
-		Tile_15->clusterid.push_back(1);
+		Tile_15->clusterid.push_back(4);
+		Tile_15->clusterid.push_back(3);
+		Tile_15->clusterid.push_back(3);
+		Tile_15->clusterid.push_back(3);
 		Tile_15->clusterid.push_back(2);
 		Tile_15->tiger.push_back(false);
 		Tile_15->tiger.push_back(false);
@@ -2300,11 +2333,11 @@ Tile *Player::tileStructure(int i)
 		Tile_16->type.push_back(3);
 		Tile_16->clusterid.push_back(1);
 		Tile_16->clusterid.push_back(2);
-		Tile_16->clusterid.push_back(1);
 		Tile_16->clusterid.push_back(3);
-		Tile_16->clusterid.push_back(1);
-		Tile_16->clusterid.push_back(1);
-		Tile_16->clusterid.push_back(1);
+		Tile_16->clusterid.push_back(4);
+		Tile_16->clusterid.push_back(3);
+		Tile_16->clusterid.push_back(3);
+		Tile_16->clusterid.push_back(3);
 		Tile_16->clusterid.push_back(2);
 		Tile_16->tiger.push_back(false);
 		Tile_16->tiger.push_back(false);
