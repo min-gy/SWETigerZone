@@ -506,6 +506,8 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         bestmoves.push_back(s.str()[i]);
     }
     
+    updateBoard(_TileGrid, x, y, myTile, z);
+
 			
 			//m represents 0 for not placing anything, 1 for tiger on a feild, 2 for tiger on water, 3 for tiger on a path, and 4 for placing a croc
 			
@@ -602,7 +604,6 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 			}
 		}
 	}
-
     
     temp.top = true;
     temp.right = true;
