@@ -506,7 +506,10 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         bestmoves.push_back(s.str()[i]);
     }
     
+    x -= 48;
+    y -= 48;
     updateBoard(_TileGrid, x, y, myTile, z);
+    
 
 			
 			//m represents 0 for not placing anything, 1 for tiger on a feild, 2 for tiger on water, 3 for tiger on a path, and 4 for placing a croc
@@ -583,13 +586,17 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 	temp.right = false;
 	temp.left = false;
 	t->orientation = orien;
-
+    
+    int tempX = x + 77;
+    int tempY = y + 77;
+    
     x += 77;
     y += 77;
 	_TileGrid[x][y] = t;
 	_TilePresent[x][y] = true;
 	//if a newly placed value is in our emptyTiles we need to erase it
     cout<<"Updating board"<<endl;
+    
 	if(!emptyTiles.empty())
     {
         cout<<"FUCKme"<<endl;
@@ -713,6 +720,7 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
     temp.right = true;
     temp.bottom = true;
     temp.left = true;
+    
     
 }
 
