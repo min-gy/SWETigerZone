@@ -28,8 +28,8 @@ int main (int argc, char *argv[]){
 
     //move order: classification(holla for explaination), x, y, orientation, ZONE
 
-    vector<char> ourGameMove1;
-    vector<char> ourGameMove2;
+    vector<string> ourGameMove1;
+    vector<string> ourGameMove2;
     string tile;
 
 
