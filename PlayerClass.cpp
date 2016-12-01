@@ -793,7 +793,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     	while(!temp.empty())
         {
             cout<<"Generating moves"<<endl;
-            
+         
             for(int i = 0; i < 5; i++)
             {
                 cout<<curTile->des.at(i);
