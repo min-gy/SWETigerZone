@@ -56,7 +56,7 @@ public:
 	 int curScore;
 	 //Tile curTile;
 	 vector<emptySpace> emptyTiles;
-         ComponentTracker MainList[100];
+    ComponentTracker MainList[100];
     Tile *tileStructure(int);
     Tile *parseTile(string);
 	
@@ -77,7 +77,7 @@ public:
 
         void updateBoard(Tile*[153][153], int, int, Tile*, int);
         //Tile* getTile(char const*);
-        int* MiniMaxDecision(Tile*[153][153], int,  Tile*, vector<Tile*>);
+        Tile* MiniMaxDecision(Tile*[153][153], int,  Tile*, vector<Tile*>, vector<Tile*>);
         vector<Tile*> generateMoves(Tile*[153][153], Tile*);
         int *MinMoveDecision(Tile*[153][153], int, int, int, int, vector<Tile>, Tile);
         int *MaxMoveDecision(Tile*[153][153], int, int, int, int, vector<Tile>, Tile);
@@ -441,9 +441,9 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         int index = 0;
         //Tile * ptr = getTile(tile.c_str());
         Tile * myTile = parseTile(tile);
-        int * tileResult;
+        Tile * tileResult = new Tile;
 	printf("In giveMyMove ready for minimaxDecision\n");
-        //tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack);
+    
 
     
         vector<Tile*> movelist;
@@ -463,10 +463,8 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
 		//but we do need to know how to repond to both of these things if our opponent does this to us
         }
     
-//        int x = movelist.front();
-//        cout<<"POP"<<endl;
-//		cout << movelist.front() << " should be x" << endl;
-//		return bestmoves;
+        //tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack, movelist);
+
 		//but we do need to know how to repond to both of these things if our opponent does this to us
 	
 		
@@ -508,9 +506,6 @@ vector<char> Player::giveMyMove_p(int moveNum, string tile){
         bestmoves.push_back(s.str()[i]);
     }
     
-
-
-			
 			
 			//m represents 0 for not placing anything, 1 for tiger on a feild, 2 for tiger on water, 3 for tiger on a path, and 4 for placing a croc
 			
@@ -721,30 +716,18 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 }
 
 //start of minimax algorithm 
-int *Player::MiniMaxDecision(Tile * _TileGrid[153][153], int moveNum, Tile *t, vector<Tile*> temp) {
-        Tile * tile = t;
-	int bvalue = -BESTVALUE, index = 0, x, y, z;
-	vector<Tile*> movelist;
+Tile *Player::MiniMaxDecision(Tile * _TileGrid[153][153], int moveNum, Tile *t, vector<Tile*> temp, vector<Tile*> movelist)
+{
+    Tile * tile = t;
+    int bvalue = -BESTVALUE;
+    int index = 0;
+    int x, y, z;
+    Tile *bestTile = new Tile;
 	int bestmoves[4];
-	//this function generates only valid possible moves
-	movelist = generateMoves(_TileGrid, t);
-	//if generatemoves comes up with nothing then the tile doesnt work with the current board so need to handle the exceptions
-	if(movelist.size() == 0){
-		//we are going to do nothing
-		bestmoves[index] = 0;
-		bestmoves[index+1] = 0;
-		bestmoves[index+2] = 0;
-		bestmoves[index+3] = 0;
-        cout<<"movelist is still empty"<<endl;
-		return bestmoves;
-		//but we do need to know how to repond to both of these things if our opponent does this to us
-	}
+
 	//this next part evaluates the possible move and compares it with future moves
-	while(!movelist.empty()) {
 		x = movelist.at(0)->x;
-		
 		y = movelist.at(0)->y;
-		
 		z = movelist.at(0)->orientation;
 		
 		t->orientation = z;
@@ -753,7 +736,7 @@ int *Player::MiniMaxDecision(Tile * _TileGrid[153][153], int moveNum, Tile *t, v
 		//int value = MinMoveDecision(_TileGrid, x, y, z, moveNum+1, temp, t);
 		//usually this next part wouldnt be here, because we would be going into the min move decision...
 		//but for now we will just evaluate the current valid positions here
-        cout<<"movelist was full"<<endl;
+
 		int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, t);
         cout<<"evaluate position is working"<<endl;
 		if(value[0] > bvalue)
@@ -768,7 +751,7 @@ int *Player::MiniMaxDecision(Tile * _TileGrid[153][153], int moveNum, Tile *t, v
 		}
 		//since we havent chosen this location yet, I want to to go back to nothing
 		//_TileGrid[x][y] = NULL;
-	}
+    
     cout<<"evaluate position is working"<<endl;
 	int m = bestmoves[3];
 	if(m > 0 && m < 5)
@@ -779,7 +762,7 @@ int *Player::MiniMaxDecision(Tile * _TileGrid[153][153], int moveNum, Tile *t, v
 	updateComponents(_TileGrid, x, y);
 	//update components?
 	//update meeplecount?
-	return bestmoves;
+	return bestTile;
 }
 
 //generate possible valid moves, thinking of having it stacked as x, y, z, x, y, z, ... z being the orientation
@@ -821,7 +804,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     		y = curr.y;
             tempTile1->x = curr.x;
             tempTile1->y = curr.y;
-            tempTile1->orientation = z;
+            
             cout<<"x is " << x<<endl;
             cout<<"y is " << y<<endl;
     		top = curr.top;
@@ -870,7 +853,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                             {
                                                 cout<<"bottom and right and left and top"<<endl;
                                                 cout<<"orientation is "<<z<<endl;
-                                                
+                                                tempTile1->orientation = z;
                                                 movelist.push_back(tempTile1);
                                                 
                                                 
@@ -893,7 +876,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                         {
                                             cout<<"bottom and right and top"<<endl;
                                             cout<<"orientation is "<<z<<endl;
-                                            
+                                            tempTile1->orientation = z;
                                             movelist.push_back(tempTile1);
                                         }
                                     }
@@ -913,7 +896,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                     {
                                         cout<<"top and right and left"<<endl;
                                         cout<<"orientation is "<<z<<endl;
-                                        
+                                        tempTile1->orientation = z;
                                         movelist.push_back(tempTile1);
                                     }
                                 }
@@ -929,7 +912,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                 {
                                     cout<<"top and right"<<endl;
                                     cout<<"orientation is "<<z<<endl;
-                                    
+                                    tempTile1->orientation = z;
                                     movelist.push_back(tempTile1);
                                 }
 
@@ -949,7 +932,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                 {
                                     cout<<"bottom and right and left"<<endl;
                                     cout<<"orientation is "<<z<<endl;
-
+                                    tempTile1->orientation = z;
                                     movelist.push_back(tempTile1);
                                 }
                             }
@@ -966,7 +949,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                             {
                                 cout<<"bottom and top"<<endl;
                                 cout<<"orientation is "<<z<<endl;
-
+                                tempTile1->orientation = z;
                                 movelist.push_back(tempTile1);
                             }
                         }
@@ -978,7 +961,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                         {
                             cout<<"top"<<endl;
                             cout<<"orientation is "<<z<<endl;
-
+                            tempTile1->orientation = z;
                             movelist.push_back(tempTile1);
                         }
                     }
@@ -996,7 +979,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                             {
                                 cout<<"bottom and right and left"<<endl;
                                 cout<<"orientation is "<<z<<endl;
-
+                                tempTile1->orientation = z;
                                 movelist.push_back(tempTile1);
                             }
                         }
@@ -1012,7 +995,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                         {
                             cout<<"bottom and left"<<endl;
                             cout<<"orientation is "<<z<<endl;
-
+                            tempTile1->orientation = z;
                             movelist.push_back(tempTile1);
                         }
                     }
@@ -1027,7 +1010,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                         {
                             cout<<"left and right"<<endl;
                             cout<<"orientation is "<<z<<endl;
-
+                            tempTile1->orientation = z;
                             movelist.push_back(tempTile1);
                         }
                     }
@@ -1043,7 +1026,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                         {
                             cout<<"bottom and right"<<endl;
                             cout<<"orientation is "<<z<<endl;
-
+                            tempTile1->orientation = z;
                             movelist.push_back(tempTile1);
                         }
                     }
@@ -1054,7 +1037,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                     {
                         cout<<"left"<<endl;
                         cout<<"orientation is "<<z<<endl;
-
+                        tempTile1->orientation = z;
                         movelist.push_back(tempTile1);
                     }
                 }else if(right)
@@ -1070,7 +1053,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                     {
                         cout<<"right"<<endl;
                         cout<<"orientation is "<<z<<endl;
-
+                        tempTile1->orientation = z;
                         movelist.push_back(tempTile1);
                     }
                 }else if(bottom)
@@ -1080,12 +1063,13 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                     {
                         cout<<"bottom"<<endl;
                         cout<<"orientation is "<<z<<endl;
-
+                        tempTile1->orientation = z;
                         movelist.push_back(tempTile1);
                     }
                 }else
                 {
                     cout<<"Nothing"<<endl;
+                    tempTile1->orientation = z;
                     movelist.push_back(tempTile1);
                 }
             }
@@ -1398,7 +1382,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
 //returns the value of the tile at that location also any prunning needed
 //also any logic here can be changed or added, this is just a starting point for checking and such
 int *Player::evaluatePosition(Tile * _TileGrid[153][153], int x, int y, int z, int num, Tile *t) {
-	int value[2];
+	int value[0];
 	int mLocation = tigerLocation(_TileGrid, x, y, z, num, t);
     cout<<"the tiger location function works"<<endl;
 	//should first check to see if we are helping the other player out with this move and return '-'1, if we have time
