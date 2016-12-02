@@ -864,7 +864,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     		for(int m = 0; m<4; m++)
             {
                 
-                tempTile1 = curTile;
+                
     			if(m == 0)
                 {
                     z = 0;
@@ -876,12 +876,12 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                 }
     			else if(m == 2)
                 {
-                    rotate(tempTile1->type.begin(), tempTile1->type.begin() + 4, tempTile1->type.end());
+                    rotate(tempTile1->type.begin(), tempTile1->type.begin() + 2, tempTile1->type.end());
                     z = 180;
                 }
     			else if(m == 3)
                 {
-    				rotate(tempTile1->type.begin(), tempTile1->type.begin() + 6, tempTile1->type.end());
+    				rotate(tempTile1->type.begin(), tempTile1->type.begin() + 2, tempTile1->type.end());
                     z = 270;
                 }
     
