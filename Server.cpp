@@ -167,7 +167,7 @@ int main(int argc, char *argv[])
 
 //       vector<std::string> tiles = shuffleTiles();
 //       vector<std::string> tiles2 = shuffleTiles();
-       for(int k = 1; k < 3/*tiles.size()*/; k++)
+       for(int k = 1; k < 10/*tiles.size()*/; k++)
        {
 
        message = "MAKE YOUR MOVE IN GAME A WITHIN 1 SECOND(S): MOVE <#> PLACE " + tiles[k] + "\r\n";
