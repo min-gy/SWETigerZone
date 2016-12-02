@@ -1,9 +1,18 @@
 # Team S TigerZone
 
 ## Team Members and Usernames
-@min-gy Ming Yang 
-- Ryan Berndt
-- Karl Everett
-- Daniel Delgado
-- Erin Anderson
-- Nick Cerillo
+- Ming Yang @min-gy
+- Ryan Berndt @rberndt
+- Karl Everett @karlkniel
+- Daniel Delgado @danelgado
+- Erin Anderson @EMA1054
+- Nick Cerillo @nacerillo
+
+## To Implement Team Client
+To build client
+'''g++ GameMain.cpp -o client.o'''
+
+To run client
+'''./client.o'''
+
+## Known Bugs
