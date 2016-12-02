@@ -10,9 +10,9 @@
 
 ## To Implement Team Client
 To build client
-'''g++ GameMain.cpp -o client.o'''
+```g++ GameMain.cpp -o client.o```
 
 To run client
-'''./client.o'''
+```./client.o```
 
 ## Known Bugs
