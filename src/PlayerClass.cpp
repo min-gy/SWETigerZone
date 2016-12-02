@@ -608,18 +608,18 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 	//t->orientation = orien;
     
     
-//    if(orien == 90)
-//    {
-//        rotate(t->type.begin(), t->type.begin() + 2, t->type.end());
-//    }else if(orien == 180)
-//    {
-//        rotate(t->type.begin(), t->type.begin() + 2, t->type.end());
-//        rotate(t->type.begin(), t->type.begin() + 2, t->type.end());
-//    }else if(orien == 270)
-//    {
-//        rotate(t->type.begin(), t->type.begin() + 2, t->type.end());
-//        rotate(t->type.begin(), t->type.begin() + 4, t->type.end());
-//    }
+    if(orien == 90)
+    {
+        rotate(t->type.begin(), t->type.begin() + 2, t->type.end());
+    }else if(orien == 180)
+    {
+        rotate(t->type.begin(), t->type.begin() + 2, t->type.end());
+        rotate(t->type.begin(), t->type.begin() + 2, t->type.end());
+    }else if(orien == 270)
+    {
+        rotate(t->type.begin(), t->type.begin() + 2, t->type.end());
+        rotate(t->type.begin(), t->type.begin() + 4, t->type.end());
+    }
     
     cout<<endl;
     for(int i = 0; i < t->type.size(); i++)
