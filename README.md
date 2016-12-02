@@ -1,7 +1,7 @@
 # Team S TigerZone
 
-## Team Members
-- Ming Yang
+## Team Members and Usernames
+- @min-gy Ming Yang 
 - Ryan Berndt
 - Karl Everett
 - Daniel Delgado
