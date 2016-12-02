@@ -9,10 +9,8 @@
 - Nick Cerillo @nacerillo
 
 ## To Implement Team Client
-To build client
-```g++ GameMain.cpp -o client.o```
+To build client `g++ GameMain.cpp -o client.o`
 
-To run client
-```./client.o```
+To run client `./client.o`
 
 ## Known Bugs
