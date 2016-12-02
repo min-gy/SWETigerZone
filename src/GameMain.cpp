@@ -221,13 +221,13 @@ int main (int argc, char *argv[]){
         //if this is for game1
         if (arr[5] == gameID1)
         {
-	        printf("About to make my move2\n");
+	        //printf("About to make my move2\n");
             ourGameMove1 = player1->giveMyMove_p(atoi(arr[10].c_str()), arr[12]);
-            printf("Ready to return move2\n");
+            //printf("Ready to return move2\n");
             
             if(ourGameMove1.empty())
             {
-                printf("Empty game move returned\n");
+                //printf("Empty game move returned\n");
                 reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
             }
             else
@@ -274,19 +274,19 @@ int main (int argc, char *argv[]){
 
 	        if(ourGameMove2.empty())
             {
-                printf("Empty game move returned\n");
+                //printf("Empty game move returned\n");
                 reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
             }
             else
             {
                 if((arr[12] != "JJJJX" && arr[12] != "JJTJX"))  //if not a den
                 {
-                    printf("Placing none\n");
+                    //printf("Placing none\n");
                     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " NONE\r\n";
                 }
                 else  //if den we want to place a tiger
                 {
-                    printf("Placing tiger\n");
+                    //printf("Placing tiger\n");
                     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " TIGER 5\r\n";
                 }
             }
@@ -330,25 +330,25 @@ int main (int argc, char *argv[]){
 
             //tile = arr[12];
 
-            printf("About to make my move\n");
+            //printf("About to make my move\n");
             ourGameMove1 = player1->giveMyMove_p(atoi(arr[10].c_str()), arr[12]);
-            printf("About to make my move\n");
+            //printf("About to make my move\n");
 
             if(ourGameMove1.empty())
             {
-                printf("Empty game move returned\n");
+                //printf("Empty game move returned\n");
                 reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
             }
             else
             {
                 if((arr[12] != "JJJJX" && arr[12] != "JJTJX"))  //if not a den
                 {
-                    printf("Placing none\n");
+                    //printf("Placing none\n");
                     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " NONE\r\n";
                 }
                 else  //if den we want to place a tiger
                 {
-                    printf("Placing tiger\n");
+                    //printf("Placing tiger\n");
                     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " TIGER 5\r\n";
                 }
             }
@@ -395,19 +395,19 @@ int main (int argc, char *argv[]){
 
             if(ourGameMove2.empty())
             {
-                printf("Empty game move returned\n");
+                //printf("Empty game move returned\n");
                 reply = "GAME " + arr[5] + " MOVE " + arr[10] + " TILE " + arr[12] + " UNPLACEABLE PASS\r\n";
             }
             else
             {
                 if((arr[12] != "JJJJX" && arr[12] != "JJTJX"))  //if not a den
                 {
-                    printf("Placing none\n");
+                    //printf("Placing none\n");
                     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " NONE\r\n";
                 }
                 else  //if den we want to place a tiger
                 {
-                    printf("Placing tiger\n");
+                    //printf("Placing tiger\n");
                     reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " TIGER 5\r\n";
                 }
             }
@@ -484,7 +484,7 @@ int main (int argc, char *argv[]){
 		      theirArr[0] = atoi(arr[9].c_str());
                       theirArr[1] = atoi(arr[10].c_str());
                       theirArr[2] = atoi(arr[11].c_str());
-		      printf("Their Move: %d %d %d\n", theirArr[0], theirArr[1], theirArr[2]);
+		      //printf("Their Move: %d %d %d\n", theirArr[0], theirArr[1], theirArr[2]);
 		      player1->placeMove_p(arr[7], theirArr, 1);
                     }
 		    /*
@@ -526,7 +526,7 @@ int main (int argc, char *argv[]){
                     ourArr[1] = atoi(arr[10].c_str());
                     ourArr[2] = atoi(arr[11].c_str());
 		    printf("our Move: %d %d %d\n", ourArr[0], ourArr[1], ourArr[2]);
-		    player1->placeMove_p(arr[7], ourArr, 1);
+		    //player1->placeMove_p(arr[7], ourArr, 1);
 		    }
                 }
                 
@@ -559,7 +559,7 @@ int main (int argc, char *argv[]){
 		      theirArr[0] = atoi(arr[9].c_str());
                       theirArr[1] = atoi(arr[10].c_str());
                       theirArr[2] = atoi(arr[11].c_str());
-		      printf("Their Move: %d %d %d\n", theirArr[0], theirArr[1], theirArr[2]);
+		      //printf("Their Move: %d %d %d\n", theirArr[0], theirArr[1], theirArr[2]);
 		      player1->placeMove_p(arr[7], theirArr, 1);
                     }
 		    /*
@@ -601,7 +601,7 @@ int main (int argc, char *argv[]){
                     ourArr[1] = atoi(arr[10].c_str());
                     ourArr[2] = atoi(arr[11].c_str());
 		    printf("our Move: %d %d %d\n", ourArr[0], ourArr[1], ourArr[2]);
-		    player1->placeMove_p(arr[7], ourArr, 1);
+		    //player1->placeMove_p(arr[7], ourArr, 1);
 		    }
                 }
                 
@@ -635,7 +635,7 @@ int main (int argc, char *argv[]){
 		      theirArr[0] = atoi(arr[9].c_str());
                       theirArr[1] = atoi(arr[10].c_str());
                       theirArr[2] = atoi(arr[11].c_str());
-		      printf("Their Move: %d %d %d\n", theirArr[0], theirArr[1], theirArr[2]);
+		      //printf("Their Move: %d %d %d\n", theirArr[0], theirArr[1], theirArr[2]);
 		      player1->placeMove_p(arr[7], theirArr, 1);
                     }
 		    /*
@@ -676,8 +676,8 @@ int main (int argc, char *argv[]){
 		    ourArr[0] = atoi(arr[9].c_str());
                     ourArr[1] = atoi(arr[10].c_str());
                     ourArr[2] = atoi(arr[11].c_str());
-		    printf("our Move: %d %d %d\n", ourArr[0], ourArr[1], ourArr[2]);
-		    player1->placeMove_p(arr[7], ourArr, 1);
+		    //printf("our Move: %d %d %d\n", ourArr[0], ourArr[1], ourArr[2]);
+		    //player1->placeMove_p(arr[7], ourArr, 1);
 		    }
                 }
                 
@@ -711,7 +711,7 @@ int main (int argc, char *argv[]){
 		      theirArr[0] = atoi(arr[9].c_str());
                       theirArr[1] = atoi(arr[10].c_str());
                       theirArr[2] = atoi(arr[11].c_str());
-		      printf("Their Move: %d %d %d\n", theirArr[0], theirArr[1], theirArr[2]);
+		     // printf("Their Move: %d %d %d\n", theirArr[0], theirArr[1], theirArr[2]);
 		      player1->placeMove_p(arr[7], theirArr, 1);
                     }
 		    /*
@@ -752,8 +752,8 @@ int main (int argc, char *argv[]){
 		    ourArr[0] = atoi(arr[9].c_str());
                     ourArr[1] = atoi(arr[10].c_str());
                     ourArr[2] = atoi(arr[11].c_str());
-		    printf("our Move: %d %d %d\n", ourArr[0], ourArr[1], ourArr[2]);
-		    player1->placeMove_p(arr[7], ourArr, 1);
+		    //printf("our Move: %d %d %d\n", ourArr[0], ourArr[1], ourArr[2]);
+		    //player1->placeMove_p(arr[7], ourArr, 1);
 		    }
                 }
                 
@@ -801,7 +801,7 @@ int main (int argc, char *argv[]){
       }
       else
       {
-        printf("Else Reached\r\n");
+        //printf("Else Reached\r\n");
         reply = "wait\r\n";
       }
 

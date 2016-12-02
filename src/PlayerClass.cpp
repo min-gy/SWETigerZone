@@ -9,7 +9,6 @@
 //#include "GameEngine.cpp"
 #include "TileClass.cpp"
 
-//#include "GameEngine.cpp"
 typedef struct {
 
 	bool top;
@@ -25,7 +24,7 @@ typedef struct {
 	int ParentId;
 	int IncompleteSides;
 	int TileCount; //Includes tilecount + Shield value
-	//int TileRegion; //Castle = 1, Field = 2, Path = 3
+    //Lake = 1, Jungle = 2, Trail = 3
 	int MeepleCountMe;
 	int MeepleCountYou;
 	int type;
@@ -126,12 +125,13 @@ Player::~Player(){
 
 Tile *Player::parseTile(string tileLetters)
 {
-    int i;
+    int i = 0;
+    string check = "";
     
     for(i = 0; i < 28; i++)
     {
-        string check = "";
         
+        check = "";
         for(int j = 0; j < 5; j++)
         {
             check += tileStructure(i)->des.at(j);
@@ -143,7 +143,7 @@ Tile *Player::parseTile(string tileLetters)
         }
         
     }
-    
+    //cout<<"Tile given: "<<check<<endl;
     return tileStructure(i);
 }
 
@@ -184,7 +184,7 @@ void Player::addFirstTile_p(string tile, int x, int y, int orientation){
     y = y + 77;
     
     updateBoard(_TileGrid, x, y, parseTile(tile.c_str()), orientation);
-	printf("EmptyTiles size: %d\n", emptyTiles.size());
+	//printf("EmptyTiles size: %d\n", emptyTiles.size());
 
 }
 
@@ -443,14 +443,14 @@ void Player::InheritValue(ComponentTracker Child, ComponentTracker Parent)
 
 vector<string> Player::giveMyMove_p(int moveNum, string tile){
 
-        printf("In giveMyMove\n");
+        //printf("In giveMyMove\n");
         int bvalue = -BESTVALUE;
         int index = 0;
         //Tile * ptr = getTile(tile.c_str());
         Tile * myTile = new Tile;
-    myTile = parseTile(tile);
+        myTile = parseTile(tile);
         Tile * tileResult = new Tile;
-	printf("In giveMyMove ready for minimaxDecision\n");
+	//printf("In giveMyMove ready for minimaxDecision\n");
     
 
     
@@ -465,27 +465,27 @@ vector<string> Player::giveMyMove_p(int moveNum, string tile){
         {
 		//we are going to do nothing
 
-            cout<<"Why so empty"<<endl;
+            //cout<<"Why so empty"<<endl;
 
 		return bestmoves;
 		//but we do need to know how to repond to both of these things if our opponent does this to us
         }
-    
+        //We were going to have MiniMax Decision choose an index of movelist that was best move but we couldnt even get correct tile placement
         //tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack, movelist);
 
 		//but we do need to know how to repond to both of these things if our opponent does this to us
-    cout<<"number of possible moves: "<<movelist.size()<<endl;
+    //cout<<"number of possible moves: "<<movelist.size()<<endl;
 		
         int x = movelist.at(0)->x;
-        cout << x << " is x" << endl;
+        //cout << x << " is x" << endl;
     
     
-    int y = movelist.at(0)->y;
-        cout << y << " is y" << endl;
+        int y = movelist.at(0)->y;
+        //cout << y << " is y" << endl;
     
     
-    int z = movelist.at(0)->orientation;
-        cout << z << " is z" << endl;
+        int z = movelist.at(0)->orientation;
+        //cout << z << " is z" << endl;
         
 //        int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, myTile);
 //	 	if(value[0] > bvalue) {
@@ -506,7 +506,7 @@ vector<string> Player::giveMyMove_p(int moveNum, string tile){
     y = 77 - y;
 
     
-    
+    //0 = not placing tiger
     bestmoves.push_back("0");
     
     ostringstream xC;
@@ -608,18 +608,18 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 	//t->orientation = orien;
     
     
-//    if(orien == 90)
-//    {
-//        rotate(t->type.begin(), t->type.begin() + 2, t->type.end());
-//    }else if(orien == 180)
-//    {
-//        rotate(t->type.begin(), t->type.begin() + 2, t->type.end());
-//        rotate(t->type.begin(), t->type.begin() + 2, t->type.end());
-//    }else if(orien == 270)
-//    {
-//        rotate(t->type.begin(), t->type.begin() + 2, t->type.end());
-//        rotate(t->type.begin(), t->type.begin() + 4, t->type.end());
-//    }
+    if(orien == 90)
+    {
+        rotate(t->type.begin(), t->type.begin() + 2, t->type.end());
+    }else if(orien == 180)
+    {
+        rotate(t->type.begin(), t->type.begin() + 2, t->type.end());
+        rotate(t->type.begin(), t->type.begin() + 2, t->type.end());
+    }else if(orien == 270)
+    {
+        rotate(t->type.begin(), t->type.begin() + 2, t->type.end());
+        rotate(t->type.begin(), t->type.begin() + 4, t->type.end());
+    }
     
     cout<<endl;
     for(int i = 0; i < t->type.size(); i++)
@@ -640,7 +640,7 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
             
 			if(emptyTiles.at(i).x == x && emptyTiles.at(i).y == y)
             {
-                cout<<"Erased element at "<<x<< ", "<<y<<endl;
+                //cout<<"Erased element at "<<x<< ", "<<y<<endl;
 				emptyTiles.erase(emptyTiles.begin() + i);
                 s -= 1;
 			}
@@ -655,7 +655,7 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
     bool firstTime = emptyTiles.empty();
     if(!_TilePresent[x][y-1])
     {
-        cout<<"No top tile"<<endl;
+        //cout<<"No top tile"<<endl;
         temp.x = x;
         temp.y = y - 1;
         if(!_TilePresent[x][y-2])
@@ -680,7 +680,7 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 
     if(!_TilePresent[x+1][y])
     {
-        cout<<"No right tile"<<endl;
+        //cout<<"No right tile"<<endl;
         temp.x = x + 1;
         temp.y = y;
         if(!_TilePresent[x+2][y])
@@ -706,7 +706,7 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
     
     if(!_TilePresent[x][y+1])
     {
-        cout<<"No bottom tile"<<endl;
+        //cout<<"No bottom tile"<<endl;
         temp.x = x;
         temp.y = y + 1;
         if(!_TilePresent[x][y+2])
@@ -732,7 +732,7 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 
     if(!_TilePresent[x-1][y])
     {
-        cout<<"No left tile"<<endl;
+        //cout<<"No left tile"<<endl;
         temp.x = x - 1;
         temp.y = y;
         if(!_TilePresent[x-2][y])
@@ -751,10 +751,7 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
         emptyTiles.push_back(temp);
     }
     
-    temp.top = true;
-    temp.right = true;
-    temp.bottom = true;
-    temp.left = true;
+    
     
     
 }
@@ -822,17 +819,20 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     
 //        cout<<"the size of empty tiles in generate is " <<temp.size()<<endl;
     	emptySpace curr;
-    	Tile * tempTile1 = new Tile;
+    
+        Tile * tempTileHold = new Tile;
+    tempTileHold = curTile;
         Tile * tempTile2 = new Tile;
+    
         int x = 0;
         int y = 0;
-        int z = 0;
+        //int z = 0;
         bool top;
         bool bottom;
         bool left;
         bool right;
         vector<Tile*> movelist;
-    
+        //tempTile1 = curTile;
     	while(!temp.empty())
         {
 //            cout<<"Generating moves"<<endl;
@@ -858,33 +858,36 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
 //            cout<<"left is " << left<<endl;
 //            cout<<"right is " << right<<endl;
     		temp.pop_back();
-            tempTile1 = curTile;
+            //tempTile1 = curTile;
     		//tempTile1 = _TileGrid[x][y];
             
     		for(int m = 0; m<4; m++)
             {
                 
-                
+                int a, b, c, d, e, f, g, h, z;
     			if(m == 0)
                 {
+                    
+                    a = 0, b = 1, c = 2, d = 3, e = 4, f = 5, g = 6, h = 7;
                     z = 0;
                 }
     			else if(m == 1)
                 {
-                    rotate(tempTile1->type.begin(), tempTile1->type.begin() + 2, tempTile1->type.end());
+                    a = 2, b = 3, c = 4, d = 5, e = 6, f = 7, g = 0, h = 1;
                     z = 90;
                 }
     			else if(m == 2)
                 {
-                    rotate(tempTile1->type.begin(), tempTile1->type.begin() + 2, tempTile1->type.end());
+                    a = 4, b = 5, c = 6, d = 7, e = 0, f = 1, g = 2, h = 3;
                     z = 180;
                 }
     			else if(m == 3)
                 {
-    				rotate(tempTile1->type.begin(), tempTile1->type.begin() + 2, tempTile1->type.end());
+    				a = 6, b = 7, c = 0, d = 1, e = 2, f = 3, g = 4, h = 5;
                     z = 270;
                 }
-    
+                Tile * tempTile1 = new Tile;
+                tempTile1 = tempTileHold;
                 if(top)
                 {
                     if(right)
@@ -895,16 +898,16 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                             {
                                 //all sides
                                 tempTile2 = _TileGrid[x][y-1];
-                                if(tempTile2->type.at(4) == tempTile1->type.at(2) && tempTile2->type.at(5) == tempTile1->type.at(1) && tempTile2->type.at(6) == tempTile1->type.at(0))
+                                if(tempTile2->type.at(4) == tempTile1->type.at(c) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(6) == tempTile1->type.at(a))
                                 {
                                     tempTile2 = _TileGrid[x+1][y];
-                                    if(tempTile2->type.at(6) == tempTile1->type.at(4) && tempTile2->type.at(7) == tempTile1->type.at(3) && tempTile2->type.at(0) == tempTile1->type.at(2))
+                                    if(tempTile2->type.at(6) == tempTile1->type.at(e) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(0) == tempTile1->type.at(c))
                                     {
                                         tempTile2 = _TileGrid[x][y+1];
-                                        if(tempTile2->type.at(2) == tempTile1->type.at(4) && tempTile2->type.at(1) == tempTile1->type.at(5) && tempTile2->type.at(0) == tempTile1->type.at(6))
+                                        if(tempTile2->type.at(2) == tempTile1->type.at(e) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(0) == tempTile1->type.at(g))
                                         {
                                             tempTile2 = _TileGrid[x-1][y];
-                                            if(tempTile2->type.at(4) == tempTile1->type.at(6) && tempTile2->type.at(3) == tempTile1->type.at(7) && tempTile2->type.at(2) == tempTile1->type.at(0))
+                                            if(tempTile2->type.at(4) == tempTile1->type.at(g) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(2) == tempTile1->type.at(a))
                                             {
 //                                                cout<<"bottom and right and left and top"<<endl;
 //                                                cout<<"orientation is "<<z<<endl;
@@ -912,6 +915,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                                 tempTile1->y = y;
                                                 tempTile1->orientation = z;
                                                 movelist.push_back(tempTile1);
+                                                
                                             }
                                         }
                                     }
@@ -921,13 +925,13 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                             {
                                 //no left
                                 tempTile2 = _TileGrid[x][y-1];
-                                if(tempTile2->type.at(4) == tempTile1->type.at(2) && tempTile2->type.at(5) == tempTile1->type.at(1) && tempTile2->type.at(6) == tempTile1->type.at(0))
+                                if(tempTile2->type.at(4) == tempTile1->type.at(c) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(6) == tempTile1->type.at(a))
                                 {
                                     tempTile2 = _TileGrid[x+1][y];
-                                    if(tempTile2->type.at(6) == tempTile1->type.at(4) && tempTile2->type.at(7) == tempTile1->type.at(3) && tempTile2->type.at(0) == tempTile1->type.at(2))
+                                    if(tempTile2->type.at(6) == tempTile1->type.at(e) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(0) == tempTile1->type.at(c))
                                     {
                                         tempTile2 = _TileGrid[x][y+1];
-                                        if(tempTile2->type.at(2) == tempTile1->type.at(4) && tempTile2->type.at(1) == tempTile1->type.at(5) && tempTile2->type.at(0) == tempTile1->type.at(6))
+                                        if(tempTile2->type.at(2) == tempTile1->type.at(e) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(0) == tempTile1->type.at(g))
                                         {
 //                                            cout<<"bottom and right and top"<<endl;
 //                                            cout<<"orientation is "<<z<<endl;
@@ -935,6 +939,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                             tempTile1->y = y;
                                             tempTile1->orientation = z;
                                             movelist.push_back(tempTile1);
+                                            
                                         }
                                     }
                                 }
@@ -943,13 +948,13 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                         {
                             //no bottom
                             tempTile2 = _TileGrid[x][y-1];
-                            if(tempTile2->type.at(4) == tempTile1->type.at(2) && tempTile2->type.at(5) == tempTile1->type.at(1) && tempTile2->type.at(6) == tempTile1->type.at(0))
+                            if(tempTile2->type.at(4) == tempTile1->type.at(c) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(6) == tempTile1->type.at(a))
                             {
                                 tempTile2 = _TileGrid[x+1][y];
-                                if(tempTile2->type.at(6) == tempTile1->type.at(4) && tempTile2->type.at(7) == tempTile1->type.at(3) && tempTile2->type.at(0) == tempTile1->type.at(2))
+                                if(tempTile2->type.at(6) == tempTile1->type.at(e) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(0) == tempTile1->type.at(c))
                                 {
                                     tempTile2 = _TileGrid[x-1][y];
-                                    if(tempTile2->type.at(4) == tempTile1->type.at(6) && tempTile2->type.at(3) == tempTile1->type.at(7) && tempTile2->type.at(2) == tempTile1->type.at(0))
+                                    if(tempTile2->type.at(4) == tempTile1->type.at(g) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(2) == tempTile1->type.at(a))
                                     {
 //                                        cout<<"top and right and left"<<endl;
 //                                        cout<<"orientation is "<<z<<endl;
@@ -957,6 +962,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                         tempTile1->y = y;
                                         tempTile1->orientation = z;
                                         movelist.push_back(tempTile1);
+                                        
                                     }
                                 }
                             }
@@ -964,10 +970,10 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                         {
                             //right and top
                             tempTile2 = _TileGrid[x][y-1];
-                            if(tempTile2->type.at(4) == tempTile1->type.at(2) && tempTile2->type.at(5) == tempTile1->type.at(1) && tempTile2->type.at(6) == tempTile1->type.at(0))
+                            if(tempTile2->type.at(4) == tempTile1->type.at(c) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(6) == tempTile1->type.at(a))
                             {
                                 tempTile2 = _TileGrid[x+1][y];
-                                if(tempTile2->type.at(6) == tempTile1->type.at(4) && tempTile2->type.at(7) == tempTile1->type.at(3) && tempTile2->type.at(0) == tempTile1->type.at(2))
+                                if(tempTile2->type.at(6) == tempTile1->type.at(e) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(0) == tempTile1->type.at(c))
                                 {
 //                                    cout<<"top and right"<<endl;
 //                                    cout<<"orientation is "<<z<<endl;
@@ -975,6 +981,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                     tempTile1->y = y;
                                     tempTile1->orientation = z;
                                     movelist.push_back(tempTile1);
+                                    
                                 }
 
                             }
@@ -984,13 +991,13 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                         //no right
                         //FIXED
                         tempTile2 = _TileGrid[x][y-1];
-                        if(tempTile2->type.at(4) == tempTile1->type.at(2) && tempTile2->type.at(5) == tempTile1->type.at(1) && tempTile2->type.at(6) == tempTile1->type.at(0))
+                        if(tempTile2->type.at(4) == tempTile1->type.at(c) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(6) == tempTile1->type.at(a))
                         {
                             tempTile2 = _TileGrid[x][y+1];
-                            if(tempTile2->type.at(2) == tempTile1->type.at(4) && tempTile2->type.at(1) == tempTile1->type.at(5) && tempTile2->type.at(0) == tempTile1->type.at(6))
+                            if(tempTile2->type.at(2) == tempTile1->type.at(e) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(0) == tempTile1->type.at(g))
                             {
                                 tempTile2 = _TileGrid[x-1][y];
-                                if(tempTile2->type.at(4) == tempTile1->type.at(6) && tempTile2->type.at(3) == tempTile1->type.at(7) && tempTile2->type.at(2) == tempTile1->type.at(0))
+                                if(tempTile2->type.at(4) == tempTile1->type.at(g) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(2) == tempTile1->type.at(a))
                                 {
 //                                    cout<<"bottom and right and left"<<endl;
 //                                    cout<<"orientation is "<<z<<endl;
@@ -998,6 +1005,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                     tempTile1->y = y;
                                     tempTile1->orientation = z;
                                     movelist.push_back(tempTile1);
+                                    
                                 }
                             }
 
@@ -1006,10 +1014,10 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                     {
                         //Top and bottom
                         tempTile2 = _TileGrid[x][y-1];
-                        if(tempTile2->type.at(4) == tempTile1->type.at(2) && tempTile2->type.at(5) == tempTile1->type.at(1) && tempTile2->type.at(6) == tempTile1->type.at(0))
+                        if(tempTile2->type.at(4) == tempTile1->type.at(c) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(6) == tempTile1->type.at(a))
                         {
                             tempTile2 = _TileGrid[x][y+1];
-                            if(tempTile2->type.at(2) == tempTile1->type.at(4) && tempTile2->type.at(1) == tempTile1->type.at(5) && tempTile2->type.at(0) == tempTile1->type.at(6))
+                            if(tempTile2->type.at(2) == tempTile1->type.at(e) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(0) == tempTile1->type.at(g))
                             {
 //                                cout<<"bottom and top"<<endl;
 //                                cout<<"orientation is "<<z<<endl;
@@ -1017,13 +1025,28 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                 tempTile1->y = y;
                                 tempTile1->orientation = z;
                                 movelist.push_back(tempTile1);
+
                             }
                         }
-                    }else
+                    }else if(left)
+                    {
+                        tempTile2 = _TileGrid[x-1][y];
+                        if(tempTile2->type.at(4) == tempTile1->type.at(g) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(2) == tempTile1->type.at(a))
+                        {
+                            //                                    cout<<"bottom and right and left"<<endl;
+                            //                                    cout<<"orientation is "<<z<<endl;
+                            tempTile1->x = x;
+                            tempTile1->y = y;
+                            tempTile1->orientation = z;
+                            movelist.push_back(tempTile1);
+                            
+                        }
+                    }
+                    else
                     {
                         //just top
                         tempTile2 = _TileGrid[x][y-1];
-                        if(tempTile2->type.at(4) == tempTile1->type.at(2) && tempTile2->type.at(5) == tempTile1->type.at(1) && tempTile2->type.at(6) == tempTile1->type.at(0))
+                        if(tempTile2->type.at(4) == tempTile1->type.at(c) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(6) == tempTile1->type.at(a))
                         {
 //                            cout<<"top"<<endl;
 //                            cout<<"orientation is "<<z<<endl;
@@ -1031,6 +1054,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                             tempTile1->y = y;
                             tempTile1->orientation = z;
                             movelist.push_back(tempTile1);
+                            
                         }
                     }
                 }else if(bottom && left && right)
@@ -1038,13 +1062,13 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                     //no top
 //                    cout<<" only no top"<<endl;
                     tempTile2 = _TileGrid[x+1][y];
-                    if(tempTile2->type.at(6) == tempTile1->type.at(4) && tempTile2->type.at(7) == tempTile1->type.at(3) && tempTile2->type.at(0) == tempTile1->type.at(2))
+                    if(tempTile2->type.at(6) == tempTile1->type.at(e) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(0) == tempTile1->type.at(c))
                     {
                         tempTile2 = _TileGrid[x][y+1];
-                        if(tempTile2->type.at(2) == tempTile1->type.at(4) && tempTile2->type.at(1) == tempTile1->type.at(5) && tempTile2->type.at(0) == tempTile1->type.at(6))
+                        if(tempTile2->type.at(2) == tempTile1->type.at(e) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(0) == tempTile1->type.at(g))
                         {
                             tempTile2 = _TileGrid[x-1][y];
-                            if(tempTile2->type.at(4) == tempTile1->type.at(6) && tempTile2->type.at(3) == tempTile1->type.at(7) && tempTile2->type.at(2) == tempTile1->type.at(0))
+                            if(tempTile2->type.at(4) == tempTile1->type.at(g) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(2) == tempTile1->type.at(a))
                             {
 //                                cout<<"bottom and right and left"<<endl;
 //                                cout<<"orientation is "<<z<<endl;
@@ -1052,6 +1076,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                                 tempTile1->y = y;
                                 tempTile1->orientation = z;
                                 movelist.push_back(tempTile1);
+                                
                             }
                         }
                     }
@@ -1060,10 +1085,12 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                     //bottom and left
 //                    cout<<"were in 1, 1"<<endl;
                     tempTile2 = _TileGrid[x][y+1];
-                    if(tempTile2->type.at(2) == tempTile1->type.at(4) && tempTile2->type.at(1) == tempTile1->type.at(5) && tempTile2->type.at(0) == tempTile1->type.at(6))
+                    
+                    if((tempTile2->type.at(2) == tempTile1->type.at(e)) && (tempTile2->type.at(1) == tempTile1->type.at(f)) && (tempTile2->type.at(0) == tempTile1->type.at(g)))
                     {
                         tempTile2 = _TileGrid[x-1][y];
-                        if(tempTile2->type.at(4) == tempTile1->type.at(6) && tempTile2->type.at(3) == tempTile1->type.at(7) && tempTile2->type.at(2) == tempTile1->type.at(0))
+                        
+                        if((tempTile2->type.at(4) == tempTile1->type.at(g)) && (tempTile2->type.at(3) == tempTile1->type.at(h)) && (tempTile2->type.at(2) == tempTile1->type.at(a)))
                         {
 //                          cout<<"bottom and left"<<endl;
 //                            cout<<"orientation is "<<z<<endl;
@@ -1071,16 +1098,17 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                             tempTile1->y = y;
                             tempTile1->orientation = z;
                             movelist.push_back(tempTile1);
+                            
                         }
                     }
                 }else if(left && right)
                 {
                     //left and right
                     tempTile2 = _TileGrid[x+1][y];
-                    if(tempTile2->type.at(6) == tempTile1->type.at(4) && tempTile2->type.at(7) == tempTile1->type.at(3) && tempTile2->type.at(0) == tempTile1->type.at(2))
+                    if(tempTile2->type.at(6) == tempTile1->type.at(e) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(0) == tempTile1->type.at(c))
                     {
                         tempTile2 = _TileGrid[x-1][y];
-                        if(tempTile2->type.at(4) == tempTile1->type.at(6) && tempTile2->type.at(3) == tempTile1->type.at(7) && tempTile2->type.at(2) == tempTile1->type.at(0))
+                        if(tempTile2->type.at(4) == tempTile1->type.at(g) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(2) == tempTile1->type.at(a))
                         {
 //                            cout<<"left and right"<<endl;
 //                            cout<<"orientation is "<<z<<endl;
@@ -1088,17 +1116,21 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                             tempTile1->y = y;
                             tempTile1->orientation = z;
                             movelist.push_back(tempTile1);
+                            
                         }
                     }
                 }else if(bottom && right)
                 {
                     //bottom and right
-                    
+                   
                     tempTile2 = _TileGrid[x][y+1];
-                    if(tempTile2->type.at(2) == tempTile1->type.at(4) && tempTile2->type.at(1) == tempTile1->type.at(5) && tempTile2->type.at(0) == tempTile1->type.at(6))
+                    
+                    if((tempTile2->type.at(2) == tempTile1->type.at(e)) && (tempTile2->type.at(1) == tempTile1->type.at(f)) && (tempTile2->type.at(0) == tempTile1->type.at(g)))
                     {
                         tempTile2 = _TileGrid[x+1][y];
-                        if(tempTile2->type.at(6) == tempTile1->type.at(4) && tempTile2->type.at(7) == tempTile1->type.at(3) && tempTile2->type.at(0) == tempTile1->type.at(2))
+                        
+                        
+                        if((tempTile2->type.at(6) == tempTile1->type.at(e)) && (tempTile2->type.at(7) == tempTile1->type.at(d)) && (tempTile2->type.at(0) == tempTile1->type.at(c)))
                         {
 //                            cout<<"bottom and right"<<endl;
 //                            cout<<"orientation is "<<z<<endl;
@@ -1106,12 +1138,13 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                             tempTile1->y = y;
                             tempTile1->orientation = z;
                             movelist.push_back(tempTile1);
+                            
                         }
                     }
                 }else if(left)
                 {
                     tempTile2 = _TileGrid[x-1][y];
-                    if(tempTile2->type.at(4) == tempTile1->type.at(6) && tempTile2->type.at(3) == tempTile1->type.at(7) && tempTile2->type.at(2) == tempTile1->type.at(0))
+                    if(tempTile2->type.at(4) == tempTile1->type.at(g) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(2) == tempTile1->type.at(a))
                     {
 //                        cout<<"left"<<endl;
 //                        cout<<"orientation is "<<z<<endl;
@@ -1119,6 +1152,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                         tempTile1->y = y;
                         tempTile1->orientation = z;
                         movelist.push_back(tempTile1);
+                        
                     }
                 }else if(right)
                 {
@@ -1129,7 +1163,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
 //                        cout<<_TileGrid[x+1][y]->type.at(i);
 //                    }
                     
-                    if(tempTile2->type.at(6) == tempTile1->type.at(4) && tempTile2->type.at(7) == tempTile1->type.at(3) && tempTile2->type.at(0) == tempTile1->type.at(2))
+                    if(tempTile2->type.at(6) == tempTile1->type.at(e) && tempTile2->type.at(7) == tempTile1->type.at(d) && tempTile2->type.at(0) == tempTile1->type.at(c))
                     {
 //                        cout<<"right"<<endl;
 //                        cout<<"orientation is "<<z<<endl;
@@ -1137,11 +1171,12 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                         tempTile1->y = y;
                         tempTile1->orientation = z;
                         movelist.push_back(tempTile1);
+                        
                     }
                 }else if(bottom)
                 {
                     tempTile2 = _TileGrid[x][y+1];
-                    if(tempTile2->type.at(2) == tempTile1->type.at(4) && tempTile2->type.at(1) == tempTile1->type.at(5) && tempTile2->type.at(0) == tempTile1->type.at(6))
+                    if(tempTile2->type.at(2) == tempTile1->type.at(e) && tempTile2->type.at(1) == tempTile1->type.at(f) && tempTile2->type.at(0) == tempTile1->type.at(g))
                     {
 //                        cout<<"bottom"<<endl;
 //                        cout<<"orientation is "<<z<<endl;
@@ -1149,6 +1184,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                         tempTile1->y = y;
                         tempTile1->orientation = z;
                         movelist.push_back(tempTile1);
+                        
                     }
                 }else
                 {
@@ -1157,7 +1193,9 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                     tempTile1->y = y;
                     tempTile1->orientation = z;
                     movelist.push_back(tempTile1);
+                    
                 }
+                
             }
         
         }
@@ -1235,7 +1273,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
 int *Player::evaluatePosition(Tile * _TileGrid[153][153], int x, int y, int z, int num, Tile *t) {
 	int value[0];
 	int mLocation = tigerLocation(_TileGrid, x, y, z, num, t);
-    cout<<"the tiger location function works"<<endl;
+    //cout<<"the tiger location function works"<<endl;
 	//should first check to see if we are helping the other player out with this move and return '-'1, if we have time
 	if(mLocation  > 0){
 		//return a value of 10 for feilds
@@ -1280,7 +1318,7 @@ int *Player::evaluatePosition(Tile * _TileGrid[153][153], int x, int y, int z, i
 int Player::tigerLocation(Tile * _TileGrid[153][153], int x, int y, int z, int moveNum, Tile *t){
     int options[9];
 	tigerCheck(options, _TileGrid, x, y, t);
-    cout<<"the tiger check function works"<<endl;
+    //cout<<"the tiger check function works"<<endl;
 	//moveNum is, for example, move number 2 or 3 so to get number of tiles left we subtract it from 76
 	int num = 76 - moveNum;
 	//options[0] = the feild, options[1] = the water, options[2] = the path, options[3] = places a crocodile, options[4] = den
@@ -1350,7 +1388,7 @@ void Player::tigerCheck(int options[9], Tile * _TileGrid[153][153], int x, int y
         options[6] = 0;
         options[7] = 0;
         options[8] = 0;
-        cout<<"out of tigers"<<endl;
+        //cout<<"out of tigers"<<endl;
     }
 	else{
 		options[0] = 0;
@@ -1358,15 +1396,15 @@ void Player::tigerCheck(int options[9], Tile * _TileGrid[153][153], int x, int y
 		options[2] = 0;
 		options[3] = 0;
 		//options[4] = 0;
-        cout<<"hmmmm"<<endl;
+        //cout<<"hmmmm"<<endl;
         int q;
         if(_TilePresent[x][y+1])
         {
             q = _TileGrid[x][y]->clusterid.at(5);
-            cout<<"q was set"<<endl;
+            //cout<<"q was set"<<endl;
             while (q != MainList[q].ParentId)
             {
-                cout<<"q could be compared to Mainlist"<<endl;
+                //cout<<"q could be compared to Mainlist"<<endl;
                 q = MainList[q].ParentId;
             }
             if ((_TileGrid[x][y+1]->type.at(5) == 1 || _TileGrid[x][y+1]->type.at(5) == 3) && MainList[q].MeepleCountMe == 0 && MainList[q].MeepleCountYou == 0)
@@ -2733,7 +2771,7 @@ Tile *Player::tileStructure(int i)
         
         //cout<<"we made it"<<endl;
     }else{
-        cout<<"SHIT"<<endl;
+        //cout<<"couldnt find tile"<<endl;
     }
     
     
