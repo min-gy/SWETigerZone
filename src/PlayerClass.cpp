@@ -4,6 +4,7 @@
 #include <list>
 #include <sstream>
 #include <cstdlib>
+#include <algorithm>
 //#include "GameEngine.cpp"
 #include "TileClass.cpp"
 
@@ -605,8 +606,17 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
 	t->orientation = orien;
     
     
-//    x = x + 77;
-//    y = 77 + y;
+    if(orien == 90)
+    {
+        
+    }else if(orien == 180)
+    {
+        
+    }else if(orien == 270)
+    {
+        
+    }
+    
 	_TileGrid[x][y] = t;
 	_TilePresent[x][y] = true;
 	//if a newly placed value is in our emptyTiles we need to erase it
