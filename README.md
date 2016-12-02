@@ -20,7 +20,7 @@ Run client using `./client.o` and arguments of IP address of server, port number
 
 `./client.o <server IP address> <port connecting to> <tournament password> <team username> <team password>`
 
-## Lmitations & Bugs
+## Limitations & Bugs
 Found in issues section
 
 ## Design Documentation
