@@ -849,8 +849,8 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     		left = curr.left;
     		right = curr.right;
             
-            cout<<"x of empty space is " << x<<endl;
-            cout<<"y of empty space is " << y<<endl;
+//            cout<<"x of empty space is " << x<<endl;
+//            cout<<"y of empty space is " << y<<endl;
 //            cout<<"top is " << top<<endl;
 //            cout<<"bottom is " << bottom<<endl;
 //            cout<<"left is " << left<<endl;
@@ -858,12 +858,11 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     		temp.pop_back();
             tempTile1 = curTile;
     		//tempTile1 = _TileGrid[x][y];
-            int z;
+            
     		for(int m = 0; m<4; m++)
             {
                 
                 //tempTile1->orientation = 0;
-                
     			if(m == 0)
                 {
                     z = 0;
