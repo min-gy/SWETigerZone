@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -446,7 +447,8 @@ vector<string> Player::giveMyMove_p(int moveNum, string tile){
         int bvalue = -BESTVALUE;
         int index = 0;
         //Tile * ptr = getTile(tile.c_str());
-        Tile * myTile = parseTile(tile);
+        Tile * myTile = new Tile;
+    myTile = parseTile(tile);
         Tile * tileResult = new Tile;
 	printf("In giveMyMove ready for minimaxDecision\n");
     
@@ -472,17 +474,17 @@ vector<string> Player::giveMyMove_p(int moveNum, string tile){
         //tileResult = MiniMaxDecision(_TileGrid, moveNum, myTile, randomTileStack, movelist);
 
 		//but we do need to know how to repond to both of these things if our opponent does this to us
-	
+    cout<<"number of possible moves: "<<movelist.size()<<endl;
 		
-        int x = movelist.at(movelist.size()- 1)->x;
+        int x = movelist.at(0)->x;
         cout << x << " is x" << endl;
     
     
-    int y = movelist.at(movelist.size()- 1)->y;
+    int y = movelist.at(0)->y;
         cout << y << " is y" << endl;
     
     
-    int z = movelist.at(movelist.size()- 1)->orientation;
+    int z = movelist.at(0)->orientation;
         cout << z << " is z" << endl;
         
 //        int *value = evaluatePosition(_TileGrid, x, y, z, moveNum, myTile);
@@ -599,11 +601,11 @@ void Player::getTileStack(vector<string> tileString){
 void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int orien) {
 //        printf("In updateBoard\n");
 	emptySpace temp;
-	temp.top = false;
-	temp.bottom = false;
-	temp.right = false;
-	temp.left = false;
-	t->orientation = orien;
+	//temp.top = false;
+	//temp.bottom = false;
+	//temp.right = false;
+	//temp.left = false;
+	//t->orientation = orien;
     
     
 //    if(orien == 90)
@@ -862,7 +864,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     		for(int m = 0; m<4; m++)
             {
                 
-                //tempTile1->orientation = 0;
+                tempTile1 = curTile;
     			if(m == 0)
                 {
                     z = 0;
@@ -874,12 +876,12 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                 }
     			else if(m == 2)
                 {
-                    rotate(tempTile1->type.begin(), tempTile1->type.begin() + 2, tempTile1->type.end());
+                    rotate(tempTile1->type.begin(), tempTile1->type.begin() + 4, tempTile1->type.end());
                     z = 180;
                 }
-    			else
+    			else if(m == 3)
                 {
-    				rotate(tempTile1->type.begin(), tempTile1->type.begin() + 2, tempTile1->type.end());
+    				rotate(tempTile1->type.begin(), tempTile1->type.begin() + 6, tempTile1->type.end());
                     z = 270;
                 }
     
