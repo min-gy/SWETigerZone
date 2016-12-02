@@ -18,3 +18,5 @@ Run client using `./client.o`, IP address of server, port you're currently conne
 ## Known Bugs
 
 ## Design Documentation
+Link to document on Google Doc: https://docs.google.com/document/d/1c4_Z68C9Obqw9wEruQ9xTInvSAOtoNk4dAQDBj6ue2w/edit?usp=sharing
+
