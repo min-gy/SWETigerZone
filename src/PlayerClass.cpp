@@ -887,17 +887,21 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     		curr = temp.back();
     		x = curr.x;
     		y = curr.y;
-    		top = curr.top;
-    		bottom = curr.bottom;
-    		left = curr.left;
-    		right = curr.right;
+    		//top = curr.top;
+    		//bottom = curr.bottom;
+    		//left = curr.left;
+    		//right = curr.right;
+			top = _TilePresent[x][y-1];
+			bottom = _TilePresent[x][y+1];
+			left = _TilePresent[x-1][y];
+			right = _TilePresent[x+1][y];
             
-            cout<<"x of empty space is " << x<<endl;
-            cout<<"y of empty space is " << y<<endl;
-            cout<<"top is " << top<<endl;
-            cout<<"bottom is " << bottom<<endl;
-            cout<<"left is " << left<<endl;
-            cout<<"right is " << right<<endl;
+            //cout<<"x of empty space is " << x<<endl;
+            //cout<<"y of empty space is " << y<<endl;
+            //cout<<"top is " << top<<endl;
+            //cout<<"bottom is " << bottom<<endl;
+            //cout<<"left is " << left<<endl;
+            //cout<<"right is " << right<<endl;
     		temp.pop_back();
             //tempTile1 = curTile;
     		//tempTile1 = _TileGrid[x][y];
@@ -1072,6 +1076,9 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                         }
                     }else if(left)
                     {
+						tempTile2 = _TileGrid[x][y-1];
+                        if(tempTile2->type.at(4) == tempTile1->type.at(c) && tempTile2->type.at(5) == tempTile1->type.at(b) && tempTile2->type.at(6) == tempTile1->type.at(a))
+                        {
                         tempTile2 = _TileGrid[x-1][y];
                         if(tempTile2->type.at(4) == tempTile1->type.at(g) && tempTile2->type.at(3) == tempTile1->type.at(h) && tempTile2->type.at(2) == tempTile1->type.at(a))
                         {
@@ -1083,6 +1090,7 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                             movelist.push_back(tempTile1);
                             
                         }
+						}
                     }
                     else
                     {
