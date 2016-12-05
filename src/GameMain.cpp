@@ -235,12 +235,12 @@ int main (int argc, char *argv[]){
                 if((arr[12] != "JJJJX" && arr[12] != "JJTJX"))  //if not a den
                 {
                     printf("Placing none\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " NONE\r\n";
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + " PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " NONE\r\n";
                 }
                 else  //if den we want to place a tiger
                 {
                     printf("Placing tiger\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " TIGER 5\r\n";
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + " PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " TIGER 5\r\n";
                 }
             }
 
@@ -282,12 +282,12 @@ int main (int argc, char *argv[]){
                 if((arr[12] != "JJJJX" && arr[12] != "JJTJX"))  //if not a den
                 {
                     //printf("Placing none\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " NONE\r\n";
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + " PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " NONE\r\n";
                 }
                 else  //if den we want to place a tiger
                 {
                     //printf("Placing tiger\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " TIGER 5\r\n";
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + " PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " TIGER 5\r\n";
                 }
             }
 
@@ -344,12 +344,12 @@ int main (int argc, char *argv[]){
                 if((arr[12] != "JJJJX" && arr[12] != "JJTJX"))  //if not a den
                 {
                     //printf("Placing none\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " NONE\r\n";
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + " PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " NONE\r\n";
                 }
                 else  //if den we want to place a tiger
                 {
                     //printf("Placing tiger\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " TIGER 5\r\n";
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + " PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " TIGER 5\r\n";
                 }
             }
 
@@ -403,12 +403,12 @@ int main (int argc, char *argv[]){
                 if((arr[12] != "JJJJX" && arr[12] != "JJTJX"))  //if not a den
                 {
                     //printf("Placing none\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " NONE\r\n";
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + " PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " NONE\r\n";
                 }
                 else  //if den we want to place a tiger
                 {
                     //printf("Placing tiger\n");
-                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " TIGER 5\r\n";
+                    reply = "GAME " + arr[5] + " MOVE " + arr[10] + " PLACE " + arr[12] + " AT " + ourGameMove2.at(1) + " " + ourGameMove2.at(2) + " " + ourGameMove2.at(3) + " TIGER 5\r\n";
                 }
             }
 

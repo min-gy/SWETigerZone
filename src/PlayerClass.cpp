@@ -656,8 +656,17 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
     if(!_TilePresent[x][y-1])
     {
         //cout<<"No top tile"<<endl;
+		//if(!_TilePresent[x][y-2] && !_TilePresent[x-1][y-1] && !_TilePresent[x+1][y-1])
+		//{
         temp.x = x;
         temp.y = y - 1;
+		for(int j = 0; j < emptyTiles.size(); j++)
+		{
+			if(emptyTiles.at(j).x == temp.x && emptyTiles.at(j).y == temp.y)
+			{
+              emptyTiles.erase(emptyTiles.begin() + j);
+			}
+		}
         if(!_TilePresent[x][y-2])
         {
             temp.top = false;
@@ -668,9 +677,11 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
         }
         if(!_TilePresent[x-1][y-1])
         {
+			cout << "LEFT TILE NOT PRESENT" << endl;
             temp.left = false;
         }
         emptyTiles.push_back(temp);
+		//}
     }
     
     temp.top = true;
@@ -681,8 +692,17 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
     if(!_TilePresent[x+1][y])
     {
         //cout<<"No right tile"<<endl;
+		//if(!_TilePresent[x+1][y-1] && !_TilePresent[x+1][y+1] && !_TilePresent[x+2][y])
+		//{
         temp.x = x + 1;
         temp.y = y;
+		for(int j = 0; j < emptyTiles.size(); j++)
+		{
+			if(emptyTiles.at(j).x == temp.x && emptyTiles.at(j).y == temp.y)
+			{
+              emptyTiles.erase(emptyTiles.begin() + j);
+			}
+		}
         if(!_TilePresent[x+2][y])
         {
             temp.right = false;
@@ -697,6 +717,7 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
         }
         
         emptyTiles.push_back(temp);
+		//}
     }
     temp.top = true;
     temp.right = true;
@@ -707,8 +728,17 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
     if(!_TilePresent[x][y+1])
     {
         //cout<<"No bottom tile"<<endl;
+		//if(!_TilePresent[x][y+2] && !_TilePresent[x-1][y+1] && !_TilePresent[x+1][y+1])
+		//{
         temp.x = x;
         temp.y = y + 1;
+		for(int j = 0; j < emptyTiles.size(); j++)
+		{
+			if(emptyTiles.at(j).x == temp.x && emptyTiles.at(j).y == temp.y)
+			{
+              emptyTiles.erase(emptyTiles.begin() + j);
+			}
+		}
         if(!_TilePresent[x][y+2])
         {
             temp.bottom = false;
@@ -723,6 +753,7 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
         }
         
         emptyTiles.push_back(temp);
+		//}
     }
     
     temp.top = true;
@@ -733,8 +764,17 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
     if(!_TilePresent[x-1][y])
     {
         //cout<<"No left tile"<<endl;
+		//if(!_TilePresent[x-2][y] && !_TilePresent[x-1][y-1] && !_TilePresent[x-1][y+1])
+		//{
         temp.x = x - 1;
         temp.y = y;
+		for(int j = 0; j < emptyTiles.size(); j++)
+		{
+			if(emptyTiles.at(j).x == temp.x && emptyTiles.at(j).y == temp.y)
+			{
+              emptyTiles.erase(emptyTiles.begin() + j);
+			}
+		}
         if(!_TilePresent[x-2][y])
         {
             temp.left = false;
@@ -749,6 +789,7 @@ void Player::updateBoard(Tile * _TileGrid[153][153], int x, int y, Tile * t, int
         }
         
         emptyTiles.push_back(temp);
+		//}
     }
     
     
@@ -851,18 +892,19 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
     		left = curr.left;
     		right = curr.right;
             
-//            cout<<"x of empty space is " << x<<endl;
-//            cout<<"y of empty space is " << y<<endl;
-//            cout<<"top is " << top<<endl;
-//            cout<<"bottom is " << bottom<<endl;
-//            cout<<"left is " << left<<endl;
-//            cout<<"right is " << right<<endl;
+            cout<<"x of empty space is " << x<<endl;
+            cout<<"y of empty space is " << y<<endl;
+            cout<<"top is " << top<<endl;
+            cout<<"bottom is " << bottom<<endl;
+            cout<<"left is " << left<<endl;
+            cout<<"right is " << right<<endl;
     		temp.pop_back();
             //tempTile1 = curTile;
     		//tempTile1 = _TileGrid[x][y];
             
     		for(int m = 0; m<4; m++)
             {
+
                 
                 int a, b, c, d, e, f, g, h, z;
     			if(m == 0)
