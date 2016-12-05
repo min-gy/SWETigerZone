@@ -930,6 +930,10 @@ vector<Tile*> Player::generateMoves(Tile * _TileGrid[153][153], Tile *curTile)
                 }
                 Tile * tempTile1 = new Tile;
                 tempTile1 = tempTileHold;
+			top = _TilePresent[x][y-1];
+			bottom = _TilePresent[x][y+1];
+			left = _TilePresent[x-1][y];
+			right =	 _TilePresent[x+1][y];
                 if(top)
                 {
                     if(right)
