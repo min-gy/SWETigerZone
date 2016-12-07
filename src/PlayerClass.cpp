@@ -104,6 +104,7 @@ public:
 Player::Player(){
        tigerCount = 7;
        crocodileCount =2; 
+	GoatCount = 3;
 }
 
 Player::~Player(){
