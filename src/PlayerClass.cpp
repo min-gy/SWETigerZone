@@ -54,6 +54,7 @@ public:
 	static const int BESTVALUE = 1000000;
 	 Tile * _TileGrid[153][153];
     bool _TilePresent[153][153];
+	int GoatCount;
 	int tigerCount;
 	int crocodileCount;
 	int curScore;
