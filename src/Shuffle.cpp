@@ -43,8 +43,9 @@ vector<std::string> shuffleTiles()
   numTiles.push_back(1);
   numTiles.push_back(2);
   numTiles.push_back(2);
+  numTiles.push_back(2);
 
-  int numTilesRemaining = 77;
+  int numTilesRemaining = 79;
 
   //Tile 19 is always first tile (19-1=18)
   tileOrder.push_back("TLTJ-");
@@ -58,7 +59,7 @@ vector<std::string> shuffleTiles()
   srand(time(0));
   while(numTilesRemaining > 0)
   {
-    randomNum = ( rand() % 28 );
+    randomNum = ( rand() % 29 );
     if(numTiles[randomNum] > 0)
     {
       if(randomNum == 0)
@@ -172,6 +173,10 @@ vector<std::string> shuffleTiles()
       if(randomNum == 27)
       {
         tileOrder.push_back("TLLLC");
+      }
+      if(randomNum == 28)
+      {
+          tileOrder.push_back("LTLT-");
       }
       numTiles[randomNum] = numTiles[randomNum] - 1;
       numTilesRemaining--;
