@@ -41,8 +41,9 @@ int main (int argc, char *argv[]){
     //move order: classification(holla for explaination), x, y, orientation, ZONE
 
     Player * player1 = new Player();
+	player1.GoatCount = 3;
     Player * player2 = new Player();
-
+	player2.GoatCount = 3;
     //Client calls set up
     int sockfd, portno, n;
     struct sockaddr_in serv_addr;
@@ -228,6 +229,15 @@ int main (int argc, char *argv[]){
                             printf("Placing none\n");
                             reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " NONE\r\n";
                         }
+			    bool WantPlaceGoat;
+			    WantPlaceGoat = true;
+			    bool NoGoatPresent;
+			    NoGoatPresent = true;
+			else if (WantPlaceGoat==true && NoGoatPresent ==true)
+			{
+			printf("Placing goat\n");
+                            reply = "GAME " + arr[5] + " MOVE " + arr[10] + "  PLACE " + arr[12] + " AT " + ourGameMove1.at(1) + " " + ourGameMove1.at(2) + " " + ourGameMove1.at(3) + " GOAT\r\n";
+			}
                         else  //if den we want to place a tiger
                         {
                             printf("Placing tiger\n");
