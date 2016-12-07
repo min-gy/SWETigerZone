@@ -55,6 +55,7 @@ public:
     bool _TilePresent[153][153];
 	 int tigerCount;
 	 int crocodileCount;
+    int goatCount;
 	 int curScore;
 	 //Tile curTile;
 	 vector<emptySpace> emptyTiles;
@@ -87,6 +88,7 @@ public:
         int tigerLocation(Tile*[153][153], int, int, int, int, Tile*);
         void tigerCheck(int[], Tile*[153][153], int, int, Tile* );
         void updateTigerCount(int);
+    void updateGoatCount(int);
 
         //void initiateTileGrid();
         void InheritValue(ComponentTracker, ComponentTracker);
@@ -110,7 +112,8 @@ public:
 
 Player::Player(){
        tigerCount = 7;
-       crocodileCount =2; 
+       crocodileCount =2;
+    goatCount = 3;
 }
 
 Player::~Player(){
@@ -1516,6 +1519,14 @@ void Player::updateTigerCount(int value){
 		tigerCount--;
 	else
 		tigerCount = tigerCount + value;
+}
+
+void Player::updateGoatCount(int value)
+{
+    if (value == 0)
+        goatCount--;
+    else
+        goatCount = goatCount + value;
 }
 
 
