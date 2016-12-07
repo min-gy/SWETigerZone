@@ -212,6 +212,17 @@ int Player::ScoreUpdate(ComponentTracker Region){
 			game += Region.Ox;
 		}
 	}
+	if ( Region.GOAT > 0)
+	{
+		if (Region.type == 1)
+		{
+			game += 1;
+		}
+		else
+		{
+			game += Region.GOAT;
+		}
+	}
 	
 	game -= Region.CrocCount;
 	
@@ -428,6 +439,7 @@ void Player::InheritValue(ComponentTracker Child, ComponentTracker Parent)
 	Parent.Ox += Child.Ox;
 	Parent.Deer += Child.Deer;
 	Parent.Boar += Child.Boar;
+	Parent.GOAT += Child.GOAT;
 	Parent.CrocCount = Parent.CrocCount + Child.CrocCount;
 	Parent.MeepleCountYou += Child.MeepleCountYou;
 	Parent.MeepleCountMe += Child.MeepleCountMe;
