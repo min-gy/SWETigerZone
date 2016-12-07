@@ -289,7 +289,7 @@ int main(int argc, char *argv[])
       else if(arr[0].compare("GAME") == 0 && arr[2].compare("OVER") == 0)
       {
         //GAME <gid> OVER PLAYER <pid> <score> PLAYER <pid> <score>
-	 reply = "GAME <gid> OVER PLAYER <pid> <score> PLAYER <pid> <score>\r\n";
+	 reply = "GAME "+arr[1]+" OVER PLAYER "+pid1+" "+score1+" PLAYER "+pid2+" "+score2+"\r\n";
         //reply = "wait\r\n";
       }
       else if(arr[0].compare("END") == 0 && arr[2].compare("ROUND") == 0)
