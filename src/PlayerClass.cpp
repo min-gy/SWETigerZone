@@ -2757,6 +2757,50 @@ Tile *Player::tileStructure(int i)
         
         //cout<<"we made it"<<endl;
     }
+	else if(i == 28){
+		Tile *Tile_29 = new Tile();
+		//Tile_29.des = {'L', 'T', 'L', 'T', '-'};
+		Tile_29->des.push_back('L');
+		Tile_29->des.push_back('T');
+       		Tile_29->des.push_back('L');
+		Tile_29->des.push_back('T');
+		Tile_29->des.push_back('-');
+		Tile_29->type.push_back(2);
+		Tile_29->type.push_back(1);
+		Tile_29->type.push_back(2);
+		Tile_29->type.push_back(3);
+		Tile_29->type.push_back(2);
+		Tile_29->type.push_back(1);
+		Tile_29->type.push_back(2);
+		Tile_29->type.push_back(3);
+		Tile_29->clusterid.push_back(1);
+		Tile_29->clusterid.push_back(2);
+		Tile_29->clusterid.push_back(1);
+		Tile_29->clusterid.push_back(3);
+		Tile_29->clusterid.push_back(4);
+		Tile_29->clusterid.push_back(5);
+		Tile_29->clusterid.push_back(4);
+		Tile_29->clusterid.push_back(3);
+		Tile_29->tiger.push_back(false);
+		Tile_29->tiger.push_back(false);
+		Tile_29->tiger.push_back(false);
+		Tile_29->tiger.push_back(false);
+		Tile_29->tiger.push_back(false);
+		Tile_29->tiger.push_back(false);
+		Tile_29->tiger.push_back(false);
+		Tile_29->tiger.push_back(false);
+		Tile_29->croc_count = 0;
+		Tile_29->Ox = false;
+		Tile_29->Boar = false;
+		Tile_29->Deer = false;
+		Tile_29->Den = false;
+		Tile_29->CenterClusterid = 0;
+		Tile_29->x = 0;
+		Tile_29->y = 0;
+		return Tile_29;
+        
+        //cout<<"we made it"<<endl;
+    }
 	else{
         //cout<<"couldnt find tile"<<endl;
     }  
