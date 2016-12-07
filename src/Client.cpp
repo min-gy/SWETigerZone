@@ -285,7 +285,10 @@ int main(int argc, char *argv[])
         //update map with other player's move
 
         reply = "wait\r\n";
-      }
+      }else if((arr[0].compare("GAME") == 0 && arr[2].compare("OVER") == 0 && arr[3].compare("SEND") == 0 && arr[4].compare("OUTCOME") == 0)
+            {
+                reply = "GAME <gid> OVER PLAYER <pid> <score> PLAYER <pid> <score>\r\n";
+            }
       else if(arr[0].compare("GAME") == 0 && arr[2].compare("OVER") == 0)
       {
         //GAME <gid> OVER PLAYER <pid> <score> PLAYER <pid> <score>

@@ -203,7 +203,11 @@ int main(int argc, char *argv[])
        send(newsockfd, mesg, strlen(mesg), 0);
 */
        }
-
+        message = "GAME A OVER SEND OUTCOME\r\n";
+        strncpy(mesg, message.c_str(), sizeof(mesg));
+        mesg[sizeof(mesg) - 1] = 0;
+        send(newsockfd, mesg, strlen(mesg), 0);
+    
        message = "GAME A OVER PLAYER <pid> <score> PLAYER <pid> <score>\r\n";
        strncpy(mesg, message.c_str(), sizeof(mesg));
        mesg[sizeof(mesg) - 1] = 0;
